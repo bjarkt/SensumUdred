@@ -1,5 +1,3 @@
-package $PACKAGE_NAME;
-
 import BLL.BusinessFacade;
 import BLL.IBusiness;
 import DAL.IPersistent;
