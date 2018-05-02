@@ -18,11 +18,7 @@ public class Inquiry {
     public String getCPR() {
         return CPR;
     }
-
-    public void setCPR(String CPR) {
-        this.CPR = CPR;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -70,6 +66,7 @@ public class Inquiry {
     public void setCivilStatus(String civilStatus) {
         this.civilStatus = civilStatus;
     }
+
 
 
 private void saveInquiry(){
