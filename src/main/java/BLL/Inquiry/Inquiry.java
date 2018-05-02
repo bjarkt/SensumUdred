@@ -72,13 +72,6 @@ public class Inquiry {
     }
 
 
-
-
-
-
-
-
-
 private void saveInquiry(){
     File file = new File ("main/java/BLL/DATA/" + CPR + ".txt");
 
@@ -106,7 +99,7 @@ private void editInquiry(){
 
     try {
         Scanner scanner = new Scanner(file);
-        
+
 
 
 
