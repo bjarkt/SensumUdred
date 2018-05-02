@@ -41,4 +41,7 @@ private void saveInquiry(){
         System.out.println("RIP");
     }
 }
+private void editInquiry(){
+
+}
 }
