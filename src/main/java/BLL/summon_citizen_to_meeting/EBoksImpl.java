@@ -8,6 +8,10 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 
 public class EBoksImpl implements IEBoks {
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean sendMessage(Collection<IUser> stakeholders, GregorianCalendar meetingDate, String info) {
         return true;
