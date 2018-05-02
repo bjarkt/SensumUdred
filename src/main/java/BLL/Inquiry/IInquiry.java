@@ -8,29 +8,122 @@ import BLL.ACQ.IUser;
 
 public interface IInquiry {
 
+
+    /**
+     * Add one or more users to the inquiry
+     * @param attendee one or more user
+     */
+//    void addAttendee(IUser attendee);
+
+    /**
+     * Get one or more users that attends in the inquiry
+     * @return The users attending in the inquiry
+     */
+    Set<IUser> getAttendee();
+
+    /**
+     * Remove an attendee from the inquiry
+     * @param attendee the user to be removesd from the inquiry
+     */
+//    void removeAttendee(IUser attendee);
+
+    /**
+     * get CPR linked to user
+     * @return Users CPR
+     */
     String getCPR();
 
-    public String getName();
+    /**
+     * set users CPR
+     * @param CPR user CPR
+     */
+    void setCPR(String CPR);
 
-    public void setName(String name);
+    /**
+     * get name linked to user
+     * @return Users name
+     */
+    String getName();
 
-    public String getAddress();
+    /**
+     * Set name for user
+     * @param name users name
+     */
+    void setName(String name);
 
-    public void setAddress(String address);
+    /**
+     * Get the address of the user
+     * @return user address
+     */
+    String getAddress();
 
-    public String getDescription();
+    /**
+     * Set the users address
+     * @param address user address
+     */
+    void setAddress(String address);
 
-    public void setDescription(String description);
+    /**
+     * Get inquiry's description
+     * @return inquiry description
+     */
+    String getDescription();
 
-    public String getGender();
+    /**
+     * Set inquiry's description
+     * @param description inquiry description
+     */
+    void setDescription(String description);
 
-    public void setGender(String gender);
+    /**
+     * Get the gender of the user
+     * @return user gender
+     */
+    String getGender();
 
-    public String getBirthDate();
+    /**
+     * Set the users gender
+     * @param gender user gender
+     */
+    void setGender(String gender);
 
-    public void setBirthDate(String birthDate);
+    /**
+     * Get the users birthdate
+     * @return user birthdate
+     */
+    String getBirthDate();
 
-    public String getCivilStatus();
+    /**
+     * Set the birthdate of the user
+     * @param birthDate user birthdate
+     */
+    void setBirthDate(String birthDate);
 
-    public void setCivilStatus(String civilStatus);
+    /**
+     * Get the civilstatus of the user
+     * @return user civilstatus
+     */
+    String getCivilStatus();
+
+    /**
+     * Set the civilstatus of the user
+     * @param civilStatus user civilstatus
+     */
+    void setCivilStatus(String civilStatus);
+
+    /**
+     * get CPR linked to user
+     * @return Users CPR
+     */
+    Date getRegistrationDate();
+
+    /**
+     * Set the registration date of the inquiry
+     * @param registrationDate inquiry registration date
+     */
+    void setRegistrationDate(Date registrationDate);
+
+    // add saveInquiry()
+
+    // add editINquiry()
 }

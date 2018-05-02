@@ -24,13 +24,31 @@ public class Inquiry implements IInquiry {
         registrationDate = new Date();
         }
 
+    public Set<IUser> getAttendee() {
+        return  attendee;
+    }
 
+   // public void addAttendee(IUser attendee) { attendee.addAll}
 
+//    public void addAttendee (IUser attendee) {
+//        attendee.addAll(Arrays.asList(attendee));
+//    }
+
+//    public void removeAttendee(IUser attendee); {
+//        attendee.remove();
+//    }
 
     public String getCPR() {
         return CPR;
     }
-    
+
+
+
+    public void setCPR(String CPR) {
+        this.CPR = CPR;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -79,6 +97,13 @@ public class Inquiry implements IInquiry {
         this.civilStatus = civilStatus;
     }
 
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
 
 private void saveInquiry(){
     File file = new File ("main/java/BLL/DATA/" + CPR + ".xml");
