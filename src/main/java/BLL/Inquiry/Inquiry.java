@@ -21,14 +21,20 @@ public class Inquiry {
 
 
 
-private void editInquiry(){
-    File file = new File ("main/java/BLL/DATA/");
+private void saveInquiry(){
+    File file = new File ("main/java/BLL/DATA/" + CPR + ".txt");
 
     try {
         Scanner scanner = new Scanner(file);
 
         PrintStream writer = new PrintStream(file);
-
+        writer.println(CPR);
+        writer.println(name);
+        writer.println(address);
+        writer.println(description);
+        writer.println(gender);
+        writer.println(birthDate);
+        writer.println(civilStatus);
 
 
     } catch (FileNotFoundException ex) {
