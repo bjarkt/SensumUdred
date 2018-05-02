@@ -1,13 +1,11 @@
 package BLL.Inquiry;
 
 import BLL.ACQ.IUser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+
 
 public class Inquiry implements IInquiry {
 
@@ -18,8 +16,16 @@ public class Inquiry implements IInquiry {
     private String gender;
     private String birthDate;
     private String civilStatus;
-    private GregorianCalendar registrationDate;
+    private Date registrationDate;
     private String description;
+
+    public Inquiry() {
+        attendee = new HashSet<>();
+        registrationDate = new Date()
+        }
+
+
+
 
     public String getCPR() {
         return CPR;
@@ -110,5 +116,4 @@ private void editInquiry(){
 
     }
 
-}
 }

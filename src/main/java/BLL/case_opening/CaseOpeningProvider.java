@@ -1,6 +1,6 @@
 package BLL.case_opening;
 
-import BLL.security_system.AccessLevel;
+import BLL.case_opening.third_party_information.ThirdPartyService;
 
 public class CaseOpeningProvider implements ICaseOpeningService {
 	/**

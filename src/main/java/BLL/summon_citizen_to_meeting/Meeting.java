@@ -3,31 +3,25 @@ package BLL.summon_citizen_to_meeting;
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IUser;
 
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Meeting implements IMeeting {
+class Meeting implements IMeeting {
     private Set<IUser> participants;
     private String information;
     private GregorianCalendar meetingDate;
     private IEBoks eBoks;
     private boolean hasMeetingDateBeenSet;
 
-    public Meeting() {
+    Meeting() {
         participants = new HashSet<>();
-        meetingDate = new GregorianCalendar() {
-            @Override
-            public String toString() {
-                return get(GregorianCalendar.YEAR) + " " + get(GregorianCalendar.MONTH) + " "
-                        + get(GregorianCalendar.DAY_OF_MONTH) + " " + get(GregorianCalendar.HOUR) + " "
-                        + get(GregorianCalendar.MINUTE) + " ";
-            }
-        };
+        meetingDate = new GregorianCalendar();
         eBoks = new EBoksImpl();
         hasMeetingDateBeenSet = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean sendMessage() {
         if (!hasMeetingDateBeenSet || participants.size() == 0) {
             // error, missing information
@@ -36,44 +30,51 @@ public class Meeting implements IMeeting {
         return eBoks.sendMessage(participants, meetingDate, information);
     }
 
-    public void addParticipant(IUser participant) {
-        participants.add(participant);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     public void addParticipant(IUser ...participant) {
-        for (IUser stakeholder : participant) {
-            this.addParticipant(stakeholder);
-        }
+        participants.addAll(Arrays.asList(participant));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Set<IUser> getParticipants() {
         return participants;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void removeParticipant(IUser stakeholder) {
         participants.remove(stakeholder);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getInformation() {
         return information;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setInformation(String information) {
         this.information = information;
     }
 
-    public GregorianCalendar getMeetingDate() {
-        return meetingDate;
+    /**
+     * {@inheritDoc}
+     */
+    public Date getMeetingDate() {
+        return new Date(meetingDate.getTimeInMillis());
     }
 
-    public void setMeetingDate(GregorianCalendar meetingDate) {
-        this.setMeetingDate(meetingDate.get(GregorianCalendar.YEAR),
-                meetingDate.get(GregorianCalendar.MONTH),
-                meetingDate.get(GregorianCalendar.DAY_OF_MONTH),
-                meetingDate.get(GregorianCalendar.HOUR),
-                meetingDate.get(GregorianCalendar.MINUTE));
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     public void setMeetingDate(int year, int month, int day, int hour, int minute) {
         meetingDate.set(GregorianCalendar.YEAR, year);
         meetingDate.set(GregorianCalendar.MONTH, month);
@@ -89,7 +90,7 @@ public class Meeting implements IMeeting {
         return "Meeting{\n" +
                 "information='" + information + '\'' +
                 "\nparticipants=" + participants +
-                "\nmeetingDate=" + meetingDate +
+                "\nmeetingDate=" + getMeetingDate() +
                 "\n}";
     }
 }
