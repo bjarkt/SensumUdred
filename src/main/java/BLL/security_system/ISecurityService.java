@@ -13,7 +13,7 @@ public interface ISecurityService {
 	/**
 	 * Checks whether the user has access to parameter securityLevel.
 	 * @param securityLevel an integer specifying the access level of the method
-	 * @return true, if user have a higher or equal securityLevel
+	 * @return true, if user has a higher or equal securityLevel
 	 */
 	boolean hasAccess(int securityLevel);
 }
