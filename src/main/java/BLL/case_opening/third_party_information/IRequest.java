@@ -5,6 +5,7 @@ import java.util.Date;
 public interface IRequest {
 	boolean isAccepted();
 	IAttachment getAttachment();
+	void setAttachment(IAttachment attachment);
 	Date sent();
 	Date received();
 }
