@@ -2,13 +2,11 @@ package BLL.ACQ;
 
 public interface IAddress {
 
-    Vejnavn
-    husnummer
-    postnummer
-    by
-    kommune
-    land
-
-
+    void setStreetName(String streetName);
+    void setHouseNumber(String houseNumber);
+    void setZipCode(String zipCode);
+    void setCity(String city);
+    void setMunicipality(String municipality);
+    void setCountry(String country);
 
 }

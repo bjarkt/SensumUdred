@@ -127,4 +127,3 @@ private void editInquiry(){
     }
 
 }
-}

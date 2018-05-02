@@ -1,5 +1,7 @@
 package BLL.case_opening;
 
+import BLL.case_opening.third_party_information.ThirdPartyService;
+
 public class CaseOpeningProvider implements ICaseOpeningService {
 	/**
 	 * {@inheritDoc}
