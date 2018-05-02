@@ -8,55 +8,29 @@ import BLL.ACQ.IUser;
 
 public interface IInquiry {
 
-    String getCPR() {
-        return CPR;
-    }
+    String getCPR();
 
-    public String getName() {
-        return name;
-    }
+    public String getName();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name);
 
-    public String getAddress() {
-        return address;
-    }
+    public String getAddress();
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public void setAddress(String address);
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription();
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setDescription(String description);
 
-    public String getGender() {
-        return gender;
-    }
+    public String getGender();
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    public void setGender(String gender);
 
-    public String getBirthDate() {
-        return birthDate;
-    }
+    public String getBirthDate();
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
+    public void setBirthDate(String birthDate);
 
-    public String getCivilStatus() {
-        return civilStatus;
-    }
+    public String getCivilStatus();
 
-    public void setCivilStatus(String civilStatus) {
-        this.civilStatus = civilStatus;
-    }
+    public void setCivilStatus(String civilStatus);
 }

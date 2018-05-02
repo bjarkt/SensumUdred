@@ -21,7 +21,7 @@ public class Inquiry implements IInquiry {
 
     public Inquiry() {
         attendee = new HashSet<>();
-        registrationDate = new Date()
+        registrationDate = new Date();
         }
 
 
