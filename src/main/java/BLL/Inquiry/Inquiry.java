@@ -1,11 +1,11 @@
 package BLL.Inquiry;
 
 import BLL.ACQ.IUser;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.*;
+
 
 public class Inquiry implements IInquiry {
 
@@ -21,10 +21,8 @@ public class Inquiry implements IInquiry {
 
     public Inquiry() {
         attendee = new HashSet<>();
-        registrationDate = new Date() {
-
-            }
-        };
+        registrationDate = new Date()
+        }
 
 
 
