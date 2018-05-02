@@ -5,14 +5,14 @@ import BLL.ACQ.IUser;
 
 import java.util.*;
 
-public class Meeting implements IMeeting {
+class Meeting implements IMeeting {
     private Set<IUser> participants;
     private String information;
     private GregorianCalendar meetingDate;
     private IEBoks eBoks;
     private boolean hasMeetingDateBeenSet;
 
-    public Meeting() {
+    Meeting() {
         participants = new HashSet<>();
         meetingDate = new GregorianCalendar();
         eBoks = new EBoksImpl();
