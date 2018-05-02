@@ -2,14 +2,13 @@ package BLL.security_system;
 
 import BLL.ACQ.IUser;
 
-
 public final class SecuritySystem implements ISecurityService {
-	private static SecuritySystem INSTANCE;
+	private static ISecurityService INSTANCE;
 	private IUser user;
 
 	private SecuritySystem() {}
 
-	public static SecuritySystem getINSTANCE() {
+	public static ISecurityService getINSTANCE() {
 		if(INSTANCE == null) INSTANCE = new SecuritySystem();
 
 		return INSTANCE;
