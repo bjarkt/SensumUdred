@@ -1,6 +1,7 @@
 package BLL.open_case;
 
 import BLL.ACQ.IUser;
+import BLL.Inquiry.IInquiry;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -40,7 +41,8 @@ public class Case implements ICase {
     // Time and date of case opening.
     private Date dateOfOpening;
 
-    public Case(){
+    public Case(IInquiry inquiry){
+        // TODO: Load information from inquiry
         offers = new HashSet<>();
         grantings = new HashSet<>();
         dateOfOpening = new Date();
