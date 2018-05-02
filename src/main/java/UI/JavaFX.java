@@ -10,9 +10,9 @@ public class JavaFX extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("primary_view/sample.fxml"));
-		stage.setTitle("Hello World");
-		stage.setScene(new Scene(root, 300, 275));
+		Parent root = FXMLLoader.load(getClass().getResource("primary_view/canvas.fxml"));
+		stage.setTitle("Sensum Udred");
+		stage.setScene(new Scene(root, 870, 616));
 		stage.show();
 	}
 }

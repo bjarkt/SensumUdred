@@ -1,0 +1,31 @@
+/* LOAD CUSTOM FONT */
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-book.ttf');
+}
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-medium.ttf');
+}
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-bold.ttf');
+}
+
+@font-face {
+    src: url('/UI/resources/fonts/circular-black.ttf');
+}
+
+*{
+    -fx-font-family: "Circular Std Medium";
+}
+
+/* BUTTONS */
+.button-raised{
+    -fx-padding: 0.8em 0.2em;
+    -fx-font-size: 11px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #1B71FF;
+    -fx-pref-width: 90;
+    -fx-text-fill: WHITE;
+}
