@@ -11,9 +11,10 @@ public interface ISecurityService {
 	void setUser(IUser user);
 
 	/**
+	 *
 	 * Checks whether the user has access to parameter securityLevel.
 	 * @param securityLevel an integer specifying the access level of the method
-	 * @return true, if user has a higher or equal securityLevel
+	 * @throws SecurityException user has not access
 	 */
-	boolean hasAccess(int securityLevel);
+	void hasAccess(int securityLevel) throws SecurityException;
 }

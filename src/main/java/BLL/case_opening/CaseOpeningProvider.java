@@ -1,7 +1,5 @@
 package BLL.case_opening;
 
-import BLL.security_system.AccessLevel;
-
 public class CaseOpeningProvider implements ICaseOpeningService {
 	/**
 	 * {@inheritDoc}

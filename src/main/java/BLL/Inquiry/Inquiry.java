@@ -32,11 +32,7 @@ public class Inquiry implements IInquiry {
     public String getCPR() {
         return CPR;
     }
-
-    public void setCPR(String CPR) {
-        this.CPR = CPR;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -87,12 +83,6 @@ public class Inquiry implements IInquiry {
 
 
 
-
-
-
-
-
-
 private void saveInquiry(){
     File file = new File ("main/java/BLL/DATA/" + CPR + ".txt");
 
@@ -120,7 +110,7 @@ private void editInquiry(){
 
     try {
         Scanner scanner = new Scanner(file);
-        
+
 
 
 
