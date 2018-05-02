@@ -1,7 +1,5 @@
 package BLL.case_opening;
 
-import BLL.access_system.AccessLevel;
-
 public class CaseOpeningProvider implements ICaseOpeningService {
 	/**
 	 * {@inheritDoc}
@@ -14,7 +12,6 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 	/**
 	 * {@inheritDoc}
 	 */
-	@AccessLevel(2)
 	@Override
 	public void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex) {
 		if(departmentIndex < service.getDepartments().length) {
