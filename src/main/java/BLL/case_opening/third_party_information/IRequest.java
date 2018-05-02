@@ -1,11 +1,12 @@
 package BLL.case_opening.third_party_information;
 
+import java.io.IOException;
 import java.util.Date;
 
 public interface IRequest {
-	boolean isAccepted();
+	ThirdPartyService getService();
+	int getDepartmentIndex();
 	IAttachment getAttachment();
-	void setAttachment(IAttachment attachment);
-	Date sent();
-	Date received();
+	Date timeOfLastestRequest();
+	void now() throws IOException;
 }
