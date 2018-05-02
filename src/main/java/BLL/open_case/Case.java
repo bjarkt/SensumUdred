@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Case implements ICase {
+
     // Set of caseworkers on the case.
     private Set<IUser> caseworkers;
 
@@ -19,6 +20,12 @@ public class Case implements ICase {
 
     // Citizen's guardian.
     private IUser guardian;
+
+    // Citizen's guardianship.
+    private Guardianship guardianship;
+
+    // Description of Guardian's authority.
+    private String informationOnAuthority;
 
     // Description of case or problem.
     private String description;
@@ -119,6 +126,8 @@ public class Case implements ICase {
     @Override
     public void setGuardianship(IUser guardian, Guardianship guardianship, String informationOnAuthority) {
         this.guardian = guardian;
+        this.guardianship = guardianship;
+        this.informationOnAuthority = informationOnAuthority;
     }
 
     /**
