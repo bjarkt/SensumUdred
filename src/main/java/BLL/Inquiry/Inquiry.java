@@ -76,7 +76,7 @@ public class Inquiry implements IInquiry {
 
 
 private void saveInquiry(){
-    File file = new File ("main/java/BLL/DATA/" + CPR + ".txt");
+    File file = new File ("main/java/BLL/DATA/" + CPR + ".xml");
 
     try {
 
@@ -102,14 +102,7 @@ private void editInquiry(){
 
     try {
         Scanner scanner = new Scanner(file);
-
-
-
-
-
-
-
-
+        
 
 
     } catch (FileNotFoundException exception) {
