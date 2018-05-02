@@ -1,4 +1,4 @@
-package BLL.case_opening;
+package BLL.case_opening.third_party_information;
 
 public enum ThirdPartyService {
 	HOSPITAL(new String[] { "Pharmacy", "Physchiatric", "Therapy" }),

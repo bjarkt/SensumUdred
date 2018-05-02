@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import BLL.ACQ.IAddress;
 import BLL.ACQ.IUser;
 import BLL.summon_citizen_to_meeting.Dialog;
 import BLL.summon_citizen_to_meeting.IMeeting;
@@ -17,6 +18,21 @@ public class SummonCitizenToMeetingTest {
             @Override
             public int getEntryLevel() {
                 return 0;
+            }
+
+            @Override
+            public void setName(String firstName, String lastName) {
+
+            }
+
+            @Override
+            public void setAddress(IAddress address) {
+
+            }
+
+            @Override
+            public void setPhoneNumber(String phoneNumber) {
+
             }
         });
         meeting.setMeetingDate(2018, 6, 25, 6, 4);
