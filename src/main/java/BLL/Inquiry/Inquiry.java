@@ -74,7 +74,6 @@ public class Inquiry implements IInquiry {
     }
 
 
-
 private void saveInquiry(){
     File file = new File ("main/java/BLL/DATA/" + CPR + ".xml");
 
