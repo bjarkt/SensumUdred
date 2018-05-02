@@ -35,10 +35,6 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 				attachmentBytes = data[1].getBytes();
 			}
 
-			FileOutputStream fos = new FileOutputStream(new File("yourFile.pdf"));
-			fos.write(attachmentBytes);
-			fos.close();
-
 			if(departmentIndex < service.getDepartments().length) {
 
 			}
