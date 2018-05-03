@@ -13,7 +13,7 @@ public interface IInquiry {
      * Add one or more users to the inquiry
      * @param attendee one or more user
      */
-//    void addAttendee(IUser ...attendee);
+    void addAttendee(IUser ...attendee);
 
     /**
      * Get one or more users that attends in the inquiry
@@ -25,7 +25,7 @@ public interface IInquiry {
      * Remove an attendee from the inquiry
      * @param attendee the user to be removesd from the inquiry
      */
-//    void removeAttendee(IUser ...attendee);
+    void removeAttendee(IUser ...attendee);
 
     /**
      * get CPR linked to user
