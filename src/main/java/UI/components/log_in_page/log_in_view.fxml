@@ -31,7 +31,7 @@
                   </VBox>
                </children>
             </VBox>
-            <JFXButton buttonType="RAISED" onAction="#logIn" styleClass="button-raised" text="Fortsæt" />
+            <JFXButton fx:id="loginButton" buttonType="RAISED" onAction="#logIn" styleClass="button-raised" text="Fortsæt" />
          </children>
       </FlowPane>
    </children>
