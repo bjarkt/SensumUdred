@@ -28,7 +28,7 @@ public class LoginService implements ILoginService {
             String[] tokens;
             while(scanner.hasNextLine()){
                 tokens = scanner.nextLine().split("\t");
-                if(tokens[0].equals(username)){
+                if(tokens[4].equals(username) && tokens[5].equals(password)){
                     IUser user = new User(tokens[0], tokens[1], tokens[2]);
                     return user;
                 }

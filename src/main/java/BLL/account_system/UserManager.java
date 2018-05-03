@@ -16,7 +16,7 @@ public class UserManager {
     public boolean createUser(String firstName, String lastName, String ssn, String phoneNumber, String username, String password){
 
         try(PrintWriter outputStream = new PrintWriter(new FileOutputStream("users.txt",true))){
-            outputStream.write(firstName+"\t"+lastName+"\t"+ssn+"\t"+"\t"+phoneNumber+"\t"+username+"\t"+password+"\n");
+            outputStream.write(firstName+"\t"+lastName+"\t"+ssn+"\t"+phoneNumber+"\t"+username+"\t"+password+"\n");
         } catch (FileNotFoundException ex){
             ex.printStackTrace();
         }

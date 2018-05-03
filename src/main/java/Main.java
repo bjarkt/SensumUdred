@@ -19,15 +19,5 @@ public class Main {
 
         ui.startApplication(args);
 
-
-        UserManager userManager = new UserManager();
-        userManager.createUser("Lasse", "Traberg-Larsen", "1103971234", "28499228", "lasse","traberg");
-        userManager.createUser("Bjarke", "Tobiesen", "1234567890", "88888888", "bjarke","tobiesen");
-        userManager.createUser("Dennis", "Petersen", "1234567890", "88888888", "dennis","petersen");
-
-        ILoginService loginService = new LoginService();
-        loginService.login("Lasse", "traberg");
-
-
     }
 }
