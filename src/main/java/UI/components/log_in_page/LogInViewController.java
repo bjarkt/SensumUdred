@@ -17,22 +17,36 @@ public class LogInViewController extends Component implements ILogInView{
 
     private List<IEventListener<?>> onLogInSubscribers = new ArrayList<>();
 
+    public LogInViewController(){super("log_in_view.fxml");}
+
     @FXML
     private VBox inputForm;
-
-    public LogInViewController(){super("log_in_view.fxml");}
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        JFXTextField validationField = new JFXTextField();
-        validationField.setPromptText("With Validation..");
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Input Required");
-        validationField.getValidators().add(validator);
-        validationField.focusedProperty().addListener((o,oldVal,newVal)->{
-            if(!newVal) validationField.validate();
+        JFXTextField username = new JFXTextField();
+        username.setPromptText("Brugernavn");
+
+        RequiredFieldValidator usernameValidator = new RequiredFieldValidator();
+        usernameValidator.setMessage("Brugernavn påkrævet");
+        username.getValidators().add(usernameValidator);
+        username.focusedProperty().addListener((o,oldVal,newVal)->{
+            if(!newVal) username.validate();
         });
+
+        JFXTextField password = new JFXTextField();
+        password.setPromptText("Password");
+
+        RequiredFieldValidator passwordValidator = new RequiredFieldValidator();
+        passwordValidator.setMessage("Password påkrævet");
+        password.getValidators().add(passwordValidator);
+        password.focusedProperty().addListener((o,oldVal,newVal)->{
+            if(!newVal) password.validate();
+        });
+
+        inputForm.getChildren().addAll(username, password);
+
     }
 
     @Override
