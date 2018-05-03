@@ -21,6 +21,7 @@ public final class ComponentLoader {
      * @param component node to be removed.
      */
     public static void removeComponent(Component component) {
+        /*
         Timeline timeline = new Timeline();
         ArrayList<KeyFrame> keyFrames = new ArrayList<>();
         keyFrames.add(new KeyFrame(Duration.millis(200), new KeyValue(component.getParent().opacityProperty(), 0, Interpolator.EASE_BOTH)));
@@ -30,7 +31,8 @@ public final class ComponentLoader {
             if (component.getParent() instanceof Pane) {
                 ((Pane) component.getParent().getParent()).getChildren().remove(component.getParent());
             }
-        });
+        });*/
+        ((Pane) component.getParent().getParent()).getChildren().remove(component.getParent());
     }
 
     

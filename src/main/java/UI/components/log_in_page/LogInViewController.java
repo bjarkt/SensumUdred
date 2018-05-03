@@ -15,35 +15,54 @@ import java.util.ResourceBundle;
 
 public class LogInViewController extends Component implements ILogInView{
 
-    private List<IEventListener<?>> onLogInSubscribers = new ArrayList<>();
+    private List<IEventListener<String[]>> onLogInSubscribers = new ArrayList<>();
+
+    public LogInViewController(){super("log_in_view.fxml");}
+
+    private JFXTextField username;
+    private JFXTextField password;
+
 
     @FXML
     private VBox inputForm;
 
-    public LogInViewController(){super("log_in_view.fxml");}
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        JFXTextField validationField = new JFXTextField();
-        validationField.setPromptText("With Validation..");
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Input Required");
-        validationField.getValidators().add(validator);
-        validationField.focusedProperty().addListener((o,oldVal,newVal)->{
-            if(!newVal) validationField.validate();
+        username = new JFXTextField();
+        username.setPromptText("Brugernavn");
+
+        RequiredFieldValidator usernameValidator = new RequiredFieldValidator();
+        usernameValidator.setMessage("Brugernavn påkrævet");
+        username.getValidators().add(usernameValidator);
+        username.focusedProperty().addListener((o,oldVal,newVal)->{
+            if(!newVal) username.validate();
         });
+
+        password = new JFXTextField();
+        password.setPromptText("Password");
+
+        RequiredFieldValidator passwordValidator = new RequiredFieldValidator();
+        passwordValidator.setMessage("Password påkrævet");
+        password.getValidators().add(passwordValidator);
+        password.focusedProperty().addListener((o,oldVal,newVal)->{
+            if(!newVal) password.validate();
+        });
+
+        inputForm.getChildren().addAll(username, password);
+
     }
 
     @Override
-    public void onLogIn(IEventListener<?> listener) {
+    public void onLogIn(IEventListener<String[]> listener) {
         onLogInSubscribers.add(listener);
     }
 
     @FXML
     void logIn(ActionEvent event) {
-        onLogInSubscribers.forEach(listener -> listener.onAction(null));
+        String[] credentials = new String[2];
+        credentials[0] = username.getText();
+        credentials[1] = password.getText();
+        onLogInSubscribers.forEach(listener -> listener.onAction(credentials));
     }
-
-
 }

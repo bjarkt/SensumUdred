@@ -1,6 +1,7 @@
 package BLL.ACQ;
 
 public interface IUser {
+
 	/**
 	 * Gets the user's entry level.
 	 * @return	int	the user's entry level.
@@ -10,9 +11,15 @@ public interface IUser {
 	/**
 	 * Sets the user's name
 	 * @param firstName	user's first name.
-	 * @param lastName user's lsat name.
+	 * @param lastName user's last name.
 	 */
 	void setName(String firstName, String lastName);
+
+	/**
+	 * Sets the user's social security number.
+	 * @param socialSecurityNumber user's social security number.
+	 */
+	void setSocialSecurityNumber(String socialSecurityNumber);
 
 	/**
 	 * Sets the user's address.

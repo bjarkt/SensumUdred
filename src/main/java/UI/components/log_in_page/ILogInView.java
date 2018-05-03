@@ -6,6 +6,6 @@ import UI.components.IEventListener;
 public interface ILogInView extends IComponent {
 
 
-    void onLogIn(IEventListener<?> listener);
+    void onLogIn(IEventListener<String[]> listener);
 
 }
