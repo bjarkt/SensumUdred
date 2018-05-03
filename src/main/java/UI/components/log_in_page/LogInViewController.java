@@ -2,8 +2,14 @@ package UI.components.log_in_page;
 
 import UI.components.Component;
 import UI.components.IEventListener;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -22,6 +28,8 @@ public class LogInViewController extends Component implements ILogInView{
     private JFXTextField username;
     private JFXTextField password;
 
+    @FXML
+    private JFXButton loginButton;
 
     @FXML
     private VBox inputForm;
@@ -50,6 +58,10 @@ public class LogInViewController extends Component implements ILogInView{
         });
 
         inputForm.getChildren().addAll(username, password);
+
+        loginButton.setDisable(true);
+
+
 
     }
 
