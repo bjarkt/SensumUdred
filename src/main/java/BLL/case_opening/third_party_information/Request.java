@@ -5,42 +5,71 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
+/**
+ * A Request implements the {@link IRequest} interface to provide the implementation.
+ * It is used to make a request to a server for third-party information.
+ */
 public class Request implements IRequest {
 	private ThirdPartyService service;
 	private int departmentIndex;
 	private IAttachment attachment;
 	private Date timeOfLastestRequest;
 
-	public Request(ThirdPartyService service, int departmentIndex) {
+	/**
+	 * Constructs a Request with a ThirdPartyService and a department index.
+	 * It invokes the {@link Request#now()}, however, it can done manually,
+	 * if a refresh is required.
+	 * @param service
+	 * @param departmentIndex
+	 * @throws IOException
+	 */
+	public Request(ThirdPartyService service, int departmentIndex) throws IOException {
 		this.service = service;
 		this.departmentIndex = departmentIndex;
+
+		now();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ThirdPartyService getService() {
 		return service;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getDepartmentIndex() {
 		return departmentIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IAttachment getAttachment() {
 		return attachment;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Date timeOfLastestRequest() {
 		return timeOfLastestRequest;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void now() throws IOException {
 		if(departmentIndex < service.getDepartments().length) {
 			String query = "cpr=" + (long) (2000000000 + Math.random() * 8000000000L) +
-					"&service=" + service.ordinal() +
+					"&service=" + service.getId() +
 					"&department=" + departmentIndex;
 
 			String[] data = receiveCredentialsFormat("https://sensumudred-api.herokuapp.com/api/case-request", query);
@@ -112,6 +141,13 @@ public class Request implements IRequest {
 		return data;
 	}
 
+	/**
+	 * Downloads a PDF from a specific url (http://homepage.com/test.pdf)
+	 * and returns the file as a byte array.
+	 * @param urlString any specific url
+	 * @return null, if url not correct
+	 * @throws IOException when data the read, but error occurs by writing to the byte array.
+	 */
 	private byte[] getPDFFromUrl(String urlString) throws IOException {
 		URL pdfUrl = new URL(urlString);
 

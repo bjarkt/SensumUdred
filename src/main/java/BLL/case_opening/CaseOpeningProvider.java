@@ -18,8 +18,9 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 	 */
 	@Override
 	public void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex) {
-		IRequest request = new Request(service, departmentIndex);
 		try {
+			IRequest request = new Request(service, departmentIndex);
+
 			request.now();
 
 			IAttachment attachment = request.getAttachment();
