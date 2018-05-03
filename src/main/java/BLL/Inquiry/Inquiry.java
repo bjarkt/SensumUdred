@@ -28,15 +28,14 @@ public class Inquiry implements IInquiry {
         return  attendee;
     }
 
-   // public void addAttendee(IUser attendee) { attendee.addAll}
 
-//    public void addAttendee (IUser attendee) {
-//        attendee.addAll(Arrays.asList(attendee));
-//    }
+    public void addAttendee (IUser ...attendee) {
+        this.attendee.addAll(Arrays.asList(attendee));
+    }
 
-//    public void removeAttendee(IUser attendee); {
-//        attendee.remove();
-//    }
+    public void removeAttendee(IUser ...attendee) {
+        this.attendee.remove(attendee);
+    }
 
     public String getCPR() {
         return CPR;
