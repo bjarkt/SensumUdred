@@ -18,14 +18,15 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 	 */
 	@Override
 	public void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex) {
-		IRequest request = new Request(service, departmentIndex);
 		try {
+			IRequest request = new Request(service, departmentIndex);
+
 			request.now();
 
 			IAttachment attachment = request.getAttachment();
 
 			if(attachment.getType() == AttachmentEnum.TEXT) {
-				System.out.println(new String(attachment.getData()));
+				System.out.println(new String(attachment.getData()).replaceAll("\\|", System.lineSeparator()));
 			} else {
 				// PDF something..
 			}

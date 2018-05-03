@@ -22,14 +22,14 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" scope="COMPILE">
-        <library name="jfoenix-8.0.1">
-            <CLASSES>
-              <root url="jar://$MODULE_DIR$/lib/jfoenix-8.0.1.jar!/" />
-            </CLASSES>
-            <JAVADOC />
-            <SOURCES />
-        </library>
+    <orderEntry type="module-library">
+      <library name="jfoenix-8.0.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jfoenix-8.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
     </orderEntry>
   </component>
 </module>
