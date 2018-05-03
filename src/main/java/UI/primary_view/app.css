@@ -21,9 +21,13 @@
 }
 
 /* BUTTONS */
+JFXButton:hover, Button:hover{
+    -fx-cursor: hand;
+}
+
 .button-raised{
     -fx-padding: 0.8em 0.2em;
-    -fx-font-size: 11px;
+    -fx-font-size: 14px;
     -jfx-button-type: RAISED;
     -fx-background-color: #1B71FF;
     -fx-pref-width: 90;

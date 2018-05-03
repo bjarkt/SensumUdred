@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane stylesheets="@header.css" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.header.HeaderController">
+<AnchorPane prefWidth="600.0" stylesheets="@header.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.header.HeaderController">
       <Button fx:id="hamburger" layoutX="22.0" layoutY="30.0" mnemonicParsing="false" onAction="#openNav" onMouseEntered="#hover" onMouseExited="#leave" style="-fx-background-color: transparent;" styleClass="wrapper_button" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="30.0">
           <graphic>
               <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="30.0">
