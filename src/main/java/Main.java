@@ -13,7 +13,7 @@ public class Main {
         IBusiness business = new BusinessFacade();
         IUserInterface ui = new UserFacade();
 
-        new CaseOpeningProvider().requestThirdPartyCredentials(ThirdPartyService.HOSPITAL, 0);
+//        new CaseOpeningProvider().requestThirdPartyCredentials(ThirdPartyService.HOSPITAL, 0);
 
         ui.injectBusiness(business);
         business.injectPersistent(persistent);
