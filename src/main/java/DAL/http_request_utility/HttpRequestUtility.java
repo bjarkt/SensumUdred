@@ -52,15 +52,15 @@ public class HttpRequestUtility {
     }
 
     private static byte[] readBinary(InputStream inputStream, int contentLength) throws IOException {
-        byte[] fileData = new byte[1024];
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream(contentLength);
+        byte[] buffer = new byte[1024];
+        ByteArrayOutputStream data = new ByteArrayOutputStream(contentLength);
 
         int length;
-        while((length = inputStream.read(fileData)) > -1) {
-            buffer.write(fileData, 0, length);
+        while((length = inputStream.read(buffer)) > -1) {
+            data.write(buffer, 0, length);
         }
 
-        return buffer.toByteArray();
+        return data.toByteArray();
     }
 
     private static byte[] readText(InputStream inputStream) throws IOException {
