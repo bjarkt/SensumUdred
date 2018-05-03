@@ -37,6 +37,7 @@ class Meeting implements IMeeting {
         participants.addAll(Arrays.asList(participant));
     }
 
+    //void addParticipant(IUser ...participant);
     /**
      * {@inheritDoc}
      */
