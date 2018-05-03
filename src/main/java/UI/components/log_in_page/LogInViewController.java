@@ -15,9 +15,13 @@ import java.util.ResourceBundle;
 
 public class LogInViewController extends Component implements ILogInView{
 
-    private List<IEventListener<?>> onLogInSubscribers = new ArrayList<>();
+    private List<IEventListener<String[]>> onLogInSubscribers = new ArrayList<>();
 
     public LogInViewController(){super("log_in_view.fxml");}
+
+    private JFXTextField username;
+    private JFXTextField password;
+
 
     @FXML
     private VBox inputForm;
@@ -25,7 +29,7 @@ public class LogInViewController extends Component implements ILogInView{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        JFXTextField username = new JFXTextField();
+        username = new JFXTextField();
         username.setPromptText("Brugernavn");
 
         RequiredFieldValidator usernameValidator = new RequiredFieldValidator();
@@ -35,7 +39,7 @@ public class LogInViewController extends Component implements ILogInView{
             if(!newVal) username.validate();
         });
 
-        JFXTextField password = new JFXTextField();
+        password = new JFXTextField();
         password.setPromptText("Password");
 
         RequiredFieldValidator passwordValidator = new RequiredFieldValidator();
@@ -50,14 +54,15 @@ public class LogInViewController extends Component implements ILogInView{
     }
 
     @Override
-    public void onLogIn(IEventListener<?> listener) {
+    public void onLogIn(IEventListener<String[]> listener) {
         onLogInSubscribers.add(listener);
     }
 
     @FXML
     void logIn(ActionEvent event) {
-        onLogInSubscribers.forEach(listener -> listener.onAction(null));
+        String[] credentials = new String[2];
+        credentials[0] = username.getText();
+        credentials[1] = password.getText();
+        onLogInSubscribers.forEach(listener -> listener.onAction(credentials));
     }
-
-
 }

@@ -21,6 +21,11 @@ public class SummonCitizenToMeetingTest {
             }
 
             @Override
+            public void setSocialSecurityNumber(String socialSecurityNumber) {
+
+            }
+
+            @Override
             public void setName(String firstName, String lastName) {
 
             }

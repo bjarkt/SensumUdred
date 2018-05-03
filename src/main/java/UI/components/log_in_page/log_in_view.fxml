@@ -10,29 +10,29 @@
 
 <AnchorPane prefWidth="600.0" stylesheets="@log_in_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.log_in_page.LogInViewController">
    <children>
-      <VBox layoutX="58.5" layoutY="-1.5" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="60.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="50.0" layoutY="60.0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Log ind" textFill="#707070">
-               <font>
-                  <Font name="CircularStd-Bold" size="26.0" />
-               </font>
-            </Label>
-            <Label text="for at fortsætte til Sensum Udred" textFill="#afafaf">
-               <font>
-                  <Font name="CircularStd-Medium" size="16.0" />
-               </font>
-            </Label>
-            <VBox fx:id="inputForm" prefHeight="200.0" prefWidth="100.0" spacing="35.0">
-               <VBox.margin>
-                  <Insets bottom="30.0" top="50.0" />
-               </VBox.margin>
-            </VBox>
-            <FlowPane alignment="CENTER_RIGHT">
+            <VBox>
                <children>
-                  <JFXButton buttonType="RAISED" styleClass="button-raised" text="Fortsæt" />
+                  <Label text="Log ind" textFill="#707070">
+                     <font>
+                        <Font name="CircularStd-Bold" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="for at fortsætte til Sensum Udred" textFill="#afafaf">
+                     <font>
+                        <Font name="CircularStd-Medium" size="16.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="inputForm" prefHeight="200.0" prefWidth="100.0" spacing="35.0">
+                     <VBox.margin>
+                        <Insets bottom="30.0" top="50.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
-            </FlowPane>
+            </VBox>
+            <JFXButton buttonType="RAISED" onAction="#logIn" styleClass="button-raised" text="Fortsæt" />
          </children>
-      </VBox>
+      </FlowPane>
    </children>
 </AnchorPane>

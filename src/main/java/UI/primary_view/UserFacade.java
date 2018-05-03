@@ -1,6 +1,9 @@
 package UI.primary_view;
 
 import BLL.IBusiness;
+import BLL.account_system.ILoginService;
+import BLL.account_system.LoginService;
+import BLL.account_system.UserManager;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.components.ComponentLoader;
@@ -49,6 +52,12 @@ public class UserFacade implements IUserInterface, Initializable {
 		landingPage.onLogIn(data -> {
 			ComponentLoader.removeComponent(landingPage);
 			canvas.setCenter(logInView.getView());
+		});
+
+		logInView.onLogIn(data -> {
+			if(business.login(data[0], data[1])){
+				System.out.println("Approved!");
+			}
 		});
 
 	}
