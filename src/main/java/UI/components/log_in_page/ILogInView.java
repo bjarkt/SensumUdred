@@ -8,4 +8,6 @@ public interface ILogInView extends IComponent {
 
     void onLogIn(IEventListener<String[]> listener);
 
+    void writeError(String message);
+
 }

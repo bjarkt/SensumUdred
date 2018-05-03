@@ -34,6 +34,7 @@ public final class SecuritySystem implements ISecurityService {
 	 */
 	@Override
 	public void hasAccess(int securityLevel) throws SecurityException {
-		if(user.getEntryLevel() < securityLevel) throw new SecurityException("You do not have privilege.");
+		// TODO: CHANGE TO ENUM
+		//if(user.getAccessLevel() < securityLevel) throw new SecurityException("You do not have privilege.");
 	}
 }

@@ -31,5 +31,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jackson-core-2.9.5" level="project" />
   </component>
 </module>

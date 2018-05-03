@@ -1,8 +1,9 @@
 package BLL;
 
+import BLL.ACQ.IUser;
 import DAL.IPersistent;
 
 public interface IBusiness {
 	void injectPersistent(IPersistent persistent);
-	boolean login(String username, String password);
+	IUser login(String username, String password);
 }

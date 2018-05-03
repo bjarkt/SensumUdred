@@ -1,31 +1,16 @@
 package UI.primary_view;
-
 import BLL.IBusiness;
-import BLL.account_system.ILoginService;
-import BLL.account_system.LoginService;
-import BLL.account_system.UserManager;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.components.ComponentLoader;
 import UI.components.header.HeaderController;
 import UI.components.landing_page.LandingPageController;
 import UI.components.log_in_page.LogInViewController;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
-
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserFacade implements IUserInterface, Initializable {
@@ -55,8 +40,11 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		logInView.onLogIn(data -> {
-			if(business.login(data[0], data[1])){
-				System.out.println("Approved!");
+			if( business.login(data[0], data[1]) != null){
+				System.out.println("Access granted for: ");
+				System.out.println(business.login(data[0], data[1]));
+			} else{
+				logInView.writeError("Brugernavn eller password er forkert.");
 			}
 		});
 
