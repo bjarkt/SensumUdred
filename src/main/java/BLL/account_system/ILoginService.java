@@ -1,11 +1,9 @@
 package BLL.account_system;
 
+import BLL.ACQ.IUser;
+
 public interface ILoginService {
 
-    boolean login(String username, String password);
-
-    //boolean verifyCredentials();
-    //boolean isValidUser();
-
+    IUser login(String username, String password);
 
 }

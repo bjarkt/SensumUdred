@@ -1,0 +1,6 @@
+Lasse	Traberg-Larsen	1103971234	28499228	lasse	traberg
+Bjarke	Tobiesen	1234567890	88888888	bjarke	tobiesen
+Dennis	Petersen	1234567890	88888888	dennis	petersen
+Christian	Høgh	1234567890	88888888	christian	høgh
+Lavan	Sathiyaseelan	1234567890	88888888	lavan	bro
+Adrian	Navntoft	1234567890	88888888	adrian	navntoft

@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -32,6 +33,9 @@ public class LogInViewController extends Component implements ILogInView{
     private JFXButton loginButton;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     private VBox inputForm;
 
     @Override
@@ -39,6 +43,7 @@ public class LogInViewController extends Component implements ILogInView{
 
         username = new JFXTextField();
         username.setPromptText("Brugernavn");
+        username.setOnAction(this::logIn);
 
         RequiredFieldValidator usernameValidator = new RequiredFieldValidator();
         usernameValidator.setMessage("Brugernavn påkrævet");
@@ -49,6 +54,7 @@ public class LogInViewController extends Component implements ILogInView{
 
         password = new JFXTextField();
         password.setPromptText("Password");
+        password.setOnAction(this::logIn);
 
         RequiredFieldValidator passwordValidator = new RequiredFieldValidator();
         passwordValidator.setMessage("Password påkrævet");
@@ -59,10 +65,6 @@ public class LogInViewController extends Component implements ILogInView{
 
         inputForm.getChildren().addAll(username, password);
 
-        loginButton.setDisable(true);
-
-
-
     }
 
     @Override
@@ -72,9 +74,17 @@ public class LogInViewController extends Component implements ILogInView{
 
     @FXML
     void logIn(ActionEvent event) {
+        errorLabel.setVisible(false);
+        errorLabel.setText("");
         String[] credentials = new String[2];
         credentials[0] = username.getText();
         credentials[1] = password.getText();
         onLogInSubscribers.forEach(listener -> listener.onAction(credentials));
+    }
+
+    @Override
+    public void writeError(String message) {
+        errorLabel.setVisible(true);
+        errorLabel.setText(message);
     }
 }

@@ -6,7 +6,7 @@ public interface IUser {
 	 * Gets the user's entry level.
 	 * @return	int	the user's entry level.
 	 */
-	int getEntryLevel();
+	AccessLevel getAccessLevel();
 
 	/**
 	 * Sets the user's name
@@ -17,9 +17,9 @@ public interface IUser {
 
 	/**
 	 * Sets the user's social security number.
-	 * @param socialSecurityNumber user's social security number.
+	 * @param ssn user's social security number.
 	 */
-	void setSocialSecurityNumber(String socialSecurityNumber);
+	void setSocialSecurityNumber(String ssn);
 
 	/**
 	 * Sets the user's address.

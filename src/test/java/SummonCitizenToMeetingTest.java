@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import BLL.ACQ.AccessLevel;
 import BLL.ACQ.IAddress;
 import BLL.ACQ.IUser;
 import BLL.summon_citizen_to_meeting.Dialog;
@@ -16,8 +17,8 @@ public class SummonCitizenToMeetingTest {
         IMeeting meeting = dialog.createMeeting();
         meeting.addParticipant(new IUser() {
             @Override
-            public int getEntryLevel() {
-                return 0;
+            public AccessLevel getAccessLevel() {
+                return AccessLevel.USER;
             }
 
             @Override
