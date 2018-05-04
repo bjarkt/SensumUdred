@@ -110,55 +110,5 @@ public class Inquiry implements IInquiry {
         return registrationDate;
     }
 
-    private static void saveInquiry()   {
-        try {
-            Document document = new Document();
 
-            Element theRoot = new Element("Sensumudred");
-            document.setRootElement(theRoot);
-
-            Element patient1 = new Element("Patient1");
-            patient1.setAttribute("CPR; ", "230390-0585");
-            patient1.setAttribute("Name: ", "Bølle Bob");
-            patient1.setAttribute("Address:", "Odensevej 20, Slagelse");
-            patient1.setAttribute("Gender", "Trans");
-            patient1.setAttribute("Birthdate: ", "23.03.1990");
-            patient1.setAttribute("Civilstatus :", "Gift");
-            patient1.setAttribute("Description: ", "Han har meget store hænder");
-            patient1.setAttribute("RegistrationDate: ", "03.05.2017");
-
-            XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
-            xmlOutputter.output(document, new FileOutputStream(new File("DATA/inquiry.xml")));
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void editInquiry() {
-        try {
-            Scanner input = new Scanner(System.in);
-            Document document = new Document();
-            Element patient2 = new Element("Patient2");
-
-            patient2.setAttribute("CPR; ", String.valueOf(input.hasNext()));
-            patient2.setAttribute("Name: ", String.valueOf(input.hasNext()));
-            patient2.setAttribute("Address:", String.valueOf(input.hasNext()));
-            patient2.setAttribute("Gender", String.valueOf(input.hasNext()));
-            patient2.setAttribute("Birthdate: ", String.valueOf(input.hasNext()));
-            patient2.setAttribute("Civilstatus :", String.valueOf(input.hasNext()));
-            patient2.setAttribute("Description: ", String.valueOf(input.hasNext()));
-        //    patient2.setAttribute("RegistrationDate: ", String.valueOf(input.hasNext()));
-
-            XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
-            xmlOutputter.output(document, new FileOutputStream(new File("DATA/inquiry.xml")));
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
