@@ -1,10 +1,16 @@
 package BLL.Inquiry;
 
 import BLL.ACQ.IUser;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+
+import java.io.*;
 import java.util.*;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Text;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 
 public class Inquiry implements IInquiry {
@@ -104,40 +110,55 @@ public class Inquiry implements IInquiry {
         return registrationDate;
     }
 
-private void saveInquiry(){
-    File file = new File ("main/java/BLL/DATA/" + CPR + ".xml");
+    private static void saveInquiry()   {
+        try {
+            Document document = new Document();
 
-    try {
+            Element theRoot = new Element("Sensumudred");
+            document.setRootElement(theRoot);
 
+            Element patient1 = new Element("Patient1");
+            patient1.setAttribute("CPR; ", "230390-0585");
+            patient1.setAttribute("Name: ", "Bølle Bob");
+            patient1.setAttribute("Address:", "Odensevej 20, Slagelse");
+            patient1.setAttribute("Gender", "Trans");
+            patient1.setAttribute("Birthdate: ", "23.03.1990");
+            patient1.setAttribute("Civilstatus :", "Gift");
+            patient1.setAttribute("Description: ", "Han har meget store hænder");
+            patient1.setAttribute("RegistrationDate: ", "03.05.2017");
 
-        PrintStream writer = new PrintStream(file);
-        writer.println(CPR + "\n");
-        writer.println(name + "\n");
-        writer.println(address + "\n");
-        writer.println(description + "\n");
-        writer.println(gender + "\n");
-        writer.println(birthDate + "\n");
-        writer.println(civilStatus + "\n");
-
-
-    } catch (FileNotFoundException ex) {
-        System.out.println("RIP");
-    }
-}
-private void editInquiry(){
-
-
-    File file = new File ("main/java/BLL/DATA/" + CPR + ".txt");
-
-    try {
-        Scanner scanner = new Scanner(file);
-        
-
-
-    } catch (FileNotFoundException exception) {
-        System.out.println("RIP");
+            XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+            xmlOutputter.output(document, new FileOutputStream(new File("DATA/inquiry.xml")));
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    }
+    private static void editInquiry() {
+        try {
+            Scanner input = new Scanner(System.in);
+            Document document = new Document();
+            Element patient2 = new Element("Patient2");
 
+            patient2.setAttribute("CPR; ", String.valueOf(input.hasNext()));
+            patient2.setAttribute("Name: ", String.valueOf(input.hasNext()));
+            patient2.setAttribute("Address:", String.valueOf(input.hasNext()));
+            patient2.setAttribute("Gender", String.valueOf(input.hasNext()));
+            patient2.setAttribute("Birthdate: ", String.valueOf(input.hasNext()));
+            patient2.setAttribute("Civilstatus :", String.valueOf(input.hasNext()));
+            patient2.setAttribute("Description: ", String.valueOf(input.hasNext()));
+        //    patient2.setAttribute("RegistrationDate: ", String.valueOf(input.hasNext()));
+
+            XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+            xmlOutputter.output(document, new FileOutputStream(new File("DATA/inquiry.xml")));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
