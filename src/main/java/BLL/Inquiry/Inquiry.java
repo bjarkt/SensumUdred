@@ -2,15 +2,11 @@ package BLL.Inquiry;
 
 import BLL.ACQ.IUser;
 
-import java.io.*;
-import java.util.*;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.Text;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 
 
 public class Inquiry implements IInquiry {
