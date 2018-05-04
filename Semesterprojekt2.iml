@@ -31,6 +31,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jackson-core-2.9.5" level="project" />
+    <orderEntry type="library" name="aspectj:aspectj-ant:1.0.6" level="project" />
+    <orderEntry type="library" name="org.aspectj:aspectjrt:1.9.1" level="project" />
+    <orderEntry type="library" name="aspectj:aspectjweaver:1.5.3" level="project" />
   </component>
 </module>

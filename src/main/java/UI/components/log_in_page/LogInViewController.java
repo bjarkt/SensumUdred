@@ -3,13 +3,9 @@ package UI.components.log_in_page;
 import UI.components.Component;
 import UI.components.IEventListener;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -27,7 +23,7 @@ public class LogInViewController extends Component implements ILogInView{
     public LogInViewController(){super("log_in_view.fxml");}
 
     private JFXTextField username;
-    private JFXTextField password;
+    private JFXPasswordField password;
 
     @FXML
     private JFXButton loginButton;
@@ -52,7 +48,7 @@ public class LogInViewController extends Component implements ILogInView{
             if(!newVal) username.validate();
         });
 
-        password = new JFXTextField();
+        password = new JFXPasswordField();
         password.setPromptText("Password");
         password.setOnAction(this::logIn);
 

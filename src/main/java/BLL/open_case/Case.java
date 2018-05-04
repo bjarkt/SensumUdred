@@ -1,13 +1,15 @@
 package BLL.open_case;
 
+import BLL.ACQ.AccessLevel;
 import BLL.ACQ.IUser;
 import BLL.Inquiry.IInquiry;
+import BLL.security_system.SecuritySystem;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Case implements ICase {
+public class Case extends Task implements ICase {
 
     // Set of caseworkers on the case.
     private Set<IUser> caseworkers;

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD) // Use on method only
-public @interface AccessValidator {
+public @interface AccessValidatorOld {
 
     public boolean hasAccess();
 
