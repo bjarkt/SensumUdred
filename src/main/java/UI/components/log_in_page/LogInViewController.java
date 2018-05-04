@@ -43,6 +43,7 @@ public class LogInViewController extends Component implements ILogInView{
 
         username = new JFXTextField();
         username.setPromptText("Brugernavn");
+        username.setOnAction(this::logIn);
 
         RequiredFieldValidator usernameValidator = new RequiredFieldValidator();
         usernameValidator.setMessage("Brugernavn påkrævet");
@@ -53,6 +54,7 @@ public class LogInViewController extends Component implements ILogInView{
 
         password = new JFXTextField();
         password.setPromptText("Password");
+        password.setOnAction(this::logIn);
 
         RequiredFieldValidator passwordValidator = new RequiredFieldValidator();
         passwordValidator.setMessage("Password påkrævet");
