@@ -5,6 +5,17 @@ import BLL.case_opening.third_party_information.*;
 import java.io.*;
 
 public class CaseOpeningProvider implements ICaseOpeningService {
+	private IHttp httpClient;
+
+	/**
+	 *
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setHttpClient(IHttp httpClient) {
+		this.httpClient = httpClient;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -19,7 +30,7 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 	@Override
 	public void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex) {
 		try {
-			IRequest request = new Request(service, departmentIndex);
+			IRequest request = new Request(service, departmentIndex, httpClient);
 
 			request.now();
 
