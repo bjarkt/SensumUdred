@@ -1,9 +1,8 @@
-package BLL.summon_citizen_to_meeting;
+package BLL.meeting;
 
 import BLL.ACQ.IUser;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Set;
 
 public interface IMeeting {
@@ -11,7 +10,13 @@ public interface IMeeting {
      * Send a message with the information contained in the meeting
      * @return true if message was sent successfully
      */
-    boolean sendMessage();
+    boolean sendMeetingMessage();
+
+    /**
+     * Cancel a meeting, and notify the participants that the meeting has been cancelled
+     * @return true if the meeting was cancelled successfully
+     */
+    boolean cancelMeeting();
 
     /**
      * Add one or more users to the meeting

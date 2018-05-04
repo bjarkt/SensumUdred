@@ -43,6 +43,11 @@ public class User implements IUser{
     }
 
     @Override
+    public String getSocialSecurityNumber() {
+        return ssn;
+    }
+
+    @Override
     public String toString() {
         return this.firstName + "\t" + this.lastName + "\t" + this.ssn;
     }

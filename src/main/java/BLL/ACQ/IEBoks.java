@@ -12,5 +12,14 @@ public interface IEBoks {
      * @param info text information about the meeting
      * @return true if the meeting message was sent successfully
      */
-    boolean sendMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info);
+    boolean sendMeetingMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info);
+
+    /**
+     * Send a message to the participants about an existing meeting, that has been cancelled
+     * @param participants Who is participating in the meeting
+     * @param meetingDate When was the meeting supposed to happen
+     * @param info What information did the meeting have
+     * @return true if the meeting cancel message was successfully sent
+     */
+    boolean sendCancelMeetingMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info);
 }

@@ -33,6 +33,11 @@ public interface IUser {
 	 */
 	void setPhoneNumber(String phoneNumber);
 
+	/**
+	 * Get the user's social security number.
+	 * @return user's social security number.
+	 */
+	String getSocialSecurityNumber();
 
 
 }

@@ -1,4 +1,4 @@
-package BLL.summon_citizen_to_meeting;
+package BLL.meeting;
 
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IUser;
@@ -22,12 +22,19 @@ class Meeting implements IMeeting {
     /**
      * {@inheritDoc}
      */
-    public boolean sendMessage() {
+    public boolean sendMeetingMessage() {
         if (!hasMeetingDateBeenSet || participants.size() == 0) {
             // error, missing information
             return false;
         }
-        return eBoks.sendMessage(participants, meetingDate, information);
+        return eBoks.sendMeetingMessage(participants, meetingDate, information);
+    }
+
+    @Override
+    public boolean cancelMeeting() {
+        String newInformation = "VIGTIGT: Dette møde er blevet aflyst!" + System.lineSeparator() + System.lineSeparator() + information;
+        this.setInformation(newInformation);
+        return eBoks.sendCancelMeetingMessage(participants, meetingDate, this.information);
     }
 
     /**
