@@ -1,4 +1,4 @@
-package DAL.http_request_utility;
+package BLL.ACQ;
 
 public enum HttpMethod {
     GET("GET"), POST("POST");

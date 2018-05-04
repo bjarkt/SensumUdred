@@ -1,5 +1,7 @@
 package DAL.http_request_utility;
 
+import BLL.ACQ.HttpAcceptType;
+import BLL.ACQ.HttpMethod;
 import DAL.ConfigManager;
 
 import java.io.*;
@@ -17,7 +19,10 @@ public class HttpRequestUtility {
      * @return byte array of output from server
      * @throws IOException
      */
-    public static byte[] makeHttpRequest(String urlString, Map<String, String> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
+    public static byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
+        if (acceptType == HttpAcceptType.PDF && query != null) {
+            throw new IllegalArgumentException("query must be null when using pdf HttpAcceptType");
+        }
         StringBuilder sb = new StringBuilder();
         URL url = new URL(urlString);
         byte[] data = null;
@@ -30,18 +35,18 @@ public class HttpRequestUtility {
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("api-key", new ConfigManager("config.properties").getProperties().getProperty(("api-key")));
 
-        conn.setDoInput(true);
         conn.setDoOutput(true);
 
-        OutputStream os = conn.getOutputStream();
-        os.write(queryMapToString(query).getBytes());
-        os.flush();
+        if (query != null) {
+            conn.setDoInput(true);
+            OutputStream os = conn.getOutputStream();
+            os.write(queryMapToString(query).getBytes());
+            os.flush();
+        }
 
         if (conn.getResponseCode() != 200) {
-            System.out.println("ERROR : Response code: " + conn.getResponseCode());
+            throw new IOException("Error: HTTP Response Code " + conn.getResponseCode());
         } else {
-            System.out.println("Request successful");
-
             switch (acceptType) {
                 case PDF:
                     data = readBinary(conn.getInputStream(), conn.getContentLength());
@@ -51,10 +56,12 @@ public class HttpRequestUtility {
                     data = readText(conn.getInputStream());
                     break;
                 default:
-                    System.out.println("Method not supported");
+                    throw new IllegalArgumentException("HttpAcceptType not supported");
             }
 
         }
+
+        conn.disconnect();
 
 
         return data;
@@ -91,8 +98,11 @@ public class HttpRequestUtility {
         String line;
 
         while ((line = reader.readLine()) != null) {
-            sb.append(line);
+            sb.append(line + System.lineSeparator());
         }
+
+        int lastNewlineIndex = sb.lastIndexOf(System.lineSeparator());
+        sb.deleteCharAt(lastNewlineIndex);
 
         return sb.toString().getBytes();
     }
@@ -102,16 +112,16 @@ public class HttpRequestUtility {
      * @param query map of query key value pairs
      * @return string of query key value pairs
      */
-    private static String queryMapToString(Map<String, String> query) {
+    private static String queryMapToString(Map<String, Object> query) {
         StringBuilder sb = new StringBuilder();
 
         boolean firstPair = true;
 
-        for (Map.Entry<String, String> entry : query.entrySet()) {
+        for (Map.Entry<String, Object> entry : query.entrySet()) {
             if (!firstPair) {
                 sb.append("&");
             }
-            sb.append(entry.getKey() + "=" + entry.getValue());
+            sb.append(entry.getKey() + "=" + entry.getValue().toString());
             firstPair = false;
         }
 
