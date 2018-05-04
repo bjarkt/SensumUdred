@@ -1,17 +1,40 @@
+import BLL.ACQ.HttpAcceptType;
+import BLL.ACQ.HttpMethod;
+import BLL.case_opening.CaseOpeningProvider;
+import BLL.case_opening.ICaseOpeningService;
+import BLL.case_opening.IHttp;
 import BLL.case_opening.third_party_information.AttachmentEnum;
 import BLL.case_opening.third_party_information.IRequest;
 import BLL.case_opening.third_party_information.Request;
 import BLL.case_opening.third_party_information.ThirdPartyService;
+import DAL.PersistentFacade;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class ThirdPartyInformationTest {
+
+	IHttp httpClient = new IHttp() {
+		@Override
+		public byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
+			return new PersistentFacade().makeHttpRequest(urlString, query, method, acceptType);
+		}
+	};
+
+	@Test
+	public void CaseOpeningTest() {
+		ICaseOpeningService caseOpeningService = new CaseOpeningProvider();
+		caseOpeningService.setHttpClient(httpClient);
+
+		caseOpeningService.requestThirdPartyCredentials(ThirdPartyService.TEST, 0);
+		caseOpeningService.requestThirdPartyCredentials(ThirdPartyService.TEST, 1);
+	}
 
 	@Test
 	public void requestPdfTest() {
 		try {
-			IRequest request = new Request(ThirdPartyService.TEST, 0);
+			IRequest request = new Request(ThirdPartyService.TEST, 0, httpClient);
 
 			boolean isPDF = request.getAttachment().getType() == AttachmentEnum.PDF;
 			boolean isTestService = request.getService() == ThirdPartyService.TEST;
@@ -26,7 +49,7 @@ public class ThirdPartyInformationTest {
 	@Test
 	public void requestTextTest() {
 		try {
-			IRequest request = new Request(ThirdPartyService.TEST, 1);
+			IRequest request = new Request(ThirdPartyService.TEST, 1, httpClient);
 
 			boolean isPDF = request.getAttachment().getType() == AttachmentEnum.TEXT;
 			boolean isTestService = request.getService() == ThirdPartyService.TEST;

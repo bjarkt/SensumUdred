@@ -1,10 +1,12 @@
 package BLL.Inquiry;
 
 import BLL.ACQ.IUser;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 
 
 public class Inquiry implements IInquiry {
@@ -104,40 +106,5 @@ public class Inquiry implements IInquiry {
         return registrationDate;
     }
 
-private void saveInquiry(){
-    File file = new File ("main/java/BLL/DATA/" + CPR + ".xml");
-
-    try {
-
-
-        PrintStream writer = new PrintStream(file);
-        writer.println(CPR + "\n");
-        writer.println(name + "\n");
-        writer.println(address + "\n");
-        writer.println(description + "\n");
-        writer.println(gender + "\n");
-        writer.println(birthDate + "\n");
-        writer.println(civilStatus + "\n");
-
-
-    } catch (FileNotFoundException ex) {
-        System.out.println("RIP");
-    }
-}
-private void editInquiry(){
-
-
-    File file = new File ("main/java/BLL/DATA/" + CPR + ".txt");
-
-    try {
-        Scanner scanner = new Scanner(file);
-        
-
-
-    } catch (FileNotFoundException exception) {
-        System.out.println("RIP");
-    }
-
-    }
 
 }

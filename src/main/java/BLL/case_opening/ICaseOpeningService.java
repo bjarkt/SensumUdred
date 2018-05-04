@@ -6,6 +6,7 @@ import BLL.case_opening.third_party_information.ThirdPartyService;
  * Contains and describes all the services the opening case operations.
  */
 public interface ICaseOpeningService {
+	void setHttpClient(IHttp required);
 	/**
 	 * Returns all the types of Third Party Services the system provides.
 	 * @return all third party services, including their departments

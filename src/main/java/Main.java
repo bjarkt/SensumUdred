@@ -1,8 +1,5 @@
 import BLL.BusinessFacade;
 import BLL.IBusiness;
-import BLL.account_system.ILoginService;
-import BLL.account_system.LoginService;
-import BLL.account_system.UserManager;
 import DAL.IPersistent;
 import DAL.PersistentFacade;
 import UI.IUserInterface;
@@ -18,6 +15,5 @@ public class Main {
         business.injectPersistent(persistent);
 
         ui.startApplication(args);
-
     }
 }
