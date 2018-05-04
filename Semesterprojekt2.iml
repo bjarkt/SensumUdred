@@ -31,10 +31,15 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="aspectj:aspectj-ant:1.0.6" level="project" />
-    <orderEntry type="library" name="org.aspectj:aspectjrt:1.9.1" level="project" />
-    <orderEntry type="library" name="aspectj:aspectjweaver:1.5.3" level="project" />
-    <orderEntry type="library" name="aspectj-1.9.1" level="project" />
-    <orderEntry type="library" name="jfoenix-8.0.1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/aspectj" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/aspectj" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
