@@ -22,7 +22,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
     <orderEntry type="module-library">
       <library name="jfoenix-8.0.1">
         <CLASSES>
@@ -35,9 +34,7 @@
     <orderEntry type="library" name="aspectj:aspectj-ant:1.0.6" level="project" />
     <orderEntry type="library" name="org.aspectj:aspectjrt:1.9.1" level="project" />
     <orderEntry type="library" name="aspectj:aspectjweaver:1.5.3" level="project" />
-=======
     <orderEntry type="library" name="aspectj-1.9.1" level="project" />
     <orderEntry type="library" name="jfoenix-8.0.1" level="project" />
->>>>>>> fd7292360bce7600bd00c3f563ef4167ade4b623
   </component>
 </module>
