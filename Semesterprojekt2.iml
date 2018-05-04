@@ -22,15 +22,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="jfoenix-8.0.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jfoenix-8.0.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="jdom-2.0.6" level="project" />
+    <orderEntry type="library" name="aspectj-1.9.1" level="project" />
+    <orderEntry type="library" name="jfoenix-8.0.1" level="project" />
   </component>
 </module>
