@@ -1,6 +1,7 @@
 package UI.components.header;
 
 import UI.components.Component;
+import UI.components.IEventListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,9 +10,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HeaderController extends Component implements IHeader{
+
+    private List<IEventListener<?>> menuSubscribers = new ArrayList<>();
 
 
     @FXML
@@ -26,6 +31,14 @@ public class HeaderController extends Component implements IHeader{
     @FXML
     private Rectangle hamburgerRectangel3;
 
+
+    public HeaderController(){super("header.fxml");}
+
+    @Override
+    public void onMenuClick(IEventListener<?> listener) {
+        menuSubscribers.add(listener);
+    }
+
     @FXML
     void hover(MouseEvent event) {
 
@@ -38,11 +51,8 @@ public class HeaderController extends Component implements IHeader{
 
     @FXML
     void openNav(ActionEvent event) {
-
+        menuSubscribers.forEach(listener -> listener.onAction(null));
     }
-
-    public HeaderController(){super("header.fxml");}
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

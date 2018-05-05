@@ -1,9 +1,9 @@
 package BLL.open_case;
 
-import BLL.ACQ.AccessLevel;
 import BLL.ACQ.IUser;
+import BLL.ACQ.Task;
 import BLL.Inquiry.IInquiry;
-import BLL.security_system.SecuritySystem;
+import BLL.Inquiry.Inquiry;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -51,7 +51,7 @@ public class Case extends Task implements ICase {
     private Date dateOfOpening;
 
     public Case(IInquiry inquiry){
-        // TODO: Load information from inquiry
+        this.description = inquiry.getDescription();
         offers = new HashSet<>();
         grantings = new HashSet<>();
         dateOfOpening = new Date();

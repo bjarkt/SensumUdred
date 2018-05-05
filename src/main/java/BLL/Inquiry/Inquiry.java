@@ -1,6 +1,7 @@
 package BLL.Inquiry;
 
 import BLL.ACQ.IUser;
+import BLL.ACQ.Task;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Set;
 
 
 
-public class Inquiry implements IInquiry {
+public class Inquiry extends Task implements IInquiry {
 
     private Set<IUser> attendee;
     private String CPR;
