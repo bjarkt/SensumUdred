@@ -24,6 +24,12 @@ public class HeaderController extends Component implements IHeader{
     private JFXButton hamburger;
 
     @FXML
+    private JFXButton messages;
+
+    @FXML
+    private JFXButton userProfile;
+
+    @FXML
     private Rectangle hamburgerRectangel1;
 
     @FXML
