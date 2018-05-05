@@ -6,8 +6,11 @@ import javafx.scene.layout.Pane;
 
 public interface IDrawer extends IComponent {
 
+    void onCrossClick(IEventListener<?> listener);
+
     void setRequired(IDrawerRequire required);
 
-    void toggleVisibility();
+    void open();
 
+    void close();
 }

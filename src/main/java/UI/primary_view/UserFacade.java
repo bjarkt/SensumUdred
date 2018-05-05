@@ -2,7 +2,6 @@ package UI.primary_view;
 import BLL.IBusiness;
 import UI.IUserInterface;
 import UI.JavaFX;
-import UI.components.ComponentLoader;
 import UI.components.drawer.DrawerController;
 import UI.components.drawer.IDrawerRequire;
 import UI.components.header.HeaderController;
@@ -13,8 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,13 +51,15 @@ public class UserFacade implements IUserInterface, Initializable {
 			}
 		});
 
+		drawer.onCrossClick(data -> {
+			drawer.close();
+		});
 
 		headerController.onMenuClick(data -> {
-			drawer.toggleVisibility();
+			drawer.open();
 		});
 
 		landingPage.onLogIn(data -> {
-			ComponentLoader.removeComponent(landingPage);
 			canvas.setCenter(logInView.getView());
 		});
 

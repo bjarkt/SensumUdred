@@ -1,24 +1,27 @@
 package UI.components.drawer;
 
 import UI.components.Component;
-import UI.components.ComponentLoader;
+import UI.components.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.layout.*;
+import javafx.scene.shape.SVGPath;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DrawerController extends Component implements IDrawer {
 
+    private List<IEventListener<?>> onCrossClickSubscribers = new ArrayList<>();
+
     private IDrawerRequire required;
 
-    private boolean isVisible;
+    private JFXButton closeDrawer;
 
     @FXML
     private JFXDrawer drawer;
@@ -29,30 +32,49 @@ public class DrawerController extends Component implements IDrawer {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        StackPane drawerPane = new StackPane();
-        drawerPane.getChildren().addAll(new JFXButton("Drawer button"));
+        FlowPane drawerPane = new FlowPane();
+        drawerPane.setAlignment(Pos.TOP_CENTER);
+        drawerPane.setOrientation(Orientation.VERTICAL);
+
+
+        closeDrawer = new JFXButton();
+        closeDrawer.onActionProperty().set(event -> {
+            onCrossClickSubscribers.forEach(listener -> listener.onAction(null));
+        });
+        SVGPath svgPath = new SVGPath();
+        svgPath.setContent("M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
+        closeDrawer.setGraphic(svgPath);
+        closeDrawer.getStyleClass().add("raised-button");
+        HBox drawerTop = new HBox(closeDrawer);
+
+        VBox drawerOptions = new VBox();
+
+        drawerPane.getChildren().addAll(drawerTop, drawerOptions);
         drawer.setSidePane(drawerPane);
         drawer.setOverLayVisible(true);
         drawer.setResizableOnDrag(false);
-        drawer.onDrawerClosedProperty().set(event -> toggleVisibility());
+        drawer.onDrawerClosedProperty().set(event -> close());
     }
 
     @Override
-    public void toggleVisibility() {
-        if(isVisible) {
-            isVisible = false;
-            drawer.close();
-            ComponentLoader.removeComponent(this);
-        }
-        else {
-            required.getParent().getChildren().add(this.getView());
-            required.getParent().setTopAnchor(this.getView(), .0);
-            required.getParent().setLeftAnchor(this.getView(), .0);
-            required.getParent().setRightAnchor(this.getView(), .0);
-            required.getParent().setBottomAnchor(this.getView(), .0);
-            isVisible = true;
-            drawer.open();
-        }
+    public void open() {
+        required.getParent().getChildren().add(this.getView());
+        required.getParent().setTopAnchor(this.getView(), .0);
+        required.getParent().setLeftAnchor(this.getView(), .0);
+        required.getParent().setRightAnchor(this.getView(), .0);
+        required.getParent().setBottomAnchor(this.getView(), .0);
+        drawer.open();
+    }
+
+    @Override
+    public void close() {
+        drawer.close();
+        required.getParent().getChildren().remove(this.getView());
+    }
+
+    @Override
+    public void onCrossClick(IEventListener<?> listener) {
+        onCrossClickSubscribers.add(listener);
     }
 
     @Override
