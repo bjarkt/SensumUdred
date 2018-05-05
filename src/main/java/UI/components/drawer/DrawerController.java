@@ -17,8 +17,6 @@ import java.util.ResourceBundle;
 
 public class DrawerController extends Component implements IDrawer {
 
-    private List<IEventListener<?>> onCrossClickSubscribers = new ArrayList<>();
-
     private IDrawerRequire required;
 
     private JFXButton closeDrawer;
@@ -38,14 +36,12 @@ public class DrawerController extends Component implements IDrawer {
 
 
         closeDrawer = new JFXButton();
-        closeDrawer.onActionProperty().set(event -> {
-            onCrossClickSubscribers.forEach(listener -> listener.onAction(null));
-        });
         SVGPath svgPath = new SVGPath();
         svgPath.setContent("M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
         closeDrawer.setGraphic(svgPath);
         closeDrawer.getStyleClass().add("raised-button");
         HBox drawerTop = new HBox(closeDrawer);
+        drawerTop.setAlignment(Pos.BOTTOM_RIGHT);
 
         VBox drawerOptions = new VBox();
 
@@ -54,6 +50,11 @@ public class DrawerController extends Component implements IDrawer {
         drawer.setOverLayVisible(true);
         drawer.setResizableOnDrag(false);
         drawer.onDrawerClosedProperty().set(event -> close());
+
+        closeDrawer.onActionProperty().set(event -> {
+            drawer.close();
+        });
+
     }
 
     @Override
@@ -70,11 +71,6 @@ public class DrawerController extends Component implements IDrawer {
     public void close() {
         drawer.close();
         required.getParent().getChildren().remove(this.getView());
-    }
-
-    @Override
-    public void onCrossClick(IEventListener<?> listener) {
-        onCrossClickSubscribers.add(listener);
     }
 
     @Override

@@ -51,9 +51,6 @@ public class UserFacade implements IUserInterface, Initializable {
 			}
 		});
 
-		drawer.onCrossClick(data -> {
-			drawer.close();
-		});
 
 		headerController.onMenuClick(data -> {
 			drawer.open();

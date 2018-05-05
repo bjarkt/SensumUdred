@@ -2,6 +2,7 @@ package UI.components.header;
 
 import UI.components.Component;
 import UI.components.IEventListener;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +21,7 @@ public class HeaderController extends Component implements IHeader{
 
 
     @FXML
-    private Button hamburger;
+    private JFXButton hamburger;
 
     @FXML
     private Rectangle hamburgerRectangel1;
