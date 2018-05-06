@@ -55,6 +55,8 @@ public interface IMeeting {
      */
     void setInformation(String information);
 
+    boolean isCancelled();
+
     /**
      * Get the date of the meeting
      * @return Get the date of the meeting

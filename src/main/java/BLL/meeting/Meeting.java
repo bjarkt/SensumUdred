@@ -98,6 +98,11 @@ class Meeting implements IMeeting {
         this.information = information;
     }
 
+    @Override
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+
     /**
      * {@inheritDoc}
      */
