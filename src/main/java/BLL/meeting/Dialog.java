@@ -1,5 +1,6 @@
 package BLL.meeting;
 
+import BLL.ACQ.IEBoks;
 import BLL.ACQ.IUser;
 
 import java.util.Collection;
@@ -8,16 +9,18 @@ import java.util.Set;
 
 public class Dialog implements IDialog {
     private Set<IMeeting> meetings;
+    private IEBoks eBoks;
 
-    public Dialog() {
+    public Dialog(IHttp http) {
         meetings = new HashSet<>();
+        this.eBoks = new EBoksImpl(http);
     }
 
     /**
      * {@inheritDoc}
      */
     public IMeeting createMeeting(IUser currentUser) {
-        IMeeting meeting = new Meeting(currentUser);
+        IMeeting meeting = new Meeting(currentUser, eBoks);
         meetings.add(meeting);
         return meeting;
     }

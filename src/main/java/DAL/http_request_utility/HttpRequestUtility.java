@@ -7,6 +7,7 @@ import DAL.ConfigManager;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Map;
 
 public class HttpRequestUtility {
@@ -23,24 +24,25 @@ public class HttpRequestUtility {
         if (acceptType == HttpAcceptType.PDF && query != null) {
             throw new IllegalArgumentException("query must be null when using pdf HttpAcceptType");
         }
-        StringBuilder sb = new StringBuilder();
         URL url = new URL(urlString);
         byte[] data = null;
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
         conn.setRequestMethod(method.getName());
+        conn.setUseCaches(false);
 
-        conn.setRequestProperty("Accept", "application/" + acceptType.getName());
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty("api-key", new ConfigManager("config.properties").getProperties().getProperty(("api-key")));
+        conn.addRequestProperty("Accept", "application/" + acceptType.getName());
+        conn.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.addRequestProperty("api-key", new ConfigManager("config.properties").getProperties().getProperty(("api-key")));
 
-        conn.setDoOutput(true);
+        conn.setDoInput(true);
 
         if (query != null) {
-            conn.setDoInput(true);
+            conn.setDoOutput(true);
             OutputStream os = conn.getOutputStream();
-            os.write(queryMapToString(query).getBytes());
+            String queryString = queryMapToString(query);
+            os.write(queryString.getBytes());
             os.flush();
         }
 
