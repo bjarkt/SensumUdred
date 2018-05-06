@@ -41,5 +41,6 @@
         <jarDirectory url="file://$MODULE_DIR$/lib/aspectj" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="postgresql-42.2.2" level="project" />
   </component>
 </module>
