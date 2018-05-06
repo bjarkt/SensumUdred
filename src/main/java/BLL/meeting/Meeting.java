@@ -3,6 +3,7 @@ package BLL.meeting;
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IUser;
 
+import java.io.IOException;
 import java.util.*;
 
 class Meeting implements IMeeting {
@@ -14,10 +15,10 @@ class Meeting implements IMeeting {
     private boolean hasMeetingDateBeenSet;
     private boolean isCancelled;
 
-    Meeting(IUser creator) {
+    Meeting(IUser creator, IEBoks eboks) {
         participants = new HashSet<>();
         meetingDate = new GregorianCalendar();
-        eBoks = new EBoksImpl();
+        this.eBoks = eboks;
         hasMeetingDateBeenSet = false;
         isCancelled = false;
         this.creator = creator;
@@ -27,7 +28,7 @@ class Meeting implements IMeeting {
      * {@inheritDoc}
      */
     @Override
-    public boolean sendMeetingMessage() {
+    public boolean sendMeetingMessage(){
         if (!hasMeetingDateBeenSet || participants.size() == 0) {
             // error, missing information
             return false;
