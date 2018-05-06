@@ -1,5 +1,7 @@
 package DAL.database;
 
-public interface IDatabase {
+import java.sql.SQLException;
 
+public interface IDatabase {
+	void testConnection() throws SQLException;
 }

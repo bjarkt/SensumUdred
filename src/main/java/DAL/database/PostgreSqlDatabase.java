@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class PostgreSqlDatabase {
+public class PostgreSqlDatabase implements IDatabase {
 	private static String url;
 	private static String username;
 	private static String password;
@@ -13,6 +13,11 @@ public abstract class PostgreSqlDatabase {
 		url = "jdbc:postgresql://horton.elephantsql.com:5432/cxiasneu";
 		username = "cxiasneu";
 		password = "OY2shAU8fq2NQXMpbxU21AFNmOczgUkF";
+	}
+
+	@Override
+	public void testConnection() throws SQLException {
+		getConnection();
 	}
 
 	protected void executeQuery(IPostgreSqlCallback callback) {
