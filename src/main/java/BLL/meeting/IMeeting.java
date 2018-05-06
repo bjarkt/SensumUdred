@@ -16,7 +16,7 @@ public interface IMeeting {
      * Cancel a meeting, and notify the participants that the meeting has been cancelled
      * @return true if the meeting was cancelled successfully
      */
-    boolean cancelMeeting();
+    boolean cancelMeeting(IUser currentUser);
 
     /**
      * Add one or more users to the meeting
@@ -29,6 +29,13 @@ public interface IMeeting {
      * @return The users participating in the meeting
      */
     Set<IUser> getParticipants();
+
+    /**
+     * Is the participant participating in this meeting?
+     * @param participant the user who may be participating in the meeting.
+     * @return true if the participant is participating in the meeting.
+     */
+    boolean isUserParticipating(IUser participant);
 
     /**
      * Remove a participant from the meeting

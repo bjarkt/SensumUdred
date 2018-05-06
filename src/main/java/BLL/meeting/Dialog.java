@@ -16,18 +16,18 @@ public class Dialog implements IDialog {
     /**
      * {@inheritDoc}
      */
-    public IMeeting createMeeting() {
-        IMeeting meeting = new Meeting();
+    public IMeeting createMeeting(IUser currentUser) {
+        IMeeting meeting = new Meeting(currentUser);
         meetings.add(meeting);
         return meeting;
     }
 
     @Override
-    public boolean cancelMeeting(IMeeting meetingToCancel) {
-        meetingToCancel.cancelMeeting();
+    public boolean cancelMeeting(IMeeting meetingToCancel, IUser currentUser) {
+        boolean meetingCancelledSuccessfully = meetingToCancel.cancelMeeting(currentUser);
         meetings.remove(meetingToCancel);
         // todo: set status in db to 'cancelled'
-        return true;
+        return meetingCancelledSuccessfully;
     }
 
     @Override

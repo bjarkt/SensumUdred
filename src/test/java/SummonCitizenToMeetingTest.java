@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import BLL.ACQ.AccessLevel;
 import BLL.ACQ.IAddress;
@@ -15,12 +16,14 @@ import java.util.Optional;
 public class SummonCitizenToMeetingTest {
     private Dialog dialog;
     private IMeeting meeting;
+    private IUser creatorOfMeeting = createUser("1111");
+    private IUser participant = createUser("1234");
 
     @BeforeEach
     public void initialize() {
         dialog = new Dialog();
-        meeting = dialog.createMeeting();
-        meeting.addParticipant(createUser("1234"), createUser("0987"));
+        meeting = dialog.createMeeting(creatorOfMeeting);
+        meeting.addParticipant(participant, createUser("0987"));
         meeting.setMeetingDate(2018, 6, 25, 6, 4);
         meeting.setInformation("HEJ");
     }
@@ -42,12 +45,12 @@ public class SummonCitizenToMeetingTest {
         boolean meetingIsCancelled = false;
 
         assert meetingToCancel.isPresent();
-        if (dialog.cancelMeeting(meetingToCancel.get())) {
+        if (dialog.cancelMeeting(meetingToCancel.get(), creatorOfMeeting)) {
             meetingIsCancelled = true;
         }
 
-        assert meetingToCancel.get().getInformation().startsWith("VIGTIGT: Dette møde er blevet aflyst!");
-        assert meetingIsCancelled;
+        assertTrue(meetingToCancel.get().getInformation().startsWith("VIGTIGT: Dette møde er blevet aflyst!"));
+        assertTrue(meetingIsCancelled);
     }
 
     private IUser createUser(String ssn) {
