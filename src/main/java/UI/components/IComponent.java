@@ -1,5 +1,6 @@
 package UI.components;
 
+import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
@@ -9,4 +10,10 @@ public interface IComponent extends Initializable {
      * @return     the loaded object hierarchy.
      */
     Parent getView();
+
+    /**
+     * 
+     * @return
+     */
+    StringProperty getBreadcrumb();
 }

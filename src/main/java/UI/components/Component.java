@@ -1,5 +1,7 @@
 package UI.components;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -12,6 +14,9 @@ public abstract class Component {
     /** Reference to the FXML path. */
     private String resource;
 
+    /** Name of what this component represents, most useful for whole page views. */
+    private String breadcrumb;
+
     /**
      * Constructor.
      * @param resource  path to the FXML file.
@@ -19,6 +24,12 @@ public abstract class Component {
     public Component(String resource) {
         this.resource = resource;
     }
+
+    public Component(String resource, String breadcrumb) {
+        this.resource = resource;
+        this.breadcrumb = breadcrumb;
+    }
+
 
     /**
      * Returns an object of type {@link Parent} that can be added to the scene graph.
@@ -37,13 +48,12 @@ public abstract class Component {
     }
 
     /**
-     * Method returns true if object of type {@link Component} intersects
-     * with the passed object.
-     * @param other object of type {@link Component}.
-     * @return  true if the components intersects / are colliding.
+     * Accessor method for breadcrumb attribute.
+     * @return  the name of the component.
      */
-    public boolean isColliding(Component other){
-        return getView().getBoundsInParent().intersects(other.getView().getBoundsInParent());
+    public StringProperty getBreadcrumb() {
+        StringProperty breadcrumb = new SimpleStringProperty(this.breadcrumb);
+        return breadcrumb;
     }
 
     /**

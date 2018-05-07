@@ -20,7 +20,7 @@ public class LogInViewController extends Component implements ILogInView{
 
     private List<IEventListener<String[]>> onLogInSubscribers = new ArrayList<>();
 
-    public LogInViewController(){super("log_in_view.fxml");}
+    public LogInViewController(){super("log_in_view.fxml", "Log ind");}
 
     private JFXTextField username;
     private JFXPasswordField password;

@@ -1,3 +1,11 @@
 /* IMPORT MAIN STYLESHEET */
 @import "/UI/primary_view/app.css";
 /* ----------------------------- */
+
+.homeview_header{
+    -fx-background-color: white;
+}
+
+.homeview_content{
+    -fx-background-color: white;
+}
