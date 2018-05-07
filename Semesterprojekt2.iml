@@ -31,6 +31,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -41,7 +42,17 @@
         <jarDirectory url="file://$MODULE_DIR$/lib/aspectj" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="postgresql-42.2.2" level="project" />
+
+    <orderEntry type="module-library">
+      <library name="postgresql-42.2.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/postgresql-42.2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+
     <orderEntry type="library" name="apiguardian-api-1.0.0" level="project" />
   </component>
 </module>
