@@ -2,3 +2,11 @@
 @import "/UI/primary_view/app.css";
 /* ----------------------------- */
 
+.drawer_container--top{
+    -fx-padding: 10px;
+}
+
+.containerTop_label{
+    -fx-font-size: 14;
+    -fx-color: #707070;
+}

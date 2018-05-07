@@ -5,6 +5,7 @@ import UI.JavaFX;
 import UI.components.drawer.DrawerController;
 import UI.components.drawer.IDrawerRequire;
 import UI.components.header.HeaderController;
+import UI.components.home_view.HomeViewController;
 import UI.components.landing_page.LandingPageController;
 import UI.components.log_in_page.LogInViewController;
 import javafx.application.Application;
@@ -23,6 +24,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private LandingPageController landingPage;
 	private LogInViewController logInView;
 	private DrawerController drawer;
+	private HomeViewController homeView;
 
 
 	@FXML
@@ -36,20 +38,19 @@ public class UserFacade implements IUserInterface, Initializable {
 		headerController = new HeaderController();
 		landingPage = new LandingPageController();
 		logInView = new LogInViewController();
-		drawer = new DrawerController();
+		drawer = new DrawerController(new IDrawerRequire() {
+			@Override
+			public AnchorPane getParent() {
+				return screen;
+			}
+		});
+		homeView = new HomeViewController();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		canvas.setTop(headerController.getView());
 		canvas.setCenter(landingPage.getView());
-
-		drawer.setRequired(new IDrawerRequire() {
-			@Override
-			public AnchorPane getParent() {
-				return screen;
-			}
-		});
 
 
 		headerController.onMenuClick(data -> {
@@ -62,8 +63,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		logInView.onLogIn(data -> {
 			if( business.login(data[0], data[1]) != null){
-				System.out.println("Access granted for: ");
-				System.out.println(business.login(data[0], data[1]));
+				canvas.setCenter(homeView.getView());
 			} else{
 				logInView.writeError("Brugernavn eller password er forkert.");
 			}
