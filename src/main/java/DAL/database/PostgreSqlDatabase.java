@@ -1,6 +1,7 @@
 package DAL.database;
 
 import BLL.meeting.IMeeting;
+import DAL.ConfigManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,9 +15,9 @@ public class PostgreSqlDatabase implements IDatabase {
 	private static String password;
 
 	static {
-		url = "jdbc:postgresql://horton.elephantsql.com:5432/cxiasneu";
-		username = "cxiasneu";
-		password = "OY2shAU8fq2NQXMpbxU21AFNmOczgUkF";
+		url = ConfigManager.getInstance().getProperties().getProperty("db-url");
+		username =  ConfigManager.getInstance().getProperties().getProperty("db-username");
+		password =  ConfigManager.getInstance().getProperties().getProperty("db-password");
 	}
 
 	@Override
