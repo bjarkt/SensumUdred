@@ -18,19 +18,19 @@
                <children>
                   <ImageView fitHeight="150.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/img/logo.png" />
+                        <Image url="@../../../img/logo.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/img/Sensum.png" />
+                              <Image url="@../../../img/Sensum.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="150.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/img/Udred.png" />
+                              <Image url="@../../../img/Udred.png" />
                            </image>
                         </ImageView>
                      </children>
