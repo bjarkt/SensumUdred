@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="cxiasneu@horton.elephantsql.com" uuid="63171171-c500-4b17-ad2d-15c7576bca26">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://horton.elephantsql.com:5432/cxiasneu</jdbc-url>
+    </data-source>
+  </component>
+</project>
