@@ -14,12 +14,28 @@ class Meeting implements IMeeting {
     private boolean isCancelled;
     private int id;
 
+    /**
+     * Create meeting without id
+     * @param creator creator of the meeting
+     * @param eboks eBoks object
+     */
     Meeting(IUser creator, IEBoks eboks) {
         this.participants = new HashSet<>();
         this.meetingDate = null;
         this.eBoks = eboks;
         this.isCancelled = false;
         this.creator = creator;
+    }
+
+    /**
+     * Create meeting with id
+     * @param creator creator of the meeting
+     * @param eboks eBoks object
+     * @param id id of this new meeting
+     */
+    Meeting(IUser creator, IEBoks eboks, int id) {
+        this(creator, eboks);
+        this.id = id;
     }
 
     /**
@@ -97,6 +113,9 @@ class Meeting implements IMeeting {
         this.information = information;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isCancelled() {
         return isCancelled;
@@ -124,10 +143,18 @@ class Meeting implements IMeeting {
         meetingDate.set(GregorianCalendar.SECOND, 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getId() {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public IUser getCreator() {
         return creator;
     }

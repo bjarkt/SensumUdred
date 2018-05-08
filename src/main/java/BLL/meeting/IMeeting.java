@@ -56,6 +56,10 @@ public interface IMeeting {
      */
     void setInformation(String information);
 
+    /**
+     * Is the meeting cancelled?
+     * @return true if the meeting has been cancelled
+     */
     boolean isCancelled();
 
     /**
@@ -73,4 +77,16 @@ public interface IMeeting {
      * @param minute
      */
     void setMeetingDate(int year, int month, int day, int hour, int minute);
+
+    /**
+     * Get the id of the meeting
+     * @return id of meeting
+     */
+    public int getId();
+
+    /**
+     * Get the user that created the meeting
+     * @return creator of meeting
+     */
+    public IUser getCreator();
 }
