@@ -34,7 +34,7 @@ public class HttpRequestUtility {
 
         conn.addRequestProperty("Accept", "application/" + acceptType.getName());
         conn.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.addRequestProperty("api-key", new ConfigManager("config.properties").getProperties().getProperty(("api-key")));
+        conn.addRequestProperty("api-key", ConfigManager.getInstance().getProperties().getProperty(("api-key")));
 
         conn.setDoInput(true);
 

@@ -9,8 +9,7 @@ public class ConfigManagerTest {
 
     @Test
     public void PropertiesTest() {
-        ConfigManager configManager = new ConfigManager("config.properties");
-        Properties properties = configManager.getProperties();
+        Properties properties = ConfigManager.getInstance().getProperties();
 
         assertEquals("1234", properties.get("api-key"));
     }

@@ -5,9 +5,15 @@ import java.util.Properties;
 
 public class ConfigManager {
     private String filename;
+    private static ConfigManager INSTANCE;
 
-    public ConfigManager(String filename) {
+    private ConfigManager(String filename) {
         this.filename = filename;
+    }
+
+    public static ConfigManager getInstance() {
+        if (INSTANCE == null) INSTANCE = new ConfigManager("config.properties");
+        return INSTANCE;
     }
 
     /**
