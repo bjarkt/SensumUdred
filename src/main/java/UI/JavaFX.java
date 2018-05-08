@@ -14,7 +14,7 @@ public class JavaFX extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("primary_view/canvas.fxml"));
 		stage.setTitle("Sensum Udred");
 		stage.setScene(new Scene(root, 870, 616));
-		stage.getIcons().add(new Image("./UI/resources/img/logo.png"));
+		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("img/logo.png")));
 		stage.show();
 	}
 }

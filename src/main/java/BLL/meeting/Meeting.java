@@ -3,7 +3,6 @@ package BLL.meeting;
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IUser;
 
-import java.io.IOException;
 import java.util.*;
 
 class Meeting implements IMeeting {
@@ -12,16 +11,31 @@ class Meeting implements IMeeting {
     private String information;
     private GregorianCalendar meetingDate;
     private IEBoks eBoks;
-    private boolean hasMeetingDateBeenSet;
     private boolean isCancelled;
+    private int id;
 
+    /**
+     * Create meeting without id
+     * @param creator creator of the meeting
+     * @param eboks eBoks object
+     */
     Meeting(IUser creator, IEBoks eboks) {
-        participants = new HashSet<>();
-        meetingDate = new GregorianCalendar();
+        this.participants = new HashSet<>();
+        this.meetingDate = null;
         this.eBoks = eboks;
-        hasMeetingDateBeenSet = false;
-        isCancelled = false;
+        this.isCancelled = false;
         this.creator = creator;
+    }
+
+    /**
+     * Create meeting with id
+     * @param creator creator of the meeting
+     * @param eboks eBoks object
+     * @param id id of this new meeting
+     */
+    Meeting(IUser creator, IEBoks eboks, int id) {
+        this(creator, eboks);
+        this.id = id;
     }
 
     /**
@@ -29,7 +43,7 @@ class Meeting implements IMeeting {
      */
     @Override
     public boolean sendMeetingMessage(){
-        if (!hasMeetingDateBeenSet || participants.size() == 0) {
+        if (meetingDate == null || participants.size() == 0) {
             // error, missing information
             return false;
         }
@@ -99,6 +113,9 @@ class Meeting implements IMeeting {
         this.information = information;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isCancelled() {
         return isCancelled;
@@ -117,13 +134,29 @@ class Meeting implements IMeeting {
      */
     @Override
     public void setMeetingDate(int year, int month, int day, int hour, int minute) {
+        this.meetingDate = new GregorianCalendar();
         meetingDate.set(GregorianCalendar.YEAR, year);
         meetingDate.set(GregorianCalendar.MONTH, month);
         meetingDate.set(GregorianCalendar.DAY_OF_MONTH, day);
         meetingDate.set(GregorianCalendar.HOUR, hour);
         meetingDate.set(GregorianCalendar.MINUTE, minute);
         meetingDate.set(GregorianCalendar.SECOND, 0);
-        this.hasMeetingDateBeenSet = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IUser getCreator() {
+        return creator;
     }
 
     @Override

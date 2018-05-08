@@ -3,12 +3,12 @@ package BLL.security_system;
 import BLL.ACQ.IUser;
 
 /**
- * It gives access to the {@link ISecurityService#hasAccess(int)} method,
- * which can be used when a user has been given to the Security System.
+ * Allows to set the user for the automatically security to function properly.
+ * **SINGLETON**
  */
 public final class SecuritySystem implements ISecurityService {
 	private static ISecurityService INSTANCE;
-	private IUser user;
+
 	private SecuritySystem() {}
 
 	/**
@@ -26,15 +26,6 @@ public final class SecuritySystem implements ISecurityService {
 	 */
 	@Override
 	public void setUser(IUser user) {
-		this.user = user;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void hasAccess(int securityLevel) throws SecurityException {
-		// TODO: CHANGE TO ENUM
-		//if(user.getAccessLevel() < securityLevel) throw new SecurityException("You do not have privilege.");
+		SecurityAspect.setUserLevel(user);
 	}
 }
