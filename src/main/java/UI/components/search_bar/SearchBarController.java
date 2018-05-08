@@ -2,25 +2,11 @@ package UI.components.search_bar;
 
 import UI.components.Component;
 import UI.components.IEventListener;
-import UI.components.home_view.IHomeView;
-import UI.components.home_view.IHomeViewRequire;
-import UI.components.search_bar.ISearchBar;
-import UI.components.search_bar.ISearchBarRequire;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.svg.SVGGlyph;
+import UI.components.search_bar_results.SearchBarResultsController;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.SVGPath;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,10 +15,17 @@ import java.util.ResourceBundle;
 
 public class SearchBarController extends Component implements ISearchBar {
 
+    private List<IEventListener<String>> onTypeSubscribers = new ArrayList<>();
+
     private ISearchBarRequire required;
 
     @FXML
-    private ScrollPane scrollPane;
+    private FlowPane search_container;
+
+    @FXML
+    private TextField input;
+
+    private SearchBarResultsController searchBarResults;
 
     public SearchBarController() {
         super("search_bar.fxml");
@@ -40,7 +33,17 @@ public class SearchBarController extends Component implements ISearchBar {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        searchBarResults = new SearchBarResultsController();
+    }
+
+    @Override
+    public void onType(IEventListener<String> listener) {
+        onTypeSubscribers.add(listener);
+    }
+
+    @FXML
+    void onInputChanged(KeyEvent event) {
+        onTypeSubscribers.forEach(listener -> listener.onAction(input.getCharacters().toString()));
     }
 
     @Override

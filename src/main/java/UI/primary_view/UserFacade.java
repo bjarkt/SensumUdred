@@ -11,8 +11,6 @@ import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
 import UI.components.home_view.HomeViewController;
 import UI.components.home_view.IHomeView;
-import UI.components.landing_page.ILandingPage;
-import UI.components.landing_page.LandingPageController;
 import UI.components.log_in_page.ILogInView;
 import UI.components.log_in_page.LogInViewController;
 import UI.components.popUp.IPopUpRequire;
@@ -34,7 +32,6 @@ public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
 
 	private IHeader headerController;
-	private ILandingPage landingPage;
 	private ILogInView logInView;
 	private IDrawer drawer;
 	private IHomeView homeView;
@@ -55,7 +52,6 @@ public class UserFacade implements IUserInterface, Initializable {
 	 */
 	public UserFacade(){
 		headerController = new HeaderController();
-		landingPage = new LandingPageController();
 		logInView = new LogInViewController();
 		homeView = new HomeViewController();
 
@@ -77,7 +73,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		canvas.setTop(headerController.getView());
-		setCenter(landingPage);
+		setCenter(logInView);
 
 		headerController.onMenuClick(data -> {
 			drawer.open();
@@ -85,10 +81,6 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		headerController.onMessagesClick(data -> {
 
-		});
-
-		landingPage.onLogIn(data -> {
-			setCenter(logInView);
 		});
 
 		logInView.onLogIn(data -> {

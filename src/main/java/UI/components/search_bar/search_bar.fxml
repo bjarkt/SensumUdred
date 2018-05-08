@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
-
+<AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@search_bar.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.search_bar.SearchBarController">
+   <children>
+      <AnchorPane layoutX="16.0" style="-fx-background-color: #EAE9EF; -fx-border-radius: 4;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <SVGPath content="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#bdbacc" layoutX="11.0" layoutY="18.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="22.0" />
+            <AnchorPane layoutX="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <TextField fx:id="input" maxWidth="1.7976931348623157E308" onKeyPressed="#onInputChanged" onKeyReleased="#onInputChanged" prefHeight="60.0" promptText="Søg i Sensum Udred" style="-fx-background-color: transparent; -fx-font-size: 15px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="CircularStd-Medium" size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

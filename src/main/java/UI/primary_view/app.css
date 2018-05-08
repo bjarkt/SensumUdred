@@ -88,3 +88,19 @@ JFXButton:hover, Button:hover{
     -fx-pref-width: 90;
     -fx-text-fill: WHITE;
 }
+
+.flat-button{
+    -fx-padding: 0.6em 0.6em;
+    -fx-font-size: 14px;
+    -fx-background-color: #1B71FF;
+    -fx-text-fill: WHITE;
+}
+
+/* Override button hover behavior for cards */
+.card-button:hover .card_title{
+    -fx-font-size: 17px !important;
+}
+
+.card-button:hover .card_status, .card-button:hover .card_description{
+    -fx-font-size: 11px !important;
+}

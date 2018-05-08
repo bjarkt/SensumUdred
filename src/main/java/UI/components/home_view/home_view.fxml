@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXScrollPane?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@home_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.home_view.HomeViewController">
+<AnchorPane prefHeight="400.0" prefWidth="860.0" style="-fx-background-color: white;" stylesheets="@home_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.home_view.HomeViewController">
    <children>
-      <JFXScrollPane fx:id="scrollPane" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ScrollPane fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" style="-fx-background-color: white;" styleClass="edge-to-edge" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="23.0" style="-fx-background-color: white;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" style="-fx-background-color: white; -fx-border-color: #dce0e0; -fx-border-width: 0 0 1 0;" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="Mine udredninger" textFill="#484848">
+                           <font>
+                              <Font name="CircularStd-Bold" size="26.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <JFXButton styleClass="flat-button" text="Ny henvendelse" />
+                     </children>
+                     <padding>
+                        <Insets bottom="21.0" />
+                     </padding>
+                  </HBox>
+                  <JFXMasonryPane fx:id="myElucidationsContainer" HSpacing="10.0" VSpacing="10.0" cellHeight="130.0" cellWidth="230.0">
+                     <children>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" ripplerFill="#dce0e0" style="-fx-border-color: #dce0e0; -fx-background-color: white;" styleClass="card-button">
+                           <graphic>
+                              <VBox prefHeight="10.0" prefWidth="10.0" spacing="10.0">
+                                 <children>
+                                    <Label fx:id="card_title" styleClass="card_title" text="Jens Jensen" textFill="#2a70e2">
+                                       <font>
+                                          <Font name="CircularStd-Medium" size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label styleClass="card_status" text="Igangværende sag" textFill="#7dc08c">
+                                       <font>
+                                          <Font name="CircularStd-Book" size="11.0" />
+                                       </font>
+                                    </Label>
+                                    <Label styleClass="card_description" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lectus quis sem lacinia nonummy. Proin mollis lorem non dolor. In hac habitasse platea dictumst. Nulla ultrices odio. Donec augue. Phasellus dui. Maecenas facilisis nisl vi..." textFill="LIGHTGRAY" wrapText="true">
+                                       <font>
+                                          <Font name="CircularStd-Book" size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="2.0" right="2.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </JFXMasonryPane>
+               </children>
+               <padding>
+                  <Insets bottom="48.0" left="48.0" right="48.0" top="48.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
