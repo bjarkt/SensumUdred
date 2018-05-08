@@ -1,8 +1,12 @@
 package DAL.database;
 
+import BLL.meeting.IMeeting;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PostgreSqlDatabase implements IDatabase {
 	private static String url;
@@ -13,6 +17,27 @@ public class PostgreSqlDatabase implements IDatabase {
 		url = "jdbc:postgresql://horton.elephantsql.com:5432/cxiasneu";
 		username = "cxiasneu";
 		password = "OY2shAU8fq2NQXMpbxU21AFNmOczgUkF";
+	}
+
+	@Override
+	public boolean fileMeeting(IMeeting meeting) {
+		AtomicBoolean isFiled = new AtomicBoolean(false);
+
+		final String query = "";
+
+		executeQuery(conn -> {
+			try(PreparedStatement ps = conn.prepareStatement(query)) {
+				//ps.set
+				// set the parameters to the SQL...
+
+				isFiled.set(ps.executeUpdate() > 0);
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+
+		});
+
+		return isFiled.get();
 	}
 
 	@Override
