@@ -3,7 +3,6 @@ package BLL.meeting;
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IUser;
 
-import java.io.IOException;
 import java.util.*;
 
 class Meeting implements IMeeting {
@@ -12,15 +11,14 @@ class Meeting implements IMeeting {
     private String information;
     private GregorianCalendar meetingDate;
     private IEBoks eBoks;
-    private boolean hasMeetingDateBeenSet;
     private boolean isCancelled;
+    private int id;
 
     Meeting(IUser creator, IEBoks eboks) {
-        participants = new HashSet<>();
-        meetingDate = new GregorianCalendar();
+        this.participants = new HashSet<>();
+        this.meetingDate = null;
         this.eBoks = eboks;
-        hasMeetingDateBeenSet = false;
-        isCancelled = false;
+        this.isCancelled = false;
         this.creator = creator;
     }
 
@@ -29,7 +27,7 @@ class Meeting implements IMeeting {
      */
     @Override
     public boolean sendMeetingMessage(){
-        if (!hasMeetingDateBeenSet || participants.size() == 0) {
+        if (meetingDate == null || participants.size() == 0) {
             // error, missing information
             return false;
         }
@@ -117,13 +115,21 @@ class Meeting implements IMeeting {
      */
     @Override
     public void setMeetingDate(int year, int month, int day, int hour, int minute) {
+        this.meetingDate = new GregorianCalendar();
         meetingDate.set(GregorianCalendar.YEAR, year);
         meetingDate.set(GregorianCalendar.MONTH, month);
         meetingDate.set(GregorianCalendar.DAY_OF_MONTH, day);
         meetingDate.set(GregorianCalendar.HOUR, hour);
         meetingDate.set(GregorianCalendar.MINUTE, minute);
         meetingDate.set(GregorianCalendar.SECOND, 0);
-        this.hasMeetingDateBeenSet = true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public IUser getCreator() {
+        return creator;
     }
 
     @Override
