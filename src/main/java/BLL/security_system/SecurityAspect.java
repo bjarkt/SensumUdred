@@ -32,7 +32,7 @@ public abstract class SecurityAspect {
 	 * @throws Throwable throws a {@link SecurityException} if user does not have access
 	 */
 	@Around("@annotation(SecurityLevel) && execution(* *(..))")
-	private Object securityLogic(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object securityLogic(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object returnObject;
 
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
