@@ -22,8 +22,7 @@ public class PostgreSqlDatabase implements IDatabase {
 
 	@Override
 	public boolean fileMeeting(IMeeting meeting) {
-		AtomicBoolean isFiled = new AtomicBoolean(false);
-
+		final AtomicBoolean isFiled = new AtomicBoolean(false);
 		final String query = "";
 
 		executeQuery(conn -> {
