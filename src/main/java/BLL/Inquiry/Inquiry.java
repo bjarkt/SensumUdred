@@ -3,11 +3,11 @@ package BLL.Inquiry;
 import BLL.ACQ.IUser;
 import BLL.ACQ.Task;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.*;
 
 
 public class Inquiry extends Task implements IInquiry {
@@ -21,6 +21,7 @@ public class Inquiry extends Task implements IInquiry {
     private String civilStatus;
     private Date registrationDate;
     private String description;
+
 
     public Inquiry() {
         attendee = new HashSet<>();
@@ -43,6 +44,7 @@ public class Inquiry extends Task implements IInquiry {
     public String getCPR() {
         return CPR;
     }
+
 
 
 
@@ -107,5 +109,61 @@ public class Inquiry extends Task implements IInquiry {
         return registrationDate;
     }
 
+    private void getInquiry() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println();
+        String input1 = sc.nextLine();
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (java.lang.ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        String url = "jdbc:postgresql://horton.elephantsql.com:5432/cxiasneu";
+        String username = "cxiasneu";
+        String password = "OY2shAU8fq2NQXMpbxU21AFNmOczgUkF";
+
+        try {
+            Connection db = DriverManager.getConnection(url, username, password);
+
+            Statement st = db.createStatement();
+            ResultSet rs = st.executeQuery("SELECT CPR, FullName, Address, Gender, CivilStatus, " +
+                    "RegistrationDate, inquiryDescription, Offerings, " +
+                    "inquirySource, Grantings, Guardianship, contactDetails," +
+                    " CitizenAgreement, citizinMunicipality, specialCircumstances FROM people where name  = '" + input1 + "'");
+
+
+
+            while (rs.next()) {
+
+                String CPR = rs.getString(1);
+                String FullName = rs.getString(2);
+                String Address = rs.getString(3);
+                String Gender = rs.getString(4);
+                String CivilStatus = rs.getString(5);
+                String RegistrationDate = rs.getString(6);
+                String inquiryDescription = rs.getString(7);
+                String Offerings = rs.getString(8);
+                String inquirySource = rs.getString(9);
+                String Grantings = rs.getString(10);
+                String Guardianship = rs.getString(11);
+                String contactDetails = rs.getString(12);
+                String CitizenAgreement = rs.getString(13);
+                String citizinMunicipality = rs.getString(14);
+                String specialCircumstances = rs.getString(15);
+
+
+
+            }
+
+            rs.close();
+
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
 
 }

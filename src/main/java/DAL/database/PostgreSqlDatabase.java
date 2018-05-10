@@ -31,4 +31,31 @@ public class PostgreSqlDatabase implements IDatabase {
 	private static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
 	}
+
+	public void createInquiryDB() {
+		executeQuery(new IPostgreSqlCallback() {
+			@Override
+			public void execute(Connection connection) throws SQLException {
+				connection.prepareStatement("CREATE TABLE SensumDB(\n" +
+                        "\tCPR bigint(10),\n" +
+                        "\tName varchar(500),\n" +
+                        "\tAddress varchar(500),\n" +
+                        "\tGender varchar(500),\n" +
+                        "\tCivilStatus varchar(500),\n" +
+                        "\tRegistrationDate varchar(500),\n" +
+                        "\tinquiryDescription varchar(500),\n" +
+                        "\tOfferings varchar(500),\n" +
+                        "\tinquirySource varchar(500),\n" +
+                        "\tGrantings varchar(500),\n" +
+                        "\tGuardianship varchar(500),\n" +
+                        "\tcontactDetails varchar(500),\n" +
+                        "\tCitizenAgreement varchar(500),\n" +
+                        "\tcitizinMunicipality varchar(500),\n" +
+                        "\tspecialCircumstances varchar(500);\n" +
+                        "\tPRIMARY KEY(CPR)\n" +
+                        "\n" +
+                        ");");
+			}
+		});
+	}
 }
