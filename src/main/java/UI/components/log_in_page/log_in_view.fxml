@@ -8,43 +8,57 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="600.0" stylesheets="@log_in_view.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.log_in_page.LogInViewController">
+<AnchorPane prefWidth="600.0" stylesheets="@log_in_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.log_in_page.LogInViewController">
    <children>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="50.0" layoutY="60.0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label text="Log ind" textFill="#707070">
-                     <font>
-                        <Font name="CircularStd-Bold" size="26.0" />
-                     </font>
-                  </Label>
-                  <Label text="for at fortsætte til Sensum Udred" textFill="#afafaf">
-                     <font>
-                        <Font name="CircularStd-Medium" size="16.0" />
-                     </font>
-                  </Label>
-                  <VBox fx:id="inputForm" prefHeight="200.0" prefWidth="100.0" spacing="35.0">
-                     <VBox.margin>
-                        <Insets bottom="30.0" top="50.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <FlowPane alignment="CENTER" VBox.vgrow="SOMETIMES">
+                  <FlowPane alignment="CENTER" style="-fx-border-color: #dce0e0; -fx-background-color: white;">
                      <children>
-                        <Label fx:id="errorLabel" alignment="CENTER" textFill="#f97b68">
-                           <font>
-                              <Font name="CircularStd-Medium" size="12.0" />
-                           </font>
-                        </Label>
+                        <VBox>
+                           <children>
+                              <Label text="Log ind" textFill="#707070">
+                                 <font>
+                                    <Font name="CircularStd-Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label text="for at fortsætte til Sensum Udred" textFill="#afafaf">
+                                 <font>
+                                    <Font name="CircularStd-Medium" size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="inputForm" prefHeight="100.0" prefWidth="100.0" spacing="30.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="30.0" />
+                                 </VBox.margin>
+                              </VBox>
+                              <FlowPane alignment="CENTER" VBox.vgrow="SOMETIMES">
+                                 <children>
+                                    <Label fx:id="errorLabel" alignment="CENTER" textFill="#f97b68">
+                                       <font>
+                                          <Font name="CircularStd-Medium" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </VBox.margin>
+                              </FlowPane>
+                           </children>
+                           <FlowPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </FlowPane.margin>
+                        </VBox>
+                        <JFXButton fx:id="loginButton" buttonType="RAISED" onAction="#logIn" styleClass="button-raised" text="Fortsæt" />
                      </children>
-                     <VBox.margin>
-                        <Insets bottom="15.0" />
-                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="16.0" left="32.0" right="32.0" top="32.0" />
+                     </padding>
                   </FlowPane>
                </children>
-            </VBox>
-            <JFXButton fx:id="loginButton" buttonType="RAISED" onAction="#logIn" styleClass="button-raised" text="Fortsæt" />
+            </FlowPane>
          </children>
-      </FlowPane>
+      </AnchorPane>
    </children>
 </AnchorPane>

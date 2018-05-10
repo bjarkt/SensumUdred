@@ -1,3 +1,7 @@
 /* IMPORT MAIN STYLESHEET */
 @import "/UI/primary_view/app.css";
 /* ----------------------------- */
+
+.search_container{
+    -fx-border-radius: 3px;
+}

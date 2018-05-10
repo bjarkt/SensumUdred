@@ -1,6 +1,7 @@
 package BLL.meeting;
 
 import BLL.ACQ.IEBoks;
+import BLL.ACQ.IMeeting;
 import BLL.ACQ.IUser;
 
 import java.util.Collection;
@@ -19,12 +20,16 @@ public class Dialog implements IDialog {
     /**
      * {@inheritDoc}
      */
+    @Override
     public IMeeting createMeeting(IUser currentUser) {
         IMeeting meeting = new Meeting(currentUser, eBoks);
         meetings.add(meeting);
         return meeting;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean cancelMeeting(IMeeting meetingToCancel, IUser currentUser) {
         boolean meetingCancelledSuccessfully = meetingToCancel.cancelMeeting(currentUser);
@@ -33,6 +38,9 @@ public class Dialog implements IDialog {
         return meetingCancelledSuccessfully;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<IMeeting> getMeetingBySSN(String ssn) {
         Set<IMeeting> meetingsToBeFound = new HashSet<>();

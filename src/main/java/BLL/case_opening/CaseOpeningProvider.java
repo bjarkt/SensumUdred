@@ -37,7 +37,7 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 			IAttachment attachment = request.getAttachment();
 
 			if(attachment.getType() == AttachmentEnum.TEXT) {
-				System.out.println(new String(attachment.getData()).replaceAll("\\|", System.lineSeparator()));
+				String result = new String(attachment.getData()).replaceAll("\\|", System.lineSeparator());
 			} else {
 				// PDF something..
 			}
