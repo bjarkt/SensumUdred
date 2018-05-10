@@ -25,16 +25,12 @@ public class PostgreSqlDatabase implements IDatabase {
 		final AtomicBoolean isFiled = new AtomicBoolean(false);
 		final String query = "";
 
-		executeQuery(conn -> {
-			try(PreparedStatement ps = conn.prepareStatement(query)) {
-				//ps.set
-				// set the parameters to the SQL...
+		executeQuery(conn-> {
+			PreparedStatement ps = conn.prepareStatement(query);
+			//ps.set
+			// set the parameters to the SQL...
 
-				isFiled.set(ps.executeUpdate() > 0);
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-
+			isFiled.set(ps.executeUpdate() > 0);
 		});
 
 		return isFiled.get();
