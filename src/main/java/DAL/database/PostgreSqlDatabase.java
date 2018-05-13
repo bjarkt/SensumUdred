@@ -59,18 +59,18 @@ public class PostgreSqlDatabase implements IDatabase {
 			public void execute(Connection connection) throws SQLException {
 				connection.prepareStatement("CREATE TABLE SensumDB(\n" +
                         "\tCPR bigint(10),\n" +
-                        "\tName varchar(500),\n" +
-                        "\tAddress varchar(500),\n" +
-                        "\tGender varchar(500),\n" +
-                        "\tCivilStatus varchar(500),\n" +
-                        "\tRegistrationDate varchar(500),\n" +
-                        "\tinquiryDescription varchar(500),\n" +
-                        "\tOfferings varchar(500),\n" +
+                        "\tname varchar(500),\n" +
+                        "\taddress varchar(500),\n" +
+                        "\tgender varchar(500),\n" +
+                        "\tcivilStatus varchar(500),\n" +
+                        "\tregistrationDate varchar(500),\n" +
+                        "\tdescription varchar(500),\n" +
+                        "\tofferings varchar(500),\n" +
                         "\tinquirySource varchar(500),\n" +
-                        "\tGrantings varchar(500),\n" +
-                        "\tGuardianship varchar(500),\n" +
+                        "\tgrantings varchar(500),\n" +
+                        "\tguardianship varchar(500),\n" +
                         "\tcontactDetails varchar(500),\n" +
-                        "\tCitizenAgreement varchar(500),\n" +
+                        "\tcitizenAgreement varchar(500),\n" +
                         "\tcitizinMunicipality varchar(500),\n" +
                         "\tspecialCircumstances varchar(500);\n" +
                         "\tPRIMARY KEY(CPR)\n" +
