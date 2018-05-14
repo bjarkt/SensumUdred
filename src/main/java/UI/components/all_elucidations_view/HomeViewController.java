@@ -19,10 +19,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomeViewController extends Component implements IHomeView {
+
+    private List<IEventListener<?>> elucidationListSubscribers = new ArrayList<>();
 
     private IHomeViewRequire required;
 
@@ -55,6 +58,12 @@ public class HomeViewController extends Component implements IHomeView {
     @FXML
     void taskListClicked(MouseEvent event) {
         System.out.println("Clicked" + tasksList.getSelectionModel().getSelectedItems());
+        elucidationListSubscribers.forEach(listener -> listener.onAction(null));
+    }
+
+    @Override
+    public void onElucidationClick(IEventListener<?> listener) {
+        elucidationListSubscribers.add(listener);
     }
 
     static class Cell extends JFXListCell<String>{

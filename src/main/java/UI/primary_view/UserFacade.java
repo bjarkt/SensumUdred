@@ -7,6 +7,8 @@ import UI.components.IAccessRequirement;
 import UI.components.drawer.DrawerController;
 import UI.components.drawer.IDrawer;
 import UI.components.drawer.IDrawerRequire;
+import UI.components.elucidation_view.ElucidationViewController;
+import UI.components.elucidation_view.IElucidationView;
 import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
 import UI.components.all_elucidations_view.HomeViewController;
@@ -43,6 +45,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private IDrawer drawer;
 	private IDrawer userDrawer;
 	private IHomeView homeView;
+	private IElucidationView elucidationView;
 	private IPopup popUp;
 	private IVerticalMenu verticalMenu;
 	private IUserMenu userMenu;
@@ -75,6 +78,8 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		userMenu = new UserMenuController();
+
+		elucidationView = new ElucidationViewController();
 
 		drawer = new DrawerController(new IDrawerRequire() {
 			@Override
@@ -115,6 +120,8 @@ public class UserFacade implements IUserInterface, Initializable {
 		setupHeader();
 		setupVerticalMenu();
 		setupUserMenu();
+		setupAllElucidationsView();
+		setupElucidationView();
 
 		/* Set initial view to be log in view */
 		setCenter(logInView);
@@ -225,6 +232,18 @@ public class UserFacade implements IUserInterface, Initializable {
 			} else{
 				logInView.writeError("Brugernavn eller password er forkert.");
 			}
+		});
+	}
+
+	private void setupAllElucidationsView(){
+		homeView.onElucidationClick(data -> {
+			setCenter(elucidationView);
+		});
+	}
+
+	private void setupElucidationView(){
+		elucidationView.onLeaveElucidation(data -> {
+			setCenter(homeView);
 		});
 	}
 
