@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane fx:id="userMenuWrapper" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" styleClass="user_menu" stylesheets="@user_menu.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.user_menu.UserMenuController">
+   <children>
+      <AnchorPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;" styleClass="vertical_menu_scrollpane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <GridPane style="-fx-border-width: 0; -fx-padding: 0; -fx-background-color: #fcfcfc;">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" valignment="TOP" vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" valignment="TOP" vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="ALWAYS" />
+                     </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" prefWidth="230.0" styleClass="userMenu_name" text="Lasse" textAlignment="CENTER" wrapText="true">
+                           <GridPane.margin>
+                              <Insets bottom="12.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="userMenu_id" text="Sagsbehandler" textAlignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="80.0" />
+                           </GridPane.margin></Label>
+                     </children>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+            <JFXButton onAction="#logOut" prefWidth="250.0" styleClass="userMenu_logOutButton" text="Log ud" AnchorPane.bottomAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

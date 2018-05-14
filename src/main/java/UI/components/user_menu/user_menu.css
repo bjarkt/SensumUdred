@@ -1,0 +1,29 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+
+.userMenu_name{
+    -fx-font-size: 21px;
+    -fx-font-family: "Circular Std Bold";
+    -fx-text-fill: #484848;
+}
+
+.userMenu_id{
+    -fx-font-size: 9px;
+    -fx-font-family: "Circular Std Book";
+    -fx-text-fill: #AFAFAF;
+}
+
+.user_menu JFXButton{
+    -fx-pref-height: 50px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #DBDBDB;
+}
+
+.userMenu_logOutButton{
+    -fx-border-width: 1 0 1 0;
+    -fx-text-fill: #F97B68;
+}
+

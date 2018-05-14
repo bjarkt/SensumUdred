@@ -1,0 +1,21 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+
+.vertical_menu{
+    -fx-background-color: red !important;
+}
+
+.vertical_menu JFXButton, .vertical_menu SButton.active{
+    -fx-pref-height: 50px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #DBDBDB;
+}
+
+.vertical_menu JFXButton.active, .vertical_menu SButton.active{
+    -fx-text-fill: #4177F6;
+    -fx-border-width: 0 0 1 2;
+    -fx-border-color: transparent transparent #DBDBDB #448AFF;
+}

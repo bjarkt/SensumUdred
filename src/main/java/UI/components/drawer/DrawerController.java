@@ -1,20 +1,18 @@
 package UI.components.drawer;
 
 import UI.components.Component;
-import UI.components.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DrawerController extends Component implements IDrawer {
@@ -23,17 +21,26 @@ public class DrawerController extends Component implements IDrawer {
 
     private JFXButton closeDrawer;
 
+    private FlowPane drawerPane;
+
+    private Parent content;
+
+    private JFXDrawer.DrawerDirection direction;
+
     @FXML
     private JFXDrawer drawer;
 
-    public DrawerController(IDrawerRequire required) {
-        super("drawer.fxml");
+    public DrawerController(IDrawerRequire required, JFXDrawer.DrawerDirection direction, String title) {
+        super("drawer.fxml",title);
         setRequired(required);
+        this.direction = direction;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FlowPane drawerPane = new FlowPane();
+        drawer.setDirection(direction);
+
+        drawerPane = new FlowPane();
         drawerPane.setAlignment(Pos.TOP_CENTER);
         drawerPane.setOrientation(Orientation.VERTICAL);
 
@@ -44,7 +51,7 @@ public class DrawerController extends Component implements IDrawer {
         svgPath.setFill(Color.GRAY);
         closeDrawer.setGraphic(svgPath);
         closeDrawer.getStyleClass().add("raised-button");
-        Label menuTitle = new Label("Menu");
+        Label menuTitle = new Label(getBreadcrumb().getValue());
         menuTitle.getStyleClass().add("containerTop_label");
         Region menuSpacer = new Region();
         HBox drawerTop = new HBox(menuTitle, menuSpacer, closeDrawer);
@@ -53,13 +60,16 @@ public class DrawerController extends Component implements IDrawer {
         drawerTop.setPrefWidth(drawer.getDefaultDrawerSize());
         drawerTop.getStyleClass().add("drawer_container--top");
 
-        VBox drawerOptions = new VBox();
-
-        drawerPane.getChildren().addAll(drawerTop, drawerOptions);
+        drawerPane.getChildren().addAll(drawerTop);
         drawer.setSidePane(drawerPane);
         drawer.setOverLayVisible(true);
         drawer.setResizableOnDrag(false);
-        drawer.onDrawerClosedProperty().set(event -> close());
+        drawer.onDrawerClosedProperty().set(event -> {
+            if(required.getParent().getChildren().contains(this.getView())){
+                required.getParent().getChildren().remove(this.getView());
+                clearContent();
+            }
+        });
 
         closeDrawer.onActionProperty().set(event -> {
             drawer.close();
@@ -75,16 +85,27 @@ public class DrawerController extends Component implements IDrawer {
         required.getParent().setRightAnchor(this.getView(), .0);
         required.getParent().setBottomAnchor(this.getView(), .0);
         drawer.open();
+        setContent();
     }
 
     @Override
     public void close() {
-        drawer.close();
-        required.getParent().getChildren().remove(this.getView());
+        if(drawer != null) drawer.close();
     }
 
     @Override
     public void setRequired(IDrawerRequire required) {
         this.required = required;
+    }
+
+    @Override
+    public void setContent() {
+        this.content = required.getContent();
+        if(content != null && !drawerPane.getChildren().contains(content)) drawerPane.getChildren().add(required.getContent());
+    }
+
+    @Override
+    public void clearContent() {
+        if(content != null && drawerPane.getChildren().contains(content)) drawerPane.getChildren().remove(content);
     }
 }

@@ -1,0 +1,18 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+
+.myElucidationsTitle{
+    -fx-font-family: "Circular Std Bold";
+    -fx-font-size: 26px;
+    -fx-text-fill: #484848;
+}
+
+/* Override button hover behavior for cards */
+.card_title{
+    -fx-font-size: 17px;
+}
+
+.card_status, .card_description{
+    -fx-font-size: 11px;
+}

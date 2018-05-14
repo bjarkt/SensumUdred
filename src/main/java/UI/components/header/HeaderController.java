@@ -50,6 +50,8 @@ public class HeaderController extends Component implements IHeader{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        disableHamburger();
+
     }
 
     @Override
@@ -90,5 +92,18 @@ public class HeaderController extends Component implements IHeader{
     @Override
     public StringProperty getTitleProperty() {
         return this.title.textProperty();
+    }
+
+    @Override
+    public void enableHamburger() {
+        hamburger.setDisable(false);
+        hamburger.setVisible(true);
+    }
+
+    @Override
+    public void disableHamburger() {
+        hamburger.setMaxWidth(1);
+        hamburger.setDisable(true);
+        hamburger.setVisible(false);
     }
 }

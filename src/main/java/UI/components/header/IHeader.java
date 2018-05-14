@@ -16,4 +16,8 @@ public interface IHeader extends IComponent {
 
     StringProperty getTitleProperty();
 
+    void enableHamburger();
+
+    void disableHamburger();
+
 }

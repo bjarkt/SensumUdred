@@ -96,11 +96,8 @@ JFXButton:hover, Button:hover{
     -fx-text-fill: WHITE;
 }
 
-/* Override button hover behavior for cards */
-.card-button:hover .card_title{
-    -fx-font-size: 17px !important;
-}
-
-.card-button:hover .card_status, .card-button:hover .card_description{
-    -fx-font-size: 11px !important;
+/* CANVAS */
+.canvas_left{
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #dce0e0;
 }
