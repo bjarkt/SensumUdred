@@ -1,10 +1,25 @@
 package BLL.open_case;
 
 import BLL.ACQ.IUser;
+import javafx.util.Pair;
 
 import java.util.Set;
 
 public interface ICase {
+
+    /**
+     * Add one or more offers to the case.
+     * @param offering One or more Pairs of offers and corresponding paragraphs.
+     */
+    void addOffers(Pair<String, String>...offering);
+
+    /**
+     * Add one or more grantings to the case..
+     * @param granting  One ore more grantings.
+     */
+    void addGrantings(String ...granting);
+
+
     /**
      * Adds description to citizens case.
      * @param description   description of case.
@@ -16,31 +31,6 @@ public interface ICase {
      * @return  String  description of case
      */
     String getDescription();
-
-    /**
-     * Adds an object of type {@link IOffer}.
-     * @param offer the offer to be added.
-     */
-    void addOffer(IOffer offer);
-
-
-    /**
-     * Accessor method for offers on the case.
-     * @return  Set a set of offers.
-     */
-    Set<IOffer> getOffers();
-
-    /**
-     * Adds an object of type {@link IGranting}.
-     * @param granting  the granting to be added.
-     */
-    void addGranting(IGranting granting);
-
-    /**
-     * Accessor method for grantings on the case.
-     * @return  Set a set of grantings.
-     */
-    Set<IGranting> getGrantings();
 
     /**
      * Declares which user reported the case.

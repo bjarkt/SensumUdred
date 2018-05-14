@@ -1,15 +1,18 @@
 package BLL.open_case;
 
+import BLL.ACQ.ElucidationState;
 import BLL.ACQ.IUser;
 import BLL.ACQ.Task;
 import BLL.Inquiry.IInquiry;
 import BLL.Inquiry.Inquiry;
+import javafx.util.Pair;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Case extends Task implements ICase {
+public class Case extends Inquiry implements ICase {
 
     // Set of caseworkers on the case.
     private Set<IUser> caseworkers;
@@ -33,10 +36,10 @@ public class Case extends Task implements ICase {
     private String description;
 
     // Set of offers in this case.
-    private Set<IOffer> offers;
+    private Set<Pair<String, String>> offers;
 
     // Set of grantings in this case.
-    private Set<IGranting> grantings;
+    private Set<String> grantings;
 
     // Note of special circumstances.
     private String specialCircumstances;
@@ -51,6 +54,7 @@ public class Case extends Task implements ICase {
     private Date dateOfOpening;
 
     public Case(IInquiry inquiry){
+        setState(ElucidationState.CASE);
         this.description = inquiry.getDescription();
         offers = new HashSet<>();
         grantings = new HashSet<>();
@@ -71,38 +75,6 @@ public class Case extends Task implements ICase {
     @Override
     public String getDescription() {
         return this.description;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addOffer(IOffer offer) {
-        this.offers.add(offer);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<IOffer> getOffers() {
-        return this.offers;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addGranting(IGranting granting) {
-        this.grantings.add(granting);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<IGranting> getGrantings() {
-        return this.grantings;
     }
 
     /**
@@ -160,10 +132,29 @@ public class Case extends Task implements ICase {
      * {@inheritDoc}
      */
     @Override
+    public void addOffers(Pair<String, String>... offering) {
+        this.offers.addAll(Arrays.asList(offering));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addGrantings(String... granting) {
+        this.grantings.addAll(Arrays.asList(granting));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean saveCase() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
