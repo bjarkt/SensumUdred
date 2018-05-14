@@ -1,8 +1,5 @@
-package BLL.meeting;
+package BLL.ACQ;
 
-import BLL.ACQ.IUser;
-
-import java.io.IOException;
 import java.util.Date;
 import java.util.Set;
 
@@ -82,11 +79,11 @@ public interface IMeeting {
      * Get the id of the meeting
      * @return id of meeting
      */
-    public int getId();
+    int getId();
 
     /**
      * Get the user that created the meeting
      * @return creator of meeting
      */
-    public IUser getCreator();
+    IUser getCreator();
 }

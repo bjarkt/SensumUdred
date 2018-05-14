@@ -2,7 +2,7 @@ package DAL;
 
 import BLL.ACQ.HttpAcceptType;
 import BLL.ACQ.HttpMethod;
-import BLL.meeting.IMeeting;
+import BLL.ACQ.IMeeting;
 
 import java.io.IOException;
 import java.util.Map;

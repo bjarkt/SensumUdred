@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @SuppressAjWarnings("adviceDidNotMatch")
-public abstract class SecurityAspect {
+public class SecurityAspect {
 	private static int userLevel;
 
 	/**
@@ -45,7 +45,7 @@ public abstract class SecurityAspect {
 		if(userLevel >= securityLevel) {
 			returnObject = joinPoint.proceed();
 		} else {
-			throw new SecurityException("User does not have the privilege to this method .");
+			throw new SecurityException("User does not have the privilege to this method.");
 		}
 
 		return returnObject;

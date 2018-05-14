@@ -1,6 +1,7 @@
 package BLL.meeting;
 
 import BLL.ACQ.IEBoks;
+import BLL.ACQ.IMeeting;
 import BLL.ACQ.IUser;
 
 import java.util.*;
