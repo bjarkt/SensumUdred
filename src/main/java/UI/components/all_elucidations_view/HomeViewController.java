@@ -49,7 +49,7 @@ public class HomeViewController extends Component implements IHomeView {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        tasksList.setExpanded(true);
         tasksList.setItems(listView);
         tasksList.setCellFactory(param -> new Cell());
 
@@ -77,6 +77,7 @@ public class HomeViewController extends Component implements IHomeView {
         public Cell(){
             super();
             vBox.getChildren().addAll(citizenName, createdDate);
+            vBox.setAlignment(Pos.CENTER_LEFT);
             hBox.getChildren().addAll(vBox, spacer, checkBox);
             citizenName.getStyleClass().add("eludicationsList_citizenName");
             createdDate.getStyleClass().add("eludicationsList_createdDate");
