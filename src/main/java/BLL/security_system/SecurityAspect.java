@@ -22,7 +22,7 @@ public class SecurityAspect {
 	 * @param user any user
 	 */
 	static void setUserLevel(IUser user) {
-		userLevel = user.getAccessLevel().ordinal();
+		userLevel = user.getAccessLevel();
 	}
 
 	/**

@@ -62,7 +62,22 @@ public class SummonCitizenToMeetingTest {
     private IUser createUser(String ssn) {
         return new IUser() {
             @Override
-            public AccessLevel getAccessLevel() {
+            public int getAccessLevel() {
+                return 0;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String getFirstName() {
+                return null;
+            }
+
+            @Override
+            public String getLastName() {
                 return null;
             }
 
@@ -88,7 +103,7 @@ public class SummonCitizenToMeetingTest {
 
             @Override
             public String getSocialSecurityNumber() {
-                return ssn;
+                return null;
             }
         };
     }

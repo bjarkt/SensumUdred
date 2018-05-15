@@ -29,8 +29,7 @@ public class LoginService implements ILoginService {
             while(scanner.hasNextLine()){
                 tokens = scanner.nextLine().split("\t");
                 if(tokens[4].equals(username) && tokens[5].equals(password)){
-                    IUser user = new User(tokens[0], tokens[1], tokens[2]);
-                    return user;
+                    return new User("Firstname", "Lastname", "1234567890");
                 }
             }
         } catch (FileNotFoundException ex){

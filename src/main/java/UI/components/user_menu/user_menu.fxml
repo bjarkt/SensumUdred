@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="userMenuWrapper" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" styleClass="user_menu" stylesheets="@user_menu.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.user_menu.UserMenuController">
+<AnchorPane fx:id="userMenuWrapper" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" styleClass="user_menu" stylesheets="@user_menu.css" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.user_menu.UserMenuController">
    <children>
       <AnchorPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,7 +25,7 @@
                         <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="ALWAYS" />
                      </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" prefWidth="230.0" styleClass="userMenu_name" text="Lasse" textAlignment="CENTER" wrapText="true">
+                        <Label fx:id="usersName" alignment="CENTER" prefWidth="230.0" styleClass="userMenu_name" text="..." textAlignment="CENTER" wrapText="true">
                            <GridPane.margin>
                               <Insets bottom="12.0" />
                            </GridPane.margin>

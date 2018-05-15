@@ -6,7 +6,26 @@ public interface IUser {
 	 * Gets the user's entry level.
 	 * @return	int	the user's entry level.
 	 */
-	AccessLevel getAccessLevel();
+	int getAccessLevel();
+
+	/**
+	 * Get the user's full name
+	 * @return	the user's full name.
+	 */
+	String getName();
+
+	/**
+	 * Get the user's first name.
+	 * @return	user's first name.
+	 */
+	String getFirstName();
+
+	/**
+	 * Get the user's last name.
+	 * @return	user's last name.
+	 */
+	String getLastName();
+
 
 	/**
 	 * Sets the user's name

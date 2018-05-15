@@ -1,5 +1,7 @@
 package UI.primary_view;
+import BLL.ACQ.IUser;
 import BLL.IBusiness;
+import BLL.security_system.SecurityLevel;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.components.IComponent;
@@ -37,6 +39,7 @@ import java.util.ResourceBundle;
 
 public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
+	private IUser user;
 
 	private BooleanProperty isLoggedIn;
 
@@ -119,7 +122,6 @@ public class UserFacade implements IUserInterface, Initializable {
 		setupUpLoginView();
 		setupHeader();
 		setupVerticalMenu();
-		setupUserMenu();
 		setupAllElucidationsView();
 		setupElucidationView();
 
@@ -134,6 +136,7 @@ public class UserFacade implements IUserInterface, Initializable {
 				canvas.setLeft(verticalMenu.getView());
 				canvas.getLeft().getStyleClass().add("canvas_left");
 				setCenter(homeView);
+				setupUserMenu();
 				verticalMenu.setMyElucidationsButtonActive();
 
 				/* Move vertical menu to drawer if screen is too small. */
@@ -193,14 +196,23 @@ public class UserFacade implements IUserInterface, Initializable {
 		headerController.onProfileClick(data -> {
 			userDrawer.open();
 			userDrawer.setContent();
+			userMenu.setUsersName(user.getName());
 		});
 	}
 
 	private void setupVerticalMenu(){
 		verticalMenu.onLogClick(data -> {
-			if(isMobile) drawer.close();
-			popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
-			setCenter(null);
+			try {
+				if(user.getAccessLevel() >= business.getClass().getMethod("getChangeLog").getAnnotation(SecurityLevel.class).value()){
+					if(isMobile) drawer.close();
+					popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
+					setCenter(null);
+				} else{
+					popUp.show("Manglende rettigheder", "Du har ikke det rette sikkerhedsniveau til at tilgå hændelseslog. Kontakt systemadministrator.");
+				}
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			}
 		});
 
 		verticalMenu.onMyElucidationsClick(data -> {
@@ -227,7 +239,8 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
-			if( business.login(data[0], data[1]) != null){
+			if(business.login(data[0], data[1]) != null){
+				user = business.login(data[0], data[1]);
 				isLoggedIn.setValue(true);
 			} else{
 				logInView.writeError("Brugernavn eller password er forkert.");

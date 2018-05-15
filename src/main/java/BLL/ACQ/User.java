@@ -2,7 +2,7 @@ package BLL.ACQ;
 
 public class User implements IUser{
 
-    private AccessLevel accessLevel;
+    private int accessLevel;
     private String firstName;
     private String lastName;
     private String ssn;
@@ -13,12 +13,33 @@ public class User implements IUser{
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
-        this.accessLevel = AccessLevel.USER;
+        this.accessLevel = 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getAccessLevel() {
+        return accessLevel;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.firstName + " " + this.lastName;
     }
 
     @Override
-    public AccessLevel getAccessLevel() {
-        return accessLevel;
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    @Override
+    public String getLastName() {
+        return this.lastName;
     }
 
     @Override
@@ -27,26 +48,41 @@ public class User implements IUser{
         this.lastName = lastName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSocialSecurityNumber(String ssn) {
         this.ssn = ssn;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setAddress(IAddress address) {
         this.address = address;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSocialSecurityNumber() {
         return ssn;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return this.firstName + "\t" + this.lastName + "\t" + this.ssn;

@@ -26,6 +26,9 @@ public class UserMenuController extends Component implements IUserMenu {
     @FXML
     private AnchorPane userMenuWrapper;
 
+    @FXML
+    private Label usersName;
+
     public UserMenuController() {
         super("user_menu.fxml");
     }
@@ -37,7 +40,7 @@ public class UserMenuController extends Component implements IUserMenu {
 
     @Override
     public void setUsersName(String usersName) {
-
+        this.usersName.setText(usersName);
     }
 
     @Override
