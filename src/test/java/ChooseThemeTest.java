@@ -21,7 +21,7 @@ public class ChooseThemeTest {
     }
 
     @Test
-    public void test() {
+    public void addThemeTest() {
         themeManager.addNewTheme(IThemeManager.themes[0], "Bla bla dok tekst");
         themeManager.addNewTheme(IThemeManager.themes[1], "Mere dokumentation for resourcer");
 
