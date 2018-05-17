@@ -1,6 +1,6 @@
 package BLL.meeting;
 
-import BLL.ACQ.EBoksImpl;
+import BLL.ACQ.EBoks;
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IMeeting;
 import BLL.ACQ.IUser;
@@ -15,7 +15,7 @@ public class Dialog implements IDialog {
 
     public Dialog(IHttp http) {
         meetings = new HashSet<>();
-        this.eBoks = new EBoksImpl(http);
+        this.eBoks = new EBoks(http);
     }
 
     /**

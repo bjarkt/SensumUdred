@@ -16,7 +16,7 @@ public class EBoksTest {
 
     @BeforeEach
     public void initialize() {
-        eboks = new EBoksImpl(new IHttp() {
+        eboks = new EBoks(new IHttp() {
             @Override
             public byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
                 return DAL.http_request_utility.HttpRequestUtility.makeHttpRequest(urlString, query, method, acceptType);

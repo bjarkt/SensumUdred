@@ -6,10 +6,10 @@ import BLL.meeting.IHttp;
 import java.io.IOException;
 import java.util.*;
 
-public class EBoksImpl implements IEBoks {
+public class EBoks implements IEBoks {
     private IHttp httpClient;
 
-    public EBoksImpl(IHttp httpClient) {
+    public EBoks(IHttp httpClient) {
         this.httpClient = httpClient;
     }
 
