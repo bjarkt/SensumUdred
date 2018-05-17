@@ -8,6 +8,7 @@ import BLL.ACQ.IUser;
  */
 public final class SecuritySystem implements ISecurityService {
 	private static ISecurityService INSTANCE;
+	private IUser user;
 
 	private SecuritySystem() {}
 
@@ -25,7 +26,16 @@ public final class SecuritySystem implements ISecurityService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public IUser getUser() {
+		return user;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setUser(IUser user) {
+		this.user = user;
 		SecurityAspect.setUserLevel(user);
 	}
 }
