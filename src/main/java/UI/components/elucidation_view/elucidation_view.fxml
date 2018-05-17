@@ -71,6 +71,73 @@
                                           <TextArea fx:id="caseDescriptionField" editable="false" promptText="Om sagen" styleClass="elucidationView_textArea" />
                                        </children>
                                     </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Tilbud" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="editCaseDescriptionButton1" text="Rediger">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Ydelser" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="editCaseDescriptionButton11" text="Rediger">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                                <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper" HBox.hgrow="SOMETIMES">
+                                                   <children>
+                                                      <Label styleClass="elucidationView_inputField_description" text="§" HBox.hgrow="ALWAYS">
+                                                         <HBox.margin>
+                                                            <Insets right="11.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <TextField editable="false" maxWidth="100.0" promptText="Paragraf" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </VBox>
                               <VBox fx:id="elucidationView_horizontalLayout_right" minWidth="280.0" prefWidth="374.0" spacing="25.0" style="-fx-background-color: white;" HBox.hgrow="SOMETIMES">
