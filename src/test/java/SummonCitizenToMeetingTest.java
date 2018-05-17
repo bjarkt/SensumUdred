@@ -103,7 +103,7 @@ public class SummonCitizenToMeetingTest {
 
             @Override
             public String getSocialSecurityNumber() {
-                return null;
+                return ssn;
             }
         };
     }
