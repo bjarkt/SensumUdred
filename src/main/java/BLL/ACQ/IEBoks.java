@@ -1,6 +1,5 @@
 package BLL.ACQ;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 
@@ -14,6 +13,15 @@ public interface IEBoks {
      * @return true if the meeting message was sent successfully
      */
     boolean sendMeetingMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info);
+
+
+    /**
+     * Send a message to participants
+     * @param participants who should receive a message
+     * @param info what text should the message contain
+     * @return true if the message was sent successfully
+     */
+    boolean sendMessage(Collection<IUser> participants, String info);
 
     /**
      * Send a message to the participants about an existing meeting, that has been cancelled

@@ -1,5 +1,6 @@
 package BLL.meeting;
 
+import BLL.ACQ.EBoksImpl;
 import BLL.ACQ.IEBoks;
 import BLL.ACQ.IMeeting;
 import BLL.ACQ.IUser;
