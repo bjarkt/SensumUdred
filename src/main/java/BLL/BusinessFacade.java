@@ -8,6 +8,7 @@ import BLL.account_system.LoginService;
 import BLL.case_opening.ICaseOpeningService;
 import BLL.case_opening.IHttp;
 import BLL.log_agent.ChangeLog;
+import BLL.log_system.LogAspect;
 import BLL.security_system.SecurityLevel;
 import DAL.IPersistent;
 
@@ -39,5 +40,6 @@ public class BusinessFacade implements IBusiness {
 	@Override
 	public void injectPersistent(IPersistent persistent) {
 		this.persistent = persistent;
+		LogAspect.setPersistent(persistent);
 	}
 }
