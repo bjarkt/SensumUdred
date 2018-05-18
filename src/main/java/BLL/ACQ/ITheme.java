@@ -12,4 +12,10 @@ public interface ITheme {
      * @return documentation string
      */
     String getDocumentation();
+
+    /**
+     * Get the subtheme
+     * @return subtheme
+     */
+    String getSubtheme();
 }

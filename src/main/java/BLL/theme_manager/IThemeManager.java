@@ -3,7 +3,7 @@ package BLL.theme_manager;
 import BLL.ACQ.ThemeEnum;
 import BLL.open_case.ICase;
 
-import java.util.Collection;
+import java.util.Set;
 
 public interface IThemeManager {
     /**
@@ -16,13 +16,13 @@ public interface IThemeManager {
      * @param theme a themeEnum
      * @param documentation documentation string
      */
-    void addNewTheme(ThemeEnum theme, String documentation);
+    void addNewTheme(ThemeEnum theme, String subtheme, String documentation);
 
     /**
      * Get the current themes
      * @return current themes
      */
-    Collection<Theme> getCurrentThemes();
+    Set<Theme> getCurrentThemes();
 
     /**
      * Get the case associated with the theme manager

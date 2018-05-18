@@ -7,10 +7,12 @@ import java.util.Objects;
 
 public class Theme implements ITheme {
     private ThemeEnum theme;
+    private String subtheme;
     private String documentation;
 
-    public Theme(ThemeEnum theme, String documentation) {
+    public Theme(ThemeEnum theme, String subtheme, String documentation) {
         this.theme = theme;
+        this.subtheme = subtheme;
         this.documentation = documentation;
     }
 
@@ -26,6 +28,13 @@ public class Theme implements ITheme {
      */
     public String getDocumentation() {
         return documentation;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getSubtheme() {
+        return subtheme;
     }
 
     @Override
