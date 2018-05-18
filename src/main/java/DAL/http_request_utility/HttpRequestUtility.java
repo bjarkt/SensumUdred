@@ -103,9 +103,6 @@ public class HttpRequestUtility {
             sb.append(line + System.lineSeparator());
         }
 
-        int lastNewlineIndex = sb.lastIndexOf(System.lineSeparator());
-        sb.deleteCharAt(lastNewlineIndex);
-
         return sb.toString().getBytes();
     }
 

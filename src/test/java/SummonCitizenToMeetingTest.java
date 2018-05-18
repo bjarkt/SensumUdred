@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import BLL.ACQ.*;
 import BLL.meeting.Dialog;
-import BLL.meeting.IHttp;
+import BLL.ACQ.IHttp;
 import BLL.ACQ.IMeeting;
 import DAL.http_request_utility.HttpRequestUtility;
 import org.junit.jupiter.api.BeforeEach;

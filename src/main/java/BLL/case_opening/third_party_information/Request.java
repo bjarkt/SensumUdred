@@ -2,12 +2,9 @@ package BLL.case_opening.third_party_information;
 
 import BLL.ACQ.HttpAcceptType;
 import BLL.ACQ.HttpMethod;
-import BLL.case_opening.IHttp;
+import BLL.ACQ.IHttp;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

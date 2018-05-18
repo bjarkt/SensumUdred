@@ -1,5 +1,5 @@
 import BLL.ACQ.*;
-import BLL.meeting.IHttp;
+import BLL.ACQ.IHttp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

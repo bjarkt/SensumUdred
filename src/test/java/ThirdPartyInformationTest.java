@@ -1,8 +1,8 @@
 import BLL.ACQ.HttpAcceptType;
 import BLL.ACQ.HttpMethod;
+import BLL.ACQ.IHttp;
 import BLL.case_opening.CaseOpeningProvider;
 import BLL.case_opening.ICaseOpeningService;
-import BLL.case_opening.IHttp;
 import BLL.case_opening.third_party_information.AttachmentEnum;
 import BLL.case_opening.third_party_information.IRequest;
 import BLL.case_opening.third_party_information.Request;
