@@ -1,32 +1,40 @@
 package BLL.ACQ;
 
 public enum ThemeEnum {
-    FYSISK_FUNKTIONS_NEDSAETTELSE("Fysisk funktionsnedsættelse"),
-    PSYKISK_FUNKTIONS_NEDSAETTELSE("Psykisk funktionsnedsættelse"),
-    SOCIALT_PROBLEM("Socialt problem"),
-    PRAKTISKE_OPGAVER_I_HJEMMET("Praktiske opgaver i hjemmet"),
-    EGENOMSORG("Egenomsorg"),
-    SOCIALT_LIV("Socialt liv"),
-    SUNDHED("Sundhed"),
-    KOMMUNIKATION("Kommunikation"),
-    MOBILITET("Mobilitet"),
-    SAMFUNDSLIV("Samfundsliv"),
-    OMGIVELSER("Omgivelser");
+    FYSISK_FUNKTIONS_NEDSAETTELSE("Fysisk funktionsnedsættelse", "Funktionsnedsættelse i kroppens anatomi eller kroppens funktioner, eksklusiv de mentale funktioner."),
+    PSYKISK_FUNKTIONS_NEDSAETTELSE("Psykisk funktionsnedsættelse", "Funktionsnedsættelse i de mentale funktioner."),
+    SOCIALT_PROBLEM("Socialt problem", "Tilstand, som er kendetegnet ved, at en person er, eller er i fare for at blive, marginaliseret."),
+    PRAKTISKE_OPGAVER_I_HJEMMET("Praktiske opgaver i hjemmet", "Aktivitet, der vedrører huslige og andre dagligdags handlinger og opgaver irelation til husførelse."),
+    EGENOMSORG("Egenomsorg", "Aktivitet, der vedrører praktiske og hygiejnemæssige handlinger i relation tilpersonen selv."),
+    SOCIALT_LIV("Socialt liv", "Aktivitet, der vedrører relationer til andre mennesker."),
+    SUNDHED("Sundhed", "Tilstand af fuldstændig fysisk, psykisk og social trivsel."),
+    KOMMUNIKATION("Kommunikation", "Proces, der består af en overførsel eller udveksling af information."),
+    MOBILITET("Mobilitet", "Aktivitet, der vedrører bevægelse og færden."),
+    SAMFUNDSLIV("Samfundsliv", "Forhold, der vedrører bolig samt de opgaver og handlinger, som er nødvendige for at deltage i undervisning og beskæftigelse og for at gennemføre økonomisketransaktioner."),
+    OMGIVELSER("Omgivelser", "Kontekstuel faktor, der omfatter de fysiske, sociale og holdningsmæssige omgivelser, som en person bor og lever i.");
 
-    private String description;
+    private String name;
+    private String definition;
 
-    ThemeEnum(String description) {
-        this.description = description;
+    ThemeEnum(String name, String definition) {
+        this.name = name;
+        this.definition = definition;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
+    }
+
+    public String getDefinition() {
+        return definition;
     }
 
     @Override
     public String toString() {
         return "ThemeEnum{" +
-                "description='" + description + '\'' +
+                "name='" + name + '\'' +
+                ", definition='" + definition + '\'' +
                 '}';
     }
 }
+
