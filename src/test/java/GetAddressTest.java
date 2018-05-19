@@ -26,8 +26,11 @@ public class GetAddressTest {
         });
 
         IAddress addressResult = getAddress.getAddress("1104694124");
+        assertEquals("Lærkevej", addressResult.getStreetName());
+        assertEquals("127", addressResult.getHouseNumber());
+        assertEquals("3120", addressResult.getZipCode());
         assertEquals("Glumsø", addressResult.getCity());
         assertEquals("Samsø", addressResult.getMunicipality());
-        assertEquals("Lærkevej", addressResult.getStreetName());
+        assertEquals("Denmark", addressResult.getCountry());
     }
 }
