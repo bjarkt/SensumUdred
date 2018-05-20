@@ -2,6 +2,7 @@ package BLL;
 
 import BLL.ACQ.HttpAcceptType;
 import BLL.ACQ.HttpMethod;
+import BLL.ACQ.IElucidation;
 import BLL.ACQ.IUser;
 import BLL.account_system.ILoginService;
 import BLL.account_system.LoginService;
@@ -30,10 +31,37 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SecurityLevel(100)
+	@SecurityLevel(1000)
 	@Override
 	public Set<ChangeLog> getChangeLog() {
 		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SecurityLevel(0)
+	@Override
+	public Set<IElucidation> getMyElucidations() {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SecurityLevel(500)
+	@Override
+	public Set<IUser> getAllUsers() {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SecurityLevel(500)
+	@Override
+	public void createInquiry() {
+
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import BLL.security_system.SecurityLevel;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.components.IComponent;
-import UI.components.IAccessRequirement;
 import UI.components.drawer.DrawerController;
 import UI.components.drawer.IDrawer;
 import UI.components.drawer.IDrawerRequire;
@@ -17,6 +16,7 @@ import UI.components.all_elucidations_view.HomeViewController;
 import UI.components.all_elucidations_view.IHomeView;
 import UI.components.log_in_page.ILogInView;
 import UI.components.log_in_page.LogInViewController;
+import UI.SecuredAspect;
 import UI.components.popUp.IPopUpRequire;
 import UI.components.popUp.IPopup;
 import UI.components.popUp.PopUpController;
@@ -69,16 +69,14 @@ public class UserFacade implements IUserInterface, Initializable {
 	 * Constructor for UserFacade. Instantiates the needed components.
 	 */
 	public UserFacade(){
+		SecuredAspect.setBusiness(business);
+		SecuredAspect.setPopup(popUp);
+
 		headerController = new HeaderController();
 		logInView = new LogInViewController();
 		homeView = new HomeViewController();
 
-		verticalMenu = new VerticalMenuController(new IAccessRequirement() {
-			@Override
-			public int getUserAccessLevel() {
-				return 3;
-			}
-		});
+		verticalMenu = new VerticalMenuController();
 
 		userMenu = new UserMenuController();
 
@@ -241,6 +239,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		logInView.onLogIn(data -> {
 			if(business.login(data[0], data[1]) != null){
 				user = business.login(data[0], data[1]);
+				SecuredAspect.setUser(user);
 				isLoggedIn.setValue(true);
 			} else{
 				logInView.writeError("Brugernavn eller password er forkert.");

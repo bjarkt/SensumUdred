@@ -2,17 +2,16 @@ package UI.components.all_elucidations_view;
 
 import UI.components.Component;
 import UI.components.IEventListener;
+import UI.Secured;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -25,12 +24,18 @@ import java.util.ResourceBundle;
 
 public class HomeViewController extends Component implements IHomeView {
 
+    private List<JFXButton> buttons;
+
     private List<IEventListener<?>> elucidationListSubscribers = new ArrayList<>();
 
     private IHomeViewRequire required;
 
     @FXML
     private AnchorPane container;
+
+    @Secured("createInquiry")
+    @FXML
+    private JFXButton newInquiryButton;
 
     @FXML
     private ScrollPane scrollPane;
@@ -43,13 +48,15 @@ public class HomeViewController extends Component implements IHomeView {
 
     public HomeViewController() {
         super("home_view.fxml", "Hjem");
+        buttons = new ArrayList<>();
     }
 
     ObservableList<String> listView = FXCollections.observableArrayList("Lasse", "Dennis", "Bjarke", "Lavanbro", "Adrian", "Christian");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        buttons.add(newInquiryButton);
+        this.newInquiryButton = newInquiryButton;
         tasksList.setItems(listView);
         tasksList.setCellFactory(param -> new Cell());
 

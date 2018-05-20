@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="container" style="-fx-background-color: white;" stylesheets="@home_view.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
+<AnchorPane fx:id="container" style="-fx-background-color: white;" stylesheets="@home_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="vbox" spacing="23.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,7 +22,7 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <JFXButton styleClass="flat-button" text="Ny henvendelse" />
+                  <JFXButton fx:id="newInquiryButton" styleClass="flat-button" text="Ny henvendelse" />
                </children>
                <padding>
                   <Insets bottom="10.0" />

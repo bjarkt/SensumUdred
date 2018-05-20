@@ -1,7 +1,9 @@
 package BLL;
 
+import BLL.ACQ.IElucidation;
 import BLL.ACQ.IUser;
 import BLL.log_agent.ChangeLog;
+import BLL.security_system.SecurityLevel;
 import DAL.IPersistent;
 
 import java.util.Set;
@@ -19,10 +21,26 @@ public interface IBusiness {
 
 	/**
 	 * Get the complete change log.
-	 * @return
+	 * @return	change logl
 	 */
 	Set<ChangeLog> getChangeLog();
 
+	/**
+	 * Get the user's elucidations.
+	 * @return user's elucidations.
+	 */
+	Set<IElucidation> getMyElucidations();
+
+	/**
+	 * Get all users in the system.
+	 * @return users in the system.
+	 */
+	Set<IUser> getAllUsers();
+
+	/**
+	 * Creates a new inquiry.
+	 */
+	void createInquiry();
 
 
 }

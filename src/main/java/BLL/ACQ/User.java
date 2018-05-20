@@ -13,7 +13,7 @@ public class User implements IUser{
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
-        this.accessLevel = 0;
+        this.accessLevel = 1000;
     }
 
     /**

@@ -1,5 +1,7 @@
 package UI.components.log_in_page;
 
+import BLL.IBusiness;
+import BLL.security_system.SecurityLevel;
 import UI.components.Component;
 import UI.components.IEventListener;
 import com.jfoenix.controls.JFXButton;
@@ -17,6 +19,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LogInViewController extends Component implements ILogInView{
+
+    IBusiness business;
 
     private List<IEventListener<String[]>> onLogInSubscribers = new ArrayList<>();
 

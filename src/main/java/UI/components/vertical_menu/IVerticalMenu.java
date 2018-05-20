@@ -19,7 +19,4 @@ public interface IVerticalMenu extends IComponent {
 	void setLogButtonActive();
 
     void setUserManagementButtonActive();
-
-    List<SecureComponent> getButtons();
-
 }
