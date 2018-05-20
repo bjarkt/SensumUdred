@@ -1,11 +1,8 @@
 package BLL;
 
-<<<<<<< HEAD
-import BLL.ACQ.HttpAcceptType;
-import BLL.ACQ.HttpMethod;
+import BLL.log_agent.ChangeLog;
+import BLL.security_system.SecurityLevel;
 import BLL.ACQ.IElucidation;
-=======
->>>>>>> 6ada9c4a53d8a7dd97697a8b271e78d2d4a8900a
 import BLL.ACQ.IUser;
 import BLL.account_system.ILoginService;
 import BLL.account_system.LoginService;
