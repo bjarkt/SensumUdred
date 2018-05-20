@@ -9,4 +9,11 @@ public interface IAddress {
     void setMunicipality(String municipality);
     void setCountry(String country);
 
+    String getStreetName();
+    String getHouseNumber();
+    String getZipCode();
+    String getCity();
+    String getMunicipality();
+    String getCountry();
+
 }

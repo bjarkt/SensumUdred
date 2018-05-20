@@ -55,8 +55,12 @@ public class HomeViewController extends Component implements IHomeView {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+<<<<<<< HEAD
         buttons.add(newInquiryButton);
         this.newInquiryButton = newInquiryButton;
+=======
+        tasksList.setExpanded(true);
+>>>>>>> 6ada9c4a53d8a7dd97697a8b271e78d2d4a8900a
         tasksList.setItems(listView);
         tasksList.setCellFactory(param -> new Cell());
 
@@ -84,6 +88,7 @@ public class HomeViewController extends Component implements IHomeView {
         public Cell(){
             super();
             vBox.getChildren().addAll(citizenName, createdDate);
+            vBox.setAlignment(Pos.CENTER_LEFT);
             hBox.getChildren().addAll(vBox, spacer, checkBox);
             citizenName.getStyleClass().add("eludicationsList_citizenName");
             createdDate.getStyleClass().add("eludicationsList_createdDate");

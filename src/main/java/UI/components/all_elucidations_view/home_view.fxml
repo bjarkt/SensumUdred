@@ -28,7 +28,7 @@
                   <Insets bottom="10.0" />
                </padding>
             </HBox>
-            <JFXListView fx:id="tasksList" onMouseClicked="#taskListClicked" style="-fx-background-color: transparent;" styleClass="elucidations_taskList" VBox.vgrow="ALWAYS" />
+            <JFXListView fx:id="tasksList" onMouseClicked="#taskListClicked" style="-fx-background-color: transparent;" styleClass="elucidations_taskList" verticalGap="10.0" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets left="22.0" right="22.0" top="22.0" />

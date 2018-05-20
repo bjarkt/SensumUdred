@@ -1,8 +1,6 @@
 package BLL.meeting;
 
-import BLL.ACQ.IEBoks;
-import BLL.ACQ.IMeeting;
-import BLL.ACQ.IUser;
+import BLL.ACQ.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,7 +12,7 @@ public class Dialog implements IDialog {
 
     public Dialog(IHttp http) {
         meetings = new HashSet<>();
-        this.eBoks = new EBoksImpl(http);
+        this.eBoks = new EBoks(http);
     }
 
     /**

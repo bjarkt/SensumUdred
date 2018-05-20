@@ -1,5 +1,6 @@
 package BLL.open_case;
 
+import BLL.ACQ.ITheme;
 import BLL.ACQ.IUser;
 import javafx.util.Pair;
 
@@ -18,6 +19,13 @@ public interface ICase {
      * @param granting  One ore more grantings.
      */
     void addGrantings(String ...granting);
+
+
+    /**
+     * Add one or more themes to the case
+     * @param theme one or more themes.
+     */
+    void addThemes(ITheme...theme);
 
 
     /**

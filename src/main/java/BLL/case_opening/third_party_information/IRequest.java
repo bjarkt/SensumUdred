@@ -1,7 +1,5 @@
 package BLL.case_opening.third_party_information;
 
-import BLL.case_opening.IHttp;
-
 import java.io.IOException;
 import java.util.Date;
 /**

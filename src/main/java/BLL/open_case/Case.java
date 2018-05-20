@@ -1,8 +1,8 @@
 package BLL.open_case;
 
 import BLL.ACQ.ElucidationState;
+import BLL.ACQ.ITheme;
 import BLL.ACQ.IUser;
-import BLL.ACQ.Task;
 import BLL.Inquiry.IInquiry;
 import BLL.Inquiry.Inquiry;
 import javafx.util.Pair;
@@ -41,6 +41,9 @@ public class Case extends Inquiry implements ICase {
     // Set of grantings in this case.
     private Set<String> grantings;
 
+    // Set of themes
+    private Set<ITheme> themes;
+
     // Note of special circumstances.
     private String specialCircumstances;
 
@@ -58,6 +61,7 @@ public class Case extends Inquiry implements ICase {
         this.description = inquiry.getDescription();
         offers = new HashSet<>();
         grantings = new HashSet<>();
+        themes = new HashSet<>();
         dateOfOpening = new Date();
     }
 
@@ -142,6 +146,14 @@ public class Case extends Inquiry implements ICase {
     @Override
     public void addGrantings(String... granting) {
         this.grantings.addAll(Arrays.asList(granting));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addThemes(ITheme... theme) {
+        this.themes.addAll(Arrays.asList(theme));
     }
 
     /**

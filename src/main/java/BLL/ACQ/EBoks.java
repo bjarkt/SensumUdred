@@ -1,18 +1,13 @@
-package BLL.meeting;
+package BLL.ACQ;
 
-
-import BLL.ACQ.HttpAcceptType;
-import BLL.ACQ.HttpMethod;
-import BLL.ACQ.IEBoks;
-import BLL.ACQ.IUser;
 
 import java.io.IOException;
 import java.util.*;
 
-public class EBoksImpl implements IEBoks {
+public class EBoks implements IEBoks {
     private IHttp httpClient;
 
-    public EBoksImpl(IHttp httpClient) {
+    public EBoks(IHttp httpClient) {
         this.httpClient = httpClient;
     }
 
@@ -22,16 +17,18 @@ public class EBoksImpl implements IEBoks {
     @Override
     public boolean sendMeetingMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info) {
         List<Integer> participantSSNs = new ArrayList<>();
+        Map<String, Object> query = new HashMap<>();
         for (IUser participant : participants) {
             participantSSNs.add(Integer.parseInt(participant.getSocialSecurityNumber()));
         }
-        long unixTime = meetingDate.getTimeInMillis() / 1000; // unix time does not include milliseconds
 
-
-        Map<String, Object> query = new HashMap<>();
+        if (meetingDate != null) {
+            long unixTime = meetingDate.getTimeInMillis() / 1000; // unix time does not include milliseconds
+            query.put("meetingDate", unixTime);
+        }
         query.put("participants", participantSSNs);
-        query.put("meetingDate", unixTime);
         query.put("info", info);
+
         String response = null;
         try {
             response = new String(httpClient.makeHttpRequest(
@@ -43,6 +40,15 @@ public class EBoksImpl implements IEBoks {
         }
         return false;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean sendMessage(Collection<IUser> participants, String info) {
+        return this.sendMeetingMessage(participants, null, info);
+    }
+
 
     /**
      * {@inheritDoc}

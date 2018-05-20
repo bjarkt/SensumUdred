@@ -22,12 +22,16 @@
     -fx-text-fill: #4177F6;
 }
 
+.list-cell:even{
+    -fx-background-color: #fcfcfc;
+}
+
 .list-cell:odd{
-    -fx-background-color: white;
+    -fx-background-color: #fcfcfc;
 }
 
 .list-cell:focused{
-    -fx-background-color: white;
+    -fx-background-color: #fcfcfc;
 }
 
 .eludicationsList_citizenName{

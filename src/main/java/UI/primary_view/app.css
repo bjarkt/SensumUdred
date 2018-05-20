@@ -96,8 +96,15 @@ JFXButton:hover, Button:hover{
     -fx-text-fill: WHITE;
 }
 
+.flat-button_outlined{
+    -fx-background-color: transparent !important;
+    -fx-text-fill: #1B71FF !important;
+    -fx-border-color: #1B71FF !important;
+}
+
 /* CANVAS */
 .canvas_left{
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #dce0e0;
 }
+
