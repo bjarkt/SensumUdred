@@ -1,11 +1,9 @@
 package BLL.open_case;
 
-import BLL.ACQ.ITheme;
-import BLL.ACQ.IUser;
-import BLL.theme_manager.Theme;
+import ACQ.ITheme;
+import ACQ.IUser;
 import javafx.util.Pair;
 
-import java.util.Collection;
 import java.util.Set;
 
 public interface ICase {
@@ -22,12 +20,11 @@ public interface ICase {
      */
     void addGrantings(String ...granting);
 
-
     /**
      * Add one or more themes to the case
      * @param theme one or more themes.
      */
-    void addThemes(ITheme...theme);
+    void addThemes(ITheme ... theme);
 
     /**
      * Get the themes for the case

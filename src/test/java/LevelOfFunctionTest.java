@@ -1,18 +1,18 @@
-import BLL.ACQ.ITheme;
+import ACQ.ITheme;
 import BLL.Inquiry.Inquiry;
 import BLL.open_case.Case;
 import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
-import BLL.theme_manager.Theme;
 import BLL.theme_manager.ThemeManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class LevelOfFunctionTest {
