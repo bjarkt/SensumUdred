@@ -1,6 +1,6 @@
 package ACQ;
 
-public interface IIUserService {
+public interface IUserService {
 	/**
 	 * Returns a true or false, depending on an account exists.
 	 * @param account any account
