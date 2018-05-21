@@ -44,6 +44,33 @@ public class LevelOfFunctionTest {
     }
 
     @Test
+    public void setTotalLevelOfFunctionTest() {
+        ICase aCase = createCase();
+
+        char[] badFunctionLevels = {'@', 'G'};
+        char goodFunctionLevel = 'A';
+
+        try {
+            aCase.setTotalLevelOfFunction(badFunctionLevels[0]);
+            fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[0]);
+        }
+
+        try {
+            aCase.setTotalLevelOfFunction(badFunctionLevels[1]);
+            fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[1]);
+        }
+
+        aCase.setTotalLevelOfFunction(goodFunctionLevel);
+
+        assertEquals(goodFunctionLevel, aCase.getTotalLevelOfFunction());
+
+    }
+
+    @Test
     public void illegalArgumentTest() {
         Set<ITheme> themeSet = themeManager.getCase().getThemes();
         List<ITheme> themeList = new ArrayList<>(themeSet);

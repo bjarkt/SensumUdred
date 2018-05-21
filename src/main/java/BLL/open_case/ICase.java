@@ -36,6 +36,18 @@ public interface ICase {
     Set<ITheme> getThemes();
 
     /**
+     * Set the total level of function
+     * @param level new level of function
+     */
+    void setTotalLevelOfFunction(char level);
+
+    /**
+     * Get the total level of function for the case
+     * @return total level of function
+     */
+    char getTotalLevelOfFunction();
+
+    /**
      * Adds description to citizens case.
      * @param description   description of case.
      */

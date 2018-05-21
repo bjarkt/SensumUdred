@@ -57,6 +57,8 @@ public class Case extends Inquiry implements ICase {
     // Time and date of case opening.
     private Date dateOfOpening;
 
+    private char totalLevelOfFunction;
+
     public Case(IInquiry inquiry){
         setState(ElucidationState.CASE);
         this.description = inquiry.getDescription();
@@ -163,6 +165,26 @@ public class Case extends Inquiry implements ICase {
     @Override
     public Set<ITheme> getThemes() {
         return themes;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setTotalLevelOfFunction(char level) {
+        if (level < 'A' || level > 'F') {
+            throw new IllegalArgumentException("level must be between A and F, it was " + level);
+        }
+
+        this.totalLevelOfFunction = level;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public char getTotalLevelOfFunction() {
+        return totalLevelOfFunction;
     }
 
     /**
