@@ -1,4 +1,6 @@
-package ACQ;
+package BLL.account_system;
+
+import ACQ.IAddress;
 
 public class Address implements IAddress {
 

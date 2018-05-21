@@ -2,6 +2,7 @@ import ACQ.HttpAcceptType;
 import ACQ.HttpMethod;
 import ACQ.IAddress;
 import ACQ.IHttp;
+import BLL.account_system.Address;
 import BLL.address_getter.GetAddress;
 import BLL.address_getter.IGetAddress;
 import DAL.http_request_utility.HttpRequestUtility;
@@ -16,7 +17,7 @@ public class GetAddressTest {
 
     @Test
     public void TestAddressGetter() {
-        IGetAddress getAddress = new GetAddress(TestHelper.getHttpClient());
+        IGetAddress getAddress = new GetAddress(TestHelper.getHttpClient(), Address.class);
 
         IAddress addressResult = getAddress.getAddress("1104694124");
         assertEquals("Lærkevej", addressResult.getStreetName());
