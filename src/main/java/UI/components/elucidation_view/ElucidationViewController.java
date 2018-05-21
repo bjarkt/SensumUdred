@@ -1,10 +1,13 @@
 package UI.components.elucidation_view;
 
+import ACQ.IUser;
 import UI.components.Component;
 import UI.components.IEventListener;
 import UI.components.dropdown_search.DropdownSearchController;
 import UI.components.dropdown_search.IDropdownSearch;
+import UI.components.dropdown_search.IDropdownSearchRequire;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,12 +37,10 @@ public class ElucidationViewController extends Component implements IElucidation
 
     private boolean isMobile;
 
-    private IDropdownSearch caseWorkerSearcher;
+    private IDropdownSearch<IUser> caseWorkerSearcher;
 
     @FXML
     private VBox caseWorkerContainer;
-
-
 
     @FXML
     private AnchorPane elucidation_view_container;
@@ -86,9 +87,6 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox elucidationView_verticalLayout;
 
-
-
-
     public ElucidationViewController() {
         super("elucidation_view.fxml", "Elucidation_Name");
     }
@@ -107,7 +105,24 @@ public class ElucidationViewController extends Component implements IElucidation
             }
         });
 
-        caseWorkerSearcher = new DropdownSearchController();
+        // Set cell template for user searcher.
+        caseWorkerSearcher = new DropdownSearchController<>(new IDropdownSearchRequire<IUser>() {
+            @Override
+            public JFXListCell getCellFactory() {
+                return new IUserSearcherCell<IUser>() {
+                    @Override
+                    protected void updateItem(IUser item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(item ==  null ? " " : item.getFirstName() + item.getLastName());
+                        if(item != null){
+                            this.getChildren().add(new Label(item.getAccount().getUsername()));
+                        }
+                    }
+                };
+            }
+        });
+
+        // Add user searcher to appropriate container.
         caseWorkerContainer.getChildren().add(caseWorkerSearcher.getView());
 
     }

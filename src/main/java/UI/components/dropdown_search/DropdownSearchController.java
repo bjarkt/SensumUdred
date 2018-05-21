@@ -16,34 +16,34 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class DropdownSearchController extends Component implements IDropdownSearch {
+public class DropdownSearchController<T> extends Component implements IDropdownSearch<T> {
 
-    ObservableList<String> listView = FXCollections.observableArrayList("Lasse", "Dennis", "Bjarke", "Lavanbro", "Adrian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian", "Christian");
 
-    private IDropdownSearchRequire required;
+    private IDropdownSearchRequire<T> required;
+
+    // This list holds the reference to the search results.
+    private ObservableList<T> searchResults;
 
     @FXML
     private TextField inputField;
 
     @FXML
-    private JFXListView<String> results;
+    private JFXListView<T> results;
 
     @FXML
     private JFXButton addButton;
 
-    public DropdownSearchController() {
+    public DropdownSearchController(IDropdownSearchRequire required) {
         super("dropdown_search.fxml");
+        setRequired(required);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
-        results.setItems(listView);
-        results.setCellFactory(param -> new DropdownSearchController.Cell());
-
+        results.setCellFactory(param -> required.getCellFactory());
     }
 
     @FXML
@@ -52,50 +52,18 @@ public class DropdownSearchController extends Component implements IDropdownSear
     }
 
     @Override
+    public void updateList(List<T> searchResults) {
+        this.searchResults = FXCollections.observableArrayList(searchResults);
+        results.setItems(this.searchResults);
+    }
+
+    @Override
     public void setRequired(IDropdownSearchRequire required) {
-
+        this.required = required;
     }
 
 
 
-    static class Cell extends JFXListCell<String> {
-        HBox hBox = new HBox();
-        VBox vBox = new VBox();
-        JFXCheckBox checkBox = new JFXCheckBox();
-        Label citizenName = new Label("");
-        Region spacer = new Region();
-        boolean checked = false;
 
-        public Cell() {
-            super();
-            vBox.getChildren().addAll(citizenName);
-            vBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.getChildren().addAll(vBox, spacer, checkBox);
-            citizenName.getStyleClass().add("eludicationsList_citizenName");
-            hBox.setHgrow(spacer, Priority.ALWAYS);
-            hBox.setAlignment(Pos.CENTER_LEFT);
-            this.cellRippler.setRipplerFill(Color.rgb(42, 112, 226, 0.7));
-            this.setOnMouseClicked(event -> {
-                if(checked == true) {
-                    checkBox.setSelected(false);
-                    checked = false;
-                } else if(checked == false) {
-                    checkBox.setSelected(true);
-                    checked = true;
-                }
-            });
-
-        }
-
-        public void updateItem(String name, boolean empty) {
-            super.updateItem(name, empty);
-            setText(null);
-            setGraphic(null);
-            if (name != null && !empty) {
-                citizenName.setText(name);
-                setGraphic(hBox);
-            }
-        }
-    }
 
 }
