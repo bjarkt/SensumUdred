@@ -1,19 +1,39 @@
 package ACQ;
 
 public interface IAddress {
-
-    void setStreetName(String streetName);
-    void setHouseNumber(String houseNumber);
-    void setZipCode(String zipCode);
-    void setCity(String city);
-    void setMunicipality(String municipality);
-    void setCountry(String country);
-
+    /**
+     * Get the street name of the address.
+     * @return a street name
+     */
     String getStreetName();
-    String getHouseNumber();
-    String getZipCode();
-    String getCity();
-    String getMunicipality();
-    String getCountry();
 
+    /**
+     * Get the house number of the address.
+     * @return a house number
+     */
+    String getHouseNumber();
+
+    /**
+     * Get the zip code of the address.
+     * @return a zip code
+     */
+    String getZipCode();
+
+    /**
+     * Get the city of the address.
+     * @return a city
+     */
+    String getCity();
+
+    /**
+     * Get the municipality the address is registered at.
+     * @return a municipality
+     */
+    String getMunicipality();
+
+    /**
+     * Get the country of the address.
+     * @return a country
+     */
+    String getCountry();
 }
