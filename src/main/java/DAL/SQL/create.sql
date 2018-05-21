@@ -126,7 +126,7 @@ CREATE TABLE changelogs(
 );
 
 CREATE TABLE eventlogs(
-  ID BIGSERIAL,
+  ID BIGSERIAL PRIMARY KEY,
   description TEXT,
   logLevel INTEGER,
   logAction INTEGER
