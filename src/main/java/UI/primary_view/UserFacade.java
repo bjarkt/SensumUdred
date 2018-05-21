@@ -262,6 +262,10 @@ public class UserFacade implements IUserInterface, Initializable {
 			System.out.println(data);
 		});
 
+		elucidationView.onAddNewOffer(data -> {
+			System.out.println(data);
+		});
+
 	}
 
 	/**

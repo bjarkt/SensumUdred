@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
+<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -71,13 +71,13 @@
                                           <TextArea fx:id="caseDescriptionField" editable="false" promptText="Om sagen" styleClass="elucidationView_textArea" />
                                        </children>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox fx:id="offersContainer" spacing="10.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
                                                 <Label styleClass="elucidationView_section_title" text="Tilbud" />
                                                 <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton fx:id="editCaseDescriptionButton1" onAction="#editOffersButton" text="Rediger">
+                                                <JFXButton fx:id="editCaseOffersButton" onAction="#editOffersButton" text="Tilbud tilføj">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
@@ -91,11 +91,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox>
-                                             <children>
-                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
-                                             </children>
-                                          </HBox>
+                                          <HBox />
                                        </children>
                                     </VBox>
                                     <VBox spacing="10.0">
@@ -104,7 +100,7 @@
                                              <children>
                                                 <Label styleClass="elucidationView_section_title" text="Ydelser" />
                                                 <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton fx:id="editCaseDescriptionButton11" text="Rediger">
+                                                <JFXButton fx:id="editCaseOfferingsbutton" onAction="#editOfferingsbutton" text="Rediger">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
@@ -138,6 +134,87 @@
                                           </HBox>
                                        </children>
                                     </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Borgerens samtykke" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="editCaseCitizenAgreementButton" onAction="#editCitizenAgreementButton" text="Rediger">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Borgerens handlekommune" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="editCaseCitizenMunicipalityButton" onAction="#editCitizenMunicipalityButton" text="Rediger">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Særlige omstændigheder" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="editCaseSpecialCircumstancesButton" onAction="#editSpecialCircumstancesButton" text="Rediger">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </VBox>
                               <VBox fx:id="elucidationView_horizontalLayout_right" minWidth="280.0" prefWidth="374.0" spacing="25.0" style="-fx-background-color: white;" HBox.hgrow="SOMETIMES">
@@ -162,7 +239,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" promptText="CPR" styleClass="elucidationView_inputField" text="Lasse Marco Holst Traberg-Larsen" HBox.hgrow="SOMETIMES" />
+                                                <TextField editable="false" onMouseClicked="#editNameOnClick" onMouseEntered="#saveNameOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Lasse Marco Holst Traberg-Larsen" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -172,7 +249,67 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" promptText="CPR" styleClass="elucidationView_inputField" text="1234567890" HBox.hgrow="SOMETIMES" />
+                                                <TextField editable="false" onMouseClicked="#editCPROnClick" onMouseEntered="#saveCPROnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="1234567890" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
+                                             <children>
+                                                <Label styleClass="elucidationView_inputField_description" text="By" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="11.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField editable="false" onMouseClicked="#editAdressCityOnClick" onMouseEntered="#saveAdressCityOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
+                                             <children>
+                                                <Label styleClass="elucidationView_inputField_description" text="Adresse" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="11.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField editable="false" onMouseClicked="#editAdressStreetOnClick" onMouseEntered="#saveAdressStreetOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown Boulevard 1" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
+                                             <children>
+                                                <Label styleClass="elucidationView_inputField_description" text="Civiltilstand" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="11.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField editable="false" onMouseClicked="#editCivilStatusOnClick" onMouseEntered="#saveCivilStatusOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Single" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
+                                             <children>
+                                                <Label styleClass="elucidationView_inputField_description" text="Telefonnummer" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="11.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField editable="false" onMouseClicked="#editContactDetailsPhoneOnClick" onMouseEntered="#saveContactDetailsPhoneOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="88 88 88 88" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
+                                             <children>
+                                                <Label styleClass="elucidationView_inputField_description" text="Mobilnummer" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="11.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField editable="false" onMouseClicked="#editContactDetailsCellOnClick" onMouseEntered="#saveContactDetailsCellOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="99 44 89 00" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
+                                             <children>
+                                                <Label styleClass="elucidationView_inputField_description" text="Registreringsdag" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="11.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField editable="false" onMouseClicked="#editRegistrationDateOnClick" onMouseEntered="#saveRegistrationDateOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="1/1/2018" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -194,7 +331,6 @@
                                              </padding>
                                           </HBox>
                                           <TextField editable="false" promptText="Navn" styleClass="elucidationView_simpleInputField" text="Lasse Marco Holst Traberg-Larsen" />
-                                          <TextField editable="false" promptText="Navn" styleClass="elucidationView_simpleInputField" text="Lasse Marco Holst Traberg-Larsen" />
                                           <HBox>
                                              <children>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -207,6 +343,38 @@
                                              </children>
                                           </HBox>
                                           <TextField promptText="Brugernavn" styleClass="elucidationView_simpleInputField" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="24.0" left="24.0" right="24.0" top="16.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-width: 0 0 1 0; -fx-border-color: #DBDBDB;">
+                                             <children>
+                                                <Label styleClass="elucidationView_sideBox_title" text="Værge" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                          </HBox>
+                                          <TextField editable="false" promptText="Navn" styleClass="elucidationView_simpleInputField" text="Lasse Marco Holst Traberg-Larsen" />
+                                          <HBox>
+                                             <children>
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton text="Tilføj værge">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                          <TextField promptText="Værger" styleClass="elucidationView_simpleInputField" />
                                        </children>
                                        <padding>
                                           <Insets bottom="24.0" left="24.0" right="24.0" top="16.0" />

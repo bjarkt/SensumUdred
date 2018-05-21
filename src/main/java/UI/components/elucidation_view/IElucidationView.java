@@ -9,4 +9,6 @@ public interface IElucidationView extends IComponent {
 
     void onCaseSaveDescription(IEventListener<String> listener);
 
+    void onAddNewOffer(IEventListener<String> listener);
+
 }

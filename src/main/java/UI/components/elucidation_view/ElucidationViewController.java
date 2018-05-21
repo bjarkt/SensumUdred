@@ -5,11 +5,16 @@ import UI.components.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ public class ElucidationViewController extends Component implements IElucidation
 
     private List<IEventListener<?>> leaveEludicationSubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveCaseDescriptionSubscribers = new ArrayList<>();
+    private List<IEventListener<String>> addNewOfferSubscribers = new ArrayList<>();
 
     private IElucidationViewRequire required;
 
@@ -30,31 +36,47 @@ public class ElucidationViewController extends Component implements IElucidation
     private AnchorPane elucidation_view_container;
 
     @FXML
-    private TextArea caseDescriptionField;
-
-    @FXML
-    private JFXButton editCaseDescriptionButton;
-
-    @FXML
     private VBox elucidationView_contentWrapper;
 
     @FXML
     private ScrollPane elucidationView_contentScrollpane;
 
     @FXML
-    private FlowPane elucidationView_contentFlowpane;
-
-    @FXML
     private HBox elucidationView_horizontalLayout;
-
-    @FXML
-    private VBox elucidationView_verticalLayout;
 
     @FXML
     private VBox elucidationView_horizontalLayout_left;
 
     @FXML
+    private JFXButton editCaseDescriptionButton;
+
+    @FXML
+    private TextArea caseDescriptionField;
+
+    @FXML
+    private VBox offersContainer;
+
+    @FXML
+    private JFXButton editCaseOffersButton;
+
+    @FXML
+    private JFXButton editCaseOfferingsbutton;
+
+    @FXML
+    private JFXButton editCaseCitizenAgreementButton;
+
+    @FXML
+    private JFXButton editCaseCitizenMunicipalityButton;
+
+    @FXML
+    private JFXButton editCaseSpecialCircumstancesButton;
+
+    @FXML
     private VBox elucidationView_horizontalLayout_right;
+
+    @FXML
+    private VBox elucidationView_verticalLayout;
+
 
 
 
@@ -90,6 +112,11 @@ public class ElucidationViewController extends Component implements IElucidation
         saveCaseDescriptionSubscribers.add(listener);
     }
 
+    @Override
+    public void onAddNewOffer(IEventListener<String> listener) {
+        addNewOfferSubscribers.add(listener);
+    }
+
     @FXML
     void editCaseDescription(ActionEvent event) {
         if(editCaseDescriptionButton.getText().equals("Rediger")){
@@ -102,9 +129,129 @@ public class ElucidationViewController extends Component implements IElucidation
         }
 
     }
+    @FXML
+    void editAdressCityOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editAdressStreetOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editCPROnClick(MouseEvent event) {
+
+    }
+
+
+
+    @FXML
+    void editCitizenAgreementButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editCitizenMunicipalityButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editCivilStatusOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editContactDetailsCellOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editContactDetailsPhoneOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editNameOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editOfferingsbutton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editOffersButton(ActionEvent event) {
+        TextField textArea = new TextField();
+        textArea.getStyleClass().add("elucidationView_simpleInputField");
+        offersContainer.getChildren().add(textArea);
+        textArea.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.ENTER)){
+                    addNewOfferSubscribers.forEach(listener -> listener.onAction(textArea.getText()));
+                    editCaseOffersButton.requestFocus();
+                }
+            }
+        });
+    }
+
+    @FXML
+    void editRegistrationDateOnClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void editSpecialCircumstancesButton(ActionEvent event) {
+
+    }
+
+
+
+    @FXML
+    void saveAdressCityOnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveAdressStreetOnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveCPROnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveCivilStatusOnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveContactDetailsCellOnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveContactDetailsPhoneOnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveNameOnEnter(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveRegistrationDateOnEnter(MouseEvent event) {
+
+    }
 
     @Override
     public void onLeaveElucidation(IEventListener<?> listener) {
         leaveEludicationSubscribers.add(listener);
     }
 }
+
