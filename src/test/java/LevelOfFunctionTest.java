@@ -56,6 +56,15 @@ public class LevelOfFunctionTest {
         } catch (IllegalArgumentException iae) {
             assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevels[0]);
         }
+
+        try {
+            themeList.get(0).setLevelOfFunction(badFunctionLevels[1]);
+            fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevels[1]);
+        }
+
+        assertEquals(-1, themeList.get(0).getLevelOfFunction());
     }
 
     private void addThemes() {

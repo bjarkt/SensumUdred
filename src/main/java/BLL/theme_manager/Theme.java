@@ -15,6 +15,7 @@ public class Theme implements ITheme{
         this.theme = theme;
         this.subtheme = subtheme;
         this.documentation = documentation;
+        this.levelOfFunction = -1;
     }
 
     /**
