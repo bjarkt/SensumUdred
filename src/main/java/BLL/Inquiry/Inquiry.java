@@ -1,7 +1,7 @@
 package BLL.Inquiry;
 
-import BLL.ACQ.IUser;
-import BLL.ACQ.Task;
+import ACQ.IUser;
+import ACQ.Task;
 
 import java.util.Arrays;
 import java.util.Date;

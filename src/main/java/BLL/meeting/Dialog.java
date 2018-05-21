@@ -1,6 +1,6 @@
 package BLL.meeting;
 
-import BLL.ACQ.*;
+import ACQ.*;
 
 import java.util.Collection;
 import java.util.HashSet;

@@ -1,6 +1,6 @@
 package UI;
 
-import BLL.ACQ.IUser;
+import ACQ.IUser;
 import BLL.IBusiness;
 import BLL.security_system.SecurityLevel;
 import UI.components.popUp.IPopup;
@@ -62,7 +62,7 @@ public aspect SecuredAspect {
             Field f = joinPoint.getThis().getClass().getDeclaredField(joinPoint.getSignature().getName());
             String methodName = f.getAnnotation(Secured.class).value();
 
-            if(user.getAccessLevel() < business.getClass().getMethod(methodName).getAnnotation(SecurityLevel.class).value()){
+            if(user.getAccount().getSecurityLevel() < business.getClass().getMethod(methodName).getAnnotation(SecurityLevel.class).value()){
                 f.setAccessible(true);
                 Object o = f.get(joinPoint.getThis());
                 if(o instanceof Node){

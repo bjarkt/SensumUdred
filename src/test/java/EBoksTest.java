@@ -1,5 +1,5 @@
-import BLL.ACQ.*;
-import BLL.ACQ.IHttp;
+import ACQ.*;
+import ACQ.IHttp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -63,8 +63,8 @@ public class EBoksTest {
     private IUser createUser(String ssn) {
         return new IUser() {
             @Override
-            public int getAccessLevel() {
-                return 0;
+            public IAccount getAccount() {
+                return null;
             }
 
             @Override
@@ -80,26 +80,6 @@ public class EBoksTest {
             @Override
             public String getLastName() {
                 return null;
-            }
-
-            @Override
-            public void setName(String firstName, String lastName) {
-
-            }
-
-            @Override
-            public void setSocialSecurityNumber(String ssn) {
-
-            }
-
-            @Override
-            public void setAddress(IAddress address) {
-
-            }
-
-            @Override
-            public void setPhoneNumber(String phoneNumber) {
-
             }
 
             @Override

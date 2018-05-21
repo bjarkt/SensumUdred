@@ -27,7 +27,7 @@ public class LogAspect {
 		LogLevel ll = annotation.level();
 		LogAction la = annotation.action();
 		String desc = annotation.actionDescription();
-		int userSecurityLevel = SecuritySystem.getInstance().getUser().getAccessLevel();
+		int userSecurityLevel = SecuritySystem.getInstance().getUser().getAccount().getSecurityLevel();
 
 		System.out.println(ll);
 		System.out.println(la);

@@ -1,6 +1,6 @@
 package BLL.case_opening;
 
-import BLL.ACQ.IHttp;
+import ACQ.IHttp;
 import BLL.case_opening.third_party_information.*;
 
 import java.io.*;

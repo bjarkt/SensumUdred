@@ -1,4 +1,4 @@
-package BLL.ACQ;
+package ACQ;
 
 public enum HttpAcceptType {
     JSON("json"), TEXT("text"), PDF("pdf");

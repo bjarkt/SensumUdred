@@ -1,7 +1,7 @@
 package BLL.theme_manager;
 
-import BLL.ACQ.ITheme;
-import BLL.ACQ.ThemeEnum;
+import ACQ.ITheme;
+import ACQ.ThemeEnum;
 
 import java.util.Objects;
 

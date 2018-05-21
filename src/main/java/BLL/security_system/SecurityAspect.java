@@ -1,6 +1,6 @@
 package BLL.security_system;
 
-import BLL.ACQ.IUser;
+import ACQ.IUser;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,7 +22,7 @@ public class SecurityAspect {
 	 * @param user any user
 	 */
 	static void setUserLevel(IUser user) {
-		userLevel = user.getAccessLevel();
+		userLevel = user.getAccount().getSecurityLevel();
 	}
 
 	/**

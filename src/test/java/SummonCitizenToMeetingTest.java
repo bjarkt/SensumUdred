@@ -1,10 +1,10 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import BLL.ACQ.*;
+import ACQ.*;
 import BLL.meeting.Dialog;
-import BLL.ACQ.IHttp;
-import BLL.ACQ.IMeeting;
+import ACQ.IHttp;
+import ACQ.IMeeting;
 import DAL.http_request_utility.HttpRequestUtility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,50 +61,30 @@ public class SummonCitizenToMeetingTest {
 
     private IUser createUser(String ssn) {
         return new IUser() {
-            @Override
-            public int getAccessLevel() {
-                return 0;
-            }
+	        @Override
+	        public IAccount getAccount() {
+		        return null;
+	        }
 
-            @Override
-            public String getName() {
-                return null;
-            }
+	        @Override
+	        public String getName() {
+		        return null;
+	        }
 
-            @Override
-            public String getFirstName() {
-                return null;
-            }
+	        @Override
+	        public String getFirstName() {
+		        return null;
+	        }
 
-            @Override
-            public String getLastName() {
-                return null;
-            }
+	        @Override
+	        public String getLastName() {
+		        return null;
+	        }
 
-            @Override
-            public void setName(String firstName, String lastName) {
-
-            }
-
-            @Override
-            public void setSocialSecurityNumber(String ssn) {
-
-            }
-
-            @Override
-            public void setAddress(IAddress address) {
-
-            }
-
-            @Override
-            public void setPhoneNumber(String phoneNumber) {
-
-            }
-
-            @Override
-            public String getSocialSecurityNumber() {
-                return ssn;
-            }
+	        @Override
+	        public String getSocialSecurityNumber() {
+		        return ssn;
+	        }
         };
     }
 }

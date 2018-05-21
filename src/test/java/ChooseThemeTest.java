@@ -1,4 +1,3 @@
-import BLL.ACQ.ITheme;
 import BLL.Inquiry.Inquiry;
 import BLL.open_case.Case;
 import BLL.open_case.ICase;
@@ -7,8 +6,6 @@ import BLL.theme_manager.Theme;
 import BLL.theme_manager.ThemeManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

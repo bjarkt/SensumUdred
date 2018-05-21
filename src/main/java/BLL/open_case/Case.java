@@ -1,8 +1,8 @@
 package BLL.open_case;
 
-import BLL.ACQ.ElucidationState;
-import BLL.ACQ.ITheme;
-import BLL.ACQ.IUser;
+import ACQ.ElucidationState;
+import ACQ.ITheme;
+import ACQ.IUser;
 import BLL.Inquiry.IInquiry;
 import BLL.Inquiry.Inquiry;
 import BLL.theme_manager.Theme;

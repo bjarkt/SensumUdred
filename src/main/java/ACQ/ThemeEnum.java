@@ -1,4 +1,4 @@
-package BLL.ACQ;
+package ACQ;
 
 public enum ThemeEnum {
     FYSISK_FUNKTIONS_NEDSAETTELSE("Fysisk funktionsnedsættelse", "Funktionsnedsættelse i kroppens anatomi eller kroppens funktioner, eksklusiv de mentale funktioner."),
