@@ -257,6 +257,11 @@ public class UserFacade implements IUserInterface, Initializable {
 		elucidationView.onLeaveElucidation(data -> {
 			setCenter(homeView);
 		});
+
+		elucidationView.onCaseSaveDescription(data -> {
+			System.out.println(data);
+		});
+
 	}
 
 	/**
