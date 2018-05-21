@@ -1,7 +1,5 @@
 package ACQ;
 
-import ACQ.IUser;
-
 public interface ISigningService {
 
     IUser signIn(String username, String password);

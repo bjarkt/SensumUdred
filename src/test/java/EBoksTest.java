@@ -1,5 +1,4 @@
 import ACQ.*;
-import ACQ.IHttp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

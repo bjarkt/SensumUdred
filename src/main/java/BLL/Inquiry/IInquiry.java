@@ -1,7 +1,9 @@
 package BLL.Inquiry;
 
-import java.util.*;
 import ACQ.IUser;
+
+import java.util.Date;
+import java.util.Set;
 
 public interface IInquiry {
 
