@@ -1,6 +1,8 @@
 package BLL.ACQ;
 
-public interface ITheme {
+import BLL.theme_manager.Theme;
+
+public interface ITheme extends Comparable<Theme>  {
     /**
      * Get the theme
      * @return theme enum
@@ -18,4 +20,12 @@ public interface ITheme {
      * @return subtheme
      */
     String getSubtheme();
+
+    /**
+     * Compare a theme using the ThemeEnum ordinal.
+     * @param theme other theme
+     * @return compareTo int
+     */
+    int compareTo(Theme theme);
+
 }
