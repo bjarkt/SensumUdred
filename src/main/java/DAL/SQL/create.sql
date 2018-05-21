@@ -74,7 +74,7 @@ CREATE TABLE cases(
 CREATE TABLE caseHasThirdPartyInformations(
   thirdpartyinformations_ID BIGSERIAL,
   cases_ID BIGSERIAL,
-  PRIMARY KEY (ID, cases_ID)
+  PRIMARY KEY (thirdpartyinformations_ID, cases_ID)
 );
 
 CREATE TABLE thirdpartyinformations(
@@ -98,6 +98,37 @@ CREATE TABLE themes(
 
 CREATE TABLE offerings(
   cases_ID BIGSERIAL,
-  
+  description TEXT,
+  paragraph TEXT,
+  PRIMARY KEY (cases_ID, description)
+);
+
+CREATE TABLE grantings(
+  cases_ID BIGSERIAL,
+  description TEXT,
+  PRIMARY KEY (cases_ID, description)
+);
+
+CREATE TABLE logs(
+  accounts_ID BIGSERIAL,
+  sessionID BIGSERIAL,
+  changelogs_ID BIGSERIAL,
+  eventlogs_ID BIGSERIAL,
+  PRIMARY KEY (accounts_ID, sessionID, changelogs_ID, eventlogs_ID)
+);
+
+CREATE TABLE changelogs(
+  ID BIGSERIAL PRIMARY KEY ,
+  now TEXT,
+  previous TEXT,
+  dateTime DATE,
+  fieldCode TEXT
+);
+
+CREATE TABLE eventlogs(
+  ID BIGSERIAL,
+  description TEXT,
+  logLevel INTEGER,
+  logAction INTEGER
 );
 
