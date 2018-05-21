@@ -2,12 +2,14 @@ package UI.components.elucidation_view;
 
 import UI.components.Component;
 import UI.components.IEventListener;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.ResourceBundle;
 public class ElucidationViewController extends Component implements IElucidationView {
 
     private List<IEventListener<?>> leaveEludicationSubscribers = new ArrayList<>();
+    private List<IEventListener<String>> saveCaseDescriptionSubscribers = new ArrayList<>();
 
     private IElucidationViewRequire required;
 
@@ -25,6 +28,12 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     private AnchorPane elucidation_view_container;
+
+    @FXML
+    private TextArea caseDescriptionField;
+
+    @FXML
+    private JFXButton editCaseDescriptionButton;
 
     @FXML
     private VBox elucidationView_contentWrapper;
@@ -74,6 +83,24 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     void leaveElucidation(ActionEvent event) {
         leaveEludicationSubscribers.forEach(listener -> listener.onAction(null));
+    }
+
+    @Override
+    public void onCaseSaveDescription(IEventListener<String> listener) {
+        saveCaseDescriptionSubscribers.add(listener);
+    }
+
+    @FXML
+    void editCaseDescription(ActionEvent event) {
+        if(editCaseDescriptionButton.getText().equals("Rediger")){
+            caseDescriptionField.setEditable(true);
+            editCaseDescriptionButton.setText("Gem");
+        } else if(editCaseDescriptionButton.getText().equals("Gem")){
+            caseDescriptionField.setEditable(false);
+            editCaseDescriptionButton.setText("Rediger");
+            saveCaseDescriptionSubscribers.forEach(listener -> listener.onAction(caseDescriptionField.getText()));
+        }
+
     }
 
     @Override

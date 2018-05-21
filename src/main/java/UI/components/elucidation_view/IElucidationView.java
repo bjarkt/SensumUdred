@@ -7,4 +7,6 @@ public interface IElucidationView extends IComponent {
 
     void onLeaveElucidation(IEventListener<?> listener);
 
+    void onCaseSaveDescription(IEventListener<String> listener);
+
 }
