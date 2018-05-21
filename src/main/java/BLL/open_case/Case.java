@@ -157,6 +157,9 @@ public class Case extends Inquiry implements ICase {
         this.themes.addAll(Arrays.asList(theme));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<ITheme> getThemes() {
         return themes;
