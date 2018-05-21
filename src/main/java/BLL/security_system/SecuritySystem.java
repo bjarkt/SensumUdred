@@ -1,6 +1,6 @@
 package BLL.security_system;
 
-import BLL.ACQ.IUser;
+import ACQ.IUser;
 
 /**
  * Allows to set the user for the automatically security to function properly.

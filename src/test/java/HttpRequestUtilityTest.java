@@ -1,12 +1,9 @@
-import BLL.ACQ.HttpAcceptType;
-import BLL.ACQ.HttpMethod;
+import ACQ.HttpAcceptType;
+import ACQ.HttpMethod;
 import DAL.http_request_utility.HttpRequestUtility;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 

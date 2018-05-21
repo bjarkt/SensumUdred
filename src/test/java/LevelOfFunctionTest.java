@@ -1,18 +1,18 @@
-import BLL.ACQ.ITheme;
+import ACQ.ITheme;
 import BLL.Inquiry.Inquiry;
 import BLL.open_case.Case;
 import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
-import BLL.theme_manager.Theme;
 import BLL.theme_manager.ThemeManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class LevelOfFunctionTest {
@@ -41,6 +41,33 @@ public class LevelOfFunctionTest {
 
         assertEquals(2, (int)addedLevelsOfFunction.get(0));
         assertEquals(4, (int)addedLevelsOfFunction.get(1));
+    }
+
+    @Test
+    public void setTotalLevelOfFunctionTest() {
+        ICase aCase = createCase();
+
+        char[] badFunctionLevels = {'@', 'G'};
+        char goodFunctionLevel = 'A';
+
+        try {
+            aCase.setTotalLevelOfFunction(badFunctionLevels[0]);
+            fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[0]);
+        }
+
+        try {
+            aCase.setTotalLevelOfFunction(badFunctionLevels[1]);
+            fail("Expected an IndexOutOfBoundsException to be thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[1]);
+        }
+
+        aCase.setTotalLevelOfFunction(goodFunctionLevel);
+
+        assertEquals(goodFunctionLevel, aCase.getTotalLevelOfFunction());
+
     }
 
     @Test

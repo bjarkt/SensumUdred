@@ -1,7 +1,7 @@
 package BLL.meeting;
 
-import BLL.ACQ.IMeeting;
-import BLL.ACQ.IUser;
+import ACQ.IMeeting;
+import ACQ.IUser;
 
 import java.util.Collection;
 

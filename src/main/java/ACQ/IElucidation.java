@@ -1,4 +1,4 @@
-package BLL.ACQ;
+package ACQ;
 
 import BLL.open_case.Guardianship;
 import com.sun.istack.internal.Nullable;

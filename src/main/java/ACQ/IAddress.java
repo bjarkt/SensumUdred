@@ -1,4 +1,4 @@
-package BLL.ACQ;
+package ACQ;
 
 public interface IAddress {
 

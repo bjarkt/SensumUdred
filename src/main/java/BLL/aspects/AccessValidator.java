@@ -1,7 +1,6 @@
 package BLL.aspects;
 
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
 public class AccessValidator {

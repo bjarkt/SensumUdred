@@ -1,6 +1,6 @@
 package DAL.database;
 
-import BLL.ACQ.IMeeting;
+import ACQ.IMeeting;
 
 import java.sql.SQLException;
 

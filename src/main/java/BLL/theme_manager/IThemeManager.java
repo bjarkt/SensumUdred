@@ -1,6 +1,6 @@
 package BLL.theme_manager;
 
-import BLL.ACQ.ThemeEnum;
+import ACQ.ThemeEnum;
 import BLL.open_case.ICase;
 
 import java.util.Set;

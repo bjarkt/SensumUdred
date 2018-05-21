@@ -1,27 +1,22 @@
-package BLL.ACQ;
+package BLL.account_system;
 
-public class User implements IUser{
+import ACQ.IAccount;
+import ACQ.IAddress;
+import ACQ.IUser;
 
-    private int accessLevel;
+public class User implements IUser {
     private String firstName;
     private String lastName;
     private String ssn;
     private IAddress address;
     private String phoneNumber;
+    private Account account;
 
-    public User(String firstName, String lastName, String ssn){
+    public User(String firstName, String lastName, String ssn, Account account){
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
-        this.accessLevel = 1000;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getAccessLevel() {
-        return accessLevel;
+        this.account = account;
     }
 
     /**
@@ -42,32 +37,28 @@ public class User implements IUser{
         return this.lastName;
     }
 
-    @Override
+    /**
+     * Sets the first name and the last name of the user.
+     * @param firstName any first name
+     * @param lastName any last name
+     */
     public void setName(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the address of the user.
+     * @param address any address
      */
-    @Override
-    public void setSocialSecurityNumber(String ssn) {
-        this.ssn = ssn;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setAddress(IAddress address) {
         this.address = address;
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the phone number of the user.
+     * @param phoneNumber any phone number
      */
-    @Override
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -78,6 +69,11 @@ public class User implements IUser{
     @Override
     public String getSocialSecurityNumber() {
         return ssn;
+    }
+
+    @Override
+    public IAccount getAccount() {
+        return account;
     }
 
     /**

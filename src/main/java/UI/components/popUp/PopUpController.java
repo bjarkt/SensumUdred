@@ -1,27 +1,14 @@
 package UI.components.popUp;
 
 import UI.components.Component;
-import UI.components.IEventListener;
-import UI.components.popUp.IPopUpRequire;
-import UI.components.popUp.IPopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXDrawer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.SVGPath;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class PopUpController extends Component implements IPopup {

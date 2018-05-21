@@ -1,6 +1,6 @@
 package DAL.database;
 
-import BLL.ACQ.IMeeting;
+import ACQ.IMeeting;
 import DAL.ConfigManager;
 
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package BLL.ACQ;
+package ACQ;
 
 import java.util.Collection;
 import java.util.GregorianCalendar;
