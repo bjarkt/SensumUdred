@@ -1,10 +1,14 @@
 package UI.primary_view;
-import BLL.ACQ.IUser;
+
+import ACQ.IUser;
 import BLL.IBusiness;
 import BLL.security_system.SecurityLevel;
 import UI.IUserInterface;
 import UI.JavaFX;
+import UI.SecuredAspect;
 import UI.components.IComponent;
+import UI.components.all_elucidations_view.HomeViewController;
+import UI.components.all_elucidations_view.IHomeView;
 import UI.components.drawer.DrawerController;
 import UI.components.drawer.IDrawer;
 import UI.components.drawer.IDrawerRequire;
@@ -12,11 +16,8 @@ import UI.components.elucidation_view.ElucidationViewController;
 import UI.components.elucidation_view.IElucidationView;
 import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
-import UI.components.all_elucidations_view.HomeViewController;
-import UI.components.all_elucidations_view.IHomeView;
 import UI.components.log_in_page.ILogInView;
 import UI.components.log_in_page.LogInViewController;
-import UI.SecuredAspect;
 import UI.components.popUp.IPopUpRequire;
 import UI.components.popUp.IPopup;
 import UI.components.popUp.PopUpController;
@@ -201,7 +202,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void setupVerticalMenu(){
 		verticalMenu.onLogClick(data -> {
 			try {
-				if(user.getAccessLevel() >= business.getClass().getMethod("getChangeLog").getAnnotation(SecurityLevel.class).value()){
+				if(user.getAccount().getSecurityLevel() >= business.getClass().getMethod("getChangeLog").getAnnotation(SecurityLevel.class).value()){
 					if(isMobile) drawer.close();
 					popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
 					setCenter(null);

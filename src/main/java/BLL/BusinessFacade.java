@@ -1,11 +1,8 @@
 package BLL;
 
-import BLL.log_agent.ChangeLog;
-import BLL.security_system.SecurityLevel;
-import BLL.ACQ.IElucidation;
-import BLL.ACQ.IUser;
-import BLL.account_system.ILoginService;
-import BLL.account_system.LoginService;
+import ACQ.IElucidation;
+import ACQ.IUser;
+import BLL.account_system.UserManager;
 import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
 import BLL.security_system.SecurityLevel;
@@ -21,8 +18,7 @@ public class BusinessFacade implements IBusiness {
 	 */
 	@Override
 	public IUser login(String username, String password) {
-		ILoginService loginService = new LoginService();
-		return loginService.login(username, password);
+		return UserManager.getInstance().signIn(username, password);
 	}
 
 	/**

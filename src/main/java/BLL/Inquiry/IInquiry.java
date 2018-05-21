@@ -1,10 +1,9 @@
 package BLL.Inquiry;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.*;
-import BLL.ACQ.IUser;
+import ACQ.IUser;
+
+import java.util.Date;
+import java.util.Set;
 
 public interface IInquiry {
 

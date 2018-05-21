@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import com.jfoenix.controls.JFXDrawer?>
-
-
 <JFXDrawer fx:id="drawer" defaultDrawerSize="250.0" resizableOnDrag="true" stylesheets="@drawer.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.drawer.DrawerController" />

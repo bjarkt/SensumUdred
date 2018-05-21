@@ -1,8 +1,8 @@
 package BLL.open_case;
 
-import BLL.ACQ.ElucidationState;
-import BLL.ACQ.ITheme;
-import BLL.ACQ.IUser;
+import ACQ.ElucidationState;
+import ACQ.ITheme;
+import ACQ.IUser;
 import BLL.Inquiry.IInquiry;
 import BLL.Inquiry.Inquiry;
 import javafx.util.Pair;
@@ -55,6 +55,8 @@ public class Case extends Inquiry implements ICase {
 
     // Time and date of case opening.
     private Date dateOfOpening;
+
+    private char totalLevelOfFunction;
 
     public Case(IInquiry inquiry){
         setState(ElucidationState.CASE);
@@ -154,6 +156,34 @@ public class Case extends Inquiry implements ICase {
     @Override
     public void addThemes(ITheme... theme) {
         this.themes.addAll(Arrays.asList(theme));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<ITheme> getThemes() {
+        return themes;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setTotalLevelOfFunction(char level) {
+        if (level < 'A' || level > 'F') {
+            throw new IllegalArgumentException("level must be between A and F, it was " + level);
+        }
+
+        this.totalLevelOfFunction = level;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public char getTotalLevelOfFunction() {
+        return totalLevelOfFunction;
     }
 
     /**

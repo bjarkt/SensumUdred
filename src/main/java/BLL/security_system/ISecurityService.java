@@ -1,6 +1,6 @@
 package BLL.security_system;
 
-import BLL.ACQ.IUser;
+import ACQ.IUser;
 
 public interface ISecurityService {
 	/**

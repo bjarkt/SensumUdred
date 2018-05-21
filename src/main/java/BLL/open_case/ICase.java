@@ -1,7 +1,7 @@
 package BLL.open_case;
 
-import BLL.ACQ.ITheme;
-import BLL.ACQ.IUser;
+import ACQ.ITheme;
+import ACQ.IUser;
 import javafx.util.Pair;
 
 import java.util.Set;
@@ -20,13 +20,29 @@ public interface ICase {
      */
     void addGrantings(String ...granting);
 
-
     /**
      * Add one or more themes to the case
      * @param theme one or more themes.
      */
-    void addThemes(ITheme...theme);
+    void addThemes(ITheme ... theme);
 
+    /**
+     * Get the themes for the case
+     * @return themes
+     */
+    Set<ITheme> getThemes();
+
+    /**
+     * Set the total level of function
+     * @param level new level of function
+     */
+    void setTotalLevelOfFunction(char level);
+
+    /**
+     * Get the total level of function for the case
+     * @return total level of function
+     */
+    char getTotalLevelOfFunction();
 
     /**
      * Adds description to citizens case.

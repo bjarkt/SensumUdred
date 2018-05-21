@@ -2,9 +2,6 @@ package UI.components.vertical_menu;
 
 import UI.components.IComponent;
 import UI.components.IEventListener;
-import UI.components.SecureComponent;
-
-import java.util.List;
 
 public interface IVerticalMenu extends IComponent {
 

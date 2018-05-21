@@ -1,4 +1,4 @@
-package BLL.ACQ;
+package ACQ;
 
 import BLL.Inquiry.IInquiry;
 import BLL.Inquiry.Inquiry;

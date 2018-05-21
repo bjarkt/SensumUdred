@@ -2,7 +2,6 @@ package UI.components.user_menu;
 
 import UI.components.IComponent;
 import UI.components.IEventListener;
-import javafx.scene.layout.Pane;
 
 public interface IUserMenu extends IComponent {
 

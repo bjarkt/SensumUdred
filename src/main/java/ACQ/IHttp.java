@@ -1,7 +1,4 @@
-package BLL.ACQ;
-
-import BLL.ACQ.HttpAcceptType;
-import BLL.ACQ.HttpMethod;
+package ACQ;
 
 import java.io.IOException;
 import java.util.Map;

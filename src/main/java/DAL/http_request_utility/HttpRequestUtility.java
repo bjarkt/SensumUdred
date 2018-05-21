@@ -1,13 +1,12 @@
 package DAL.http_request_utility;
 
-import BLL.ACQ.HttpAcceptType;
-import BLL.ACQ.HttpMethod;
+import ACQ.HttpAcceptType;
+import ACQ.HttpMethod;
 import DAL.ConfigManager;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Map;
 
 public class HttpRequestUtility {

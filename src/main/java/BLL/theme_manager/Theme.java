@@ -1,19 +1,21 @@
 package BLL.theme_manager;
 
-import BLL.ACQ.ITheme;
-import BLL.ACQ.ThemeEnum;
+import ACQ.ITheme;
+import ACQ.ThemeEnum;
 
 import java.util.Objects;
 
-public class Theme implements ITheme, Comparable<Theme> {
+public class Theme implements ITheme{
     private ThemeEnum theme;
     private String subtheme;
     private String documentation;
+    private int levelOfFunction;
 
     public Theme(ThemeEnum theme, String subtheme, String documentation) {
         this.theme = theme;
         this.subtheme = subtheme;
         this.documentation = documentation;
+        this.levelOfFunction = -1;
     }
 
     /**
@@ -37,6 +39,25 @@ public class Theme implements ITheme, Comparable<Theme> {
         return subtheme;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public int getLevelOfFunction() {
+        return levelOfFunction;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setLevelOfFunction(int levelOfFunction) throws IllegalArgumentException {
+        if (levelOfFunction < 0 || levelOfFunction > 4) {
+            throw new IllegalArgumentException("levelOfFunction must be between 0 and 4, it was " + levelOfFunction);
+        }
+
+        this.levelOfFunction = levelOfFunction;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,9 +73,7 @@ public class Theme implements ITheme, Comparable<Theme> {
     }
 
     /**
-     * Compare a theme using the ThemeEnum ordinal.
-     * @param theme other theme
-     * @return compareTo int
+     * {@inheritDoc}
      */
     @Override
     public int compareTo(Theme theme) {

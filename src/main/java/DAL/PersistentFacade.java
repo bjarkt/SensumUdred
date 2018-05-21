@@ -1,8 +1,8 @@
 package DAL;
 
-import BLL.ACQ.HttpAcceptType;
-import BLL.ACQ.HttpMethod;
-import BLL.ACQ.IMeeting;
+import ACQ.HttpAcceptType;
+import ACQ.HttpMethod;
+import ACQ.IMeeting;
 import DAL.database.IDatabase;
 import DAL.database.PostgreSqlDatabase;
 import DAL.http_request_utility.HttpRequestUtility;

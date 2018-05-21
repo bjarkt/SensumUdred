@@ -1,6 +1,6 @@
 package BLL.address_getter;
 
-import BLL.ACQ.IAddress;
+import ACQ.IAddress;
 
 public interface IGetAddress {
     IAddress getAddress(String cpr);
