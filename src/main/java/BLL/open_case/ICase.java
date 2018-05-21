@@ -2,8 +2,10 @@ package BLL.open_case;
 
 import BLL.ACQ.ITheme;
 import BLL.ACQ.IUser;
+import BLL.theme_manager.Theme;
 import javafx.util.Pair;
 
+import java.util.Collection;
 import java.util.Set;
 
 public interface ICase {
@@ -27,6 +29,11 @@ public interface ICase {
      */
     void addThemes(ITheme...theme);
 
+    /**
+     * Get the themes for the case
+     * @return themes
+     */
+    Set<ITheme> getThemes();
 
     /**
      * Adds description to citizens case.

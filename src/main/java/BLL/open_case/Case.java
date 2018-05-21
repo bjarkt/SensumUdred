@@ -5,6 +5,7 @@ import BLL.ACQ.ITheme;
 import BLL.ACQ.IUser;
 import BLL.Inquiry.IInquiry;
 import BLL.Inquiry.Inquiry;
+import BLL.theme_manager.Theme;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -154,6 +155,11 @@ public class Case extends Inquiry implements ICase {
     @Override
     public void addThemes(ITheme... theme) {
         this.themes.addAll(Arrays.asList(theme));
+    }
+
+    @Override
+    public Set<ITheme> getThemes() {
+        return themes;
     }
 
     /**

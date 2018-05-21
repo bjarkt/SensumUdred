@@ -9,6 +9,7 @@ public class Theme implements ITheme{
     private ThemeEnum theme;
     private String subtheme;
     private String documentation;
+    private int levelOfFunction;
 
     public Theme(ThemeEnum theme, String subtheme, String documentation) {
         this.theme = theme;
@@ -35,6 +36,25 @@ public class Theme implements ITheme{
      */
     public String getSubtheme() {
         return subtheme;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getLevelOfFunction() {
+        return levelOfFunction;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setLevelOfFunction(int levelOfFunction) throws IllegalArgumentException {
+        if (levelOfFunction < 0 || levelOfFunction > 4) {
+            throw new IllegalArgumentException("levelOfFunction must be between 0 and 4, it was " + levelOfFunction);
+        }
+
+        this.levelOfFunction = levelOfFunction;
     }
 
     @Override
