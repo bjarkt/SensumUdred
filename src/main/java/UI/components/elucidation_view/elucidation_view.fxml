@@ -317,7 +317,7 @@
                                           <Insets bottom="24.0" left="24.0" right="24.0" top="16.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
+                                    <VBox fx:id="caseWorkerContainer" spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-width: 0 0 1 0; -fx-border-color: #DBDBDB;">
                                              <children>
@@ -342,7 +342,6 @@
                                                 </JFXButton>
                                              </children>
                                           </HBox>
-                                          <TextField promptText="Brugernavn" styleClass="elucidationView_simpleInputField" />
                                        </children>
                                        <padding>
                                           <Insets bottom="24.0" left="24.0" right="24.0" top="16.0" />
@@ -363,18 +362,6 @@
                                              </padding>
                                           </HBox>
                                           <TextField editable="false" promptText="Navn" styleClass="elucidationView_simpleInputField" text="Lasse Marco Holst Traberg-Larsen" />
-                                          <HBox>
-                                             <children>
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton text="Tilføj værge">
-                                                   <styleClass>
-                                                      <String fx:value="flat-button" />
-                                                      <String fx:value="flat-button_outlined" />
-                                                   </styleClass>
-                                                </JFXButton>
-                                             </children>
-                                          </HBox>
-                                          <TextField promptText="Værger" styleClass="elucidationView_simpleInputField" />
                                        </children>
                                        <padding>
                                           <Insets bottom="24.0" left="24.0" right="24.0" top="16.0" />

@@ -2,6 +2,8 @@ package UI.components.elucidation_view;
 
 import UI.components.Component;
 import UI.components.IEventListener;
+import UI.components.dropdown_search.DropdownSearchController;
+import UI.components.dropdown_search.IDropdownSearch;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
@@ -31,6 +33,13 @@ public class ElucidationViewController extends Component implements IElucidation
     private IElucidationViewRequire required;
 
     private boolean isMobile;
+
+    private IDropdownSearch caseWorkerSearcher;
+
+    @FXML
+    private VBox caseWorkerContainer;
+
+
 
     @FXML
     private AnchorPane elucidation_view_container;
@@ -87,18 +96,19 @@ public class ElucidationViewController extends Component implements IElucidation
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        // Makes view responsive
         elucidation_view_container.widthProperty().addListener((observable, oldValue, newValue) -> {
-
             if(isMobile && newValue.doubleValue() > 800){
                 isMobile = false;
                 elucidationView_horizontalLayout.getChildren().addAll(elucidationView_horizontalLayout_left, elucidationView_horizontalLayout_right);
-
             } else if(!isMobile && newValue.doubleValue() < 800){
                 isMobile = true;
                 elucidationView_verticalLayout.getChildren().addAll(elucidationView_horizontalLayout_left, elucidationView_horizontalLayout_right);
-
             }
         });
+
+        caseWorkerSearcher = new DropdownSearchController();
+        caseWorkerContainer.getChildren().add(caseWorkerSearcher.getView());
 
     }
 

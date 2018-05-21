@@ -1,0 +1,50 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+
+.elucidationView_inputField_wrapper{
+    -fx-padding: 0 0 0 10px;
+    -fx-text-fill: #000000;
+    -fx-background-color: #fcfcfc;
+    -fx-min-height: 48px;
+    -fx-max-height: 48px;
+    -fx-border-radius: 2px;
+    -fx-border-color:  #DBDBDB;
+}
+
+
+.elucidationView_inputField{
+    -fx-font-size: 15px;
+    -fx-font-family: "Circular Std Medium";
+    -fx-text-fill: #000000;
+    -fx-background-color: #fcfcfc;
+    -fx-min-height: 46px;
+    -fx-max-height: 46px;
+    -fx-border-radius: 2px;
+    -fx-border-width: 0 0 0 1;
+    -fx-border-color:  #DBDBDB;
+}
+
+.results .list-cell:hover{
+    -fx-cursor: hand;
+}
+
+.results .list-cell:hover Label{
+    -fx-text-fill: #4177F6;
+}
+
+.list-cell:focused Label{
+    -fx-text-fill: #4177F6;
+}
+
+.list-cell:even{
+    -fx-background-color: #fcfcfc;
+}
+
+.list-cell:odd{
+    -fx-background-color: #fcfcfc;
+}
+
+.list-cell:focused{
+    -fx-background-color: #fcfcfc;
+}
