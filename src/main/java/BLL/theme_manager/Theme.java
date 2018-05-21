@@ -5,7 +5,7 @@ import BLL.ACQ.ThemeEnum;
 
 import java.util.Objects;
 
-public class Theme implements ITheme {
+public class Theme implements ITheme, Comparable<Theme> {
     private ThemeEnum theme;
     private String subtheme;
     private String documentation;
@@ -49,5 +49,15 @@ public class Theme implements ITheme {
     @Override
     public int hashCode() {
         return Objects.hash(theme, documentation);
+    }
+
+    /**
+     * Compare a theme using the ThemeEnum ordinal.
+     * @param theme other theme
+     * @return compareTo int
+     */
+    @Override
+    public int compareTo(Theme theme) {
+        return Integer.compare(this.theme.ordinal(), theme.theme.ordinal());
     }
 }
