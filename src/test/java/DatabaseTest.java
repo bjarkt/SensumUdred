@@ -1,4 +1,5 @@
-import DAL.database.IDatabase;
+import DAL.database.DatabaseService;
+import DAL.database.IDatabaseService;
 import DAL.database.PostgreSqlDatabase;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 public class DatabaseTest {
 	@Test
 	public void databaseConnectionTest() {
-		IDatabase db = new PostgreSqlDatabase();
+		IDatabaseService db = new DatabaseService();
 
 		boolean isValid = true;
 		try {

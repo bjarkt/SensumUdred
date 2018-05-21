@@ -1,15 +1,12 @@
 package DAL.database;
 
-import ACQ.IMeeting;
 import DAL.ConfigManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class PostgreSqlDatabase implements IDatabase {
+public abstract class PostgreSqlDatabase {
 	private static String url;
 	private static String username;
 	private static String password;
@@ -20,27 +17,6 @@ public class PostgreSqlDatabase implements IDatabase {
 		password =  ConfigManager.getInstance().getProperties().getProperty("db-password");
 	}
 
-	@Override
-	public boolean fileMeeting(IMeeting meeting) {
-		final AtomicBoolean isFiled = new AtomicBoolean(false);
-		final String query = "";
-
-		executeQuery(conn-> {
-			PreparedStatement ps = conn.prepareStatement(query);
-			//ps.set
-			// set the parameters to the SQL...
-
-			isFiled.set(ps.executeUpdate() > 0);
-		});
-
-		return isFiled.get();
-	}
-
-	@Override
-	public void testConnection() throws SQLException {
-		getConnection();
-	}
-
 	protected void executeQuery(IPostgreSqlCallback callback) {
 		try(Connection conn = getConnection()) {
 			callback.execute(conn);
@@ -49,9 +25,7 @@ public class PostgreSqlDatabase implements IDatabase {
 		}
 	}
 
-	private static Connection getConnection() throws SQLException {
+	static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
 	}
-
-
 }

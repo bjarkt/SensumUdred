@@ -1,6 +1,7 @@
 package BLL.address_getter;
 
 import ACQ.*;
+import BLL.account_system.Address;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -11,9 +12,11 @@ public class GetAddress implements IGetAddress {
     private IHttp httpClient;
     private String apiUrl;
     private Gson gson;
+    private Class<? extends IAddress> addressClass;
 
-    public GetAddress(IHttp httpClient) {
+    public GetAddress(IHttp httpClient, Class<? extends IAddress> addressClass) {
         this.httpClient = httpClient;
+        this.addressClass = addressClass;
         this.apiUrl = "https://sensumudred-api.herokuapp.com/cpr/get-address";
         this.gson = new Gson();
     }
@@ -24,7 +27,7 @@ public class GetAddress implements IGetAddress {
         queryMap.put("cpr", cpr);
         try {
             String result = new String(httpClient.makeHttpRequest(apiUrl, queryMap, HttpMethod.POST, HttpAcceptType.JSON));
-            address = gson.fromJson(result, Address.class);
+            address = gson.fromJson(result, addressClass);
         } catch (IOException e) {
             e.printStackTrace();
         }
