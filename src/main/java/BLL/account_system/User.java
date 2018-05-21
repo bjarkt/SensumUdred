@@ -12,10 +12,11 @@ public class User implements IUser {
     private String phoneNumber;
     private Account account;
 
-    public User(Account account, String firstName, String lastName, String ssn){
+    public User(String firstName, String lastName, String ssn, Account account){
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
+        this.account = account;
     }
 
     /**

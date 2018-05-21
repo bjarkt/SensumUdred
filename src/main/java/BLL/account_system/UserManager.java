@@ -38,7 +38,8 @@ public class UserManager implements IUserManager, ISigningService {
 
                 if(tokens[4].equals(username) && tokens[5].equals(password)){
                     Account account = new Account(username, 1000);
-                    user = new User(account, "Firstname", "Lastname", "1234567890");
+                    user = new User("Firstname", "Lastname", "1234567890", account);
+
                     this.user = user;
                 }
             }
