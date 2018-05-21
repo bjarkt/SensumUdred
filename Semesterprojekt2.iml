@@ -23,9 +23,9 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="jfoenix-8.0.1">
+      <library name="jfoenix-8.0.4">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jfoenix-8.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jfoenix-8.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -60,6 +60,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jfoenix-8.0.4" level="project" />
   </component>
 </module>
