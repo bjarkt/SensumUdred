@@ -1,14 +1,9 @@
 package BLL.account_system;
 
+import ACQ.IAccount;
 import ACQ.ISigningService;
 import ACQ.IUser;
 import ACQ.IUserManager;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class UserManager implements IUserManager, ISigningService {
     private static UserManager INSTANCE;
@@ -26,96 +21,107 @@ public class UserManager implements IUserManager, ISigningService {
         return INSTANCE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IUser signIn(String username, String password) {
-        User user = null;
-
-        try(Scanner scanner = new Scanner(new File("users.txt"))){
-            String[] tokens;
-
-            while(scanner.hasNextLine()){
-                tokens = scanner.nextLine().split("\t");
-
-                if(tokens[4].equals(username) && tokens[5].equals(password)){
-                    Account account = new Account(username, 1000);
-                    user = new User("Firstname", "Lastname", "1234567890", account);
-
-                    this.user = user;
-                }
-            }
-        } catch (FileNotFoundException ex){
-            ex.printStackTrace();
-        }
-
-        return user;
+        return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void signOut() {
-        this.user = null;
-    }
-
-    @Override
-    public void signUpAccount(String username, String password, int securityLevel) {
-
-    }
-
-    @Override
-    public void signUpUser(String SSN, String firstName, String lastName, String phoneNumber, String username, String password) {
-        try(PrintWriter outputStream = new PrintWriter(new FileOutputStream("users.txt",true))){
-            outputStream.write(firstName+"\t"+lastName+"\t"+SSN+"\t"+phoneNumber+"\t"+username+"\t"+password+"\n");
-        } catch (FileNotFoundException ex){
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
-    public void signUpUser(String SSN) {
-
-    }
-
-    @Override
-    public boolean getSignedUser() {
+    public boolean signOut() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean deleteUser() {
+    public boolean signUpAccount(String username, String password, int securityLevel) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean deleteAccount() {
+    public boolean signUpUser(String SSN) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean accountExists() {
+    public boolean signUpUser(String SSN, String firstName, String lastName, String phoneNumber, String email) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean userExists() {
+    public boolean signUpUser(IUser user) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean changeSecurityLevel() {
+    public boolean getSignedInUser() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean changePassword() {
+    public boolean accountExists(IAccount account) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean lockAccount() {
+    public boolean userExists(IUser user) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean unlockAccount() {
+    public boolean changeSecurityLevel(IAccount account, int newSecurityLevel) {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean changePassword(IAccount account, String newPassword) {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean lockAccount(IAccount account) {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean unlockAccount(IAccount account) {
         return false;
     }
 }

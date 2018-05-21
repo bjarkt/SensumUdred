@@ -5,11 +5,12 @@ import ACQ.IAddress;
 import ACQ.IUser;
 
 public class User implements IUser {
+    private String ssn;
     private String firstName;
     private String lastName;
-    private String ssn;
-    private IAddress address;
+    private Address address;
     private String phoneNumber;
+    private String email;
     private Account account;
 
     public User(String firstName, String lastName, String ssn, Account account){
@@ -23,69 +24,53 @@ public class User implements IUser {
      * {@inheritDoc}
      */
     @Override
-    public String getName() {
-        return this.firstName + " " + this.lastName;
-    }
-
-    @Override
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    @Override
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    @Override
-    public IAddress getAddress() {
-        return address;
-    }
-
-    @Override
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    @Override
-    public String getEmail() {
-        return null;
-    }
-
-    /**
-     * Sets the first name and the last name of the user.
-     * @param firstName any first name
-     * @param lastName any last name
-     */
-    public void setName(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    /**
-     * Sets the address of the user.
-     * @param address any address
-     */
-    public void setAddress(IAddress address) {
-        this.address = address;
-    }
-
-    /**
-     * Sets the phone number of the user.
-     * @param phoneNumber any phone number
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public String getSocialSecurityNumber() {
+        return ssn;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getSocialSecurityNumber() {
-        return ssn;
+    public String getFirstName() {
+        return this.firstName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IAddress getAddress() {
+        return address;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccount getAccount() {
         return account;
@@ -95,7 +80,49 @@ public class User implements IUser {
      * {@inheritDoc}
      */
     @Override
+    public String getName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    /**
+     * Set the first name and the last name of the user.
+     * @param firstName any first name
+     * @param lastName any last name
+     */
+    public void setName(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    /**
+     * Set the address of the user.
+     * @param address any address
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /**
+     * Set the phone number of the user.
+     * @param phoneNumber any phone number
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Set the email of the user.
+     * @param email any email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
-        return this.firstName + "\t" + this.lastName + "\t" + this.ssn;
+        return this.ssn + "\t" + this.firstName + "\t" + this.lastName;
     }
 }

@@ -1,13 +1,9 @@
 package ACQ;
 
-public interface IUserManager {
-	boolean getSignedUser();
-	boolean deleteUser();
-	boolean deleteAccount();
-	boolean accountExists();
-	boolean userExists();
-	boolean changeSecurityLevel();
-	boolean changePassword();
-	boolean lockAccount();
-	boolean unlockAccount();
+public interface IUserManager extends IIUserService {
+	/**
+	 * Returns the signed in user.
+	 * @return user, otherwise null, if no user is signed in
+	 */
+	boolean getSignedInUser();
 }
