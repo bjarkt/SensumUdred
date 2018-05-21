@@ -108,3 +108,15 @@ JFXButton:hover, Button:hover{
     -fx-border-color: #dce0e0;
 }
 
+
+/* LISTVIEWS */
+.listView_primaryText{
+    -fx-font-size: 15px;
+    -fx-font-family: "Circular Std Medium";
+}
+
+.listView_secondaryText{
+    -fx-font-family: "Circular Std Book" !important;
+    -fx-font-size: 12px;
+    -fx-text-fill: #a2a2a2;
+}

@@ -27,7 +27,7 @@
       <HBox>
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <JFXButton fx:id="addButton" text="TIlføj sagsbehandler">
+            <JFXButton fx:id="addButton" onAction="#done" text="TIlføj sagsbehandler">
                <styleClass>
                   <String fx:value="flat-button" />
                   <String fx:value="flat-button_outlined" />

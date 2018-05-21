@@ -1,5 +1,7 @@
 package UI.components.elucidation_view;
 
+import ACQ.IAccount;
+import ACQ.IAddress;
 import ACQ.IUser;
 import UI.components.Component;
 import UI.components.IEventListener;
@@ -8,11 +10,9 @@ import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
-import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -21,9 +21,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -109,21 +111,73 @@ public class ElucidationViewController extends Component implements IElucidation
         caseWorkerSearcher = new DropdownSearchController<>(new IDropdownSearchRequire<IUser>() {
             @Override
             public JFXListCell getCellFactory() {
-                return new IUserSearcherCell<IUser>() {
-                    @Override
-                    protected void updateItem(IUser item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setText(item ==  null ? " " : item.getFirstName() + item.getLastName());
-                        if(item != null){
-                            this.getChildren().add(new Label(item.getAccount().getUsername()));
-                        }
-                    }
-                };
+                return new NameCheckboxCell(){};
             }
         });
 
         // Add user searcher to appropriate container.
         caseWorkerContainer.getChildren().add(caseWorkerSearcher.getView());
+
+        caseWorkerSearcher.expand();
+        List<IUser> test = new ArrayList<>();
+        test.add(new IUser() {
+            @Override
+            public String getSocialSecurityNumber() {
+                return null;
+            }
+
+            @Override
+            public String getFirstName() {
+                return "Lasse";
+            }
+
+            @Override
+            public String getLastName() {
+                return "Traberg";
+            }
+
+            @Override
+            public IAddress getAddress() {
+                return null;
+            }
+
+            @Override
+            public String getPhoneNumber() {
+                return null;
+            }
+
+            @Override
+            public String getEmail() {
+                return null;
+            }
+
+            @Override
+            public IAccount getAccount() {
+                return new IAccount() {
+                    @Override
+                    public String getUsername() {
+                        return "lasse123";
+                    }
+
+                    @Override
+                    public boolean isLocked() {
+                        return false;
+                    }
+
+                    @Override
+                    public int getSecurityLevel() {
+                        return 0;
+                    }
+                };
+            }
+
+            @Override
+            public String getName() {
+                return "Lasse Traberg";
+            }
+        });
+        caseWorkerSearcher.updateList(test);
+
 
     }
 
