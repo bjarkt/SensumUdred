@@ -26,11 +26,43 @@ CREATE TABLE users(
   PRIMARY KEY (SSN, email)
 );
 
+CREATE TABLE haslogin(
+  users_SSN VARCHAR(10),
+  users_email TEXT,
+  accounts_ID BIGSERIAL,
+  PRIMARY KEY (users_SSN, users_email, accounts_ID)
+);
+
+CREATE TABLE accounts(
+  ID BIGSERIAL PRIMARY KEY,
+  userName TEXT,
+  password_hash TEXT,
+  securityLevel INTEGER,
+  isLoggedIn BOOLEAN,
+  attempts INTEGER,
+  dateLastLogin DATE
+);
+
 CREATE TABLE guardians(
   citizenSSN  VARCHAR(10),
   guardianSSN VARCHAR(10),
   representation TEXT,
   PRIMARY KEY(citizenSSN, guardianSSN)
+);
+
+CREATE TABLE participates(
+  users_SSN VARCHAR(10),
+  users_email TEXT,
+  meetings_ID BIGSERIAL,
+  PRIMARY KEY (users_email, users_SSN, meetings_ID)
+);
+
+CREATE TABLE meetings(
+  ID BIGSERIAL PRIMARY KEY ,
+  information TEXT,
+  date DATE,
+  creaton VARCHAR(10),
+  isCancelled BOOLEAN
 );
 
 CREATE TABLE worksin(
