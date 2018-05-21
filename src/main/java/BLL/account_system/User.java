@@ -37,6 +37,21 @@ public class User implements IUser {
         return this.lastName;
     }
 
+    @Override
+    public IAddress getAddress() {
+        return address;
+    }
+
+    @Override
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @Override
+    public String getEmail() {
+        return null;
+    }
+
     /**
      * Sets the first name and the last name of the user.
      * @param firstName any first name

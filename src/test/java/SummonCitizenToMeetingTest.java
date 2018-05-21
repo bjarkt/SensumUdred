@@ -15,21 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SummonCitizenToMeetingTest {
     private Dialog dialog;
     private IMeeting meeting;
-    private IUser creatorOfMeeting = createUser("1111");
-    private IUser participant = createUser("1234");
+    private IUser creatorOfMeeting = TestHelper.createUser("1111");
+    private IUser participant = TestHelper.createUser("1234");
 
-    private IHttp httpClient = new IHttp() {
-        @Override
-        public byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
-            return HttpRequestUtility.makeHttpRequest(urlString, query, method, acceptType);
-        }
-    };
+    private IHttp httpClient = TestHelper.getHttpClient();
 
     @BeforeEach
     public void initialize() {
         dialog = new Dialog(httpClient);
         meeting = dialog.createMeeting(creatorOfMeeting);
-        meeting.addParticipant(participant, createUser("0987"));
+        meeting.addParticipant(participant, TestHelper.createUser("0987"));
         meeting.setMeetingDate(2018, 6, 25, 6, 4);
         meeting.setInformation("HEJ");
     }
@@ -55,34 +50,5 @@ public class SummonCitizenToMeetingTest {
 
         assertTrue(meetingToCancel.get().getInformation().startsWith("VIGTIGT: Dette møde er blevet aflyst!"));
         assertTrue(meetingIsCancelled);
-    }
-
-    private IUser createUser(String ssn) {
-        return new IUser() {
-	        @Override
-	        public IAccount getAccount() {
-		        return null;
-	        }
-
-	        @Override
-	        public String getName() {
-		        return null;
-	        }
-
-	        @Override
-	        public String getFirstName() {
-		        return null;
-	        }
-
-	        @Override
-	        public String getLastName() {
-		        return null;
-	        }
-
-	        @Override
-	        public String getSocialSecurityNumber() {
-		        return ssn;
-	        }
-        };
     }
 }

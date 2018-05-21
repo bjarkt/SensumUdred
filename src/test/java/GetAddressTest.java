@@ -16,12 +16,7 @@ public class GetAddressTest {
 
     @Test
     public void TestAddressGetter() {
-        IGetAddress getAddress = new GetAddress(new IHttp() {
-            @Override
-            public byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
-                return HttpRequestUtility.makeHttpRequest(urlString, query, method, acceptType);
-            }
-        });
+        IGetAddress getAddress = new GetAddress(TestHelper.getHttpClient());
 
         IAddress addressResult = getAddress.getAddress("1104694124");
         assertEquals("Lærkevej", addressResult.getStreetName());

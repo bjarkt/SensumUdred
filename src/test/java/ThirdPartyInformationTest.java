@@ -15,12 +15,7 @@ import java.util.Map;
 
 public class ThirdPartyInformationTest {
 
-	IHttp httpClient = new IHttp() {
-		@Override
-		public byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
-			return new PersistentFacade().makeHttpRequest(urlString, query, method, acceptType);
-		}
-	};
+	IHttp httpClient = TestHelper.getHttpClient();
 
 	@Test
 	public void CaseOpeningTest() {

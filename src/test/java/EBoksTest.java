@@ -15,20 +15,15 @@ public class EBoksTest {
 
     @BeforeEach
     public void initialize() {
-        eboks = new EBoks(new IHttp() {
-            @Override
-            public byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
-                return DAL.http_request_utility.HttpRequestUtility.makeHttpRequest(urlString, query, method, acceptType);
-            }
-        });
+        eboks = new EBoks(TestHelper.getHttpClient());
     }
 
     @Test
     public void sendMeetingMessageTest() {
         Set<IUser> participants = new HashSet<>();
-        participants.add(createUser("1234"));
-        participants.add(createUser("5678"));
-        participants.add(createUser("9012"));
+        participants.add(TestHelper.createUser("1234"));
+        participants.add(TestHelper.createUser("5678"));
+        participants.add(TestHelper.createUser("9012"));
 
         boolean successfulMessage = eboks.sendMeetingMessage(participants, new GregorianCalendar(), "Meeting message test");
 
@@ -38,9 +33,9 @@ public class EBoksTest {
     @Test
     public void sendMessageTest() {
         Set<IUser> participants = new HashSet<>();
-        participants.add(createUser("1234"));
-        participants.add(createUser("5678"));
-        participants.add(createUser("9012"));
+        participants.add(TestHelper.createUser("1234"));
+        participants.add(TestHelper.createUser("5678"));
+        participants.add(TestHelper.createUser("9012"));
 
         boolean successfulMessage = eboks.sendMessage(participants, "Meeting message test");
 
@@ -50,41 +45,12 @@ public class EBoksTest {
     @Test
     public void sendCancelMeetingMessageTest() {
         Set<IUser> participants = new HashSet<>();
-        participants.add(createUser("1234"));
-        participants.add(createUser("5678"));
-        participants.add(createUser("9012"));
+        participants.add(TestHelper.createUser("1234"));
+        participants.add(TestHelper.createUser("5678"));
+        participants.add(TestHelper.createUser("9012"));
 
         boolean successfulMessage = eboks.sendCancelMeetingMessage(participants, new GregorianCalendar(), "Meeting message test");
 
         assertTrue(successfulMessage);
-    }
-
-    private IUser createUser(String ssn) {
-        return new IUser() {
-            @Override
-            public IAccount getAccount() {
-                return null;
-            }
-
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            @Override
-            public String getFirstName() {
-                return null;
-            }
-
-            @Override
-            public String getLastName() {
-                return null;
-            }
-
-            @Override
-            public String getSocialSecurityNumber() {
-                return ssn;
-            }
-        };
     }
 }
