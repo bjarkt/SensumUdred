@@ -20,4 +20,4 @@ cp -r lib/* out/yee
 cp users.txt out/yee
 
 # classpath is libs, and the out folder
-java -jar lib/aspectj/aspectjtools.jar -d out/yee -source 1.8 -sourceroots src/main/java/ -cp 'lib/jfoenix-8.0.1.jar:lib/aspectj/aspectjrt.jar:out/yee/' $@
+java -jar lib/aspectj/aspectjtools.jar -d out/yee -source 1.8 -sourceroots src/main/java/ -cp 'lib/jfoenix-8.0.1.jar:lib/aspectj/aspectjrt.jar:lib/gson-2.8.4.jar:out/yee/' $@
