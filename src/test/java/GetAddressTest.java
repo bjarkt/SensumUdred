@@ -12,7 +12,7 @@ public class GetAddressTest {
     public void TestAddressGetter() {
         IGetAddress getAddress = new GetAddress(TestHelper.getHttpClient(), Address.class);
 
-        IAddress addressResult = getAddress.getAddress("1104694125");
+        IAddress addressResult = getAddress.getAddress("1104694124");
         assertEquals("Lærkevej", addressResult.getStreetName());
         assertEquals("127", addressResult.getHouseNumber());
         assertEquals("3120", addressResult.getZipCode());
