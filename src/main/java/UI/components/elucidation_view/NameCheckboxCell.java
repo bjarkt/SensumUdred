@@ -33,13 +33,13 @@ public abstract class NameCheckboxCell extends JFXListCell{
         this.cellRippler.setRipplerFill(Color.rgb(42, 112, 226, 0.7));
         this.setOnMouseClicked(event -> {
             if(checked == true)  {
-                checkBox.setSelected(false);
-                checked = false;
-                this.updateSelected(false);
+                checkBox.setSelected(!checked);
+                this.updateSelected(!checked);
+                checked = !checked;
             } else if(checked == false) {
-                checkBox.setSelected(true);
-                checked = true;
-                this.updateSelected(true);
+                checkBox.setSelected(!checked);
+                this.updateSelected(!checked);
+                checked = !checked;
             }
         });
         checkBox.setOnMouseClicked(event -> {
