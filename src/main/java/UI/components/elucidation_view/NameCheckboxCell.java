@@ -1,5 +1,6 @@
 package UI.components.elucidation_view;
 
+import ACQ.IProfile;
 import ACQ.IUser;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
@@ -61,9 +62,9 @@ public abstract class NameCheckboxCell extends JFXListCell{
         setGraphic(null);
         setText(null);
         if(item != null){
-            citizenName.setText(((IUser)item).getFirstName() + " " + ((IUser)item).getLastName());
-            id.setText(((IUser)item).getAccount().getUsername());
-            this.getChildren().add(new Label(((IUser)item).getAccount().getUsername()));
+            citizenName.setText(((IProfile)item).getUser().getFirstName() + " " + ((IUser)item).getLastName());
+            id.setText(((IProfile)item).getAccount().getUsername());
+            this.getChildren().add(new Label(((IProfile)item).getAccount().getUsername()));
             setGraphic(hBox);
         }
     }
