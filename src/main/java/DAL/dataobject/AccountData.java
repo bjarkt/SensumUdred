@@ -54,4 +54,15 @@ public class AccountData implements IAccount {
 	public void setSecurityLevel(int securityLevel) {
 		this.securityLevel = securityLevel;
 	}
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(username); sb.append(" : ");
+		sb.append(locked); sb.append(" : ");
+		sb.append(securityLevel);
+
+		return sb.toString();
+	}
 }

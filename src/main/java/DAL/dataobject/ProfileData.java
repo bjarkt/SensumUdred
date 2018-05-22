@@ -13,7 +13,7 @@ public class ProfileData implements IProfile {
 	 */
 	@Override
 	public IUser getUser() {
-		return null;
+		return user;
 	}
 
 	/**
@@ -21,7 +21,7 @@ public class ProfileData implements IProfile {
 	 */
 	@Override
 	public IAccount getAccount() {
-		return null;
+		return account;
 	}
 
 	/**

@@ -115,4 +115,18 @@ public class UserData implements IUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(ssn); sb.append(" : ");
+		sb.append(firstName); sb.append(" : ");
+		sb.append(lastName); sb.append(" : ");
+		//sb.append(address); sb.append(" : ");
+		sb.append(phoneNumber); sb.append(" : ");
+		sb.append(email);
+
+		return sb.toString();
+	}
 }

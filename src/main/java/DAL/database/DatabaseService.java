@@ -44,7 +44,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		final String lowerUsername = username.toLowerCase(Locale.ROOT);
 
 		executeQuery(conn -> {
-			String query = "SELECT * FROM users NATURAL JOIN (SELECT users_ssn as ssn, username, password_hash, securitylevel, isloggedin, islocked FROM accounts JOIN haslogin ON accounts.username = ?) as t;";
+			String query = "SELECT users.*, accounts.* FROM users, haslogin, accounts WHERE users.ssn = haslogin.users_ssn AND haslogin.accounts_id = accounts.id AND accounts.username = ?;";
 
 			PreparedStatement ps1 = conn.prepareStatement(query);
 			ps1.setString(1, lowerUsername);
@@ -290,12 +290,12 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 
 	private void setUserDataFromResultSet(ResultSet rs, UserData data) throws SQLException {
 		data.setSsn(rs.getString("ssn"));
-		data.setFirstName(rs.getString("ssn"));
-		data.setLastName(rs.getString("ssn"));
+		data.setFirstName(rs.getString("firstname"));
+		data.setLastName(rs.getString("lastname"));
 		// TODO: Find and add the address to the user.
 		data.setAddress(null);
-		data.setPhoneNumber(rs.getString("ssn"));
-		data.setEmail(rs.getString("ssn"));
+		data.setPhoneNumber(rs.getString("phonenumber"));
+		data.setEmail(rs.getString("email"));
 	}
 
 	private void setAccountDataFromResultSet(ResultSet rs, AccountData data) throws SQLException {
