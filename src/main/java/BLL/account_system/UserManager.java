@@ -1,9 +1,6 @@
 package BLL.account_system;
 
-import ACQ.IAccount;
-import ACQ.ISigningService;
-import ACQ.IUser;
-import ACQ.IUserManager;
+import ACQ.*;
 import BLL.security_system.SecuritySystem;
 import DAL.database.IDatabaseService;
 
@@ -29,13 +26,13 @@ public final class UserManager implements IUserManager, ISigningService {
     }
 
     @Override
-    public IUser signIn(String username, String password) {
-	    IUser user = null;
+    public IProfile signIn(String username, String password) {
+	    IProfile profile = null;
 
-	    if(accountExists(username)) user = dbService.signIn(username, password);
-	    SecuritySystem.getInstance().setUser(user);
+	    if(accountExists(username)) profile = dbService.signIn(username, password);
+	    SecuritySystem.getInstance().setAccount(profile.getAccount());
 
-	    return user;
+	    return profile;
     }
 
     @Override

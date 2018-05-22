@@ -55,7 +55,7 @@ public class GetUser implements IGetUser {
                 String email = userData.get("email");
                 String phoneNumber = userData.get("phoneNumber");
 
-                User tmpUser = new User(ssn, firstName, lastName, null);
+                User tmpUser = new User(ssn, firstName, lastName);
                 tmpUser.setEmail(email);
                 tmpUser.setPhoneNumber(phoneNumber);
                 tmpUser.setAddress(address);

@@ -1,10 +1,8 @@
 package BLL.security_system;
 
+import ACQ.IAccount;
 import ACQ.IEventListener;
 import ACQ.IUser;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Allows to set the user for the automatically security to function properly.
@@ -12,7 +10,7 @@ import java.util.Set;
  */
 public final class SecuritySystem implements ISecurityService {
 	private static ISecurityService INSTANCE;
-	private IUser user;
+	private IAccount account;
 	private IEventListener<SecurityException> event;
 
 	private SecuritySystem() {
@@ -33,16 +31,16 @@ public final class SecuritySystem implements ISecurityService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public IUser getUser() {
-		return user;
+	public IAccount getAccount() {
+		return account;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setUser(IUser user) {
-		this.user = user;
+	public void setAccount(IAccount account) {
+		this.account = account;
 	}
 
 	/**
@@ -53,6 +51,9 @@ public final class SecuritySystem implements ISecurityService {
 		event = eventListener;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IEventListener<SecurityException> getEventListener() {
 		return event;

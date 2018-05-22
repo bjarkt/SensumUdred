@@ -11,7 +11,6 @@ public class UserData implements IUser {
 	private IAddress address;
 	private String phoneNumber;
 	private String email;
-	private IAccount account;
 
 	/**
 	 * {@inheritDoc}
@@ -65,21 +64,12 @@ public class UserData implements IUser {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public IAccount getAccount() {
-		return account;
-	}
-
-	/**
-	 * Returns null.
-	 * @return null
-	 */
-	@Override
 	public String getName() {
 		return firstName + " " + lastName;
 	}
 
 	/**
-	 * Set the ssn for sending.
+	 * Set the ssn.
 	 * @param ssn any ssn
 	 */
 	public void setSsn(String ssn) {
@@ -87,7 +77,7 @@ public class UserData implements IUser {
 	}
 
 	/**
-	 * Set the first name for sending.
+	 * Set the first name.
 	 * @param firstName any first name
 	 */
 	public void setFirstName(String firstName) {
@@ -95,7 +85,7 @@ public class UserData implements IUser {
 	}
 
 	/**
-	 * Set the last name for sending.
+	 * Set the last name.
 	 * @param lastName any last name
 	 */
 	public void setLastName(String lastName) {
@@ -103,7 +93,7 @@ public class UserData implements IUser {
 	}
 
 	/**
-	 * Set the address for sending.
+	 * Set the address.
 	 * @param address any address
 	 */
 	public void setAddress(IAddress address) {
@@ -111,7 +101,7 @@ public class UserData implements IUser {
 	}
 
 	/**
-	 * Set the phone number for sending.
+	 * Set the phone number.
 	 * @param phoneNumber any phone number
 	 */
 	public void setPhoneNumber(String phoneNumber) {
@@ -119,18 +109,10 @@ public class UserData implements IUser {
 	}
 
 	/**
-	 * Set the email for sending.
+	 * Set the email.
 	 * @param email any email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	/**
-	 * Set the account for sending.
-	 * @param account any account
-	 */
-	public void setAccount(IAccount account) {
-		this.account = account;
 	}
 }

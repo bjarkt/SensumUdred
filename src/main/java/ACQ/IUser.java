@@ -38,12 +38,6 @@ public interface IUser {
 	String getEmail();
 
 	/**
-	 * Get the user's account, he/she signed in with.
-	 * @return the account
-	 */
-	IAccount getAccount();
-
-	/**
 	 * Get the user's full name
 	 * @return the user's full name.
 	 */

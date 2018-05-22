@@ -1,5 +1,6 @@
 package BLL.security_system;
 
+import ACQ.IAccount;
 import ACQ.IEventListener;
 import ACQ.IUser;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -33,9 +34,9 @@ public class SecurityAspect {
 
 		int securityLevel = annotation.value();
 
-		IUser user = SecuritySystem.getInstance().getUser();
+		IAccount account = SecuritySystem.getInstance().getAccount();
 
-		if(user != null && user.getAccount().getSecurityLevel() >= securityLevel) {
+		if(account != null && account.getSecurityLevel() >= securityLevel) {
 			returnObject = joinPoint.proceed();
 		} else {
 			SecurityException se = new SecurityException("User does not have the privilege to this method.");

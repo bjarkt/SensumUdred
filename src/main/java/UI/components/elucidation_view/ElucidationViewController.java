@@ -225,26 +225,6 @@ public class ElucidationViewController extends Component implements IElucidation
             }
 
             @Override
-            public IAccount getAccount() {
-                return new IAccount() {
-                    @Override
-                    public String getUsername() {
-                        return "lasse123";
-                    }
-
-                    @Override
-                    public boolean isLocked() {
-                        return false;
-                    }
-
-                    @Override
-                    public int getSecurityLevel() {
-                        return 0;
-                    }
-                };
-            }
-
-            @Override
             public String getName() {
                 return "Lasse Traberg";
             }
