@@ -168,4 +168,4 @@ CREATE TABLE eventlogs(
 
 INSERT INTO users VALUES ('0000000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
 INSERT INTO haslogin VALUES ('0000000000', 0);
-INSERT INTO accounts VALUES(0, 'admin', '$2a$15$uoVqNmySNPyqGB1jVLfnVu54R.JZz4E0I4WOI3fFHxvz3//q0mJw2', 1000, false, false, 0, null);
+INSERT INTO accounts VALUES(0, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
