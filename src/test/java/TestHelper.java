@@ -1,5 +1,4 @@
 import ACQ.*;
-import DAL.PersistentFacade;
 import DAL.http_request_utility.HttpRequestUtility;
 
 import java.io.IOException;
