@@ -23,62 +23,7 @@ public class UserManager implements IUserManager, ISigningService {
      */
     @Override
     public IUser signIn(String username, String password) {
-        return new IUser() {
-            @Override
-            public String getSocialSecurityNumber() {
-                return "1234567890";
-            }
-
-            @Override
-            public String getFirstName() {
-                return "Lasse";
-            }
-
-            @Override
-            public String getLastName() {
-                return "Traberg";
-            }
-
-            @Override
-            public IAddress getAddress() {
-                return null;
-            }
-
-            @Override
-            public String getPhoneNumber() {
-                return null;
-            }
-
-            @Override
-            public String getEmail() {
-                return null;
-            }
-
-            @Override
-            public IAccount getAccount() {
-                return new IAccount() {
-                    @Override
-                    public String getUsername() {
-                        return "lassetraberg";
-                    }
-
-                    @Override
-                    public boolean isLocked() {
-                        return false;
-                    }
-
-                    @Override
-                    public int getSecurityLevel() {
-                        return 1000;
-                    }
-                };
-            }
-
-            @Override
-            public String getName() {
-                return "Lasse Traberg";
-            }
-        };
+        return null;
     }
 
     /**

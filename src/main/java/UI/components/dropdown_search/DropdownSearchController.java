@@ -79,8 +79,8 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
             listener.onAction(selectedItems);
         });
         collapse();
-        addButton.setVisible(false);
         inputField.clear();
+        removeButton();
     }
 
     @Override
