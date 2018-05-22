@@ -1,5 +1,7 @@
-package ACQ;
+package BLL.eboks;
 
+
+import ACQ.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -56,5 +58,13 @@ public class EBoks implements IEBoks {
     @Override
     public boolean sendCancelMeetingMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info) {
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setHttp(IHttp http) {
+        this.httpClient = http;
     }
 }

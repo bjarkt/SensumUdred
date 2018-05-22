@@ -10,9 +10,10 @@ public class Dialog implements IDialog {
     private Set<IMeeting> meetings;
     private IEBoks eBoks;
 
-    public Dialog(IHttp http) {
+    public Dialog(IHttp http, IEBoks eboks) {
         meetings = new HashSet<>();
-        this.eBoks = new EBoks(http);
+        this.eBoks = eboks;
+        this.eBoks.setHttp(http);
     }
 
     /**

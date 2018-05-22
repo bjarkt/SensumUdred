@@ -1,4 +1,5 @@
 import ACQ.*;
+import BLL.eboks.EBoks;
 import BLL.meeting.Dialog;
 import DAL.http_request_utility.HttpRequestUtility;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ public class SummonCitizenToMeetingTest {
 
     @BeforeEach
     public void initialize() {
-        dialog = new Dialog(httpClient);
+        dialog = new Dialog(httpClient, new EBoks(httpClient));
         meeting = dialog.createMeeting(creatorOfMeeting);
         meeting.addParticipant(participant, TestHelper.createUser("0987"));
         meeting.setMeetingDate(2018, 6, 25, 6, 4);
