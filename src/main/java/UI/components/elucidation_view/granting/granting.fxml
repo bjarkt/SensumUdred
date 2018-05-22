@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="granting_container" style="-fx-background-color: white;" stylesheets="@granting.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.elucidation_view.granting.GrantingController">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper" HBox.hgrow="SOMETIMES">
+               <children>
+                  <Label styleClass="elucidationView_inputField_description" text="§" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets right="11.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField editable="false" maxWidth="100.0" promptText="Paragraf" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
+               </children>
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+            </HBox>
+            <JFXCheckBox contentDisplay="GRAPHIC_ONLY">
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+            </JFXCheckBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
