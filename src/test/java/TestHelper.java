@@ -38,11 +38,6 @@ public class TestHelper {
             }
 
             @Override
-            public IAccount getAccount() {
-                return null;
-            }
-
-            @Override
             public String getName() {
                 return null;
             }

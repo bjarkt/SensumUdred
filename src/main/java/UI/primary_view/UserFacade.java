@@ -174,7 +174,9 @@ public class UserFacade implements IUserInterface, Initializable {
 	 */
 	@Override
 	public void shutdown() {
-		business.getSigningService().signOut(profile.getAccount().getUsername());
+		if (profile != null && profile.getAccount() != null) {
+			business.getSigningService().signOut(profile.getAccount().getUsername());
+		}
 	}
 
 	/**
@@ -250,7 +252,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
 			profile = business.getSigningService().signIn(data[0], data[1]);
-			if(profile != null){
+			if(profile.getAccount() != null){
 				SecuredAspect.setAccount(profile.getAccount());
 				isLoggedIn.setValue(true);
 			} else{
