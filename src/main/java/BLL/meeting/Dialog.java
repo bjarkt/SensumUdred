@@ -1,6 +1,9 @@
 package BLL.meeting;
 
-import ACQ.*;
+import ACQ.IEBoks;
+import ACQ.IHttp;
+import ACQ.IMeeting;
+import ACQ.IUser;
 
 import java.util.Collection;
 import java.util.HashSet;

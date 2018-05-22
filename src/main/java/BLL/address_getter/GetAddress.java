@@ -1,6 +1,9 @@
 package BLL.address_getter;
 
-import ACQ.*;
+import ACQ.HttpAcceptType;
+import ACQ.HttpMethod;
+import ACQ.IAddress;
+import ACQ.IHttp;
 import com.google.gson.Gson;
 
 import java.io.IOException;

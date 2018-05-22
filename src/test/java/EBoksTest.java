@@ -1,4 +1,5 @@
-import ACQ.*;
+import ACQ.IEBoks;
+import ACQ.IUser;
 import BLL.eboks.EBoks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

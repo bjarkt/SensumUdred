@@ -1,4 +1,7 @@
-import ACQ.*;
+import ACQ.IAccount;
+import ACQ.IAddress;
+import ACQ.IHttp;
+import ACQ.IUser;
 import DAL.PersistentFacade;
 
 public class TestHelper {

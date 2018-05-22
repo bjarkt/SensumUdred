@@ -1,9 +1,4 @@
-import ACQ.IAddress;
 import ACQ.IUser;
-import BLL.account_system.Address;
-import BLL.account_system.User;
-import BLL.address_getter.GetAddress;
-import BLL.address_getter.IGetAddress;
 import BLL.user_getter.GetUser;
 import BLL.user_getter.IGetUser;
 import org.junit.jupiter.api.Test;

@@ -1,22 +1,15 @@
 package UI.components.dropdown_search;
 
-import ACQ.IUser;
 import UI.components.Component;
 import UI.components.IEventListener;
-import UI.components.all_elucidations_view.HomeViewController;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.*;
