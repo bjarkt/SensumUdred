@@ -50,7 +50,7 @@ public abstract class NameCheckboxCell extends JFXListCell{
         setGraphic(null);
         setText(null);
         if(item != null){
-            citizenName.setText(((IUser)item).getFirstName() + ((IUser)item).getLastName());
+            citizenName.setText(((IUser)item).getFirstName() + " " + ((IUser)item).getLastName());
             id.setText(((IUser)item).getAccount().getUsername());
             this.getChildren().add(new Label(((IUser)item).getAccount().getUsername()));
             setGraphic(hBox);

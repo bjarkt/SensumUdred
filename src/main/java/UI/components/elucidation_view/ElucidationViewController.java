@@ -3,6 +3,7 @@ package UI.components.elucidation_view;
 import ACQ.IAccount;
 import ACQ.IAddress;
 import ACQ.IUser;
+import UI.Secured;
 import UI.components.Component;
 import UI.components.IEventListener;
 import UI.components.dropdown_search.DropdownSearchController;
@@ -39,6 +40,7 @@ public class ElucidationViewController extends Component implements IElucidation
 
     private boolean isMobile;
 
+    @Secured("addCaseworkerToCase")
     private IDropdownSearch<IUser> caseWorkerSearcher;
 
     @FXML
@@ -118,7 +120,6 @@ public class ElucidationViewController extends Component implements IElucidation
         // Add user searcher to appropriate container.
         caseWorkerContainer.getChildren().add(caseWorkerSearcher.getView());
 
-        caseWorkerSearcher.expand();
         List<IUser> test = new ArrayList<>();
         test.add(new IUser() {
             @Override
@@ -177,6 +178,13 @@ public class ElucidationViewController extends Component implements IElucidation
             }
         });
         caseWorkerSearcher.updateList(test);
+
+        caseWorkerSearcher.onDone(data -> {
+            System.out.println("Recieved: ");
+            for (IUser user : data) {
+                System.out.println(user.getName());
+            }
+        });
 
 
     }

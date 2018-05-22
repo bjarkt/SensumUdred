@@ -13,9 +13,9 @@ public interface IDropdownSearch<T> extends IComponent {
 
     void updateList(List<T> searchResults);
 
-    void onType(IEventListener<?> listener);
+    void onType(IEventListener<String> listener);
 
-    void onDone(IEventListener<Set<IUser>> listIEventListener);
+    void onDone(IEventListener<Set<T>> listIEventListener);
 
     void expand();
 

@@ -23,8 +23,8 @@ import java.util.*;
 
 public class DropdownSearchController<T> extends Component implements IDropdownSearch<T> {
 
-    private List<IEventListener<?>> onTypeSubscribers = new ArrayList<>();
-    private List<IEventListener<Set<IUser>>> onDoneSubscribers = new ArrayList<>();
+    private List<IEventListener<String>> onTypeSubscribers = new ArrayList<>();
+    private List<IEventListener<Set<T>>> onDoneSubscribers = new ArrayList<>();
 
     private IDropdownSearchRequire<T> required;
 
@@ -49,19 +49,31 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
     public void initialize(URL location, ResourceBundle resources) {
         results.setCellFactory(param -> required.getCellFactory());
         collapse();
+        addButton.setVisible(false);
     }
 
     @FXML
     void search(KeyEvent event) {
-        System.out.println("Bum");
+        if(inputField.getText().length() == 0){
+            addButton.setVisible(false);
+            collapse();
+        } else{
+            addButton.setVisible(true);
+            expand();
+            onTypeSubscribers.forEach(listener -> listener.onAction(inputField.getText()));
+        }
     }
 
     @FXML
-    void done(ActionEvent event) {
+    void done(ActionEvent event) {Set<T> selectedItems = new HashSet<>();
+        for (T t : results.getSelectionModel().getSelectedItems()) {
+            selectedItems.add(t);
+        }
         onDoneSubscribers.forEach(listener -> {
-
-            listener.onAction(new HashSet<>());
+            listener.onAction(selectedItems);
         });
+        collapse();
+        addButton.setVisible(false);
     }
 
     @Override
@@ -71,12 +83,12 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
     }
 
     @Override
-    public void onType(IEventListener<?> listener) {
+    public void onType(IEventListener<String> listener) {
         onTypeSubscribers.add(listener);
     }
 
     @Override
-    public void onDone(IEventListener<Set<IUser>> listIEventListener) {
+    public void onDone(IEventListener<Set<T>> listIEventListener) {
         onDoneSubscribers.add(listIEventListener);
     }
 

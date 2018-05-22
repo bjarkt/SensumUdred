@@ -57,6 +57,24 @@ public class BusinessFacade implements IBusiness {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@SecurityLevel(500)
+	@Override
+	public Set<IUser> searchUsersContaining(String query) {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SecurityLevel(500)
+	@Override
+	public void addCaseworkerToCase(IUser user) {
+
+	}
+
 	@Override
 	public void injectPersistent(IPersistent persistent) {
 		this.persistent = persistent;

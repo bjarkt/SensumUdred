@@ -1,9 +1,6 @@
 package BLL.account_system;
 
-import ACQ.IAccount;
-import ACQ.ISigningService;
-import ACQ.IUser;
-import ACQ.IUserManager;
+import ACQ.*;
 
 public class UserManager implements IUserManager, ISigningService {
     private static UserManager INSTANCE;
@@ -26,7 +23,62 @@ public class UserManager implements IUserManager, ISigningService {
      */
     @Override
     public IUser signIn(String username, String password) {
-        return null;
+        return new IUser() {
+            @Override
+            public String getSocialSecurityNumber() {
+                return "1234567890";
+            }
+
+            @Override
+            public String getFirstName() {
+                return "Lasse";
+            }
+
+            @Override
+            public String getLastName() {
+                return "Traberg";
+            }
+
+            @Override
+            public IAddress getAddress() {
+                return null;
+            }
+
+            @Override
+            public String getPhoneNumber() {
+                return null;
+            }
+
+            @Override
+            public String getEmail() {
+                return null;
+            }
+
+            @Override
+            public IAccount getAccount() {
+                return new IAccount() {
+                    @Override
+                    public String getUsername() {
+                        return "lassetraberg";
+                    }
+
+                    @Override
+                    public boolean isLocked() {
+                        return false;
+                    }
+
+                    @Override
+                    public int getSecurityLevel() {
+                        return 200;
+                    }
+                };
+            }
+
+            @Override
+            public String getName() {
+                return "Lasse Traberg";
+            }
+        };
     }
 
     /**

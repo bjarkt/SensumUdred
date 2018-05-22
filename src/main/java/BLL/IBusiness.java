@@ -37,6 +37,17 @@ public interface IBusiness {
 	Set<IUser> getAllUsers();
 
 	/**
+	 * Search for users. Returns set with matched users.
+	 * @return	set of matched users.
+	 */
+	Set<IUser> searchUsersContaining(String query);
+
+	/**
+	 * Assigns caseworker to case.
+	 */
+	void addCaseworkerToCase(IUser user);
+
+	/**
 	 * Creates a new inquiry.
 	 */
 	void createInquiry();

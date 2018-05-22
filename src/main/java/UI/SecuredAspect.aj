@@ -3,6 +3,7 @@ package UI;
 import ACQ.IUser;
 import BLL.IBusiness;
 import BLL.security_system.SecurityLevel;
+import UI.components.IComponent;
 import UI.components.popUp.IPopup;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -75,7 +76,9 @@ public aspect SecuredAspect {
                     } else if(((Node) o).getParent() instanceof Pane){
                         ((Pane)((Node) o).getParent()).getChildren().remove(o);
                     }
-                } else{
+                } /*if(o instanceof IComponent){
+                    ((Pane)((IComponent) o).getView().getParent()).getChildren().remove(o);
+                } */else{
                     popup.show("Access Denied", "You have no access");
                 }
             }

@@ -43,7 +43,8 @@ CREATE TABLE accounts(
   securityLevel INTEGER,
   isLoggedIn BOOLEAN,
   attempts INTEGER,
-  dateLastLogin DATE
+  dateLastLogin DATE,
+  locked BOOLEAN
 );
 
 CREATE TABLE guardians(
