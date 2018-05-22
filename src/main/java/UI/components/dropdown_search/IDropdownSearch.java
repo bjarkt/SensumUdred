@@ -1,6 +1,5 @@
 package UI.components.dropdown_search;
 
-import ACQ.IUser;
 import UI.components.IComponent;
 import UI.components.IEventListener;
 

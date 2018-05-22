@@ -1,15 +1,8 @@
-import ACQ.HttpAcceptType;
-import ACQ.HttpMethod;
 import ACQ.IAddress;
-import ACQ.IHttp;
 import BLL.account_system.Address;
 import BLL.address_getter.GetAddress;
 import BLL.address_getter.IGetAddress;
-import DAL.http_request_utility.HttpRequestUtility;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

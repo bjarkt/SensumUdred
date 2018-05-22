@@ -1,7 +1,9 @@
 package BLL.address_getter;
 
-import ACQ.*;
-import BLL.account_system.Address;
+import ACQ.HttpAcceptType;
+import ACQ.HttpMethod;
+import ACQ.IAddress;
+import ACQ.IHttp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -21,6 +23,9 @@ public class GetAddress implements IGetAddress {
         this.gson = new Gson();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public IAddress getAddress(String cpr) {
         IAddress address = null;
         Map<String, Object> queryMap = new HashMap<>();

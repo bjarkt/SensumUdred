@@ -1,7 +1,9 @@
 package BLL;
 
 import ACQ.IElucidation;
+import ACQ.ISigningService;
 import ACQ.IUser;
+import ACQ.IUserManager;
 import BLL.log_agent.ChangeLog;
 import DAL.IPersistent;
 
@@ -11,12 +13,19 @@ public interface IBusiness {
 	void injectPersistent(IPersistent persistent);
 
 	/**
-	 * Logs user into the system.
-	 * @param username	user's account's username
-	 * @param password	user's account's password
-	 * @return	the user associated with the account credentials.
+	 * Get the Signing Service.
+	 * It contains sign in, sign out and sign up.
+	 * @return signing service
 	 */
-	IUser login(String username, String password);
+	ISigningService getSigningService();
+
+	/**
+	 * Get the User Manager.
+	 * It can receive the signed user (if any) and contains admin services,
+	 * such as changePassword, lock and unlock accounts.
+	 * @return user manager
+	 */
+	IUserManager getUserManager();
 
 	/**
 	 * Get the complete change log.

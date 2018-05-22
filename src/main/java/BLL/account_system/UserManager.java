@@ -1,124 +1,112 @@
 package BLL.account_system;
 
-import ACQ.*;
+import ACQ.IAccount;
+import ACQ.ISigningService;
+import ACQ.IUser;
+import ACQ.IUserManager;
+import DAL.database.IDatabaseService;
+
+import java.util.Set;
 
 public class UserManager implements IUserManager, ISigningService {
-    private static UserManager INSTANCE;
-    private User user;
+    private IDatabaseService dbService;
+    private Account signedInAccount;
+    private User signedInUser;
 
-    private UserManager(){
-
+    public UserManager(IDatabaseService dbService) {
+        this.dbService = dbService;
     }
 
-    public static UserManager getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new UserManager();
-        }
-
-        return INSTANCE;
+    @Override
+    public IAccount getSignedInAccount() {
+        return signedInAccount;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    public IUser getSignedInUser() {
+        return signedInUser;
+    }
+
     @Override
     public IUser signIn(String username, String password) {
+<<<<<<< HEAD
+        return null;
+=======
+        IUser user = dbService.signIn(username, password);
+
+        return user;
+    }
+
+    @Override
+    public boolean signOut(String accountName) {
+        this.signedInAccount = null;
+        this.signedInUser = null;
+
+        return dbService.signOut(accountName);
+>>>>>>> 5485ba1f58c1248fdbea14c40b772d9802bf83b0
+    }
+
+    @Override
+    public boolean signUpUser(String ssn) {
+        return dbService.signUpUser(ssn);
+    }
+
+    @Override
+    public boolean signUpUser(String ssn, String firstName, String lastName, String phoneNumber, String email) {
+        return dbService.signUpUser(ssn, firstName, lastName, phoneNumber, email);
+    }
+
+    @Override
+    public boolean signUpUser(IUser user) {
+        return dbService.signUpUser(user);
+    }
+
+    @Override
+    public boolean signUpAccount(String ssn, String username, String password, int securityLevel) {
+        boolean signedUp = false;
+
+    	if(userExists(ssn)) signedUp = dbService.signUpAccount(ssn, username, password, securityLevel);
+
+    	return signedUp;
+    }
+
+    @Override
+    public boolean accountExists(String accountName) {
+        return dbService.accountExists(accountName);
+    }
+
+    @Override
+    public boolean userExists(String ssn) {
+        return dbService.userExists(ssn);
+    }
+
+    @Override
+    public boolean lockAccount(String accountName) {
+        return dbService.lockAccount(accountName);
+    }
+
+    @Override
+    public boolean unlockAccount(String accountName) {
+        return dbService.unlockAccount(accountName);
+    }
+
+    @Override
+    public boolean changeSecurityLevel(String accountName, int newSecurityLevel) {
+        return dbService.changeSecurityLevel(accountName, newSecurityLevel);
+    }
+
+    @Override
+    public boolean changePassword(String accountName, String newPassword) {
+        return dbService.changePassword(accountName, newPassword);
+    }
+
+    @Override
+    public Set<IUser> getAllUsers() {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public boolean signOut() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean signUpAccount(String username, String password, int securityLevel) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean signUpUser(String SSN) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean signUpUser(String SSN, String firstName, String lastName, String phoneNumber, String email) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean signUpUser(IUser user) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean getSignedInUser() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean accountExists(IAccount account) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean userExists(IUser user) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean changeSecurityLevel(IAccount account, int newSecurityLevel) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean changePassword(IAccount account, String newPassword) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean lockAccount(IAccount account) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean unlockAccount(IAccount account) {
-        return false;
+    public Set<IAccount> getAllAccounts() {
+        return null;
     }
 }

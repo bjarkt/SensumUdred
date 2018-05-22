@@ -1,5 +1,3 @@
-import ACQ.HttpAcceptType;
-import ACQ.HttpMethod;
 import ACQ.IHttp;
 import BLL.case_opening.CaseOpeningProvider;
 import BLL.case_opening.ICaseOpeningService;
@@ -7,11 +5,9 @@ import BLL.case_opening.third_party_information.AttachmentEnum;
 import BLL.case_opening.third_party_information.IRequest;
 import BLL.case_opening.third_party_information.Request;
 import BLL.case_opening.third_party_information.ThirdPartyService;
-import DAL.PersistentFacade;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class ThirdPartyInformationTest {
 

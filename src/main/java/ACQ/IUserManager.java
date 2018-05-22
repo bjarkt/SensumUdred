@@ -1,9 +1,15 @@
 package ACQ;
 
-public interface IUserManager extends IUserService {
+public interface IUserManager extends IAdminService {
+	/**
+	 * Returns the signed in account.
+	 * @return if no account is signed in, null; otherwise the account
+	 */
+	IAccount getSignedInAccount();
+
 	/**
 	 * Returns the signed in user.
-	 * @return user, otherwise null, if no user is signed in
+	 * @return if no user is signed in, null; otherwise the user
 	 */
-	boolean getSignedInUser();
+	IUser getSignedInUser();
 }

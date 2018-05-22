@@ -119,18 +119,18 @@ public class Inquiry extends Task implements IInquiry {
     public Inquiry() {
         attendee = new HashSet<>();
         registrationDate = new Date();
-        }
+    }
 
     public Set<IUser> getAttendee() {
-        return  attendee;
+        return attendee;
     }
 
 
-    public void addAttendee (IUser ...attendee) {
+    public void addAttendee(IUser... attendee) {
         this.attendee.addAll(Arrays.asList(attendee));
     }
 
-    public void removeAttendee(IUser ...attendee) {
+    public void removeAttendee(IUser... attendee) {
         this.attendee.remove(attendee);
     }
 
@@ -171,6 +171,7 @@ public class Inquiry extends Task implements IInquiry {
     public String getBirthDate() {
         return birthDate;
     }
+
     public String getAddressCity() {
         return addressCity;
     }
@@ -231,26 +232,22 @@ public class Inquiry extends Task implements IInquiry {
                     " citizenAgreement, citizinMunicipality, specialCircumstances FROM people where name  = '" + CPRiD + "'");
 
 
-                setCPR(rs.getString(1));
-                setName(rs.getString(2));
-                setAddressStreet(rs.getString(3));
-                setAddressCity(rs.getString(4));
-                setCivilStatus(rs.getString(6));
-                setRegistrationDate(rs.getDate(7));
-                setDescription(rs.getString(8));
-                setOfferings(rs.getString(9));
-                setInquirySource(rs.getString(10));
-                setGrantings(rs.getString(11));
-                setGuardianship(rs.getString(12));
-                setContactDetailsPhone(rs.getString(13));
-                setContactDetailsCell(rs.getString(14));
-                setCitizenAgreement(rs.getString(15));
-                setCitizinMunicipality(rs.getString(16));
-                setSpecialCircumstances(rs.getString(17));
-
-
-
-
+            setCPR(rs.getString(1));
+            setName(rs.getString(2));
+            setAddressStreet(rs.getString(3));
+            setAddressCity(rs.getString(4));
+            setCivilStatus(rs.getString(6));
+            setRegistrationDate(rs.getDate(7));
+            setDescription(rs.getString(8));
+            setOfferings(rs.getString(9));
+            setInquirySource(rs.getString(10));
+            setGrantings(rs.getString(11));
+            setGuardianship(rs.getString(12));
+            setContactDetailsPhone(rs.getString(13));
+            setContactDetailsCell(rs.getString(14));
+            setCitizenAgreement(rs.getString(15));
+            setCitizinMunicipality(rs.getString(16));
+            setSpecialCircumstances(rs.getString(17));
 
 
             rs.close();
@@ -262,9 +259,11 @@ public class Inquiry extends Task implements IInquiry {
         }
 
     }
-    public void editInquiry(){
+
+    public void saveInquiry() {
         getInquiry();
         Scanner input = new Scanner(System.in);
+
 
 
         String url = "jdbc:postgresql://horton.elephantsql.com:5432/cxiasneu";
@@ -288,207 +287,20 @@ public class Inquiry extends Task implements IInquiry {
         }
         Scanner input2 = new Scanner(System.in);
         String word = input2.next();
-        switch (word) {
-            case "CPR":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
+        try {
+            Connection db = DriverManager.getConnection(url, username, password);
 
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getCPR() +"'");
+            Statement st = db.createStatement();
+            ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '" + word + "' WHERE name = '" + getCPR() + "'");
 
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "name":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getName() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "address":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getAddress() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "gender":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getGender() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "civilStatus":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getCivilStatus() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "registrationDate":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getRegistrationDate() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "description":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ input +"' WHERE name = '"+ getDescription() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "offerings":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ input +"' WHERE name = '"+ getOfferings() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "inquirySource":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getInquirySource() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "grantings":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getGrantings() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "guardianship":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getGuardianship() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "contactDetails":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getContactDetailsCell() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "citizenAgreement":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getCitizenAgreement() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "citizinMunicipality":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET CPR = '"+ word +"' WHERE name = '"+ getCitizinMunicipality() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-            case "specialCircumstances":
-                try {
-                    Connection db = DriverManager.getConnection(url, username, password);
-
-                    Statement st = db.createStatement();
-                    ResultSet rs = st.executeQuery("UPDATE CPR SET specialCircumstances = '"+ word +"' WHERE name = '"+ getSpecialCircumstances() +"'");
-
-                    rs.close();
-                    st.close();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                break;
-
-         }
-
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
+
+    }
 
 
 }

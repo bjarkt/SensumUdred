@@ -1,8 +1,8 @@
-import ACQ.*;
-import DAL.http_request_utility.HttpRequestUtility;
-
-import java.io.IOException;
-import java.util.Map;
+import ACQ.IAccount;
+import ACQ.IAddress;
+import ACQ.IHttp;
+import ACQ.IUser;
+import DAL.PersistentFacade;
 
 public class TestHelper {
     public static IUser createUser(String ssn) {
@@ -50,6 +50,6 @@ public class TestHelper {
     }
 
     public static IHttp getHttpClient() {
-        return HttpRequestUtility::makeHttpRequest;
+        return new PersistentFacade().getHttp();
     }
 }

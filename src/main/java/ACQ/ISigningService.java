@@ -12,9 +12,10 @@ public interface ISigningService {
 
     /**
      * Signs a user out of the system.
+     * @param accountName any account name
      * @return true, if successful; otherwise false
      */
-    boolean signOut();
+    boolean signOut(String accountName);
 
 	/**
 	 * Register a user based on their social security number.
@@ -22,7 +23,7 @@ public interface ISigningService {
 	 * @param SSN any ssn
 	 * @return true, if successful; false, if user already exists
 	 */
-	boolean signUpUser(String SSN);
+	boolean signUpUser(String ssn);
 
 	/**
 	 * Register a user manually by inserting all of their information.
@@ -33,7 +34,7 @@ public interface ISigningService {
 	 * @param email any email
 	 * @return true, if successful; false, if user or email already exists
 	 */
-	boolean signUpUser(String SSN, String firstName, String lastName, String phoneNumber, String email);
+	boolean signUpUser(String ssn, String firstName, String lastName, String phoneNumber, String email);
 
 	/**
 	 * Register a user by a
@@ -44,10 +45,11 @@ public interface ISigningService {
 
     /**
      * Register an account.
+     * @param ssn an existing user
      * @param username any username
      * @param password any password
      * @param securityLevel any security level
      * @return true, if successful; false, if username exists
      */
-    boolean signUpAccount(String username, String password, int securityLevel);
+    boolean signUpAccount(String ssn, String username, String password, int securityLevel);
 }

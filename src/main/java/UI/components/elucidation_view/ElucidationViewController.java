@@ -29,10 +29,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ElucidationViewController extends Component implements IElucidationView {

@@ -31,6 +31,17 @@
         <SOURCES />
       </library>
     </orderEntry>
+
+    <orderEntry type="module-library">
+          <library name="jbcrypt-0.4">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/lib/jbcrypt-0.4.jar!/" />
+            </CLASSES>
+            <JAVADOC />
+            <SOURCES />
+          </library>
+        </orderEntry>
+
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -60,5 +71,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jbcrypt-0.4" level="project" />
   </component>
 </module>
