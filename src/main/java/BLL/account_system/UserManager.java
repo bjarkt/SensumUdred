@@ -31,7 +31,12 @@ public final class UserManager implements IUserManager, ISigningService {
 
 	    if(accountExists(username)) {
             profile = dbService.signIn(username, password);
-            SecuritySystem.getInstance().setAccount(profile.getAccount());
+
+            if(profile.getUser() != null && profile.getAccount() != null) {
+	            SecuritySystem.getInstance().setAccount(profile.getAccount());
+            } else {
+            	profile = null;
+            }
         }
 
 	    return profile;
