@@ -42,6 +42,17 @@ public abstract class NameCheckboxCell extends JFXListCell{
                 this.updateSelected(true);
             }
         });
+        checkBox.setOnMouseClicked(event -> {
+            if(checked == true)  {
+                checkBox.setSelected(false);
+                checked = false;
+                this.updateSelected(false);
+            } else if(checked == false) {
+                checkBox.setSelected(true);
+                checked = true;
+                this.updateSelected(true);
+            }
+        });
     }
 
     @Override

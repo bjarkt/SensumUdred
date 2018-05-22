@@ -57,11 +57,13 @@ public class PopUpController extends Component implements IPopup {
     public void show(String subject, String message) {
         this.subject.setText(subject);
         this.message.setText(message);
-        required.getParent().getChildren().add(this.getView());
-        required.getParent().setTopAnchor(this.getView(), .0);
-        required.getParent().setLeftAnchor(this.getView(), .0);
-        required.getParent().setRightAnchor(this.getView(), .0);
-        required.getParent().setBottomAnchor(this.getView(), .0);
+        if(!required.getParent().getChildren().contains(this.getView())) {
+            required.getParent().getChildren().add(this.getView());
+            required.getParent().setTopAnchor(this.getView(), .0);
+            required.getParent().setLeftAnchor(this.getView(), .0);
+            required.getParent().setRightAnchor(this.getView(), .0);
+            required.getParent().setBottomAnchor(this.getView(), .0);
+        }
         dialog.show();
     }
 

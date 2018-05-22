@@ -38,6 +38,8 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
     private JFXListView<T> results;
 
     @FXML
+    private HBox buttonContainer;
+
     private JFXButton addButton;
 
     public DropdownSearchController(IDropdownSearchRequire required) {
@@ -48,24 +50,28 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         results.setCellFactory(param -> required.getCellFactory());
+        addButton = new JFXButton("Tilføj sagsbehandler");
+        addButton.getStyleClass().addAll("flat-button", "flat-button_outlined");
+        addButton.setOnAction(clickEvent -> {
+            done();
+        });
         collapse();
-        addButton.setVisible(false);
     }
 
     @FXML
     void search(KeyEvent event) {
-        if(inputField.getText().length() == 0){
-            addButton.setVisible(false);
+        if(inputField.getText().length() < 1){
             collapse();
+            removeButton();
         } else{
-            addButton.setVisible(true);
             expand();
             onTypeSubscribers.forEach(listener -> listener.onAction(inputField.getText()));
+            displayButton();
         }
     }
 
-    @FXML
-    void done(ActionEvent event) {Set<T> selectedItems = new HashSet<>();
+    void done() {
+        Set<T> selectedItems = new HashSet<>();
         for (T t : results.getSelectionModel().getSelectedItems()) {
             selectedItems.add(t);
         }
@@ -74,6 +80,7 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
         });
         collapse();
         addButton.setVisible(false);
+        inputField.clear();
     }
 
     @Override
@@ -104,13 +111,17 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
         results.setVisible(false);
     }
 
+    private void displayButton(){
+        if(!buttonContainer.getChildren().contains(addButton)) buttonContainer.getChildren().add(addButton);
+    }
+
+    private void removeButton(){
+        buttonContainer.getChildren().remove(addButton);
+    }
+
     @Override
     public void setRequired(IDropdownSearchRequire required) {
         this.required = required;
     }
-
-
-
-
 
 }
