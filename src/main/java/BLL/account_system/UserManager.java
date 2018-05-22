@@ -29,9 +29,7 @@ public class UserManager implements IUserManager, ISigningService {
 
     @Override
     public IUser signIn(String username, String password) {
-        IUser user = dbService.signIn(username, password);
-
-        return user;
+        return accountExists(username) ? dbService.signIn(username, password) : null;
     }
 
     @Override

@@ -82,7 +82,6 @@ public class Request implements IRequest {
 			queryMap.put("service", service.getId());
 			queryMap.put("department", departmentIndex);
 
-
 			String[] data = receiveCredentialsFormat("https://sensumudred-api.herokuapp.com/api/case-request", queryMap);
 
 			byte[] attachmentBytes;
