@@ -1,0 +1,42 @@
+package DAL.dataobject;
+
+import ACQ.IAccount;
+import ACQ.IProfile;
+import ACQ.IUser;
+
+public class ProfileData implements IProfile {
+	private IUser user;
+	private IAccount account;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IUser getUser() {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IAccount getAccount() {
+		return null;
+	}
+
+	/**
+	 * Set the user.
+	 * @param user any user
+	 */
+	public void setUser(IUser user) {
+		this.user = user;
+	}
+
+	/**
+	 * Set the account.
+	 * @param account any account
+	 */
+	public void setAccount(IAccount account) {
+		this.account = account;
+	}
+}

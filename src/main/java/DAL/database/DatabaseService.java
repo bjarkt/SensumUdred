@@ -2,8 +2,10 @@ package DAL.database;
 
 import ACQ.IAccount;
 import ACQ.IMeeting;
+import ACQ.IProfile;
 import ACQ.IUser;
 import DAL.dataobject.AccountData;
+import DAL.dataobject.ProfileData;
 import DAL.dataobject.UserData;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -36,13 +38,13 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 	}
 
 	@Override
-	public IUser signIn(String username, String password) {
-		UserData userData = new UserData();
+	public IProfile signIn(String username, String password) {
+		ProfileData profileData = new ProfileData();
 
 		final String lowerUsername = username.toLowerCase(Locale.ROOT);
 
 		executeQuery(conn -> {
-			String query = "SELECT * FROM users NATURAL JOIN (SELECT users_ssn as ssn, password_hash, securitylevel, isloggedin, islocked FROM accounts JOIN haslogin ON accounts.username = ?) as t;";
+			String query = "SELECT * FROM users NATURAL JOIN (SELECT users_ssn as ssn, username, password_hash, securitylevel, isloggedin, islocked FROM accounts JOIN haslogin ON accounts.username = ?) as t;";
 
 			PreparedStatement ps1 = conn.prepareStatement(query);
 			ps1.setString(1, lowerUsername);
@@ -51,11 +53,13 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 
 			if(rs.next() && !rs.getBoolean("isloggedin") && BCrypt.checkpw(password, rs.getString("password_hash"))) {
 				AccountData account = new AccountData();
-				account.setUsername(lowerUsername);
-				account.setLocked(rs.getBoolean("islocked"));
-				account.setSecurityLevel(rs.getInt("securitylevel"));
+				setAccountDataFromResultSet(rs, account);
 
-				 setUserDataFromResultSet(rs, userData, account);
+				UserData user = new UserData();
+				setUserDataFromResultSet(rs, user);
+
+				profileData.setAccount(account);
+				profileData.setUser(user);
 
 				PreparedStatement ps2 = conn.prepareStatement("UPDATE accounts SET isloggedin=true, datelastlogin=? WHERE username=?;");
 				ps2.setDate(1, new Date(System.currentTimeMillis()));
@@ -65,7 +69,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 			}
 		});
 
-		return userData;
+		return profileData;
 	}
 
 	@Override
@@ -253,7 +257,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 			UserData data;
 			while(rs.next()) {
 				data = new UserData();
-				setUserDataFromResultSet(rs, data, null);
+				setUserDataFromResultSet(rs, data);
 				users.add(data);
 			}
 		});
@@ -284,7 +288,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		return accounts;
 	}
 
-	private void setUserDataFromResultSet(ResultSet rs, UserData data, IAccount account) throws SQLException {
+	private void setUserDataFromResultSet(ResultSet rs, UserData data) throws SQLException {
 		data.setSsn(rs.getString("ssn"));
 		data.setFirstName(rs.getString("ssn"));
 		data.setLastName(rs.getString("ssn"));
@@ -292,7 +296,6 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		data.setAddress(null);
 		data.setPhoneNumber(rs.getString("ssn"));
 		data.setEmail(rs.getString("ssn"));
-		data.setAccount(account);
 	}
 
 	private void setAccountDataFromResultSet(ResultSet rs, AccountData data) throws SQLException {

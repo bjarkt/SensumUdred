@@ -1,5 +1,6 @@
 package UI.primary_view;
 
+import ACQ.IProfile;
 import ACQ.IUser;
 import BLL.IBusiness;
 import BLL.security_system.SecurityLevel;
@@ -40,7 +41,7 @@ import java.util.ResourceBundle;
 
 public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
-	private IUser user;
+	private IProfile profile;
 
 	private BooleanProperty isLoggedIn;
 
@@ -173,7 +174,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	 */
 	@Override
 	public void shutdown() {
-		business.getSigningService().signOut(user.getAccount().getUsername());
+		business.getSigningService().signOut(profile.getAccount().getUsername());
 	}
 
 	/**
@@ -204,14 +205,14 @@ public class UserFacade implements IUserInterface, Initializable {
 		headerController.onProfileClick(data -> {
 			userDrawer.open();
 			userDrawer.setContent();
-			userMenu.setUsersName(user.getName());
+			userMenu.setUsersName(profile.getUser().getName());
 		});
 	}
 
 	private void setupVerticalMenu(){
 		verticalMenu.onLogClick(data -> {
 			try {
-				if(user.getAccount().getSecurityLevel() >= business.getClass().getMethod("getChangeLog").getAnnotation(SecurityLevel.class).value()){
+				if(profile.getAccount().getSecurityLevel() >= business.getClass().getMethod("getChangeLog").getAnnotation(SecurityLevel.class).value()){
 					if(isMobile) drawer.close();
 					popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
 					setCenter(null);
@@ -238,7 +239,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupUserMenu(){
 		userMenu.onLogOut(data -> {
-			business.getSigningService().signOut(user.getAccount().getUsername());
+			business.getSigningService().signOut(profile.getAccount().getUsername());
 			isLoggedIn.setValue(false);
 			logInView = new LogInViewController();
 			setupUpLoginView();
@@ -248,9 +249,9 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
-			user = business.getSigningService().signIn(data[0], data[1]);
-			if(user != null){
-				SecuredAspect.setUser(user);
+			profile = business.getSigningService().signIn(data[0], data[1]);
+			if(profile != null){
+				SecuredAspect.setAccount(profile.getAccount());
 				isLoggedIn.setValue(true);
 			} else{
 				logInView.writeError("Brugernavn eller password er forkert.");

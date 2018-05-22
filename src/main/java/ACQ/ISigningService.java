@@ -6,9 +6,9 @@ public interface ISigningService {
      * If a user already is signed in, it returns null.
      * @param username any username
      * @param password any password
-     * @return user, if username and password match; otherwise null
+     * @return profile, if username and password match; otherwise null
      */
-    IUser signIn(String username, String password);
+    IProfile signIn(String username, String password);
 
     /**
      * Signs a user out of the system.

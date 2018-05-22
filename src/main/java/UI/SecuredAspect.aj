@@ -1,5 +1,6 @@
 package UI;
 
+import ACQ.IAccount;
 import ACQ.IUser;
 import BLL.IBusiness;
 import BLL.security_system.SecurityLevel;
@@ -21,16 +22,16 @@ import java.util.Set;
 @Aspect
 public aspect SecuredAspect {
 
-    private static IUser user;
+    private static IAccount account;
     private static IBusiness business;
     private static IPopup popup;
 
     /**
      *
-     * @param user
+     * @param account
      */
-    public static void setUser(IUser user){
-        SecuredAspect.user = user;
+    public static void setAccount(IAccount account){
+        SecuredAspect.account = account;
     }
 
     /**
@@ -75,7 +76,7 @@ public aspect SecuredAspect {
                 }
             }
 
-            if(user.getAccount().getSecurityLevel() < requiredSecurityLevel){
+            if(account.getSecurityLevel() < requiredSecurityLevel){
                 f.setAccessible(true);
                 Object o = f.get(joinPoint.getThis());
                 if(o instanceof Node){

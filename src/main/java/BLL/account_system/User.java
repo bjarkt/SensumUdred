@@ -1,6 +1,5 @@
 package BLL.account_system;
 
-import ACQ.IAccount;
 import ACQ.IAddress;
 import ACQ.IUser;
 
@@ -11,13 +10,11 @@ public class User implements IUser {
     private Address address;
     private String phoneNumber;
     private String email;
-    private Account account;
 
-    public User(String ssn, String firstName, String lastName, Account account){
+    public User(String ssn, String firstName, String lastName){
         this.ssn = ssn;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.account = account;
     }
 
     /**
@@ -66,14 +63,6 @@ public class User implements IUser {
     @Override
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public IAccount getAccount() {
-        return account;
     }
 
     /**

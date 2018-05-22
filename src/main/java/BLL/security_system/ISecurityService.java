@@ -1,5 +1,6 @@
 package BLL.security_system;
 
+import ACQ.IAccount;
 import ACQ.IEventListener;
 import ACQ.IUser;
 
@@ -7,16 +8,16 @@ import java.util.Set;
 
 public interface ISecurityService {
 	/**
-	 * Returns the user in the Security System.
+	 * Return the account in the Security System.
 	 */
-	IUser getUser();
+	IAccount getAccount();
 
 	/**
-	 * Sets the user inside the security system.
+	 * Set the user inside the security system.
 	 * The security system is completely automatic.
 	 * @param user the current user using the system
 	 */
-	void setUser(IUser user);
+	void setAccount(IAccount account);
 
 	/**
 	 * Add an event listener to the set.
