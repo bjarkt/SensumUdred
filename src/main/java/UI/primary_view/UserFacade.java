@@ -252,7 +252,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
 			profile = business.getSigningService().signIn(data[0], data[1]);
-			if(profile.getAccount() != null){
+			if(profile != null && profile.getAccount() != null){
 				SecuredAspect.setAccount(profile.getAccount());
 				isLoggedIn.setValue(true);
 			} else{
