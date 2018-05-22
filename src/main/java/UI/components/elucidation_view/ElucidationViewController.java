@@ -94,9 +94,11 @@ public class ElucidationViewController extends Component implements IElucidation
             @Override
             public void onChanged(Change<? extends ITextFieldWithCheckbox> change) {
                 if(listOfChosenOffers.size() > 0){
+                    deleteCaseOfferButton.setVisible(true);
                     deleteCaseOfferButton.setDisable(false);
                     deleteCaseOfferButton.setText("Slet " + listOfChosenOffers.size() + " tilbud");
                 } else{
+                    deleteCaseOfferButton.setVisible(false);
                     deleteCaseOfferButton.setDisable(true);
                     deleteCaseOfferButton.setText("Ingen tilbud valgt");
                 }
@@ -145,10 +147,12 @@ public class ElucidationViewController extends Component implements IElucidation
             @Override
             public void onChanged(Change<? extends IGranting> change) {
                 if(listOfChosenGrantings.size() > 0){
+                    deleteGrantingsButton.setVisible(true);
                     deleteGrantingsButton.setDisable(false);
                     deleteGrantingsButton.setText("Slet " + listOfChosenGrantings.size() + " ydelse");
                     if(listOfChosenGrantings.size() > 1) deleteGrantingsButton.setText("Slet " + listOfChosenGrantings.size() + " ydelser");
                 } else{
+                    deleteGrantingsButton.setVisible(false);
                     deleteGrantingsButton.setDisable(true);
                     deleteGrantingsButton.setText("Ingen ydelser valgt");
                 }

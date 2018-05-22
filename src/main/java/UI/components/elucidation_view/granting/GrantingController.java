@@ -56,6 +56,7 @@ public class GrantingController extends Component implements IGranting {
             textField.setEditable(false);
             paragraph.setEditable(false);
             paragraph.getStyleClass().remove("editing");
+            textField.getStyleClass().remove("editing");
         }
     }
 
