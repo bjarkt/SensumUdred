@@ -1,6 +1,7 @@
 package DAL.database;
 
 import ACQ.IAdminService;
+import ACQ.IElucidationService;
 import ACQ.IMeeting;
 import ACQ.ISigningService;
 

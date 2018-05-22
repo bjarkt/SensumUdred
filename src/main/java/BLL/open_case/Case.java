@@ -3,7 +3,7 @@ package BLL.open_case;
 import ACQ.ElucidationState;
 import ACQ.ITheme;
 import ACQ.IUser;
-import BLL.Inquiry.IInquiry;
+import ACQ.IInquiry;
 import BLL.Inquiry.Inquiry;
 import javafx.util.Pair;
 

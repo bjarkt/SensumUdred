@@ -1,5 +1,6 @@
 package BLL.Inquiry;
 
+import ACQ.IInquiry;
 import ACQ.IUser;
 import ACQ.Task;
 

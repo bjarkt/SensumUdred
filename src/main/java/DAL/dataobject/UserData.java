@@ -3,17 +3,15 @@ package DAL.dataobject;
 import ACQ.IAccount;
 import ACQ.IAddress;
 import ACQ.IUser;
-import BLL.account_system.Account;
-import BLL.account_system.Address;
 
 public class UserData implements IUser {
 	private String ssn;
 	private String firstName;
 	private String lastName;
-	private Address address;
+	private IAddress address;
 	private String phoneNumber;
 	private String email;
-	private Account account;
+	private IAccount account;
 
 	/**
 	 * {@inheritDoc}
@@ -77,7 +75,7 @@ public class UserData implements IUser {
 	 */
 	@Override
 	public String getName() {
-		return null;
+		return firstName + " " + lastName;
 	}
 
 	/**
@@ -108,7 +106,7 @@ public class UserData implements IUser {
 	 * Set the address for sending.
 	 * @param address any address
 	 */
-	public void setAddress(Address address) {
+	public void setAddress(IAddress address) {
 		this.address = address;
 	}
 
@@ -132,11 +130,7 @@ public class UserData implements IUser {
 	 * Set the account for sending.
 	 * @param account any account
 	 */
-	public void setAccount(Account account) {
+	public void setAccount(IAccount account) {
 		this.account = account;
-	}
-
-	public void clear() {
-
 	}
 }

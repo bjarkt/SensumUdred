@@ -95,12 +95,12 @@ public class UserManager implements IUserManager, ISigningService {
     }
 
     @Override
-    public Set<IUser> getAllUsers() {
-        return null;
+    public Set<IUser> getAllUsers(int limit) {
+        return dbService.getAllUsers(limit);
     }
 
     @Override
-    public Set<IAccount> getAllAccounts() {
-        return null;
+    public Set<IAccount> getAllAccounts(int limit) {
+        return dbService.getAllAccounts(limit);
     }
 }

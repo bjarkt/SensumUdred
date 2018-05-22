@@ -3,11 +3,12 @@ package DAL.database;
 import ACQ.IAccount;
 import ACQ.IMeeting;
 import ACQ.IUser;
-import BLL.account_system.Account;
+import DAL.dataobject.AccountData;
 import DAL.dataobject.UserData;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,7 +42,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		final String lowerUsername = username.toLowerCase(Locale.ROOT);
 
 		executeQuery(conn -> {
-			String query = "SELECT * FROM users NATURAL JOIN (SELECT users_ssn as ssn, password_hash, securitylevel, isloggedin FROM accounts JOIN haslogin ON accounts.username=?) as t;";
+			String query = "SELECT * FROM users NATURAL JOIN (SELECT users_ssn as ssn, password_hash, securitylevel, isloggedin, islocked FROM accounts JOIN haslogin ON accounts.username = ?) as t;";
 
 			PreparedStatement ps1 = conn.prepareStatement(query);
 			ps1.setString(1, lowerUsername);
@@ -49,15 +50,12 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 			ResultSet rs = ps1.executeQuery();
 
 			if(rs.next() && !rs.getBoolean("isloggedin") && BCrypt.checkpw(password, rs.getString("password_hash"))) {
-				Account account = new Account(lowerUsername, rs.getInt("securitylevel"));
+				AccountData account = new AccountData();
+				account.setUsername(lowerUsername);
+				account.setLocked(rs.getBoolean("islocked"));
+				account.setSecurityLevel(rs.getInt("securitylevel"));
 
-				userData.setSsn(rs.getString("ssn"));
-				userData.setFirstName(rs.getString("firstname"));
-				userData.setLastName(rs.getString("lastname"));
-				// userData.setAddress();
-				userData.setPhoneNumber(rs.getString("phonenumber"));
-				userData.setEmail(rs.getString("email"));
-				userData.setAccount(account);
+				 setUserDataFromResultSet(rs, userData, account);
 
 				PreparedStatement ps2 = conn.prepareStatement("UPDATE accounts SET isloggedin=true, datelastlogin=? WHERE username=?;");
 				ps2.setDate(1, new Date(System.currentTimeMillis()));
@@ -154,7 +152,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean exists = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("SELECT id FROM accounts WHERE username=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT id FROM accounts WHERE username = ?;");
 			ps.setString(1, accountName);
 
 			exists.set(ps.execute());
@@ -168,7 +166,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean exists = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("SELECT ssn FROM users WHERE ssn=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT ssn FROM users WHERE ssn = ?;");
 			ps.setString(1, ssn);
 
 			exists.set(ps.execute());
@@ -182,7 +180,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean locked = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET locked=true WHERE username=? AND locked=false;");
+			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET islocked = true WHERE username = ? AND islocked = false;");
 			ps.setString(1, accountName);
 
 			locked.set(ps.executeUpdate() == 1);
@@ -196,7 +194,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean unlocked = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET locked=false WHERE username=? AND locked=true;");
+			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET islocked = false WHERE username = ? AND islocked = true;");
 			ps.setString(1, accountName);
 
 			unlocked.set(ps.executeUpdate() == 1);
@@ -210,7 +208,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean changed = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET securitylevel=? WHERE username=? AND securitylevel != ?;");
+			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET securitylevel = ? WHERE username = ? AND securitylevel != ?;");
 			ps.setInt(1, newSecurityLevel);
 			ps.setString(2, accountName);
 			ps.setInt(3, newSecurityLevel);
@@ -226,7 +224,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean changed = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET password_hash=? WHERE username=? AND password_hash != ?;");
+			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET password_hash = ? WHERE username = ? AND password_hash != ?;");
 
 			String password_hash = BCrypt.hashpw(newPassword, BCrypt.gensalt(15));
 
@@ -241,12 +239,65 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 	}
 
 	@Override
-	public Set<IUser> getAllUsers() {
-		return null;
+	public Set<IUser> getAllUsers(int limit) {
+		Set<IUser> users = new HashSet<>();
+
+		executeQuery(conn -> {
+			String query = "SELECT * FROM users" + (limit > 0 ? " LIMIT ?;" : ";");
+
+			PreparedStatement ps = conn.prepareStatement(query);
+			if(limit > 0) ps.setInt(1, limit);
+
+			ResultSet rs = ps.executeQuery();
+
+			UserData data;
+			while(rs.next()) {
+				data = new UserData();
+				setUserDataFromResultSet(rs, data, null);
+				users.add(data);
+			}
+		});
+
+		return users;
 	}
 
 	@Override
-	public Set<IAccount> getAllAccounts() {
-		return null;
+	public Set<IAccount> getAllAccounts(int limit) {
+		Set<IAccount> accounts = new HashSet<>();
+
+		executeQuery(conn -> {
+			String query = "SELECT * FROM accounts" + (limit > 0 ? " LIMIT ?;" : ";");
+
+			PreparedStatement ps = conn.prepareStatement(query);
+			if(limit > 0) ps.setInt(1, limit);
+
+			ResultSet rs = ps.executeQuery();
+
+			AccountData data;
+			while(rs.next()) {
+				data = new AccountData();
+				setAccountDataFromResultSet(rs, data);
+				accounts.add(data);
+			}
+		});
+
+		return accounts;
+	}
+
+	private void setUserDataFromResultSet(ResultSet rs, UserData data, IAccount account) throws SQLException {
+		data.setSsn(rs.getString("ssn"));
+		data.setFirstName(rs.getString("ssn"));
+		data.setLastName(rs.getString("ssn"));
+		// TODO: Find and add the address to the user.
+		data.setAddress(null);
+		data.setPhoneNumber(rs.getString("ssn"));
+		data.setEmail(rs.getString("ssn"));
+		data.setAccount(account);
+	}
+
+	private void setAccountDataFromResultSet(ResultSet rs, AccountData data) throws SQLException {
+		data.setUsername(rs.getString("username"));
+		data.setLocked(rs.getBoolean("islocked"));
+		data.setSecurityLevel(rs.getInt("securitylevel"));
 	}
 }
