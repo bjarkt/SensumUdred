@@ -1,11 +1,8 @@
 package UI.components.elucidation_view;
 
-import ACQ.IAccount;
-import ACQ.IAddress;
-import ACQ.IUser;
+import ACQ.*;
 import UI.Secured;
 import UI.components.Component;
-import ACQ.IEventListener;
 import UI.components.dropdown_search.DropdownSearchController;
 import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
@@ -49,7 +46,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private boolean isMobile;
 
     @Secured("addCaseworkerToCase")
-    private IDropdownSearch<IUser> caseWorkerSearcher;
+    private IDropdownSearch<IProfile> caseWorkerSearcher;
 
     @FXML
     private VBox caseWorkerContainer;
@@ -181,7 +178,7 @@ public class ElucidationViewController extends Component implements IElucidation
         });
 
         // Set cell template for user searcher.
-        caseWorkerSearcher = new DropdownSearchController<>(new IDropdownSearchRequire<IUser>() {
+        caseWorkerSearcher = new DropdownSearchController<>(new IDropdownSearchRequire<IProfile>() {
             @Override
             public JFXListCell getCellFactory() {
                 return new NameCheckboxCell(){};
@@ -192,49 +189,10 @@ public class ElucidationViewController extends Component implements IElucidation
         caseWorkerContainer.getChildren().add(caseWorkerSearcher.getView());
 
 
-        List<IUser> test = new ArrayList<>();
-        test.add(new IUser() {
-            @Override
-            public String getSocialSecurityNumber() {
-                return null;
-            }
-
-            @Override
-            public String getFirstName() {
-                return "Lasse";
-            }
-
-            @Override
-            public String getLastName() {
-                return "Traberg";
-            }
-
-            @Override
-            public IAddress getAddress() {
-                return null;
-            }
-
-            @Override
-            public String getPhoneNumber() {
-                return null;
-            }
-
-            @Override
-            public String getEmail() {
-                return null;
-            }
-
-            @Override
-            public String getName() {
-                return "Lasse Traberg";
-            }
-        });
-        caseWorkerSearcher.updateList(test);
-
         caseWorkerSearcher.onDone(data -> {
             System.out.println("Recieved: ");
-            for (IUser user : data) {
-                System.out.println(user.getName());
+            for (IProfile profile: data) {
+                System.out.println(profile.getUser().getName());
             }
         });
 
