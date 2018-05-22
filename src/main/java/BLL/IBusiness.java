@@ -1,7 +1,12 @@
 package BLL;
 
 import ACQ.*;
+import BLL.address_getter.IGetAddress;
 import BLL.log_agent.ChangeLog;
+import BLL.meeting.IDialog;
+import BLL.open_case.ICase;
+import BLL.theme_manager.IThemeManager;
+import BLL.user_getter.IGetUser;
 import DAL.IPersistent;
 
 import java.util.Set;
@@ -57,6 +62,25 @@ public interface IBusiness {
 	 * Assigns caseworker to case.
 	 */
 	void addCaseworkerToCase(IUser user);
+
+	/**
+	 * Get the theme manager, for adding new themes to a case
+	 * @return theme manager;
+	 */
+	IThemeManager getThemeManager(ICase aCase);
+
+	/**
+	 * Get the user getter object, to get users from a cpr number
+	 * @return GetUser object
+	 */
+	IGetUser getGetUser();
+
+
+	/**
+	 * Get the address getter object, to get address from a cpr number
+	 * @return GetAddress object
+	 */
+	IGetAddress getGetAddress();
 
 	/**
 	 * Creates a new inquiry.
