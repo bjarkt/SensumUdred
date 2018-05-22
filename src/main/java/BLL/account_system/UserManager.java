@@ -43,13 +43,13 @@ public class UserManager implements IUserManager, ISigningService {
     }
 
     @Override
-    public boolean signUpUser(String SSN) {
-        return dbService.signUpUser(SSN);
+    public boolean signUpUser(String ssn) {
+        return dbService.signUpUser(ssn);
     }
 
     @Override
-    public boolean signUpUser(String SSN, String firstName, String lastName, String phoneNumber, String email) {
-        return dbService.signUpUser(SSN, firstName, lastName, phoneNumber, email);
+    public boolean signUpUser(String ssn, String firstName, String lastName, String phoneNumber, String email) {
+        return dbService.signUpUser(ssn, firstName, lastName, phoneNumber, email);
     }
 
     @Override
@@ -58,8 +58,12 @@ public class UserManager implements IUserManager, ISigningService {
     }
 
     @Override
-    public boolean signUpAccount(String username, String password, int securityLevel) {
-        return dbService.signUpAccount(username, password, securityLevel);
+    public boolean signUpAccount(String ssn, String username, String password, int securityLevel) {
+        boolean signedUp = false;
+
+    	if(userExists(ssn)) signedUp = dbService.signUpAccount(ssn, username, password, securityLevel);
+
+    	return signedUp;
     }
 
     @Override

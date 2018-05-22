@@ -26,6 +26,7 @@ public abstract class PostgreSqlDatabase {
 				conn.commit();
 			} catch(SQLException e) {
 				conn.rollback();
+				e.printStackTrace();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
