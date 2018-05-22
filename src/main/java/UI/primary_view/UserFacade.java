@@ -113,6 +113,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		isLoggedIn = new SimpleBooleanProperty();
 		isLoggedIn.setValue(false);
+
 	}
 
 	@Override
