@@ -97,7 +97,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         // Makes view responsive
         elucidation_view_container.widthProperty().addListener((observable, oldValue, newValue) -> {
             if(isMobile && newValue.doubleValue() > 800){
@@ -119,6 +118,7 @@ public class ElucidationViewController extends Component implements IElucidation
 
         // Add user searcher to appropriate container.
         caseWorkerContainer.getChildren().add(caseWorkerSearcher.getView());
+
 
         List<IUser> test = new ArrayList<>();
         test.add(new IUser() {

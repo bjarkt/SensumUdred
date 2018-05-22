@@ -14,6 +14,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,8 +65,17 @@ public aspect SecuredAspect {
         try {
             Field f = joinPoint.getThis().getClass().getDeclaredField(joinPoint.getSignature().getName());
             String methodName = f.getAnnotation(Secured.class).value();
+            int requiredSecurityLevel = -1;
 
-            if(user.getAccount().getSecurityLevel() < business.getClass().getMethod(methodName).getAnnotation(SecurityLevel.class).value()){
+            // Find method's security level.
+            for (Method method : business.getClass().getMethods()) {
+                if(method.getName().equals(methodName)) {
+                    requiredSecurityLevel = method.getAnnotation(SecurityLevel.class).value();
+                    break;
+                }
+            }
+
+            if(user.getAccount().getSecurityLevel() < requiredSecurityLevel){
                 f.setAccessible(true);
                 Object o = f.get(joinPoint.getThis());
                 if(o instanceof Node){
@@ -76,13 +86,15 @@ public aspect SecuredAspect {
                     } else if(((Node) o).getParent() instanceof Pane){
                         ((Pane)((Node) o).getParent()).getChildren().remove(o);
                     }
-                } /*if(o instanceof IComponent){
-                    ((Pane)((IComponent) o).getView().getParent()).getChildren().remove(o);
-                } */else{
+                } else if(o instanceof IComponent){
+                    if(((IComponent) o).getView().getParent() != null){
+                        ((Pane)((IComponent) o).getView().getParent()).getChildren().remove(((IComponent) o).getView());
+                    }
+                } else{
                     popup.show("Access Denied", "You have no access");
                 }
             }
-        } catch (NoSuchFieldException | NoSuchMethodException | IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
