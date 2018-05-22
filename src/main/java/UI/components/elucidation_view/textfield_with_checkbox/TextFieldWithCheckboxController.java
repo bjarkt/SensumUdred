@@ -1,4 +1,4 @@
-package UI.components.elucidation_view.granting;
+package UI.components.elucidation_view.textfield_with_checkbox;
 
 import UI.components.Component;
 import ACQ.IEventListener;
@@ -14,27 +14,24 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
-public class GrantingController extends Component implements IGranting {
+public class TextFieldWithCheckboxController extends Component implements ITextFieldWithCheckbox {
 
-    private List<IEventListener<IGranting>> onGrantingSelectedSubscribers = new ArrayList<>();
+    private List<IEventListener<ITextFieldWithCheckbox>> onTextFieldSelectedSubscribers = new ArrayList<>();
 
     private boolean selected;
 
     @FXML
-    private AnchorPane granting_container;
+    private AnchorPane textField_container;
 
     @FXML
     private TextField textField;
 
     @FXML
-    private TextField paragraph;
-
-    @FXML
     private JFXCheckBox checkBox;
 
 
-    public GrantingController() {
-        super("granting.fxml");
+    public TextFieldWithCheckboxController() {
+        super("textfield_with_checkbox.fxml");
     }
 
 
@@ -45,26 +42,14 @@ public class GrantingController extends Component implements IGranting {
     }
 
     @Override
-    public void onGrantingSelected(IEventListener<IGranting> listener) {
-        onGrantingSelectedSubscribers.add(listener);
-    }
-
-
-    @FXML
-    void onParagraphEnter(KeyEvent event) {
-        if(event.getCode() == KeyCode.ENTER){
-            textField.setEditable(false);
-            paragraph.setEditable(false);
-            paragraph.getStyleClass().remove("editing");
-        }
+    public void onTextFieldSelected(IEventListener<ITextFieldWithCheckbox> listener) {
+        onTextFieldSelectedSubscribers.add(listener);
     }
 
     @FXML
     void onTextEnter(KeyEvent event) {
         if(event.getCode() == KeyCode.ENTER){
-            paragraph.requestFocus();
             textField.getStyleClass().remove("editing");
-            paragraph.getStyleClass().add("editing");
         }
     }
 
@@ -73,7 +58,7 @@ public class GrantingController extends Component implements IGranting {
     void clickCheckBox(MouseEvent event) {
         if(selected) selected = false;
         else selected = true;
-        onGrantingSelectedSubscribers.forEach(listener -> listener.onAction(this));
+        onTextFieldSelectedSubscribers.forEach(listener -> listener.onAction(this));
     }
 
     @Override
@@ -83,10 +68,6 @@ public class GrantingController extends Component implements IGranting {
 
     public String getText(){
         return textField.getText();
-    }
-
-    public String getParagraph(){
-        return paragraph.getText();
     }
 
 

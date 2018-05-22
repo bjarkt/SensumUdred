@@ -1,11 +1,11 @@
-package UI.components.elucidation_view.granting;
+package UI.components.elucidation_view.textfield_with_checkbox;
 
 import UI.components.IComponent;
 import ACQ.IEventListener;
 
-public interface IGranting extends IComponent {
+public interface ITextFieldWithCheckbox extends IComponent {
 
-    void onGrantingSelected(IEventListener<IGranting> listener);
+    void onTextFieldSelected(IEventListener<ITextFieldWithCheckbox> listener);
 
     boolean isSelected();
 

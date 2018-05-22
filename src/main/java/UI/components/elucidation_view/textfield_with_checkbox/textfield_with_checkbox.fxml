@@ -2,29 +2,15 @@
 
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane fx:id="granting_container" style="-fx-background-color: white;" stylesheets="@granting.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.elucidation_view.granting.GrantingController">
+<AnchorPane fx:id="textField_container" style="-fx-background-color: white;" stylesheets="@textfield_with_checkbox.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController">
    <children>
       <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField fx:id="textField" onKeyPressed="#onTextEnter" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper" HBox.hgrow="SOMETIMES">
-               <children>
-                  <Label styleClass="elucidationView_inputField_description" text="§" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets right="11.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="paragraph" maxWidth="100.0" onKeyPressed="#onParagraphEnter" promptText="Paragraf" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
-               </children>
-               <HBox.margin>
-                  <Insets left="16.0" />
-               </HBox.margin>
-            </HBox>
             <JFXCheckBox fx:id="checkBox" contentDisplay="GRAPHIC_ONLY" onMouseClicked="#clickCheckBox">
                <HBox.margin>
                   <Insets left="16.0" />
