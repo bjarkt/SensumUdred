@@ -20,6 +20,9 @@ public class GetAddress implements IGetAddress {
         this.gson = new Gson();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public IAddress getAddress(String cpr) {
         IAddress address = null;
         Map<String, Object> queryMap = new HashMap<>();
