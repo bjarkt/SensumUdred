@@ -61,7 +61,7 @@ public class ElucidationViewController extends Component implements IElucidation
     //endregion
 
 
-    //region grantings_section
+    //region setup grantings section
 
     private ObservableSet<IGranting> listOfChosenGrantings = FXCollections.observableSet();
 
@@ -81,14 +81,18 @@ public class ElucidationViewController extends Component implements IElucidation
     void addCaseGranting(ActionEvent event) {
         IGranting granting = new GrantingController();
         granting.onGrantingSelected(data -> {
-            listOfChosenGrantings.add(data);
+            if(data.isSelected()) listOfChosenGrantings.add(data);
+            else listOfChosenGrantings.remove(data);
         });
         grantingWrapper.getChildren().add(granting.getView());
     }
 
     @FXML
     void deleteGranting(ActionEvent event) {
-
+        for (IGranting granting : listOfChosenGrantings) {
+            grantingWrapper.getChildren().remove(granting.getView());
+        }
+        listOfChosenGrantings.clear();
     }
 
     private void setupUpGrantingsSection(){
@@ -97,7 +101,8 @@ public class ElucidationViewController extends Component implements IElucidation
             public void onChanged(Change<? extends IGranting> change) {
                 if(listOfChosenGrantings.size() > 0){
                     deleteGrantingsButton.setDisable(false);
-                    deleteGrantingsButton.setText("Slet " + listOfChosenOffers.size() + " ydelser");
+                    deleteGrantingsButton.setText("Slet " + listOfChosenGrantings.size() + " ydelse");
+                    if(listOfChosenGrantings.size() > 1) deleteGrantingsButton.setText("Slet " + listOfChosenGrantings.size() + " ydelser");
                 } else{
                     deleteGrantingsButton.setDisable(true);
                     deleteGrantingsButton.setText("Ingen ydelser valgt");
