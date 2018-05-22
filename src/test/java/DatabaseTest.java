@@ -43,12 +43,8 @@ public class DatabaseTest {
 	}
 
 	@Test
-	public void lockAccount() {
+	public void lockAndUnlockAccount() {
 		assert dbService.lockAccount("admin");
-	}
-
-	@Test
-	public void unlockAccount() {
 		assert dbService.unlockAccount("admin");
 	}
 }
