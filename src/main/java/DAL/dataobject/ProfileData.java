@@ -8,6 +8,11 @@ public class ProfileData implements IProfile {
 	private IUser user;
 	private IAccount account;
 
+	public ProfileData() {
+		this.user = null;
+		this.account = null;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

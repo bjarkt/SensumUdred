@@ -159,7 +159,9 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 			PreparedStatement ps = conn.prepareStatement("SELECT id FROM accounts WHERE username = ?;");
 			ps.setString(1, accountName);
 
-			exists.set(ps.execute());
+			ResultSet rs = ps.executeQuery();
+
+			exists.set(rs.next());
 		});
 
 		return exists.get();
