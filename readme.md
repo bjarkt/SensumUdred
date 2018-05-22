@@ -8,3 +8,10 @@ java and javac must be in path.
 - linux/mac:
     - open terminal in project directory
     - run command: `./run.sh`
+    
+## External services
+Using http server to simulate various external services, such as cpr register and eboks.
+
+https://sensumudred-api.herokuapp.com/docs/
+
+Valid api keys for the server are ['1234', 'blabla']
