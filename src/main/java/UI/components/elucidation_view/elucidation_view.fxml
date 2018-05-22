@@ -331,17 +331,6 @@
                                              </padding>
                                           </HBox>
                                           <TextField editable="false" promptText="Navn" styleClass="elucidationView_simpleInputField" text="Lasse Marco Holst Traberg-Larsen" />
-                                          <HBox>
-                                             <children>
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton text="TIlføj sagsbehandler">
-                                                   <styleClass>
-                                                      <String fx:value="flat-button" />
-                                                      <String fx:value="flat-button_outlined" />
-                                                   </styleClass>
-                                                </JFXButton>
-                                             </children>
-                                          </HBox>
                                        </children>
                                        <padding>
                                           <Insets bottom="24.0" left="24.0" right="24.0" top="16.0" />
