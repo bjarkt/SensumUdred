@@ -86,6 +86,8 @@ public class Request implements IRequest {
 
 			byte[] attachmentBytes;
 
+			data[0] = data[0].toUpperCase().trim();
+
 			if(data[0].equals("PDF")) {
 				attachmentBytes = getPDFFromUrl(data[1]);
 			} else {
@@ -93,7 +95,7 @@ public class Request implements IRequest {
 			}
 
 			if(attachmentBytes != null) {
-				attachment = new Attachment(AttachmentEnum.valueOf(data[0].toUpperCase()), attachmentBytes);
+				attachment = new Attachment(AttachmentEnum.valueOf(data[0]), attachmentBytes);
 				this.timeOfLastestRequest = new Date();
 			}
 		}
