@@ -166,9 +166,9 @@ CREATE TABLE eventlogs(
   logAction INTEGER
 );
 
-INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@tester.com');
-INSERT INTO haslogin VALUES ('99999999', 1);
-INSERT INTO accounts VALUES(1, 'tester', '$2a$10$sXLHK59F9z.P5rRVycQ4N.FIwMYdo0pF2Rl10NYNToXD57s7cVBzu', 1000, false, false, 0, null);
 INSERT INTO users VALUES ('00000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
 INSERT INTO haslogin VALUES ('0000000000', 0);
 INSERT INTO accounts VALUES(0, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
+INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@tester.com');
+INSERT INTO haslogin VALUES ('99999999', 1);
+INSERT INTO accounts VALUES(1, 'tester', '$2a$10$sXLHK59F9z.P5rRVycQ4N.FIwMYdo0pF2Rl10NYNToXD57s7cVBzu', 1000, false, false, 0, null);
