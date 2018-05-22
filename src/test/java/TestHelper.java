@@ -1,4 +1,5 @@
 import ACQ.*;
+import DAL.PersistentFacade;
 import DAL.http_request_utility.HttpRequestUtility;
 
 import java.io.IOException;
@@ -50,6 +51,6 @@ public class TestHelper {
     }
 
     public static IHttp getHttpClient() {
-        return HttpRequestUtility::makeHttpRequest;
+        return new PersistentFacade().getHttp();
     }
 }

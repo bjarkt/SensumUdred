@@ -10,7 +10,11 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface IPersistent {
-    byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException;
+    /**
+     * Get an http client
+     * @return IHttp http client
+     */
+    IHttp getHttp();
 
     IDatabaseService getDatabaseService();
 }
