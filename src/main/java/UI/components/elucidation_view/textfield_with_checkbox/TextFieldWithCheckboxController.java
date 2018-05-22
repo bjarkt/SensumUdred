@@ -1,7 +1,8 @@
-package UI.components.elucidation_view.granting;
+package UI.components.elucidation_view.textfield_with_checkbox;
 
 import UI.components.Component;
 import ACQ.IEventListener;
+import UI.components.elucidation_view.granting.IGranting;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -14,7 +15,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
-public class GrantingController extends Component implements IGranting {
+public class TextFieldWithCheckboxController extends Component implements IGranting {
 
     private List<IEventListener<IGranting>> onGrantingSelectedSubscribers = new ArrayList<>();
 
@@ -33,7 +34,7 @@ public class GrantingController extends Component implements IGranting {
     private JFXCheckBox checkBox;
 
 
-    public GrantingController() {
+    public TextFieldWithCheckboxController() {
         super("granting.fxml");
     }
 
