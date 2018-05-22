@@ -1,7 +1,9 @@
 package BLL;
 
 import ACQ.IElucidation;
+import ACQ.ISigningService;
 import ACQ.IUser;
+import ACQ.IUserManager;
 import BLL.account_system.UserManager;
 import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
@@ -12,13 +14,20 @@ import java.util.Set;
 
 public class BusinessFacade implements IBusiness {
 	private IPersistent persistent;
+	private IUserManager userManager;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	public BusinessFacade() {
+
+	}
+
 	@Override
-	public IUser login(String username, String password) {
-		return UserManager.getInstance().signIn(username, password);
+	public ISigningService getSigningService() {
+		return (ISigningService) userManager;
+	}
+
+	@Override
+	public IUserManager getUserManager() {
+		return userManager;
 	}
 
 	/**
@@ -78,6 +87,7 @@ public class BusinessFacade implements IBusiness {
 	@Override
 	public void injectPersistent(IPersistent persistent) {
 		this.persistent = persistent;
+		this.userManager = new UserManager(persistent.getDatabaseService());
 		LogAspect.setPersistent(persistent);
 	}
 }

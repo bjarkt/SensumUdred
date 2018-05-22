@@ -21,36 +21,34 @@ DROP TABLE IF EXISTS changelogs CASCADE;
 DROP TABLE IF EXISTS eventlogs CASCADE;
 
 CREATE TABLE users(
-  SSN VARCHAR(10) NOT NULL,
+  SSN VARCHAR(10) NOT NULL PRIMARY KEY,
   firstName TEXT NOT NULL,
   lastName TEXT NOT NULL,
-  phoneNumber VARCHAR(8),
-  email TEXT NOT NULL ,
-  PRIMARY KEY (SSN, email)
+  phoneNumber VARCHAR(8) DEFAULT '',
+  email TEXT DEFAULT ''
 );
 
 CREATE TABLE haslogin(
   users_SSN VARCHAR(10),
-  users_email TEXT,
   accounts_ID BIGSERIAL,
-  PRIMARY KEY (users_SSN, users_email, accounts_ID)
+  PRIMARY KEY (users_SSN, accounts_ID)
 );
 
 CREATE TABLE accounts(
   ID BIGSERIAL PRIMARY KEY,
-  userName TEXT,
-  password_hash TEXT,
-  securityLevel INTEGER,
-  isLoggedIn BOOLEAN,
-  attempts INTEGER,
-  dateLastLogin DATE,
-  locked BOOLEAN
+  userName TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  securityLevel INTEGER DEFAULT 0,
+  isLoggedIn BOOLEAN DEFAULT false,
+  locked BOOLEAN DEFAULT false,
+  attempts INTEGER DEFAULT 0,
+  dateLastLogin DATE
 );
 
 CREATE TABLE guardians(
   citizenSSN  VARCHAR(10),
   guardianSSN VARCHAR(10),
-  representation TEXT,
+  representation TEXT DEFAULT '',
   PRIMARY KEY(citizenSSN, guardianSSN)
 );
 
@@ -168,4 +166,6 @@ CREATE TABLE eventlogs(
   logAction INTEGER
 );
 
-INSERT INTO accounts VALUES(-1, 'admin', '$2a$15$uoVqNmySNPyqGB1jVLfnVu54R.JZz4E0I4WOI3fFHxvz3//q0mJw2', 1000, false, 0, null);
+INSERT INTO users VALUES ('0000000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
+INSERT INTO haslogin VALUES ('0000000000', 0);
+INSERT INTO accounts VALUES(0, 'admin', '$2a$15$uoVqNmySNPyqGB1jVLfnVu54R.JZz4E0I4WOI3fFHxvz3//q0mJw2', 1000, false, false, 0, null);

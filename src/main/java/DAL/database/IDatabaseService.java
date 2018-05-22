@@ -1,12 +1,12 @@
 package DAL.database;
 
-import ACQ.IUserService;
+import ACQ.IAdminService;
 import ACQ.IMeeting;
 import ACQ.ISigningService;
 
 import java.sql.SQLException;
 
-public interface IDatabaseService extends ISigningService, IUserService {
+public interface IDatabaseService extends ISigningService, IAdminService {
 	/**
 	 * Files a meeting into the database.
 	 * @param meeting any meeting
