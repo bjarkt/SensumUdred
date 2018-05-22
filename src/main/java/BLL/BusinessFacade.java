@@ -5,6 +5,7 @@ import BLL.account_system.UserManager;
 import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
 import BLL.security_system.SecurityLevel;
+import BLL.security_system.SecuritySystem;
 import DAL.IPersistent;
 
 import java.util.Set;
@@ -38,7 +39,7 @@ public class BusinessFacade implements IBusiness {
 	 */
 	@Override
 	public void setSecurityEventListener(IEventListener<SecurityException> eventListener) {
-
+		SecuritySystem.getInstance().setEventListener(eventListener);
 	}
 
 	/**
