@@ -12,9 +12,10 @@ public interface ISigningService {
 
     /**
      * Signs a user out of the system.
+     * @param accountName any account name
      * @return true, if successful; otherwise false
      */
-    boolean signOut();
+    boolean signOut(String accountName);
 
 	/**
 	 * Register a user based on their social security number.

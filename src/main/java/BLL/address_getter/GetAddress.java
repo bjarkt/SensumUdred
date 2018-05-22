@@ -1,7 +1,6 @@
 package BLL.address_getter;
 
 import ACQ.*;
-import BLL.account_system.Address;
 import com.google.gson.Gson;
 
 import java.io.IOException;

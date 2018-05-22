@@ -1,23 +1,56 @@
 import DAL.database.DatabaseService;
 import DAL.database.IDatabaseService;
-import DAL.database.PostgreSqlDatabase;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class DatabaseTest {
-	@Test
-	public void databaseConnectionTest() {
-		IDatabaseService db = new DatabaseService();
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+public class DatabaseTest {
+	private IDatabaseService dbService;
+
+	public DatabaseTest() {
+		this.dbService = new DatabaseService();
+	}
+
+	@Test
+	public void connectionTest() {
 		boolean isValid = true;
+
 		try {
-			db.testConnection();
+			dbService.testConnection();
 		} catch(SQLException e) {
 			isValid = false;
-			e.printStackTrace();
 		}
 
 		assert isValid;
+	}
+
+	@Test
+	public void signInAndOut() {
+		assertEquals("admin", dbService.signIn("admin", "admin").getAccount().getUsername());
+		assert dbService.signOut("admin");
+	}
+
+	@Test
+	public void userExist() {
+		assert dbService.userExists("admin");
+	}
+
+	@Test
+	public void accountExist() {
+		assert dbService.accountExists("admin");
+	}
+
+	@Test
+	public void lockAccount() {
+		dbService.unlockAccount("admin");
+		assert dbService.lockAccount("admin");
+	}
+
+	@Test
+	public void unlockAccount() {
+		dbService.lockAccount("admin");
+		assert dbService.unlockAccount("admin");
 	}
 }

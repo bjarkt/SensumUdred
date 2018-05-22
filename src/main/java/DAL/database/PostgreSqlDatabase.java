@@ -19,7 +19,14 @@ public abstract class PostgreSqlDatabase {
 
 	protected void executeQuery(IPostgreSqlCallback callback) {
 		try(Connection conn = getConnection()) {
-			callback.execute(conn);
+			conn.setAutoCommit(false);
+
+			try {
+				callback.execute(conn);
+				conn.commit();
+			} catch(SQLException e) {
+				conn.rollback();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
