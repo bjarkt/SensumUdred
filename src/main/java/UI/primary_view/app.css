@@ -97,9 +97,21 @@ JFXButton:hover, Button:hover{
 }
 
 .flat-button_outlined{
-    -fx-background-color: transparent !important;
-    -fx-text-fill: #1B71FF !important;
-    -fx-border-color: #1B71FF !important;
+    -fx-background-color: transparent;
+    -fx-text-fill: #1B71FF;
+    -fx-border-color: #1B71FF;
+}
+
+.flat-button_outlined_red{
+    -fx-background-color: transparent;
+    -fx-text-fill: #db4437;
+    -fx-border-color: #db4437;
+}
+
+JFXButton.editing{
+    -fx-border-color: #0f9d58 !important;
+    -fx-text-fill: #0f9d58 !important;
+    -fx-background-color: #D8EFE4 !important;
 }
 
 /* CANVAS */

@@ -29,6 +29,9 @@ public class UserManager implements IUserManager, ISigningService {
 
     @Override
     public IUser signIn(String username, String password) {
+<<<<<<< HEAD
+        return null;
+=======
         IUser user = dbService.signIn(username, password);
 
         return user;
@@ -40,6 +43,7 @@ public class UserManager implements IUserManager, ISigningService {
         this.signedInUser = null;
 
         return dbService.signOut(accountName);
+>>>>>>> 5485ba1f58c1248fdbea14c40b772d9802bf83b0
     }
 
     @Override

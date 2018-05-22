@@ -11,4 +11,8 @@ public interface IElucidationView extends IComponent {
 
     void onAddNewOffer(IEventListener<String> listener);
 
+    void onDeleteOffers(IEventListener<String[]> listener);
+
+    void tickOffersList(String ...offers);
+
 }
