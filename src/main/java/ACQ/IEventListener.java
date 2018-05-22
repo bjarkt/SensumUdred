@@ -1,4 +1,4 @@
-package UI.components;
+package ACQ;
 
 /**
  * This generic interface is used as a part of the observer pattern.

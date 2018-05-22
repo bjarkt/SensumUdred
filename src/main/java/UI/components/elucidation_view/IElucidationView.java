@@ -1,7 +1,7 @@
 package UI.components.elucidation_view;
 
 import UI.components.IComponent;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 
 public interface IElucidationView extends IComponent {
 

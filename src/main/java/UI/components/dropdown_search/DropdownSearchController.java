@@ -1,7 +1,7 @@
 package UI.components.dropdown_search;
 
 import UI.components.Component;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;

@@ -1,7 +1,7 @@
 package UI.components.header;
 
 import UI.components.Component;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;

@@ -1,7 +1,7 @@
 package UI.components.header;
 
 import UI.components.IComponent;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import javafx.beans.property.StringProperty;
 
 public interface IHeader extends IComponent {

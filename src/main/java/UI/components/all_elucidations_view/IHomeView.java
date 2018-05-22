@@ -1,7 +1,7 @@
 package UI.components.all_elucidations_view;
 
 import UI.components.IComponent;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 
 public interface IHomeView extends IComponent {
 

@@ -1,7 +1,7 @@
 package UI.components.dropdown_search;
 
 import UI.components.IComponent;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 
 import java.util.List;
 import java.util.Set;

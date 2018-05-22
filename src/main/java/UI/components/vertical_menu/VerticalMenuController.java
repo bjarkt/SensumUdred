@@ -2,7 +2,7 @@ package UI.components.vertical_menu;
 
 import UI.Secured;
 import UI.components.Component;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

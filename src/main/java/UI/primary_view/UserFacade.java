@@ -168,6 +168,14 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void shutdown() {
+		business.getSigningService().signOut(user.getAccount().getUsername());
+	}
+
+	/**
 	 * Loads the center of the screen with a component.
 	 * @param component Component to be loaded into center view.
 	 */
@@ -229,6 +237,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupUserMenu(){
 		userMenu.onLogOut(data -> {
+			business.getSigningService().signOut(user.getAccount().getUsername());
 			isLoggedIn.setValue(false);
 			logInView = new LogInViewController();
 			setupUpLoginView();

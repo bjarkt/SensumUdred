@@ -2,7 +2,7 @@ package UI.components.log_in_page;
 
 import BLL.IBusiness;
 import UI.components.Component;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;

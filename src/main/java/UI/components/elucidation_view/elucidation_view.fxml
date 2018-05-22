@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.*?>
+
 <AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -99,12 +106,24 @@
                                           <HBox />
                                        </children>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox fx:id="grantingsContainer" spacing="10.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
                                                 <Label styleClass="elucidationView_section_title" text="Ydelser" />
                                                 <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="deleteGrantingsButton" cancelButton="true" disable="true" onAction="#deleteGranting" text="Ingen ydelser valgt">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined_red" />
+                                                   </styleClass>
+                                                   <graphic>
+                                                      <SVGPath content="M6,19c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V7H6V19z M8,9h8v10H8V9z M15.5,4l-1-1h-5l-1,1H5v2h14V4H15.5z" fill="#db4437" />
+                                                   </graphic>
+                                                   <HBox.margin>
+                                                      <Insets right="12.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
                                                 <JFXButton fx:id="addCaseGrantingsbutton" onAction="#addCaseGranting" text="Tilføj ydelse">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
@@ -119,24 +138,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox>
-                                             <children>
-                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
-                                                <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper" HBox.hgrow="SOMETIMES">
-                                                   <children>
-                                                      <Label styleClass="elucidationView_inputField_description" text="§" HBox.hgrow="ALWAYS">
-                                                         <HBox.margin>
-                                                            <Insets right="11.0" />
-                                                         </HBox.margin>
-                                                      </Label>
-                                                      <TextField editable="false" maxWidth="100.0" promptText="Paragraf" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
-                                                   </children>
-                                                   <HBox.margin>
-                                                      <Insets left="16.0" />
-                                                   </HBox.margin>
-                                                </HBox>
-                                             </children>
-                                          </HBox>
+                                          <VBox fx:id="grantingWrapper" spacing="10.0" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="10.0">

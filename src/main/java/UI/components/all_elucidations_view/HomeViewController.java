@@ -2,7 +2,7 @@ package UI.components.all_elucidations_view;
 
 import UI.Secured;
 import UI.components.Component;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;

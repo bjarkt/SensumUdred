@@ -1,7 +1,7 @@
 package UI.components.user_menu;
 
 import UI.components.IComponent;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 
 public interface IUserMenu extends IComponent {
 

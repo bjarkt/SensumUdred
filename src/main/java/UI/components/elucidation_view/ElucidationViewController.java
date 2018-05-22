@@ -5,22 +5,20 @@ import ACQ.IAddress;
 import ACQ.IUser;
 import UI.Secured;
 import UI.components.Component;
-import UI.components.IEventListener;
+import ACQ.IEventListener;
 import UI.components.dropdown_search.DropdownSearchController;
 import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
+import UI.components.elucidation_view.granting.GrantingController;
+import UI.components.elucidation_view.granting.IGranting;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
-import javafx.beans.property.SimpleListProperty;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -28,7 +26,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -57,8 +54,62 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox caseWorkerContainer;
 
+    //region offers_section
+    @FXML
+    private VBox offersContainer;
+
+    //endregion
+
+
+    //region grantings_section
+
+    private ObservableSet<IGranting> listOfChosenGrantings = FXCollections.observableSet();
+
+    @FXML
+    private VBox grantingsContainer;
+
+    @FXML
+    private VBox grantingWrapper;
+
     @FXML
     private JFXButton addCaseGrantingsbutton;
+
+    @FXML
+    private JFXButton deleteGrantingsButton;
+
+    @FXML
+    void addCaseGranting(ActionEvent event) {
+        IGranting granting = new GrantingController();
+        granting.onGrantingSelected(data -> {
+            listOfChosenGrantings.add(data);
+        });
+        grantingWrapper.getChildren().add(granting.getView());
+    }
+
+    @FXML
+    void deleteGranting(ActionEvent event) {
+
+    }
+
+    private void setupUpGrantingsSection(){
+        listOfChosenGrantings.addListener(new SetChangeListener<IGranting>() {
+            @Override
+            public void onChanged(Change<? extends IGranting> change) {
+                if(listOfChosenGrantings.size() > 0){
+                    deleteGrantingsButton.setDisable(false);
+                    deleteGrantingsButton.setText("Slet " + listOfChosenOffers.size() + " ydelser");
+                } else{
+                    deleteGrantingsButton.setDisable(true);
+                    deleteGrantingsButton.setText("Ingen ydelser valgt");
+                }
+            }
+        });
+    }
+
+    //endregion
+
+
+
 
     @FXML
     private AnchorPane elucidation_view_container;
@@ -81,8 +132,7 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private TextArea caseDescriptionField;
 
-    @FXML
-    private VBox offersContainer;
+
 
     @FXML
     private JFXButton deleteCaseOfferButton;
@@ -216,6 +266,9 @@ public class ElucidationViewController extends Component implements IElucidation
             }
         });
 
+        // Setup different components.
+        setupUpGrantingsSection();
+
     }
 
     @Override
@@ -264,12 +317,6 @@ public class ElucidationViewController extends Component implements IElucidation
             saveCaseDescriptionSubscribers.forEach(listener -> listener.onAction(caseDescriptionField.getText()));
         }
 
-    }
-
-
-    @FXML
-    void addCaseGranting(ActionEvent event) {
-        
     }
 
     @FXML
