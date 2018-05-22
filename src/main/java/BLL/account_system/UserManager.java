@@ -69,7 +69,7 @@ public class UserManager implements IUserManager, ISigningService {
 
                     @Override
                     public int getSecurityLevel() {
-                        return 1000;
+                        return 200;
                     }
                 };
             }

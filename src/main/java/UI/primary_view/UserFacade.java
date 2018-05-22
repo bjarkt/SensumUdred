@@ -123,7 +123,6 @@ public class UserFacade implements IUserInterface, Initializable {
 		setupVerticalMenu();
 		setupAllElucidationsView();
 		setupElucidationView();
-		SecuredAspect.setPopup(popUp);
 
 		/* Set initial view to be log in view */
 		setCenter(logInView);
