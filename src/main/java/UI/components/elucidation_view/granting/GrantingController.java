@@ -5,6 +5,8 @@ import ACQ.IEventListener;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
@@ -38,13 +40,34 @@ public class GrantingController extends Component implements IGranting {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        textField.getStyleClass().add("editing");
+        textField.requestFocus();
     }
 
     @Override
     public void onGrantingSelected(IEventListener<IGranting> listener) {
         onGrantingSelectedSubscribers.add(listener);
     }
+
+
+    @FXML
+    void onParagraphEnter(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER){
+            textField.setEditable(false);
+            paragraph.setEditable(false);
+            paragraph.getStyleClass().remove("editing");
+        }
+    }
+
+    @FXML
+    void onTextEnter(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER){
+            paragraph.requestFocus();
+            textField.getStyleClass().remove("editing");
+            paragraph.getStyleClass().add("editing");
+        }
+    }
+
 
     @FXML
     void clickCheckBox(MouseEvent event) {
