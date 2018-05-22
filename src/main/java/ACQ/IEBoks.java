@@ -31,4 +31,10 @@ public interface IEBoks {
      * @return true if the meeting cancel message was successfully sent
      */
     boolean sendCancelMeetingMessage(Collection<IUser> participants, GregorianCalendar meetingDate, String info);
+
+    /**
+     * Set the http client
+     * @param http http client
+     */
+    void setHttp(IHttp http);
 }
