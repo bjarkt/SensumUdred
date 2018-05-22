@@ -1,7 +1,6 @@
 package DAL.database;
 
 import ACQ.IAccount;
-import ACQ.IElucidation;
 import ACQ.IMeeting;
 import ACQ.IUser;
 import DAL.dataobject.AccountData;
@@ -285,28 +284,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		return accounts;
 	}
 
-	@Override
-	public boolean createElucidation(IElucidation elucidation) {
-		return false;
-	}
-
-	@Override
-	public boolean addCaseworkers(long id, IUser... users) {
-		return false;
-	}
-
-	@Override
-	public boolean removeCaseworkers(long id, IUser... users) {
-		return false;
-	}
-
-	@Override
-	public IElucidation getElucidation(long id) {
-		return null;
-	}
-
 	private void setUserDataFromResultSet(ResultSet rs, UserData data, IAccount account) throws SQLException {
-
 		data.setSsn(rs.getString("ssn"));
 		data.setFirstName(rs.getString("ssn"));
 		data.setLastName(rs.getString("ssn"));

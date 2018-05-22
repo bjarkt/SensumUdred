@@ -1,4 +1,4 @@
-package BLL.Inquiry;
+package ACQ;
 
 import ACQ.IUser;
 
@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.Set;
 
 public interface IInquiry {
-
-
     /**
      * Add one or more users to the inquiry
      * @param attendee one or more user

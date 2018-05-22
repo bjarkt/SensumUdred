@@ -7,7 +7,7 @@ import ACQ.ISigningService;
 
 import java.sql.SQLException;
 
-public interface IDatabaseService extends ISigningService, IAdminService, IElucidationService {
+public interface IDatabaseService extends ISigningService, IAdminService {
 	/**
 	 * Files a meeting into the database.
 	 * @param meeting any meeting
