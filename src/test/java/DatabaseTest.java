@@ -28,23 +28,23 @@ public class DatabaseTest {
 
 	@Test
 	public void signInAndOut() {
-		assertEquals("admin", dbService.signIn("admin", "admin").getAccount().getUsername());
-		assert dbService.signOut("admin");
+		assertEquals("tester", dbService.signIn("tester", "tester").getAccount().getUsername());
+		assert dbService.signOut("tester");
 	}
 
 	@Test
 	public void userExist() {
-		assert dbService.userExists("00000000");
+		assert dbService.userExists("99999999");
 	}
 
 	@Test
 	public void accountExist() {
-		assert dbService.accountExists("admin");
+		assert dbService.accountExists("tester");
 	}
 
 	@Test
 	public void lockAndUnlockAccount() {
-		assert dbService.lockAccount("admin");
-		assert dbService.unlockAccount("admin");
+		assert dbService.lockAccount("tester");
+		assert dbService.unlockAccount("tester");
 	}
 }
