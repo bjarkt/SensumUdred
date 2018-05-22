@@ -8,6 +8,8 @@ import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
 import UI.components.elucidation_view.granting.GrantingController;
 import UI.components.elucidation_view.granting.IGranting;
+import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithCheckbox;
+import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
@@ -41,8 +43,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     private IElucidationViewRequire required;
 
-    private ObservableSet<String> listOfChosenOffers = FXCollections.observableSet();
-
     private boolean isMobile;
 
     @Secured("addCaseworkerToCase")
@@ -52,9 +52,57 @@ public class ElucidationViewController extends Component implements IElucidation
     private VBox caseWorkerContainer;
 
     //region offers_section
+
+    private ObservableSet<ITextFieldWithCheckbox> listOfChosenOffers = FXCollections.observableSet();
+
     @FXML
     private VBox offersContainer;
 
+    @FXML
+    private VBox caseOffersWrapper;
+
+
+    @FXML
+    private JFXButton editOffersbutton;
+
+    @FXML
+    private JFXButton editCaseOffersButton;
+
+    @FXML
+    private JFXButton deleteCaseOfferButton;
+
+    @FXML
+    void addCaseOffer(ActionEvent event) {
+        ITextFieldWithCheckbox offer = new TextFieldWithCheckboxController();
+        offer.onTextFieldSelected(data -> {
+            if(data.isSelected()) listOfChosenOffers.add(data);
+            else listOfChosenOffers.remove(data);
+        });
+        caseOffersWrapper.getChildren().add(offer.getView());
+    }
+
+    @FXML
+    void deleteCaseOffers(ActionEvent event) {
+        for (ITextFieldWithCheckbox textFieldWithCheckbox : listOfChosenOffers) {
+            caseOffersWrapper.getChildren().remove(textFieldWithCheckbox.getView());
+        }
+        listOfChosenOffers.clear();
+    }
+
+    private void setupOffersSection(){
+        listOfChosenOffers.addListener(new SetChangeListener<ITextFieldWithCheckbox>(){
+            @Override
+            public void onChanged(Change<? extends ITextFieldWithCheckbox> change) {
+                if(listOfChosenOffers.size() > 0){
+                    deleteCaseOfferButton.setDisable(false);
+                    deleteCaseOfferButton.setText("Slet " + listOfChosenOffers.size() + " tilbud");
+                } else{
+                    deleteCaseOfferButton.setDisable(true);
+                    deleteCaseOfferButton.setText("Ingen tilbud valgt");
+                }
+            }
+        });
+    }
     //endregion
 
 
@@ -134,17 +182,6 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private TextArea caseDescriptionField;
 
-
-
-    @FXML
-    private JFXButton deleteCaseOfferButton;
-
-    @FXML
-    private JFXButton editCaseOffersButton;
-
-    @FXML
-    private JFXButton editCaseOfferingsbutton;
-
     @FXML
     private JFXButton editCaseCitizenAgreementButton;
 
@@ -196,21 +233,9 @@ public class ElucidationViewController extends Component implements IElucidation
             }
         });
 
-        listOfChosenOffers.addListener(new SetChangeListener<String>() {
-            @Override
-            public void onChanged(Change<? extends String> change) {
-                if(listOfChosenOffers.size() > 0){
-                    deleteCaseOfferButton.setDisable(false);
-                    deleteCaseOfferButton.setText("Slet " + listOfChosenOffers.size() + " tilbud");
-                } else{
-                    deleteCaseOfferButton.setDisable(true);
-                    deleteCaseOfferButton.setText("Ingen tilbud valgt");
-                }
-            }
-        });
-
         // Setup different components.
         setupUpGrantingsSection();
+        setupOffersSection();
 
     }
 
@@ -262,57 +287,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     }
 
-    @FXML
-    void editOffersButton(ActionEvent event) {
-        HBox hBox = new HBox();
-        JFXCheckBox checkbox = new JFXCheckBox();
-        TextField textArea = new TextField();
-
-        checkbox.setOnMouseClicked(event1 -> {
-            if(checkbox.isSelected()) listOfChosenOffers.add(textArea.getText());
-            else if(!checkbox.isSelected()) listOfChosenOffers.remove(textArea.getText());
-        });
-
-        textArea.getStyleClass().add("elucidationView_inputField");
-        textArea.getStyleClass().add("editing");
-
-        hBox.getStyleClass().add("elucidationView_inputField_wrapper");
-        hBox.getChildren().addAll(checkbox, textArea);
-        hBox.setHgrow(textArea, Priority.ALWAYS);
-        hBox.setAlignment(Pos.CENTER_LEFT);
-
-        textArea.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)){
-                    addNewOfferSubscribers.forEach(listener -> listener.onAction(textArea.getText()));
-                    editCaseOffersButton.requestFocus();
-                    textArea.setEditable(false);
-                    textArea.getStyleClass().remove("editing");
-                    textArea.setDisable(true);
-                }
-            }
-        });
-
-        offersContainer.getChildren().add(hBox);
-    }
-
-    @FXML
-    void deleteCaseOffers(ActionEvent event) {
-        deleteOfferSubscribers.forEach(stringIEventListener -> stringIEventListener.onAction(listOfChosenOffers.toArray(new String[listOfChosenOffers.size()])));
-        for (String listOfChosenOffer : listOfChosenOffers) {
-            if(offersContainer.getChildren().contains(listOfChosenOffer)) System.out.println("I'm here!");
-        }
-        listOfChosenOffers.clear();
-    }
-
-
-
-
-
-
-
-
 
 
 
@@ -362,12 +336,6 @@ public class ElucidationViewController extends Component implements IElucidation
     void editNameOnClick(MouseEvent event) {
 
     }
-
-    @FXML
-    void editOfferingsbutton(ActionEvent event) {
-
-    }
-
 
     @FXML
     void editRegistrationDateOnClick(MouseEvent event) {

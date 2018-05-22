@@ -89,7 +89,7 @@
                                                       <Insets right="12.0" />
                                                    </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="editCaseOffersButton" onAction="#editOffersButton" text="Tilbud tilføj">
+                                                <JFXButton fx:id="editCaseOffersButton" onAction="#addCaseOffer" text="Tilbud tilføj">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
@@ -103,7 +103,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox />
+                                          <VBox fx:id="caseOffersWrapper" />
                                        </children>
                                     </VBox>
                                     <VBox fx:id="grantingsContainer" spacing="10.0">

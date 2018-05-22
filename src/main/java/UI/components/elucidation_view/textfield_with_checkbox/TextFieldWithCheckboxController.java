@@ -50,6 +50,7 @@ public class TextFieldWithCheckboxController extends Component implements ITextF
     void onTextEnter(KeyEvent event) {
         if(event.getCode() == KeyCode.ENTER){
             textField.getStyleClass().remove("editing");
+            textField.setEditable(false);
         }
     }
 
