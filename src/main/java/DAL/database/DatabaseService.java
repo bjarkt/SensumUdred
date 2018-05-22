@@ -4,14 +4,10 @@ import ACQ.IAccount;
 import ACQ.IMeeting;
 import ACQ.IUser;
 import BLL.account_system.Account;
-import BLL.account_system.User;
 import DAL.dataobject.UserData;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -63,8 +59,9 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 				userData.setEmail(rs.getString("email"));
 				userData.setAccount(account);
 
-				PreparedStatement ps2 = conn.prepareStatement("UPDATE accounts SET isloggedin=true WHERE username=?;");
-				ps2.setString(1, lowerUsername);
+				PreparedStatement ps2 = conn.prepareStatement("UPDATE accounts SET isloggedin=true, datelastlogin=? WHERE username=?;");
+				ps2.setDate(1, new Date(System.currentTimeMillis()));
+				ps2.setString(2, lowerUsername);
 
 				ps2.execute();
 			}
@@ -160,7 +157,7 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 			PreparedStatement ps = conn.prepareStatement("SELECT id FROM accounts WHERE username=?;");
 			ps.setString(1, accountName);
 
-			exists.set(ps.executeUpdate() == 1);
+			exists.set(ps.execute());
 		});
 
 		return exists.get();
@@ -171,10 +168,10 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		AtomicBoolean exists = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("SELECT id FROM users WHERE ssn=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT ssn FROM users WHERE ssn=?;");
 			ps.setString(1, ssn);
 
-			exists.set(ps.executeUpdate() == 1);
+			exists.set(ps.execute());
 		});
 
 		return exists.get();

@@ -34,7 +34,7 @@ public class DatabaseTest {
 
 	@Test
 	public void userExist() {
-		assert dbService.userExists("admin");
+		assert dbService.userExists("00000000");
 	}
 
 	@Test
@@ -44,13 +44,11 @@ public class DatabaseTest {
 
 	@Test
 	public void lockAccount() {
-		dbService.unlockAccount("admin");
 		assert dbService.lockAccount("admin");
 	}
 
 	@Test
 	public void unlockAccount() {
-		dbService.lockAccount("admin");
 		assert dbService.unlockAccount("admin");
 	}
 }
