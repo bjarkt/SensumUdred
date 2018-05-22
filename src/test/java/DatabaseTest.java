@@ -47,4 +47,10 @@ public class DatabaseTest {
 		assert dbService.lockAccount("tester");
 		assert dbService.unlockAccount("tester");
 	}
+
+	@Test
+	public void getAllUsersAndAccounts() {
+		assertEquals(2, dbService.getAllUsers(2).size());
+		assertEquals(2, dbService.getAllAccounts(2).size());
+	}
 }
