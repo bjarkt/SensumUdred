@@ -1,15 +1,16 @@
 package BLL;
 
-import ACQ.IElucidation;
-import ACQ.ISigningService;
-import ACQ.IUser;
-import ACQ.IUserManager;
+import ACQ.*;
 import BLL.log_agent.ChangeLog;
 import DAL.IPersistent;
 
 import java.util.Set;
 
 public interface IBusiness {
+	/**
+	 * Injects a persistent layer into the business layer.
+	 * @param persistent any persistent
+	 */
 	void injectPersistent(IPersistent persistent);
 
 	/**
@@ -28,6 +29,13 @@ public interface IBusiness {
 	IUserManager getUserManager();
 
 	/**
+	 * Set an event listener for when the security system 'throws' out an exception.
+	 * This exception will only occur if the user does not the required security level.
+	 * @param eventListener any event listener
+	 */
+	void setSecurityEventListener(IEventListener<SecurityException> eventListener);
+
+	/**
 	 * Get the complete change log.
 	 * @return	change logl
 	 */
@@ -38,12 +46,6 @@ public interface IBusiness {
 	 * @return user's elucidations.
 	 */
 	Set<IElucidation> getMyElucidations();
-
-	/**
-	 * Get all users in the system.
-	 * @return users in the system.
-	 */
-	Set<IUser> getAllUsers();
 
 	/**
 	 * Search for users. Returns set with matched users.

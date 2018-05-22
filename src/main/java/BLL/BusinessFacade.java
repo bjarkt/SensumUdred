@@ -1,9 +1,6 @@
 package BLL;
 
-import ACQ.IElucidation;
-import ACQ.ISigningService;
-import ACQ.IUser;
-import ACQ.IUserManager;
+import ACQ.*;
 import BLL.account_system.UserManager;
 import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
@@ -20,14 +17,28 @@ public class BusinessFacade implements IBusiness {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ISigningService getSigningService() {
 		return (ISigningService) userManager;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IUserManager getUserManager() {
 		return userManager;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setSecurityEventListener(IEventListener<SecurityException> eventListener) {
+
 	}
 
 	/**
@@ -45,15 +56,6 @@ public class BusinessFacade implements IBusiness {
 	@SecurityLevel(0)
 	@Override
 	public Set<IElucidation> getMyElucidations() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SecurityLevel(500)
-	@Override
-	public Set<IUser> getAllUsers() {
 		return null;
 	}
 

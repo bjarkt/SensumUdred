@@ -1,5 +1,6 @@
 package BLL.security_system;
 
+import ACQ.IEventListener;
 import ACQ.IUser;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,16 +16,6 @@ import java.lang.reflect.Method;
 @Aspect
 @SuppressAjWarnings("adviceDidNotMatch")
 public class SecurityAspect {
-	private static int userLevel;
-
-	/**
-	 * Sets the user for the security system.
-	 * @param user any user
-	 */
-	static void setUserLevel(IUser user) {
-		userLevel = user.getAccount().getSecurityLevel();
-	}
-
 	/**
 	 * A logic that runs every time a method with the {@link SecurityLevel} annotation.
 	 * @param joinPoint a joinpoint
@@ -33,7 +24,7 @@ public class SecurityAspect {
 	 */
 	@Around("@annotation(SecurityLevel) && execution(* *(..))")
 	public Object securityLogic(ProceedingJoinPoint joinPoint) throws Throwable {
-		Object returnObject;
+		Object returnObject = null;
 
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
@@ -42,10 +33,13 @@ public class SecurityAspect {
 
 		int securityLevel = annotation.value();
 
-		if(userLevel >= securityLevel) {
+		IUser user = SecuritySystem.getInstance().getUser();
+
+		if(user != null && user.getAccount().getSecurityLevel() >= securityLevel) {
 			returnObject = joinPoint.proceed();
 		} else {
-			throw new SecurityException("User does not have the privilege to this method.");
+			SecurityException se = new SecurityException("User does not have the privilege to this method.");
+			SecuritySystem.getInstance().getEventListener().onAction(se);
 		}
 
 		return returnObject;

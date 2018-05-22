@@ -4,11 +4,12 @@ import ACQ.IAccount;
 import ACQ.ISigningService;
 import ACQ.IUser;
 import ACQ.IUserManager;
+import BLL.security_system.SecuritySystem;
 import DAL.database.IDatabaseService;
 
 import java.util.Set;
 
-public class UserManager implements IUserManager, ISigningService {
+public final class UserManager implements IUserManager, ISigningService {
     private IDatabaseService dbService;
     private Account signedInAccount;
     private User signedInUser;
@@ -29,7 +30,12 @@ public class UserManager implements IUserManager, ISigningService {
 
     @Override
     public IUser signIn(String username, String password) {
-        return accountExists(username) ? dbService.signIn(username, password) : null;
+	    IUser user = null;
+
+	    if(accountExists(username)) user = dbService.signIn(username, password);
+	    SecuritySystem.getInstance().setUser(user);
+
+	    return user;
     }
 
     @Override
