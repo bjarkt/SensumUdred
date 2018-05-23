@@ -251,35 +251,38 @@ public class ElucidationViewController extends Component implements IElucidation
         listOfChosenThemes.addListener(new SetChangeListener<IThemeUI>() {
             @Override
             public void onChanged(Change<? extends IThemeUI> change) {
-                if(listOfChosenThemes.size() > 0){
-                    deleteCaseThemeButton.setVisible(true);
-                    deleteCaseThemeButton.setDisable(false);
-                    deleteCaseThemeButton.setText("Slet " + listOfChosenThemes.size() + " tema" + ((listOfChosenThemes.size() > 1) ? "er" : ""));
-                } else{
-                    deleteCaseThemeButton.setVisible(false);
-                    deleteCaseThemeButton.setDisable(true);
-                    deleteCaseThemeButton.setText("Ingen temaer valgt");
-                }
+                changeButtonTextBasedOnListSize(listOfChosenThemes.size(), deleteCaseThemeButton, new String[]{"Slet", "tema", "temaer"}, "Ingen temaer valgt");
             }
         });
 
         addedThemeUIs.addListener(new SetChangeListener<IThemeUI>() {
             @Override
             public void onChanged(Change<? extends IThemeUI> change) {
-                if (addedThemeUIs.size() > 0) {
-                    saveCaseThemeButton.setVisible(true);
-                    saveCaseThemeButton.setDisable(false);
-                    saveCaseThemeButton.setText("Gem " + addedThemeUIs.size() + " tema" + ((addedThemeUIs.size() > 1) ? "er" : ""));
-                }else{
-                    saveCaseThemeButton.setVisible(false);
-                    saveCaseThemeButton.setDisable(true);
-                    saveCaseThemeButton.setText("Ingen temaer tilføjet");
-                }
+                changeButtonTextBasedOnListSize(addedThemeUIs.size(), saveCaseThemeButton, new String[]{"Gem", "tema", "temaer"}, "Ingen temaer tilføjet");
             }
         });
     }
+
     //endregion
 
+    /**
+     * Change button text based on list size, with plural word.
+     * @param listSize size of list.
+     * @param button which button.
+     * @param positiveText array of string. example: new String[]{"Gem", "tema", "temaer"}. [0] element is verb, [1] is singular of word, [2] is plural of word.
+     * @param negativeText text to display in negative situation.
+     */
+    private void changeButtonTextBasedOnListSize(int listSize, JFXButton button, String[] positiveText, String negativeText) {
+        if (listSize > 0) {
+            button.setVisible(true);
+            button.setDisable(false);
+            button.setText(positiveText[0] + " " + listSize + " " + ((listSize > 1) ? positiveText[2] : positiveText[1] ));
+        } else {
+            button.setVisible(false);
+            button.setDisable(true);
+            button.setText(negativeText);
+        }
+    }
 
     @FXML
     private JFXButton editCaseSpecialCircumstancesButton;
