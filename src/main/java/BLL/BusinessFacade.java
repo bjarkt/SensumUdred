@@ -9,11 +9,11 @@ import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
 import BLL.open_case.ICase;
 import BLL.security_system.SecurityLevel;
+import BLL.security_system.SecuritySystem;
 import BLL.theme_manager.IThemeManager;
 import BLL.theme_manager.ThemeManager;
 import BLL.user_getter.GetUser;
 import BLL.user_getter.IGetUser;
-import BLL.security_system.SecuritySystem;
 import DAL.IPersistent;
 
 import java.util.Set;
@@ -21,22 +21,39 @@ import java.util.Set;
 public class BusinessFacade implements IBusiness {
 	private IPersistent persistent;
 	private IUserManager userManager;
+	private IDefaultService defaultService;
+	private IAdminService adminService;
 
-	public BusinessFacade() {
-
-	}
+	public BusinessFacade() { }
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public ISigningService getSigningService() {
-		return (ISigningService) userManager;
+		return userManager;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IElucidation getElucidation(int ID) {
 		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IUser getUser(String ssn) {
+		IUser user = null;
+
+		if(persistent.getDatabaseService().getDefaultService().userExists(ssn)) {
+			user = persistent.getDatabaseService().getDefaultService().getUser(ssn);
+		}
+
+		return user;
 	}
 
 	/**
@@ -77,7 +94,6 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
-
 	@SecurityLevel(500)
 	@Override
 	public void createInquiry() {
@@ -132,7 +148,13 @@ public class BusinessFacade implements IBusiness {
 	@Override
 	public void injectPersistent(IPersistent persistent) {
 		this.persistent = persistent;
-		this.userManager = new UserManager(persistent.getDatabaseService());
+
+		IDatabaseService service = persistent.getDatabaseService();
+
+		this.defaultService = service.getDefaultService();
+		this.adminService = service.getAdminService();
+		this.userManager = new UserManager(this.defaultService, service.getSigningService());
+
 		LogAspect.setPersistent(persistent);
 	}
 }

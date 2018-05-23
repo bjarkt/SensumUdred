@@ -29,6 +29,17 @@ public enum ThemeEnum {
         return definition;
     }
 
+    public static ThemeEnum fromString(String name) {
+        ThemeEnum themeEnum = null;
+        for (ThemeEnum theme : values()) {
+            if (theme.name.equals(name)) {
+                themeEnum = theme;
+                break;
+            }
+        }
+        return themeEnum;
+    }
+
     @Override
     public String toString() {
         return "ThemeEnum{" +

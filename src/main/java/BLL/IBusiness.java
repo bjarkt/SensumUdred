@@ -34,6 +34,13 @@ public interface IBusiness {
 	IUserManager getUserManager();
 
 	/**
+	 * Get a user from the ssn.
+	 * @param ssn any ssn
+	 * @return user with that ssn
+	 */
+	IUser getUser(String ssn);
+
+	/**
 	 * Set an event listener for when the security system 'throws' out an exception.
 	 * This exception will only occur if the user does not the required security level.
 	 * @param eventListener any event listener

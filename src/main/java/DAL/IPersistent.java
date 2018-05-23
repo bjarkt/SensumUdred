@@ -1,7 +1,7 @@
 package DAL;
 
+import ACQ.IDatabaseService;
 import ACQ.IHttp;
-import DAL.database.IDatabaseService;
 
 public interface IPersistent {
     /**

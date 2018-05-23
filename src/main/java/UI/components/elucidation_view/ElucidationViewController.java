@@ -10,6 +10,8 @@ import UI.components.elucidation_view.granting.GrantingController;
 import UI.components.elucidation_view.granting.IGranting;
 import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithCheckbox;
 import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController;
+import UI.components.elucidation_view.theme.IThemeUI;
+import UI.components.elucidation_view.theme.ThemeController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
@@ -190,6 +192,59 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //endregion
 
+    //region theme stuff
+    private ObservableSet<IThemeUI> listOfChosenThemes = FXCollections.observableSet();
+
+    @FXML
+    private VBox themesContainer;
+
+    @FXML
+    private VBox caseThemeWrapper;
+
+    @FXML
+    private JFXButton addCaseThemebutton;
+
+    @FXML
+    private JFXButton deleteThemeButton;
+
+    @FXML
+    void addCaseTheme(ActionEvent event) {
+        IThemeUI theme = new ThemeController();
+        theme.onThemeSelected(data -> {
+            if(data.isSelected()) listOfChosenThemes.add(data);
+            else listOfChosenThemes.remove(data);
+        });
+        caseThemeWrapper.getChildren().add(theme.getView());
+    }
+
+    @FXML
+    void deleteCaseThemes(ActionEvent event) {
+        for (IThemeUI theme : listOfChosenThemes) {
+            caseThemeWrapper.getChildren().remove(theme.getView());
+        }
+        listOfChosenThemes.clear();
+    }
+
+    private void setupUpThemesSection() {
+        listOfChosenThemes.addListener(new SetChangeListener<IThemeUI>() {
+            @Override
+            public void onChanged(Change<? extends IThemeUI> change) {
+                if(listOfChosenThemes.size() > 0){
+                    deleteThemeButton.setVisible(true);
+                    deleteThemeButton.setDisable(false);
+                    deleteThemeButton.setText("Slet " + listOfChosenThemes.size() + " temaer");
+                    if(listOfChosenThemes.size() > 1) deleteThemeButton.setText("Slet " + listOfChosenThemes.size() + " temaer");
+                } else{
+                    deleteThemeButton.setVisible(false);
+                    deleteThemeButton.setDisable(true);
+                    deleteThemeButton.setText("Ingen temaer valgt");
+                }
+            }
+        });
+    }
+    //endregion
+
+
     @FXML
     private JFXButton editCaseSpecialCircumstancesButton;
 
@@ -274,6 +329,7 @@ public class ElucidationViewController extends Component implements IElucidation
         // Setup different components.
         setupUpGrantingsSection();
         setupOffersSection();
+        setupUpThemesSection();
 
     }
 
