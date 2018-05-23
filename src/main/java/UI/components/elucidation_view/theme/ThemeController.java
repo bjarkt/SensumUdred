@@ -70,26 +70,9 @@ public class ThemeController extends Component implements IThemeUI {
         ObservableList<Integer> levelOfFunctionOptions = FXCollections.observableArrayList(0, 1, 2, 3, 4);
         levelOfFunctionComboBox.getItems().addAll(levelOfFunctionOptions);
 
-        themeComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ThemeEnum>() {
-            @Override
-            public void changed(ObservableValue<? extends ThemeEnum> observableValue, ThemeEnum themeEnum, ThemeEnum t1) {
-                verifyData(themeComboBox);
-            }
-        });
-
-        subthemeField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                verifyData(subthemeField);
-            }
-        });
-
-        levelOfFunctionComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
-            @Override
-            public void changed(ObservableValue<? extends Integer> observableValue, Integer integer, Integer t1) {
-                verifyData(levelOfFunctionComboBox);
-            }
-        });
+        themeComboBox.getSelectionModel().selectedItemProperty().addListener(getVerifyDataChangeListener());
+        subthemeField.textProperty().addListener(getVerifyDataChangeListener());
+        levelOfFunctionComboBox.getSelectionModel().selectedItemProperty().addListener(getVerifyDataChangeListener());
     }
 
     @Override
@@ -222,6 +205,10 @@ public class ThemeController extends Component implements IThemeUI {
 
     private void removeError(Node node, String errorClass) {
         node.getStyleClass().remove(errorClass);
+    }
+
+    private <T> ChangeListener<T> getVerifyDataChangeListener() {
+        return (observableValue, t, t1) -> verifyData();
     }
 
 }
