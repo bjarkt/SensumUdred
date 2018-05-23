@@ -3,6 +3,7 @@ package UI.components.elucidation_view;
 import ACQ.*;
 import UI.Secured;
 import UI.components.Component;
+import UI.components.IComponent;
 import UI.components.dropdown_search.DropdownSearchController;
 import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
@@ -12,6 +13,7 @@ import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithChec
 import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController;
 import UI.components.elucidation_view.theme.IThemeUI;
 import UI.components.elucidation_view.theme.ThemeController;
+import UI.components.elucidation_view.theme.ThemeData;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
@@ -20,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,6 +33,7 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.*;
@@ -194,6 +198,7 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //region theme stuff
     private ObservableSet<IThemeUI> listOfChosenThemes = FXCollections.observableSet();
+    private ObservableSet<IThemeUI> addedThemeUIs =  FXCollections.observableSet();
 
     @FXML
     private VBox themesContainer;
@@ -208,6 +213,9 @@ public class ElucidationViewController extends Component implements IElucidation
     private JFXButton deleteCaseThemeButton;
 
     @FXML
+    private JFXButton saveCaseThemeButton;
+
+    @FXML
     void addCaseTheme(ActionEvent event) {
         IThemeUI theme = new ThemeController();
         theme.onThemeSelected(data -> {
@@ -215,14 +223,32 @@ public class ElucidationViewController extends Component implements IElucidation
             else listOfChosenThemes.remove(data);
         });
         caseThemeWrapper.getChildren().add(theme.getView());
+        addedThemeUIs.add(theme);
     }
 
     @FXML
     void deleteCaseThemes(ActionEvent event) {
         for (IThemeUI theme : listOfChosenThemes) {
             caseThemeWrapper.getChildren().remove(theme.getView());
+            addedThemeUIs.remove(theme);
         }
         listOfChosenThemes.clear();
+    }
+
+    @FXML
+    void saveCaseThemes(ActionEvent event) {
+        Set<ThemeData> themeDatas = new HashSet<>();
+        for (IThemeUI theme : addedThemeUIs) {
+            ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction());
+            
+            if (themeData.getThemeEnum() == null || theme.getSubtheme().length() == 0 || theme.getLevelOfFunction() == null) {
+                // TODO: 23/05/18 lav popup box her måske?
+                //System.out.println("Fejl i tema data");
+            } else {
+                themeDatas.add(themeData);
+            }
+        }
+        //System.out.println(themeDatas);
     }
 
     private void setupUpThemesSection() {
@@ -232,12 +258,26 @@ public class ElucidationViewController extends Component implements IElucidation
                 if(listOfChosenThemes.size() > 0){
                     deleteCaseThemeButton.setVisible(true);
                     deleteCaseThemeButton.setDisable(false);
-                    deleteCaseThemeButton.setText("Slet " + listOfChosenThemes.size() + " temaer");
-                    if(listOfChosenThemes.size() > 1) deleteCaseThemeButton.setText("Slet " + listOfChosenThemes.size() + " temaer");
+                    deleteCaseThemeButton.setText("Slet " + listOfChosenThemes.size() + " tema" + ((listOfChosenThemes.size() > 1) ? "er" : ""));
                 } else{
                     deleteCaseThemeButton.setVisible(false);
                     deleteCaseThemeButton.setDisable(true);
                     deleteCaseThemeButton.setText("Ingen temaer valgt");
+                }
+            }
+        });
+
+        addedThemeUIs.addListener(new SetChangeListener<IThemeUI>() {
+            @Override
+            public void onChanged(Change<? extends IThemeUI> change) {
+                if (addedThemeUIs.size() > 0) {
+                    saveCaseThemeButton.setVisible(true);
+                    saveCaseThemeButton.setDisable(false);
+                    saveCaseThemeButton.setText("Gem " + addedThemeUIs.size() + " tema" + ((addedThemeUIs.size() > 1) ? "er" : ""));
+                }else{
+                    saveCaseThemeButton.setVisible(false);
+                    saveCaseThemeButton.setDisable(true);
+                    saveCaseThemeButton.setText("Ingen temaer tilføjet");
                 }
             }
         });

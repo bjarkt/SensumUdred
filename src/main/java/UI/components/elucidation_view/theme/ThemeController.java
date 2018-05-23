@@ -40,6 +40,9 @@ public class ThemeController extends Component implements IThemeUI {
     private JFXComboBox<ThemeEnum> themeComboBox;
 
     @FXML
+    private JFXComboBox<Integer> levelOfFunctionComboBox;
+
+    @FXML
     private JFXTextField subthemeField;
 
     @FXML
@@ -54,6 +57,46 @@ public class ThemeController extends Component implements IThemeUI {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<ThemeEnum> comboBoxOptions = FXCollections.observableArrayList(ThemeEnum.values());
+        this.initThemeEnumComboBox(comboBoxOptions);
+
+        ObservableList<Integer> levelOfFunctionOptions = FXCollections.observableArrayList(0, 1, 2, 3, 4);
+        levelOfFunctionComboBox.getItems().addAll(levelOfFunctionOptions);
+    }
+
+    @Override
+    public void onThemeSelected(IEventListener<IThemeUI> listener) {
+        onThemeSelectedSubscribers.add(listener);
+    }
+
+
+    @FXML
+    void checkBoxAction(ActionEvent event) {
+        if(selected) selected = false;
+        else selected = true;
+        onThemeSelectedSubscribers.forEach(listener -> listener.onAction(this));
+    }
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public ThemeEnum getTheme(){
+        return themeComboBox.getValue();
+    }
+
+    @Override
+    public String getSubtheme(){
+        return subthemeField.getText();
+    }
+
+    @Override
+    public Integer getLevelOfFunction() {
+        return levelOfFunctionComboBox.getValue();
+    }
+
+    private void initThemeEnumComboBox(ObservableList<ThemeEnum> comboBoxOptions) {
         themeComboBox.getItems().addAll(comboBoxOptions);
 
         themeComboBox.setCellFactory(
@@ -77,7 +120,7 @@ public class ThemeController extends Component implements IThemeUI {
         themeComboBox.setConverter(new StringConverter<ThemeEnum>() {
             @Override
             public String toString(ThemeEnum object) {
-                return object.name();
+                return object.getName();
             }
 
             @Override
@@ -86,33 +129,6 @@ public class ThemeController extends Component implements IThemeUI {
             }
         });
     }
-
-    @Override
-    public void onThemeSelected(IEventListener<IThemeUI> listener) {
-        onThemeSelectedSubscribers.add(listener);
-    }
-
-
-    @FXML
-    void checkBoxAction(ActionEvent event) {
-        if(selected) selected = false;
-        else selected = true;
-        onThemeSelectedSubscribers.forEach(listener -> listener.onAction(this));
-    }
-
-    @Override
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public ThemeEnum getTheme(){
-        return themeComboBox.getValue();
-    }
-
-    public String getSubtheme(){
-        return subthemeField.getText();
-    }
-
 
 
 }

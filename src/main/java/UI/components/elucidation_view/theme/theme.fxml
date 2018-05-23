@@ -11,7 +11,8 @@
       <HBox alignment="CENTER_LEFT" layoutX="-10.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXComboBox fx:id="themeComboBox" promptText="Vælg tema" HBox.hgrow="ALWAYS" />
-            <JFXTextField fx:id="subthemeField" HBox.hgrow="ALWAYS" />
+            <JFXTextField fx:id="subthemeField" promptText="Undertema" HBox.hgrow="ALWAYS" />
+            <JFXComboBox fx:id="levelOfFunctionComboBox" promptText="Funktionsniveau" />
             <JFXCheckBox fx:id="themeCheckbox" onAction="#checkBoxAction" />
          </children>
       </HBox>
