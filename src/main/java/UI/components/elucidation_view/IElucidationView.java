@@ -15,4 +15,11 @@ public interface IElucidationView extends IComponent {
 
     void tickOffersList(String ...offers);
 
+    void onCaseCitzenAgreement (IEventListener<String> listener);
+
+    void onCaseCitizenMunicipality (IEventListener<String> listener);
+
+    void onCaseSpecialCircumstancesField (IEventListener<String> listener);
+
+    void onCaseCitizenInformation (IEventListener<String> listener);
 }

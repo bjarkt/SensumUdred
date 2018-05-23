@@ -36,10 +36,16 @@ import java.util.List;
 
 public class ElucidationViewController extends Component implements IElucidationView {
 
+
     private List<IEventListener<?>> leaveEludicationSubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveCaseDescriptionSubscribers = new ArrayList<>();
     private List<IEventListener<String>> addNewOfferSubscribers = new ArrayList<>();
     private List<IEventListener<String[]>> deleteOfferSubscribers = new ArrayList<>();
+    private List<IEventListener<String>> saveCitizenAgreementSubscribers = new ArrayList<>();
+    private List<IEventListener<String>> saveCitizenMunicipalitySubscribers = new ArrayList<>();
+    private List<IEventListener<String>> saveSpecialCircumstancesSubscribers = new ArrayList<>();
+    private List<IEventListener<String>> editCitizenInformationSubscribers = new ArrayList<>();
+
 
     private IElucidationViewRequire required;
 
@@ -61,6 +67,28 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox caseOffersWrapper;
 
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField CPRField;
+
+    @FXML
+    private TextField cityField;
+
+    @FXML
+    private TextField addressField;
+
+    @FXML
+    private TextField civilStatusField;
+
+    @FXML
+    private TextField phoneNumberField;
+    @FXML
+    private JFXButton editCaseCitizenInformation;
+
+    @FXML
+    private TextField cellphoneNumberField;
 
     @FXML
     private JFXButton editOffersbutton;
@@ -162,8 +190,17 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //endregion
 
+    @FXML
+    private JFXButton editCaseSpecialCircumstancesButton;
 
+    @FXML
+    private TextField caseSpecialCircumstancesField;
 
+    @FXML
+    private JFXButton editCaseCitizenMunicipalityButton;
+
+    @FXML
+    private TextField caseCitizenMunicipalityField;
 
     @FXML
     private AnchorPane elucidation_view_container;
@@ -187,13 +224,10 @@ public class ElucidationViewController extends Component implements IElucidation
     private TextArea caseDescriptionField;
 
     @FXML
+    private TextField caseCitizenAgreementField;
+
+    @FXML
     private JFXButton editCaseCitizenAgreementButton;
-
-    @FXML
-    private JFXButton editCaseCitizenMunicipalityButton;
-
-    @FXML
-    private JFXButton editCaseSpecialCircumstancesButton;
 
     @FXML
     private VBox elucidationView_horizontalLayout_right;
@@ -244,6 +278,8 @@ public class ElucidationViewController extends Component implements IElucidation
     }
 
     @Override
+    public void onCaseCitizenMunicipality (IEventListener<String> listener) { saveCitizenMunicipalitySubscribers.add(listener);}
+    @Override
     public void onCaseSaveDescription(IEventListener<String> listener) {
         saveCaseDescriptionSubscribers.add(listener);
     }
@@ -257,13 +293,17 @@ public class ElucidationViewController extends Component implements IElucidation
     public void onDeleteOffers(IEventListener<String[]> listener) {
         deleteOfferSubscribers.add(listener);
     }
+    @Override
+    public void onCaseCitzenAgreement(IEventListener<String> listener) {saveCitizenAgreementSubscribers.add(listener);}
+    @Override
+    public void onCaseSpecialCircumstancesField(IEventListener<String> listener) {saveSpecialCircumstancesSubscribers.add(listener); }
+    @Override
+    public void onCaseCitizenInformation (IEventListener<String> listener) {editCitizenInformationSubscribers.add(listener); }
 
     @Override
     public void tickOffersList(String... offers) {
 
     }
-
-
 
 
 
@@ -291,9 +331,106 @@ public class ElucidationViewController extends Component implements IElucidation
 
     }
 
+    @FXML
+    void editCitizenAgreement (ActionEvent event) {
+        if(editCaseCitizenAgreementButton.getText().equals("Rediger")){
+            caseCitizenAgreementField.setEditable(true);
+            caseCitizenAgreementField.requestFocus();
+            caseCitizenAgreementField.getStyleClass().add("editing");
+            editCaseCitizenAgreementButton.setText("Gem");
+            editCaseCitizenAgreementButton.getStyleClass().add("editing");
+        } else if(editCaseCitizenAgreementButton.getText().equals("Gem")){
+            caseCitizenAgreementField.setEditable(false);
+            editCaseCitizenAgreementButton.setText("Rediger");
+            caseCitizenAgreementField.getStyleClass().remove("editing");
+            editCaseCitizenAgreementButton.getStyleClass().remove("editing");
+            saveCitizenAgreementSubscribers.forEach(listener -> listener.onAction(caseCitizenAgreementField.getText()));
+        }
+
+    }
 
 
+    @FXML
+    void setEditCaseCitizenMunicipalityButton (ActionEvent event) {
+        if(editCaseCitizenMunicipalityButton.getText().equals("Rediger")){
+            caseCitizenMunicipalityField.setEditable(true);
+            caseCitizenMunicipalityField.requestFocus();
+            caseCitizenMunicipalityField.getStyleClass().add("editing");
+            editCaseCitizenMunicipalityButton.setText("Gem");
+            editCaseCitizenMunicipalityButton.getStyleClass().add("editing");
+        } else if(editCaseCitizenMunicipalityButton.getText().equals("Gem")){
+            caseCitizenMunicipalityField.setEditable(false);
+            editCaseCitizenMunicipalityButton.setText("Rediger");
+            caseCitizenMunicipalityField.getStyleClass().remove("editing");
+            editCaseCitizenMunicipalityButton.getStyleClass().remove("editing");
+            saveCitizenMunicipalitySubscribers.forEach(listener -> listener.onAction(caseCitizenMunicipalityField.getText()));
+        }
 
+    }
+
+
+    @FXML
+    void setEditCaseSpecialCircumstancesButton (ActionEvent event) {
+        if(editCaseSpecialCircumstancesButton.getText().equals("Rediger")){
+            caseSpecialCircumstancesField.setEditable(true);
+            caseSpecialCircumstancesField.requestFocus();
+            caseSpecialCircumstancesField.getStyleClass().add("editing");
+            editCaseSpecialCircumstancesButton.setText("Gem");
+            editCaseSpecialCircumstancesButton.getStyleClass().add("editing");
+        } else if(editCaseSpecialCircumstancesButton.getText().equals("Gem")){
+            caseSpecialCircumstancesField.setEditable(false);
+            editCaseSpecialCircumstancesButton.setText("Rediger");
+            caseSpecialCircumstancesField.getStyleClass().remove("editing");
+            editCaseSpecialCircumstancesButton.getStyleClass().remove("editing");
+            saveSpecialCircumstancesSubscribers.forEach(listener -> listener.onAction(caseSpecialCircumstancesField.getText()));
+        }
+
+    }
+    @FXML
+    void setEditCaseCitizenInformation (ActionEvent event) {
+        if(editCaseCitizenInformation.getText().equals("Rediger")){
+            nameField.setEditable(true);
+            CPRField.setEditable(true);
+            cityField.setEditable(true);
+            addressField.setEditable(true);
+            civilStatusField.setEditable(true);
+            phoneNumberField.setEditable(true);
+            cellphoneNumberField.setEditable(true);
+            nameField.getStyleClass().add("editing");
+            CPRField.getStyleClass().add("editing");
+            cityField.getStyleClass().add("editing");
+            addressField.getStyleClass().add("editing");
+            civilStatusField.getStyleClass().add("editing");
+            phoneNumberField.getStyleClass().add("editing");
+            cellphoneNumberField.getStyleClass().add("editing");
+            editCaseCitizenInformation.setText("Gem");
+            editCaseCitizenInformation.getStyleClass().add("editing");
+        } else if(editCaseCitizenInformation.getText().equals("Gem")){
+            nameField.setEditable(false);
+            CPRField.setEditable(false);
+            cityField.setEditable(false);
+            addressField.setEditable(false);
+            civilStatusField.setEditable(false);
+            phoneNumberField.setEditable(false);
+            cellphoneNumberField.setEditable(false);
+            editCaseCitizenInformation.setText("Rediger");
+            nameField.getStyleClass().remove("editing");
+            CPRField.getStyleClass().remove("editing");
+            cityField.getStyleClass().remove("editing");
+            addressField.getStyleClass().remove("editing");
+            civilStatusField.getStyleClass().remove("editing");
+            phoneNumberField.getStyleClass().remove("editing");
+            cellphoneNumberField.getStyleClass().remove("editing");
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(nameField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(CPRField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(cityField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(addressField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(civilStatusField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(phoneNumberField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(cellphoneNumberField.getText()));
+        }
+
+    }
 
 
     @FXML
@@ -351,7 +488,10 @@ public class ElucidationViewController extends Component implements IElucidation
 
     }
 
+    @FXML
+    void citizenAgreementField(ActionEvent event) {
 
+    }
 
     @FXML
     void saveAdressCityOnEnter(MouseEvent event) {

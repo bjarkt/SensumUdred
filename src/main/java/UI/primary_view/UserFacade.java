@@ -279,6 +279,27 @@ public class UserFacade implements IUserInterface, Initializable {
 		elucidationView.onAddNewOffer(data -> {
 			System.out.println(data);
 		});
+		elucidationView.onCaseCitizenInformation(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseCitizenMunicipality(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseCitzenAgreement(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseSaveDescription(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onDeleteOffers(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseSpecialCircumstancesField(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onLeaveElucidation(data -> {
+			System.out.println(data);
+		});
 
 	}
 
