@@ -169,7 +169,7 @@ CREATE TABLE eventlogs(
 
 INSERT INTO users VALUES ('00000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
 INSERT INTO haslogin VALUES ('0000000000', 1);
-INSERT INTO accounts VALUES(2, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
+INSERT INTO accounts VALUES(1, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
 
 INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@tester.com');
 INSERT INTO haslogin VALUES ('99999999', 2);
