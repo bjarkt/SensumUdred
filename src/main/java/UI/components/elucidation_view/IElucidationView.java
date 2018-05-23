@@ -1,7 +1,7 @@
 package UI.components.elucidation_view;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 import UI.components.elucidation_view.theme.ThemeData;
 
 import java.util.Set;

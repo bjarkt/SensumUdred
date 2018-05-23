@@ -228,7 +228,7 @@ public class ElucidationViewController extends Component implements IElucidation
         }
 
         Set<ThemeData> removedThemes = new HashSet<>();
-        listOfChosenThemes.forEach(e -> removedThemes.add(new ThemeData(e.getTheme(), e.getSubtheme(), e.getLevelOfFunction())));
+        listOfChosenThemes.forEach(e -> removedThemes.add(new ThemeData(e.getTheme(), e.getSubtheme(), e.getLevelOfFunction(), e.getDocumentation())));
         for (IEventListener<Set<ThemeData>> sub : deleteThemeSubscribers) {
             sub.onAction(removedThemes);
         }
@@ -241,7 +241,7 @@ public class ElucidationViewController extends Component implements IElucidation
         Set<ThemeData> themeDatas = new HashSet<>();
         for (IThemeUI theme : addedThemeUIs) {
             if (theme.verifyData()) {
-                ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction());
+                ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction(), theme.getDocumentation());
                 themeDatas.add(themeData);
             }
         }

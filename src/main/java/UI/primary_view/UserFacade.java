@@ -15,6 +15,8 @@ import UI.components.drawer.IDrawer;
 import UI.components.drawer.IDrawerRequire;
 import UI.components.elucidation_view.ElucidationViewController;
 import UI.components.elucidation_view.IElucidationView;
+import UI.components.elucidation_view.theme.IThemeUI;
+import UI.components.elucidation_view.theme.ThemeData;
 import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
 import UI.components.log_in_page.ILogInView;
@@ -308,11 +310,15 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		elucidationView.onAddNewTheme(data -> {
-			System.out.println(data);
+			for (ThemeData theme : data) {
+				System.out.println(theme.getThemeEnum() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
+			}
 		});
 
 		elucidationView.onDeleteTheme(data -> {
-			System.out.println(data);
+			for (ThemeData theme : data) {
+				System.out.println(theme.getThemeEnum() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
+			}
 		});
 
 	}

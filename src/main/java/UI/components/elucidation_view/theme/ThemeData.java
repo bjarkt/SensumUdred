@@ -6,11 +6,13 @@ public class ThemeData {
     private ThemeEnum themeEnum;
     private String subtheme;
     private Integer levelOfFunction;
+    private String documentation;
 
-    public ThemeData(ThemeEnum themeEnum, String subtheme, Integer levelOfFunction) {
+    public ThemeData(ThemeEnum themeEnum, String subtheme, Integer levelOfFunction, String documentation) {
         this.themeEnum = themeEnum;
         this.subtheme = subtheme;
         this.levelOfFunction = levelOfFunction;
+        this.documentation = documentation;
     }
 
     public ThemeEnum getThemeEnum() {
@@ -25,12 +27,17 @@ public class ThemeData {
         return levelOfFunction;
     }
 
+    public String getDocumentation() {
+        return documentation;
+    }
+
     @Override
     public String toString() {
         return "ThemeData{" +
                 "themeEnum=" + themeEnum +
                 ", subtheme='" + subtheme + '\'' +
                 ", levelOfFunction=" + levelOfFunction +
+                ", documentation='" + documentation + '\'' +
                 '}';
     }
 }

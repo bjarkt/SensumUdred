@@ -16,6 +16,8 @@ public interface IThemeUI extends IComponent {
 
     Integer getLevelOfFunction();
 
+    String getDocumentation();
+
     /**
      * verify that it has data
      * @return true, if none of the fields are empty.

@@ -1,29 +1,22 @@
 package UI.components.elucidation_view.theme;
 
 import ACQ.IEventListener;
-import ACQ.ITheme;
 import ACQ.ThemeEnum;
-import BLL.theme_manager.IThemeManager;
 import UI.components.Component;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -54,6 +47,9 @@ public class ThemeController extends Component implements IThemeUI {
     @FXML
     private JFXCheckBox themeCheckbox;
 
+    @FXML
+    private JFXTextArea documentationTextArea;
+
     private String errorClass = "theme-input-error";
 
 
@@ -70,9 +66,12 @@ public class ThemeController extends Component implements IThemeUI {
         ObservableList<Integer> levelOfFunctionOptions = FXCollections.observableArrayList(0, 1, 2, 3, 4);
         levelOfFunctionComboBox.getItems().addAll(levelOfFunctionOptions);
 
-        themeComboBox.getSelectionModel().selectedItemProperty().addListener(getVerifyDataChangeListener());
+        documentationTextArea.setPrefRowCount(4);
+
+        themeComboBox.setOnAction(getVerifyDataEventHandler());
         subthemeField.textProperty().addListener(getVerifyDataChangeListener());
-        levelOfFunctionComboBox.getSelectionModel().selectedItemProperty().addListener(getVerifyDataChangeListener());
+        levelOfFunctionComboBox.setOnAction(getVerifyDataEventHandler());
+        documentationTextArea.textProperty().addListener(getVerifyDataChangeListener());
     }
 
     @Override
@@ -108,6 +107,11 @@ public class ThemeController extends Component implements IThemeUI {
         return levelOfFunctionComboBox.getValue();
     }
 
+    @Override
+    public String getDocumentation() {
+        return documentationTextArea.getText();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -136,33 +140,14 @@ public class ThemeController extends Component implements IThemeUI {
             removeError(levelOfFunctionComboBox, errorClass);
         }
 
+        if (getDocumentation().length() == 0) {
+            addError(documentationTextArea, errorClass);
+            hasData = false;
+        } else {
+            removeError(documentationTextArea, errorClass);
+        }
+
         return hasData;
-    }
-
-    private boolean verifyData(JFXComboBox comboBox) {
-        boolean missingData = true;
-
-        if (comboBox.getValue() == null) {
-            addError(comboBox, errorClass);
-            missingData = false;
-        } else {
-            removeError(comboBox, errorClass);
-        }
-
-        return missingData;
-    }
-
-    private boolean verifyData( JFXTextField textField) {
-        boolean missingData = true;
-
-        if (textField.getText().length() == 0) {
-            addError(textField, errorClass);
-            missingData = false;
-        } else {
-            removeError(textField, errorClass);
-        }
-
-        return missingData;
     }
 
     private void initThemeEnumComboBox(ObservableList<ThemeEnum> comboBoxOptions) {
@@ -209,6 +194,10 @@ public class ThemeController extends Component implements IThemeUI {
 
     private <T> ChangeListener<T> getVerifyDataChangeListener() {
         return (observableValue, t, t1) -> verifyData();
+    }
+
+    private <T extends Event> EventHandler<T> getVerifyDataEventHandler() {
+        return t -> verifyData();
     }
 
 }
