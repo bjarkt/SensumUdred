@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.DataPromptController">
+<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -34,7 +34,11 @@
                      </font>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <JFXButton styleClass="flat-button" text="Ny henvendelse" />
+                  <JFXButton styleClass="flat-button" text="Henvis">
+                     <HBox.margin>
+                        <Insets right="12.0" />
+                     </HBox.margin></JFXButton>
+                  <JFXButton styleClass="flat-button" text="Indkald til møde" />
                </children>
                <padding>
                   <Insets bottom="10.0" />
@@ -226,7 +230,7 @@
                               </VBox>
                               <VBox fx:id="elucidationView_horizontalLayout_right" minWidth="280.0" prefWidth="374.0" spacing="25.0" style="-fx-background-color: white;" HBox.hgrow="SOMETIMES">
                                  <children>
-                                    <VBox fx:id="addressField" spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
+                                    <VBox spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-width: 0 0 1 0; -fx-border-color: #DBDBDB;">
                                              <children>
