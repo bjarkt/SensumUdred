@@ -163,7 +163,7 @@
                                           </HBox>
                                           <HBox>
                                              <children>
-                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="caseCitizenAgreementField" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -190,7 +190,7 @@
                                           </HBox>
                                           <HBox>
                                              <children>
-                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="caseCitizenMunicipalityField" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -217,7 +217,7 @@
                                           </HBox>
                                           <HBox>
                                              <children>
-                                                <TextField styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="caseSpecialCircumstancesField" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -226,11 +226,18 @@
                               </VBox>
                               <VBox fx:id="elucidationView_horizontalLayout_right" minWidth="280.0" prefWidth="374.0" spacing="25.0" style="-fx-background-color: white;" HBox.hgrow="SOMETIMES">
                                  <children>
-                                    <VBox spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
+                                    <VBox fx:id="addressField" spacing="15.0" style="-fx-border-color: #DBDBDB; -fx-background-color: transparent;">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-width: 0 0 1 0; -fx-border-color: #DBDBDB;">
                                              <children>
                                                 <Label styleClass="elucidationView_sideBox_title" text="Borgeren" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="editCaseCitizenInformation" text="Rediger">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
@@ -246,7 +253,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editNameOnClick" onMouseEntered="#saveNameOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Lasse Marco Holst Traberg-Larsen" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="nameField" editable="false" onMouseClicked="#editNameOnClick" onMouseEntered="#saveNameOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Lasse Marco Holst Traberg-Larsen" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -256,7 +263,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editCPROnClick" onMouseEntered="#saveCPROnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="1234567890" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="CPRField" editable="false" onMouseClicked="#editCPROnClick" onMouseEntered="#saveCPROnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="1234567890" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -266,7 +273,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editAdressCityOnClick" onMouseEntered="#saveAdressCityOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="cityField" editable="false" onMouseClicked="#editAdressCityOnClick" onMouseEntered="#saveAdressCityOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -276,7 +283,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editAdressStreetOnClick" onMouseEntered="#saveAdressStreetOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown Boulevard 1" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="addressField" editable="false" onMouseClicked="#editAdressStreetOnClick" onMouseEntered="#saveAdressStreetOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown Boulevard 1" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -286,7 +293,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editCivilStatusOnClick" onMouseEntered="#saveCivilStatusOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Single" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="civilStatusField" editable="false" onMouseClicked="#editCivilStatusOnClick" onMouseEntered="#saveCivilStatusOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Single" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -296,7 +303,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editContactDetailsPhoneOnClick" onMouseEntered="#saveContactDetailsPhoneOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="88 88 88 88" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="phoneNumberField" editable="false" onMouseClicked="#editContactDetailsPhoneOnClick" onMouseEntered="#saveContactDetailsPhoneOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="88 88 88 88" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -306,7 +313,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editContactDetailsCellOnClick" onMouseEntered="#saveContactDetailsCellOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="99 44 89 00" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="cellphoneNumberField" editable="false" onMouseClicked="#editContactDetailsCellOnClick" onMouseEntered="#saveContactDetailsCellOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="99 44 89 00" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">

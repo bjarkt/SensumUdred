@@ -34,6 +34,11 @@ public class BusinessFacade implements IBusiness {
 		return (ISigningService) userManager;
 	}
 
+	@Override
+	public IElucidation getElucidation(int ID) {
+		return null;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -72,6 +77,7 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
+
 	@SecurityLevel(500)
 	@Override
 	public void createInquiry() {

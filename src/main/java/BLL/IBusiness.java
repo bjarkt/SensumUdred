@@ -86,6 +86,6 @@ public interface IBusiness {
 	 * Creates a new inquiry.
 	 */
 	void createInquiry();
-
+	IElucidation getElucidation(int ID);
 
 }

@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS guardians CASCADE;
 DROP TABLE IF EXISTS participates CASCADE;
 DROP TABLE IF EXISTS meetings CASCADE;
 DROP TABLE IF EXISTS worksin CASCADE;
-DROP TABLE IF EXISTS applies CASCADE;
 DROP TABLE IF EXISTS elucidations CASCADE;
 DROP TABLE IF EXISTS elucidationsHasTasks CASCADE;
 DROP TABLE IF EXISTS inquiries CASCADE;
@@ -73,14 +72,9 @@ CREATE TABLE worksin(
   PRIMARY KEY (elucidations_ID, users_SSN)
 );
 
-CREATE TABLE applies(
-  elucidations_ID BIGSERIAL,
-  users_SSN VARCHAR(10),
-  PRIMARY KEY (elucidations_ID, users_SSN)
-);
-
 CREATE TABLE elucidations(
   ID BIGSERIAL PRIMARY KEY ,
+  applies_ssn TEXT NOT NULL,
   creationDate DATE
 );
 
