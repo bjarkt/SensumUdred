@@ -29,9 +29,9 @@ public class CaseOpeningProvider implements ICaseOpeningService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex) {
+	public void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex, long attachmentNumber) {
 		try {
-			IRequest request = new Request(service, departmentIndex, httpClient);
+			IRequest request = new Request(service, departmentIndex, httpClient, attachmentNumber);
 
 			request.now();
 

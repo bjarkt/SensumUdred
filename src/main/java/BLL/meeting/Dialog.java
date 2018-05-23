@@ -23,8 +23,8 @@ public class Dialog implements IDialog {
      * {@inheritDoc}
      */
     @Override
-    public IMeeting createMeeting(IUser currentUser) {
-        IMeeting meeting = new Meeting(currentUser, eBoks);
+    public IMeeting createMeeting(IUser currentUser, long meetingNumber) {
+        IMeeting meeting = new Meeting(currentUser, eBoks, meetingNumber);
         meetings.add(meeting);
         return meeting;
     }

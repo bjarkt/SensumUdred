@@ -13,19 +13,21 @@ public class ThirdPartyInformationTest {
 
 	IHttp httpClient = TestHelper.getHttpClient();
 
+	long[] attachnums = {1,2};
+
 	@Test
 	public void CaseOpeningTest() {
 		ICaseOpeningService caseOpeningService = new CaseOpeningProvider();
 		caseOpeningService.setHttpClient(httpClient);
 
-		caseOpeningService.requestThirdPartyCredentials(ThirdPartyService.TEST, 0);
-		caseOpeningService.requestThirdPartyCredentials(ThirdPartyService.TEST, 1);
+		caseOpeningService.requestThirdPartyCredentials(ThirdPartyService.TEST, 0, attachnums[0]);
+		caseOpeningService.requestThirdPartyCredentials(ThirdPartyService.TEST, 1, attachnums[1]);
 	}
 
 	@Test
 	public void requestPdfTest() {
 		try {
-			IRequest request = new Request(ThirdPartyService.TEST, 0, httpClient);
+			IRequest request = new Request(ThirdPartyService.TEST, 0, httpClient, attachnums[0]);
 
 			boolean isPDF = request.getAttachment().getType() == AttachmentEnum.PDF;
 			boolean isTestService = request.getService() == ThirdPartyService.TEST;
@@ -40,7 +42,7 @@ public class ThirdPartyInformationTest {
 	@Test
 	public void requestTextTest() {
 		try {
-			IRequest request = new Request(ThirdPartyService.TEST, 1, httpClient);
+			IRequest request = new Request(ThirdPartyService.TEST, 1, httpClient, attachnums[1]);
 
 			boolean isPDF = request.getAttachment().getType() == AttachmentEnum.TEXT;
 			boolean isTestService = request.getService() == ThirdPartyService.TEST;
