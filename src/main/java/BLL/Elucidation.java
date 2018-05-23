@@ -1,5 +1,9 @@
-package ACQ;
+package BLL;
 
+import ACQ.IElucidation;
+import ACQ.IInquiry;
+import ACQ.IUser;
+import ACQ.Task;
 import BLL.Inquiry.Inquiry;
 import BLL.meeting.IDialog;
 import BLL.open_case.Case;
