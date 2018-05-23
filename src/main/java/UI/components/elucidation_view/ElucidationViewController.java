@@ -239,12 +239,8 @@ public class ElucidationViewController extends Component implements IElucidation
     void saveCaseThemes(ActionEvent event) {
         Set<ThemeData> themeDatas = new HashSet<>();
         for (IThemeUI theme : addedThemeUIs) {
-            ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction());
-            
-            if (themeData.getThemeEnum() == null || theme.getSubtheme().length() == 0 || theme.getLevelOfFunction() == null) {
-                // TODO: 23/05/18 lav popup box her måske?
-                //System.out.println("Fejl i tema data");
-            } else {
+            if (theme.verifyData()) {
+                ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction());
                 themeDatas.add(themeData);
             }
         }
