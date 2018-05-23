@@ -76,6 +76,7 @@ public aspect SecuredAspect {
                 }
             }
 
+
             if(account.getSecurityLevel() < requiredSecurityLevel){
                 f.setAccessible(true);
                 Object o = f.get(joinPoint.getThis());

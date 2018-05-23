@@ -20,5 +20,5 @@ public interface ICaseOpeningService {
 	 * @param service any {@link ThirdPartyService}
 	 * @param departmentIndex index of the department within the selected service (starts at 0(
 	 */
-	void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex);
+	void requestThirdPartyCredentials(ThirdPartyService service, int departmentIndex, long attachmentNumber);
 }

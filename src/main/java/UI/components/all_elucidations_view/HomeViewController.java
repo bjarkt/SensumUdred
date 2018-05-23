@@ -1,5 +1,7 @@
 package UI.components.all_elucidations_view;
 
+import ACQ.IElucidation;
+import ACQ.IProfile;
 import UI.Secured;
 import UI.components.Component;
 import ACQ.IEventListener;
@@ -9,6 +11,7 @@ import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -51,6 +54,8 @@ public class HomeViewController extends Component implements IHomeView {
         buttons = new ArrayList<>();
     }
 
+    ObservableSet<IElucidation> elucidations = FXCollections.observableSet();
+
     ObservableList<String> listView = FXCollections.observableArrayList("Lasse", "Dennis", "Bjarke", "Lavanbro", "Adrian", "Christian");
 
     @Override
@@ -60,7 +65,6 @@ public class HomeViewController extends Component implements IHomeView {
         tasksList.setExpanded(true);
         tasksList.setItems(listView);
         tasksList.setCellFactory(param -> new Cell());
-
     }
 
     @FXML

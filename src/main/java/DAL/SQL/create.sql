@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS guardians CASCADE;
 DROP TABLE IF EXISTS participates CASCADE;
 DROP TABLE IF EXISTS meetings CASCADE;
 DROP TABLE IF EXISTS worksin CASCADE;
-DROP TABLE IF EXISTS applies CASCADE;
 DROP TABLE IF EXISTS elucidations CASCADE;
 DROP TABLE IF EXISTS elucidationsHasTasks CASCADE;
 DROP TABLE IF EXISTS inquiries CASCADE;
@@ -55,12 +54,12 @@ CREATE TABLE guardians(
 CREATE TABLE participates(
   users_SSN VARCHAR(10),
   users_email TEXT,
-  meetings_ID BIGSERIAL,
-  PRIMARY KEY (users_email, users_SSN, meetings_ID)
+  meetings_number INT,
+  PRIMARY KEY (users_email, users_SSN, meetings_number)
 );
 
 CREATE TABLE meetings(
-  ID BIGSERIAL PRIMARY KEY ,
+  number INT PRIMARY KEY ,
   information TEXT,
   date DATE,
   creaton VARCHAR(10),
@@ -73,14 +72,9 @@ CREATE TABLE worksin(
   PRIMARY KEY (elucidations_ID, users_SSN)
 );
 
-CREATE TABLE applies(
-  elucidations_ID BIGSERIAL,
-  users_SSN VARCHAR(10),
-  PRIMARY KEY (elucidations_ID, users_SSN)
-);
-
 CREATE TABLE elucidations(
   ID BIGSERIAL PRIMARY KEY ,
+  applies_ssn TEXT NOT NULL,
   creationDate DATE
 );
 
@@ -100,19 +94,19 @@ CREATE TABLE cases(
   task_ID BIGSERIAL PRIMARY KEY,
   inquries_description TEXT,
   guardianAuthority TEXT,
-  citizensAgreement BOOLEAN,
+  citizensConsent BOOLEAN,
   specialCircumstances TEXT,
   totalLevelOfFunction CHAR
 );
 
 CREATE TABLE caseHasThirdPartyInformations(
-  thirdpartyinformations_ID BIGSERIAL,
+  thirdpartyinformations_number INT,
   cases_ID BIGSERIAL,
-  PRIMARY KEY (thirdpartyinformations_ID, cases_ID)
+  PRIMARY KEY (thirdpartyinformations_number, cases_ID)
 );
 
 CREATE TABLE thirdpartyinformations(
-  ID BIGSERIAL PRIMARY KEY,
+  number INT PRIMARY KEY,
   description TEXT,
   source TEXT,
   data BYTEA
@@ -127,7 +121,8 @@ CREATE TABLE caseHasThemes(
 
 CREATE TABLE themes(
   theme TEXT PRIMARY KEY,
-  subtheme TEXT
+  subtheme TEXT,
+  levelOfFunction INT
 );
 
 CREATE TABLE offerings(
@@ -168,7 +163,7 @@ CREATE TABLE eventlogs(
 
 INSERT INTO users VALUES ('00000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
 INSERT INTO haslogin VALUES ('0000000000', 1);
-INSERT INTO accounts VALUES(2, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
+INSERT INTO accounts VALUES(1, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
 
 INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@tester.com');
 INSERT INTO haslogin VALUES ('99999999', 2);
