@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="container" style="-fx-background-color: white;" stylesheets="@data_prompt.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.data_prompt.DataPromptController">
+   <children>
+      <VBox spacing="20.0" styleClass="dataprompt_question" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label styleClass="dataprompt_question" text="Label" />
+            <TextArea styleClass="dataprompt_input" wrapText="true" />
+            <HBox>
+               <children>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <JFXButton styleClass="flat-button" text="Fortsæt" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

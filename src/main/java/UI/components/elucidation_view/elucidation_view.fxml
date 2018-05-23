@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
+<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.DataPromptController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
