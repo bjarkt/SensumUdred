@@ -4,11 +4,11 @@ import ACQ.IAccount;
 import ACQ.IProfile;
 import ACQ.IUser;
 
-public class ProfileData implements IProfile {
+public class Profile implements IProfile {
 	private IUser user;
 	private IAccount account;
 
-	public ProfileData() {
+	public Profile() {
 		this.user = null;
 		this.account = null;
 	}

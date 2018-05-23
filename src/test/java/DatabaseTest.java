@@ -1,5 +1,5 @@
 import DAL.database.DatabaseService;
-import DAL.database.IDatabaseService;
+import ACQ.IDatabaseService;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -28,29 +28,29 @@ public class DatabaseTest {
 
 	@Test
 	public void signInAndOut() {
-		assertEquals("tester", dbService.signIn("tester", "tester").getAccount().getUsername());
-		assert dbService.signOut("tester");
+		assertEquals("tester", dbService.getSigningService().signIn("tester", "tester").getAccount().getUsername());
+		assert dbService.getSigningService().signOut("tester");
 	}
 
 	@Test
 	public void userExist() {
-		assert dbService.userExists("99999999");
+		assert dbService.getDefaultService().userExists("99999999");
 	}
 
 	@Test
 	public void accountExist() {
-		assert dbService.accountExists("tester");
+		assert dbService.getDefaultService().accountExists("tester");
 	}
 
 	@Test
 	public void lockAndUnlockAccount() {
-		assert dbService.lockAccount("tester");
-		assert dbService.unlockAccount("tester");
+		assert dbService.getAdminService().lockAccount("tester");
+		assert dbService.getAdminService().unlockAccount("tester");
 	}
 
 	@Test
 	public void getAllUsersAndAccounts() {
-		assertEquals(2, dbService.getAllUsers(2).size());
-		assertEquals(2, dbService.getAllAccounts(2).size());
+		assertEquals(2, dbService.getDefaultService().getAllUsers(2).size());
+		assertEquals(2, dbService.getDefaultService().getAllAccounts(2).size());
 	}
 }

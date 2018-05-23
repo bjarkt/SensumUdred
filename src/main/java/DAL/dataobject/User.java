@@ -1,10 +1,9 @@
 package DAL.dataobject;
 
-import ACQ.IAccount;
 import ACQ.IAddress;
 import ACQ.IUser;
 
-public class UserData implements IUser {
+public class User implements IUser {
 	private String ssn;
 	private String firstName;
 	private String lastName;

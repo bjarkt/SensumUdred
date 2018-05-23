@@ -1,8 +1,8 @@
 package DAL;
 
+import ACQ.IDatabaseService;
 import ACQ.IHttp;
 import DAL.database.DatabaseService;
-import DAL.database.IDatabaseService;
 import DAL.http_request_utility.HttpRequestUtility;
 
 public class PersistentFacade implements IPersistent {
