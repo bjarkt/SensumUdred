@@ -213,17 +213,9 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupVerticalMenu(){
 		verticalMenu.onLogClick(data -> {
-			try {
-				if(profile.getAccount().getSecurityLevel() >= business.getClass().getMethod("getChangeLog").getAnnotation(SecurityLevel.class).value()){
-					if(isMobile) drawer.close();
-					popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
-					setCenter(null);
-				} else{
-					popUp.show("Manglende rettigheder", "Du har ikke det rette sikkerhedsniveau til at tilgå hændelseslog. Kontakt systemadministrator.");
-				}
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-			}
+			if(isMobile) drawer.close();
+			popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
+			setCenter(null);
 		});
 
 		verticalMenu.onMyElucidationsClick(data -> {
@@ -232,8 +224,11 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		verticalMenu.onUserManagement(data -> {
+			business.setSecurityEventListener(data1 -> {
+				popUp.show("Manglende rettigheder", "Du har ikke rettigheder til at tilgå brugeradministration.");
+			});
+			business.getUserManager();
 			if(isMobile) drawer.close();
-			popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
 			setCenter(null);
 		});
 

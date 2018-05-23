@@ -37,6 +37,7 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
+	@SecurityLevel(1000)
 	@Override
 	public IUserManager getUserManager() {
 		return userManager;

@@ -55,12 +55,12 @@ CREATE TABLE guardians(
 CREATE TABLE participates(
   users_SSN VARCHAR(10),
   users_email TEXT,
-  meetings_ID BIGSERIAL,
-  PRIMARY KEY (users_email, users_SSN, meetings_ID)
+  meetings_number INT,
+  PRIMARY KEY (users_email, users_SSN, meetings_number)
 );
 
 CREATE TABLE meetings(
-  ID BIGSERIAL PRIMARY KEY ,
+  number INT PRIMARY KEY ,
   information TEXT,
   date DATE,
   creaton VARCHAR(10),
@@ -100,19 +100,19 @@ CREATE TABLE cases(
   task_ID BIGSERIAL PRIMARY KEY,
   inquries_description TEXT,
   guardianAuthority TEXT,
-  citizensAgreement BOOLEAN,
+  citizensConsent BOOLEAN,
   specialCircumstances TEXT,
   totalLevelOfFunction CHAR
 );
 
 CREATE TABLE caseHasThirdPartyInformations(
-  thirdpartyinformations_ID BIGSERIAL,
+  thirdpartyinformations_number INT,
   cases_ID BIGSERIAL,
-  PRIMARY KEY (thirdpartyinformations_ID, cases_ID)
+  PRIMARY KEY (thirdpartyinformations_number, cases_ID)
 );
 
 CREATE TABLE thirdpartyinformations(
-  ID BIGSERIAL PRIMARY KEY,
+  number INT PRIMARY KEY,
   description TEXT,
   source TEXT,
   data BYTEA
@@ -127,7 +127,8 @@ CREATE TABLE caseHasThemes(
 
 CREATE TABLE themes(
   theme TEXT PRIMARY KEY,
-  subtheme TEXT
+  subtheme TEXT,
+  levelOfFunction INT
 );
 
 CREATE TABLE offerings(

@@ -30,7 +30,7 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @FXML
     private JFXButton logButton;
 
-    @Secured("getAllUsers")
+    @Secured("getUserManager")
     @FXML
     private JFXButton userManagementButton;
 

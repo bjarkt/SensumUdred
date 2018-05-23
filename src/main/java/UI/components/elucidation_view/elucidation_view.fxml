@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
+<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -71,41 +71,6 @@
                                           <TextArea fx:id="caseDescriptionField" editable="false" promptText="Om sagen" styleClass="elucidationView_textArea" />
                                        </children>
                                     </VBox>
-                                    <VBox fx:id="offersContainer" spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
-                                             <children>
-                                                <Label styleClass="elucidationView_section_title" text="Tilbud" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton fx:id="deleteCaseOfferButton" cancelButton="true" disable="true" layoutX="582.0" layoutY="12.0" onAction="#deleteCaseOffers" text="Ingen tilbud valgt" visible="false">
-                                                   <styleClass>
-                                                      <String fx:value="flat-button" />
-                                                      <String fx:value="flat-button_outlined_red" />
-                                                   </styleClass>
-                                                   <graphic>
-                                                      <SVGPath content="M6,19c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V7H6V19z M8,9h8v10H8V9z M15.5,4l-1-1h-5l-1,1H5v2h14V4H15.5z" fill="#db4437" />
-                                                   </graphic>
-                                                   <HBox.margin>
-                                                      <Insets right="12.0" />
-                                                   </HBox.margin>
-                                                </JFXButton>
-                                                <JFXButton fx:id="editCaseOffersButton" onAction="#addCaseOffer" text="Tilbud tilføj">
-                                                   <styleClass>
-                                                      <String fx:value="flat-button" />
-                                                      <String fx:value="flat-button_outlined" />
-                                                   </styleClass>
-                                                </JFXButton>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="16.0" />
-                                             </padding>
-                                             <VBox.margin>
-                                                <Insets bottom="5.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <VBox fx:id="caseOffersWrapper" />
-                                       </children>
-                                    </VBox>
                                     <VBox fx:id="grantingsContainer" spacing="10.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
@@ -139,6 +104,41 @@
                                              </VBox.margin>
                                           </HBox>
                                           <VBox fx:id="grantingWrapper" spacing="10.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="offersContainer" spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Tilbud" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <JFXButton fx:id="deleteCaseOfferButton" cancelButton="true" disable="true" layoutX="582.0" layoutY="12.0" onAction="#deleteCaseOffers" text="Ingen tilbud valgt" visible="false">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined_red" />
+                                                   </styleClass>
+                                                   <graphic>
+                                                      <SVGPath content="M6,19c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V7H6V19z M8,9h8v10H8V9z M15.5,4l-1-1h-5l-1,1H5v2h14V4H15.5z" fill="#db4437" />
+                                                   </graphic>
+                                                   <HBox.margin>
+                                                      <Insets right="12.0" />
+                                                   </HBox.margin>
+                                                </JFXButton>
+                                                <JFXButton fx:id="editCaseOffersButton" onAction="#addCaseOffer" text="Tilbud tilføj">
+                                                   <styleClass>
+                                                      <String fx:value="flat-button" />
+                                                      <String fx:value="flat-button_outlined" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <VBox fx:id="caseOffersWrapper" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="10.0">
