@@ -1,6 +1,7 @@
 package ACQ;
 
 import BLL.Inquiry.Inquiry;
+import BLL.meeting.IDialog;
 import BLL.open_case.Case;
 import BLL.open_case.Guardianship;
 import BLL.open_case.ICase;
@@ -14,14 +15,16 @@ public class Elucidation implements IElucidation {
     private Set<IUser> caseworkers;
     private Task task;
     private Date dateOfOpening;
+    private IDialog dialog;
 
 
-    public Elucidation(IUser citizen, IUser creator){
+    public Elucidation(IUser citizen, IUser creator, IDialog dialog){
         dateOfOpening = new Date();
         this.citizen = citizen;
         caseworkers = new HashSet<>();
         caseworkers.add(creator);
         task = new Inquiry();
+        this.dialog = dialog;
     }
 
     /**
@@ -63,8 +66,19 @@ public class Elucidation implements IElucidation {
         ((ICase) task).addSpecialCircumstances(specialCircumstances);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date getTimeOfOpening() {
         return dateOfOpening;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IDialog getDialog() {
+        return dialog;
     }
 }
