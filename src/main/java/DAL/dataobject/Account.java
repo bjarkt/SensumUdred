@@ -2,7 +2,7 @@ package DAL.dataobject;
 
 import ACQ.IAccount;
 
-public class AccountData implements IAccount {
+public class Account implements IAccount {
 	private String username;
 	private boolean locked;
 	private int securityLevel;

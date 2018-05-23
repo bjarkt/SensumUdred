@@ -2,7 +2,7 @@ package BLL.account_system;
 
 import ACQ.*;
 import BLL.security_system.SecuritySystem;
-import DAL.database.IDatabaseService;
+import ACQ.IDatabaseService;
 
 import java.util.Set;
 

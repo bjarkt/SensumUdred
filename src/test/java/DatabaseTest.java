@@ -1,5 +1,5 @@
 import DAL.database.DatabaseService;
-import DAL.database.IDatabaseService;
+import ACQ.IDatabaseService;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
