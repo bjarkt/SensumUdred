@@ -20,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -72,6 +73,18 @@ public class ThemeController extends Component implements IThemeUI {
                         return cell;
                     }
                 });
+
+        themeComboBox.setConverter(new StringConverter<ThemeEnum>() {
+            @Override
+            public String toString(ThemeEnum object) {
+                return object.name();
+            }
+
+            @Override
+            public ThemeEnum fromString(String string) {
+                return ThemeEnum.fromString(string);
+            }
+        });
     }
 
     @Override
