@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS changelogs CASCADE;
 DROP TABLE IF EXISTS eventlogs CASCADE;
 
 CREATE TABLE users(
-  SSN VARCHAR(10) NOT NULL PRIMARY KEY,
+  SSN VARCHAR(10) PRIMARY KEY,
   firstName TEXT NOT NULL,
   lastName TEXT NOT NULL,
   phoneNumber VARCHAR(8) DEFAULT '',
@@ -52,10 +52,10 @@ CREATE TABLE guardians(
 );
 
 CREATE TABLE participates(
-  users_SSN VARCHAR(10),
-  users_email TEXT,
+  cases_id BIGINT,
   meetings_number INT,
-  PRIMARY KEY (users_email, users_SSN, meetings_number)
+  users_SSN VARCHAR(10),
+  PRIMARY KEY (cases_id, meetings_number, users_SSN)
 );
 
 CREATE TABLE meetings(
@@ -67,7 +67,7 @@ CREATE TABLE meetings(
 );
 
 CREATE TABLE worksin(
-  elucidations_ID BIGSERIAL,
+  elucidations_ID BIGINT,
   users_SSN VARCHAR(10),
   PRIMARY KEY (elucidations_ID, users_SSN)
 );
@@ -79,8 +79,8 @@ CREATE TABLE elucidations(
 );
 
 CREATE TABLE elucidationsHasTasks(
-  elucidations_ID BIGSERIAL,
-  task_ID BIGSERIAL,
+  elucidations_ID BIGINT,
+  task_ID BIGINT,
   state TEXT
 );
 
@@ -101,15 +101,17 @@ CREATE TABLE cases(
 
 CREATE TABLE caseHasThirdPartyInformations(
   thirdpartyinformations_number INT,
-  cases_ID BIGSERIAL,
+  cases_ID BIGINT,
   PRIMARY KEY (thirdpartyinformations_number, cases_ID)
 );
 
 CREATE TABLE thirdpartyinformations(
-  number INT PRIMARY KEY,
+  cases_id BIGINT,
+  number INT,
   description TEXT,
   source TEXT,
-  data BYTEA
+  data BYTEA,
+  PRIMARY KEY(cases_id, number)
 );
 
 CREATE TABLE caseHasThemes(
@@ -120,29 +122,31 @@ CREATE TABLE caseHasThemes(
 );
 
 CREATE TABLE themes(
-  theme TEXT PRIMARY KEY,
+  cases_id BIGINT,
+  theme TEXT,
   subtheme TEXT,
-  levelOfFunction INT
+  levelOfFunction INT,
+  PRIMARY KEY(cases_id, theme)
 );
 
 CREATE TABLE offerings(
-  cases_ID BIGSERIAL,
+  cases_id BIGINT,
   description TEXT,
   paragraph TEXT,
-  PRIMARY KEY (cases_ID, description)
+  PRIMARY KEY (cases_id, description)
 );
 
 CREATE TABLE grantings(
-  cases_ID BIGSERIAL,
+  cases_ID BIGINT,
   description TEXT,
   PRIMARY KEY (cases_ID, description)
 );
 
 CREATE TABLE logs(
-  accounts_ID BIGSERIAL,
-  sessionID BIGSERIAL,
-  changelogs_ID BIGSERIAL,
-  eventlogs_ID BIGSERIAL,
+  accounts_ID BIGINT,
+  sessionID BIGINT,
+  changelogs_ID BIGINT,
+  eventlogs_ID BIGINT,
   PRIMARY KEY (accounts_ID, sessionID, changelogs_ID, eventlogs_ID)
 );
 

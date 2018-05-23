@@ -1,5 +1,6 @@
 package ACQ;
 
+import BLL.meeting.IDialog;
 import BLL.open_case.Guardianship;
 import com.sun.istack.internal.Nullable;
 import javafx.util.Pair;
@@ -45,5 +46,11 @@ public interface IElucidation {
      * @return  time of opening.
      */
     Date getTimeOfOpening();
+
+    /**
+     * Get the dialog object, which contains meetings.
+     * @return dialog object
+     */
+    IDialog getDialog();
 
 }
