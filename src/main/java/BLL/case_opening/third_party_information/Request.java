@@ -18,6 +18,7 @@ public class Request implements IRequest {
 	private int departmentIndex;
 	private IAttachment attachment;
 	private Date timeOfLastestRequest;
+	private long attachmentNumber;
 
 
 	private IHttp httpClient;
@@ -30,7 +31,8 @@ public class Request implements IRequest {
 	 * @param departmentIndex
 	 * @throws IOException
 	 */
-	public Request(ThirdPartyService service, int departmentIndex, IHttp httpClient) throws IOException {
+	public Request(ThirdPartyService service, int departmentIndex, IHttp httpClient, long attachmentNumber) throws IOException {
+		this.attachmentNumber = attachmentNumber;
 		this.service = service;
 		this.departmentIndex = departmentIndex;
 		this.httpClient = httpClient;
@@ -95,7 +97,7 @@ public class Request implements IRequest {
 			}
 
 			if(attachmentBytes != null) {
-				attachment = new Attachment(AttachmentEnum.valueOf(data[0]), attachmentBytes);
+				attachment = new Attachment(AttachmentEnum.valueOf(data[0]), attachmentBytes, attachmentNumber);
 				this.timeOfLastestRequest = new Date();
 			}
 		}

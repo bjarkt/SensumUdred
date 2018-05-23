@@ -76,10 +76,16 @@ public interface IMeeting {
     void setMeetingDate(int year, int month, int day, int hour, int minute);
 
     /**
-     * Get the id of the meeting
-     * @return id of meeting
+     * Get the number of the meeting
+     * @return number of meeting
      */
-    int getId();
+    long getNumber();
+
+    /**
+     * Set the number
+     * @param n new number
+     */
+    void setNumber(long n);
 
     /**
      * Get the user that created the meeting

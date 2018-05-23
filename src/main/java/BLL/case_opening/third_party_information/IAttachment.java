@@ -17,4 +17,10 @@ public interface IAttachment {
 	 * @return the data in an array of bytes
 	 */
 	byte[] getData();
+
+	/**
+	 * Get the number of this attachment.
+	 * @return number
+	 */
+	long getNumber();
 }
