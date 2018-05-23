@@ -1,0 +1,27 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+.dataprompt_question{
+    -fx-font-size: 24px;
+    -fx-font-family: "Circular Std Bold";
+    -fx-text-fill: #484848;
+}
+
+.dataprompt_input{
+    -fx-font-size: 15px;
+    -fx-font-family: "Circular Std Medium";
+    -fx-text-fill: #000000;
+    -fx-min-height: 46px;
+    -fx-border-radius: 2px;
+    -fx-border-color:  #DBDBDB;
+    -fx-background-color: #fcfcfc;
+}
+
+.dataprompt_input .content {
+    -fx-background-color: #fcfcfc, #fcfcfc, #fcfcfc, #fcfcfc;
+    -fx-border-color: transparent;
+}
+
+.dataprompt_input .content {
+    -fx-background-color: transparent, white, transparent, white;
+}

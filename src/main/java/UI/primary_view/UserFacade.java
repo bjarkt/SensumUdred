@@ -1,15 +1,15 @@
 package UI.primary_view;
 
 import ACQ.IProfile;
-import ACQ.IUser;
 import BLL.IBusiness;
-import BLL.security_system.SecurityLevel;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.SecuredAspect;
 import UI.components.IComponent;
 import UI.components.all_elucidations_view.HomeViewController;
 import UI.components.all_elucidations_view.IHomeView;
+import UI.components.data_prompt.DataPromptController;
+import UI.components.data_prompt.IDataPrompt;
 import UI.components.drawer.DrawerController;
 import UI.components.drawer.IDrawer;
 import UI.components.drawer.IDrawerRequire;
@@ -260,6 +260,12 @@ public class UserFacade implements IUserInterface, Initializable {
 		homeView.onElucidationClick(data -> {
 			setCenter(elucidationView);
 		});
+
+		homeView.onNewInquiry(data -> {
+			IDataPrompt dataPrompt = new DataPromptController();
+			setCenter(dataPrompt);
+		});
+
 	}
 
 	private void setupElucidationView(){
@@ -272,6 +278,27 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		elucidationView.onAddNewOffer(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseCitizenInformation(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseCitizenMunicipality(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseCitzenAgreement(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseSaveDescription(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onDeleteOffers(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onCaseSpecialCircumstancesField(data -> {
+			System.out.println(data);
+		});
+		elucidationView.onLeaveElucidation(data -> {
 			System.out.println(data);
 		});
 

@@ -7,4 +7,6 @@ public interface IHomeView extends IComponent {
 
     void onElucidationClick(IEventListener<?> listener);
 
+    void onNewInquiry(IEventListener<?> listener);
+
 }

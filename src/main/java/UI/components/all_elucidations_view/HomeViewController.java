@@ -1,7 +1,6 @@
 package UI.components.all_elucidations_view;
 
 import ACQ.IElucidation;
-import ACQ.IProfile;
 import UI.Secured;
 import UI.components.Component;
 import ACQ.IEventListener;
@@ -12,6 +11,7 @@ import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -30,6 +30,7 @@ public class HomeViewController extends Component implements IHomeView {
     private List<JFXButton> buttons;
 
     private List<IEventListener<?>> elucidationListSubscribers = new ArrayList<>();
+    private List<IEventListener<?>> newInquirySubscribers = new ArrayList<>();
 
     private IHomeViewRequire required;
 
@@ -73,9 +74,19 @@ public class HomeViewController extends Component implements IHomeView {
         elucidationListSubscribers.forEach(listener -> listener.onAction(null));
     }
 
+    @FXML
+    void newInquiry(ActionEvent event) {
+        newInquirySubscribers.forEach(listener -> listener.onAction(null));
+    }
+
     @Override
     public void onElucidationClick(IEventListener<?> listener) {
         elucidationListSubscribers.add(listener);
+    }
+
+    @Override
+    public void onNewInquiry(IEventListener<?> listener) {
+        newInquirySubscribers.add(listener);
     }
 
     static class Cell extends JFXListCell<String>{
