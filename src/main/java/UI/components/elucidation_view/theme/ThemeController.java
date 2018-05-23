@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -80,7 +81,7 @@ public class ThemeController extends Component implements IThemeUI {
 
 
     @FXML
-    void checkBoxAction(MouseEvent event) {
+    void checkBoxAction(ActionEvent event) {
         if(selected) selected = false;
         else selected = true;
         onThemeSelectedSubscribers.forEach(listener -> listener.onAction(this));

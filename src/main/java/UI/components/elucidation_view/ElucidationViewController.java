@@ -226,7 +226,21 @@ public class ElucidationViewController extends Component implements IElucidation
     }
 
     private void setupUpThemesSection() {
-
+        listOfChosenThemes.addListener(new SetChangeListener<IThemeUI>() {
+            @Override
+            public void onChanged(Change<? extends IThemeUI> change) {
+                if(listOfChosenThemes.size() > 0){
+                    deleteThemeButton.setVisible(true);
+                    deleteThemeButton.setDisable(false);
+                    deleteThemeButton.setText("Slet " + listOfChosenThemes.size() + " temaer");
+                    if(listOfChosenThemes.size() > 1) deleteThemeButton.setText("Slet " + listOfChosenThemes.size() + " temaer");
+                } else{
+                    deleteThemeButton.setVisible(false);
+                    deleteThemeButton.setDisable(true);
+                    deleteThemeButton.setText("Ingen temaer valgt");
+                }
+            }
+        });
     }
     //endregion
 
