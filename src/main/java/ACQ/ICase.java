@@ -1,5 +1,7 @@
 package ACQ;
 
+import BLL.case_opening.third_party_information.IAttachment;
+
 import java.util.Set;
 
 public interface ICase extends IInquiry{
@@ -45,6 +47,12 @@ public interface ICase extends IInquiry{
      * @return  case's offers.
      */
     Set<IOffer> getOffers();
+
+    /**
+     * Accessor method for third party informations.
+     * @return  third party informations.
+     */
+    Set<IAttachment> getThirdPartyInformations();
 
 
 
