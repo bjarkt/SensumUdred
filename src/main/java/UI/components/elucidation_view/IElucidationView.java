@@ -2,6 +2,9 @@ package UI.components.elucidation_view;
 
 import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.elucidation_view.theme.ThemeData;
+
+import java.util.Set;
 
 public interface IElucidationView extends IComponent {
 
@@ -22,4 +25,9 @@ public interface IElucidationView extends IComponent {
     void onCaseSpecialCircumstancesField (IEventListener<String> listener);
 
     void onCaseCitizenInformation (IEventListener<String> listener);
+
+    void onAddNewTheme(IEventListener<Set<ThemeData>> listener);
+
+    void onDeleteTheme(IEventListener<Set<ThemeData>> listener);
+
 }
