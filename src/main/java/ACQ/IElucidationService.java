@@ -15,10 +15,6 @@ public interface IElucidationService {
 
 	boolean updateInqueryDescription(long id, String newDescription);
 
-	boolean updateOffers(long id, IOffer ... offers);
-
-	boolean updateGranting(long id, IGranting ... grantings);
-
 	boolean updateCaseworkers(long id, IUser ... users);
 
 	boolean updateCitizenConsent(long id, boolean hasConsent);
@@ -30,6 +26,10 @@ public interface IElucidationService {
 	boolean updateGuardianAuthority(long id, String newDescription);
 
 	boolean updateTotalLevelOfFunction(long id, char letter);
+
+	boolean updateOffers(long id, IOffer ... offers);
+
+	boolean updateGranting(long id, IGranting ... grantings);
 
 	boolean updateThemes(long id, ITheme ... themes);
 

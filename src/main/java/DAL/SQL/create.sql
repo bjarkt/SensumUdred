@@ -92,11 +92,12 @@ CREATE TABLE inquiries(
 
 CREATE TABLE cases(
   task_ID BIGSERIAL PRIMARY KEY,
-  inquries_description TEXT,
-  guardianAuthority TEXT,
-  citizensConsent BOOLEAN,
-  specialCircumstances TEXT,
-  totalLevelOfFunction CHAR
+  inquries_description TEXT DEFAULT '',
+  guardianAuthority TEXT DEFAULT '',
+  citizensConsent BOOLEAN DEFAULT false,
+  actingMunicipality TEXT DEFAULT '',
+  specialCircumstances TEXT DEFAULT '',
+  totalLevelOfFunction CHAR DEFAULT ''
 );
 
 CREATE TABLE caseHasThirdPartyInformations(
