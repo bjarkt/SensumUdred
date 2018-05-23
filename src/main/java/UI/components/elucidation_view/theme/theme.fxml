@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="theme_container" style="-fx-background-color: white;" stylesheets="@theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.elucidation_view.theme.ThemeController">
+   <children>
+      <HBox layoutX="-10.0">
+         <children>
+            <VBox>
+               <children>
+                  <JFXComboBox fx:id="themeComboBox" promptText="Vælg tema" />
+                  <JFXTextField fx:id="subthemeField" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
+               <children>
+                  <JFXCheckBox fx:id="themeCheckbox" onAction="#checkBoxAction" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
