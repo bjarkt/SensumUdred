@@ -1,8 +1,10 @@
-package DAL.database;
+package DAL.database.providers;
 
 import ACQ.IProfile;
 import ACQ.ISigningService;
 import ACQ.IUser;
+import DAL.database.DatabaseHelper;
+import DAL.database.PostgreSqlDatabase;
 import DAL.dataobject.Account;
 import DAL.dataobject.Profile;
 import DAL.dataobject.User;

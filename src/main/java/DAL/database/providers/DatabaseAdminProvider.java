@@ -1,49 +1,13 @@
-package DAL.database;
+package DAL.database.providers;
 
-import ACQ.IAccount;
 import ACQ.IAdminService;
-import ACQ.IUser;
-import DAL.dataobject.Account;
-import DAL.dataobject.User;
+import DAL.database.PostgreSqlDatabase;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminService {
-	@Override
-	public boolean accountExists(String accountName) {
-		AtomicBoolean exists = new AtomicBoolean(false);
-
-		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("SELECT id FROM accounts WHERE username = ?;");
-			ps.setString(1, accountName);
-
-			ResultSet rs = ps.executeQuery();
-
-			exists.set(rs.next());
-		});
-
-		return exists.get();
-	}
-
-	@Override
-	public boolean userExists(String ssn) {
-		AtomicBoolean exists = new AtomicBoolean(false);
-
-		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("SELECT ssn FROM users WHERE ssn = ?;");
-			ps.setString(1, ssn);
-
-			exists.set(ps.execute());
-		});
-
-		return exists.get();
-	}
-
 	@Override
 	public boolean lockAccount(String accountName) {
 		AtomicBoolean locked = new AtomicBoolean(false);
@@ -105,51 +69,5 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		});
 
 		return changed.get();
-	}
-
-	@Override
-	public Set<IUser> getAllUsers(int limit) {
-		Set<IUser> users = new HashSet<>();
-
-		executeQuery(conn -> {
-			String query = "SELECT * FROM users" + (limit > 0 ? " LIMIT ?;" : ";");
-
-			PreparedStatement ps = conn.prepareStatement(query);
-			if(limit > 0) ps.setInt(1, limit);
-
-			ResultSet rs = ps.executeQuery();
-
-			User data;
-			while(rs.next()) {
-				data = new User();
-				DatabaseHelper.setUserFromResultSet(rs, data);
-				users.add(data);
-			}
-		});
-
-		return users;
-	}
-
-	@Override
-	public Set<IAccount> getAllAccounts(int limit) {
-		Set<IAccount> accounts = new HashSet<>();
-
-		executeQuery(conn -> {
-			String query = "SELECT * FROM accounts" + (limit > 0 ? " LIMIT ?;" : ";");
-
-			PreparedStatement ps = conn.prepareStatement(query);
-			if(limit > 0) ps.setInt(1, limit);
-
-			ResultSet rs = ps.executeQuery();
-
-			Account data;
-			while(rs.next()) {
-				data = new Account();
-				DatabaseHelper.setAccountFromResultSet(rs, data);
-				accounts.add(data);
-			}
-		});
-
-		return accounts;
 	}
 }

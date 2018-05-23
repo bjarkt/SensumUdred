@@ -4,20 +4,6 @@ import java.util.Set;
 
 public interface IAdminService {
 	/**
-	 * Returns a true or false, depending on an account exists.
-	 * @param accountName any account name
-	 * @return true, if accounts exists; otherwise false
-	 */
-	boolean accountExists(String accountName);
-
-	/**
-	 * Returns a true or false, depending on an user exists.
-	 * @param ssn any ssn
-	 * @return true, if user exists; otherwise false
-	 */
-	boolean userExists(String ssn);
-
-	/**
 	 * Lock an account.
 	 * If account is already locked, it returns false.
 	 * @param accountName any account name
@@ -46,19 +32,4 @@ public interface IAdminService {
 	 * @return true, if change was successful; otherwise false
 	 */
 	boolean changePassword(String accountName, String newPassword);
-
-	/**
-	 * Get a set containing all users.
-	 * Limit the amount with the parameter; 0 or negative for no limit.
-	 * @return all users
-	 */
-	Set<IUser> getAllUsers(int limit);
-
-	/**
-	 * Get a set containing all accounts.
-	 * Limit the amount with the parameter; 0 or negative for no limit.
-	 * @param limit any number
-	 * @return all accounts
-	 */
-	Set<IAccount> getAllAccounts(int limit);
 }

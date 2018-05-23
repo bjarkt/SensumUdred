@@ -4,6 +4,12 @@ import java.sql.SQLException;
 
 public interface IDatabaseService {
 	/**
+	 * Get the default service.
+	 * @return default service interface
+	 */
+	IDefaultService getDefaultService();
+
+	/**
 	 * Get the admin service.
 	 * @return admin service interface
 	 */
