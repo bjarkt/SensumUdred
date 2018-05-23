@@ -66,3 +66,11 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+.idea/description.html
+src/.DS_Store
+src/main/.DS_Store
+src/main/java/.DS_Store
+.DS_Store
+.idea/encodings.xml
+.idea/description.html
+.idea/misc.xml
