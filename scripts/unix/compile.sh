@@ -16,8 +16,5 @@ find out/yee -name "*.java" -type f -delete
 cp -r src/main/resources/* out/yee
 cp -r lib/* out/yee
 
-# specific stuff (will be deleted when DB is added)
-cp users.txt out/yee
-
 # classpath is libs, and the out folder
 java -jar lib/aspectj/aspectjtools.jar -d out/yee -source 1.8 -sourceroots src/main/java/ -cp 'lib/jfoenix-8.0.4.jar:lib/aspectj/aspectjrt.jar:lib/gson-2.8.4.jar:lib/jbcrypt-0.4.jar:out/yee/' $@
