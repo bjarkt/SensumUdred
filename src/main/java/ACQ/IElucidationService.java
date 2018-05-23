@@ -1,6 +1,7 @@
 package ACQ;
 
 import BLL.case_opening.third_party_information.IAttachment;
+import BLL.meeting.IDialog;
 
 import java.util.Set;
 
@@ -10,13 +11,13 @@ public interface IElucidationService {
 	 * @param elucidation
 	 * @return
 	 */
-	IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry);
+	IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry, IDialog dialog);
 
 	boolean updateInqueryDescription(long id, String newDescription);
 
 	boolean updateOffers(long id, IOffer ... offers);
 
-	boolean updateGranting(long id, IGranting grantings);
+	boolean updateGranting(long id, IGranting ... grantings);
 
 	boolean updateCaseworkers(long id, IUser ... users);
 

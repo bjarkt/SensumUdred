@@ -132,7 +132,7 @@ CREATE TABLE themes(
 CREATE TABLE offerings(
   cases_id BIGINT,
   description TEXT,
-  paragraph TEXT,
+  paragraph INT,
   PRIMARY KEY (cases_id, description)
 );
 
