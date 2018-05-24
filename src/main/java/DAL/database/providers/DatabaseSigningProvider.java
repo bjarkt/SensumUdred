@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISigningService {
 	/**
@@ -23,9 +24,9 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 	 */
 	@Override
 	public IProfile signIn(String username, String password) {
-		Profile profile = new Profile();
+		AtomicReference<IProfile> atomicProfile = new AtomicReference<>();
 
-		final String lowerUsername = username.toLowerCase(Locale.ROOT);
+		final String lowerUsername = username.toLowerCase();
 
 		executeQuery(conn -> {
 			String query = "SELECT users.*, accounts.* FROM users, haslogin, accounts WHERE users.ssn = haslogin.users_ssn AND haslogin.accounts_id = accounts.id AND accounts.username = ?;";
@@ -42,10 +43,14 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 				User user = new User();
 				DatabaseHelper.setUserFromResultSet(rs, user);
 
+				Profile profile = new Profile();
+
 				profile.setAccount(account);
 				profile.setUser(user);
 
-				PreparedStatement ps2 = conn.prepareStatement("UPDATE accounts SET isloggedin=true, datelastlogin=? WHERE username=?;");
+				atomicProfile.set(profile);
+
+				PreparedStatement ps2 = conn.prepareStatement("UPDATE accounts SET isloggedin = true, datelastlogin = ? WHERE username = ?;");
 				ps2.setDate(1, new Date(System.currentTimeMillis()));
 				ps2.setString(2, lowerUsername);
 
@@ -53,7 +58,7 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 			}
 		});
 
-		return profile;
+		return atomicProfile.get();
 	}
 
 	/**
@@ -64,7 +69,7 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 		AtomicBoolean signedOut = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET isloggedin=false WHERE username=? AND isloggedin=true;");
+			PreparedStatement ps = conn.prepareStatement("UPDATE accounts SET isloggedin = false WHERE username = ? AND isloggedin = true;");
 			ps.setString(1, accountName.toLowerCase(Locale.ROOT));
 
 			signedOut.set(ps.executeUpdate() == 1);

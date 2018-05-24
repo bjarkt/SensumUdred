@@ -77,7 +77,8 @@ CREATE TABLE worksin(
 CREATE TABLE elucidations(
   ID BIGSERIAL PRIMARY KEY ,
   applies_ssn TEXT NOT NULL,
-  creationDate TIMESTAMP
+  creationDate TIMESTAMP,
+  isclosed BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE elucidationsHasTasks(

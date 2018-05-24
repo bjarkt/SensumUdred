@@ -14,25 +14,42 @@ public class Elucidation implements IElucidation {
 	private Date creationTime;
 	private IDialog dialog;
 
-	public Elucidation() {
-		caseworkers = new HashSet<>();
+	public Elucidation(IUser citizen, Set<IUser> caseworkers, Date creationTime, IDialog dialog) {
+		this.citizen = citizen;
+		this.caseworkers = caseworkers;
+		this.creationTime = creationTime;
+		this.dialog = dialog;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IUser getCitizen() {
 		return citizen;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Not implemented.
+	 */
 	@Override
 	public void addCaseworker(IUser... caseworkers) {
-		this.caseworkers.addAll(Arrays.asList(caseworkers));
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<IUser> getCaseworkers() {
 		return caseworkers;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Not implemented.
+	 */
 	@Override
 	public void openCase(String description, List<Pair<String, String>> offerings, List<String> grantings, IUser guardian, Guardianship guardianship, String informationAboutAuthority, boolean citizenAgreesWithOpeningOfCase, String citizensMunicipality, String specialCircumstances) {
 
