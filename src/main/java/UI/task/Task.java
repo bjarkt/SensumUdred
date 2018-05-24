@@ -10,7 +10,7 @@ public class Task<T> {
     private Supplier<T> data;
     private CompletableFuture<T> myData;
 
-    public Task(Supplier data) {
+    public Task(Supplier<T> data) {
         executor = Executors.newFixedThreadPool(1);
 
         this.data = data;
