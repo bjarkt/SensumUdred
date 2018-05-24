@@ -1,15 +1,11 @@
 package UI.primary_view;
 
-import ACQ.IAccount;
-import ACQ.IAddress;
 import ACQ.IProfile;
-import ACQ.IUser;
 import BLL.IBusiness;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.SecuredAspect;
 import UI.components.IComponent;
-import UI.components.LoadingService;
 import UI.components.all_elucidations_view.HomeViewController;
 import UI.components.all_elucidations_view.IHomeView;
 import UI.components.data_prompt.DataPromptController;
@@ -38,6 +34,7 @@ import com.jfoenix.controls.JFXDrawer;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -45,9 +42,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
@@ -264,6 +261,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			} else{
 				logInView.writeError("Brugernavn eller password er forkert.");
 			}
+
 		});
 	}
 
