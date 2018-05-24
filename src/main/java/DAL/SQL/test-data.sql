@@ -65,7 +65,7 @@ INSERT INTO accounts VALUES(14, 'kimingeman', '$2a$10$IcK4B09228.mbfqJBwlUq.SSxa
 -- 1
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (1, '60606060', '2018-05-24 09:00:00', false);
-INSERT INTO inquiries(source, description) VALUES ('En mand ved navn Dennis fortalte om ham selv og at han mangler hjælp.', 'Dennis er en mand med mange mentale problemer. Personen tanker er i et andet univers, han lever i en verden med magi og drager.')
+INSERT INTO inquiries(source, description) VALUES ('En mand ved navn Dennis fortalte om ham selv og at han mangler hjælp.', 'Dennis er en mand med mange mentale problemer. Personen tanker er i et andet univers, han lever i en verden med magi og drager.');
 INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (1, 1, 'INQUIRY');
 INSERT INTO worksin(elucidations_id, users_ssn) VALUES (1, '90909090');
 INSERT INTO worksin(elucidations_id, users_ssn) VALUES (1, '80808080');
