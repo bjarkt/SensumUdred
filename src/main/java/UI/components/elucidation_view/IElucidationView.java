@@ -2,7 +2,7 @@ package UI.components.elucidation_view;
 
 import ACQ.IEventListener;
 import UI.components.IComponent;
-import UI.components.elucidation_view.theme.ThemeData;
+import UI.components.elucidation_view.theme.IThemeUI;
 
 import java.util.Set;
 
@@ -26,8 +26,8 @@ public interface IElucidationView extends IComponent {
 
     void onCaseCitizenInformation (IEventListener<String> listener);
 
-    void onAddNewTheme(IEventListener<Set<ThemeData>> listener);
+    void onAddNewTheme(IEventListener<Set<IThemeUI>> listener);
 
-    void onDeleteTheme(IEventListener<Set<ThemeData>> listener);
+    void onDeleteTheme(IEventListener<Set<IThemeUI>> listener);
 
 }

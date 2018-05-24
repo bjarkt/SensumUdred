@@ -16,7 +16,6 @@ import UI.components.drawer.IDrawerRequire;
 import UI.components.elucidation_view.ElucidationViewController;
 import UI.components.elucidation_view.IElucidationView;
 import UI.components.elucidation_view.theme.IThemeUI;
-import UI.components.elucidation_view.theme.ThemeData;
 import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
 import UI.components.log_in_page.ILogInView;
@@ -309,15 +308,17 @@ public class UserFacade implements IUserInterface, Initializable {
 			System.out.println(data);
 		});
 
-		elucidationView.onAddNewTheme(data -> {
-			for (ThemeData theme : data) {
-				System.out.println(theme.getThemeEnum() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
+		elucidationView.onAddNewTheme(newThemes -> {
+			for (IThemeUI theme : newThemes) {
+				System.out.println(theme.getTheme().getName() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
 			}
 		});
 
-		elucidationView.onDeleteTheme(data -> {
-			for (ThemeData theme : data) {
-				System.out.println(theme.getThemeEnum() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
+		elucidationView.onDeleteTheme(deletedThemes -> {
+			for (IThemeUI theme : deletedThemes) {
+				if (theme.getTheme() != null) {
+					System.out.println(theme.getTheme().getName() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
+				}
 			}
 		});
 

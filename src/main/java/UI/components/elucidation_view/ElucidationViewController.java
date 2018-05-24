@@ -13,7 +13,6 @@ import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithChec
 import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController;
 import UI.components.elucidation_view.theme.IThemeUI;
 import UI.components.elucidation_view.theme.ThemeController;
-import UI.components.elucidation_view.theme.ThemeData;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
 import javafx.collections.FXCollections;
@@ -43,8 +42,8 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<String>> saveCitizenMunicipalitySubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveSpecialCircumstancesSubscribers = new ArrayList<>();
     private List<IEventListener<String>> editCitizenInformationSubscribers = new ArrayList<>();
-    private List<IEventListener<Set<ThemeData>>> addNewThemeSubscribers = new ArrayList<>();
-    private List<IEventListener<Set<ThemeData>>> deleteThemeSubscribers = new ArrayList<>();
+    private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
+    private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
 
 
     private IElucidationViewRequire required;
@@ -227,10 +226,8 @@ public class ElucidationViewController extends Component implements IElucidation
             addedThemeUIs.remove(theme);
         }
 
-        Set<ThemeData> removedThemes = new HashSet<>();
-        listOfChosenThemes.forEach(e -> removedThemes.add(new ThemeData(e.getTheme(), e.getSubtheme(), e.getLevelOfFunction(), e.getDocumentation())));
-        for (IEventListener<Set<ThemeData>> sub : deleteThemeSubscribers) {
-            sub.onAction(removedThemes);
+        for (IEventListener<Set<IThemeUI>> sub : deleteThemeSubscribers) {
+            sub.onAction(listOfChosenThemes);
         }
 
         listOfChosenThemes.clear();
@@ -238,16 +235,16 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     void saveCaseThemes(ActionEvent event) {
-        Set<ThemeData> themeDatas = new HashSet<>();
+        Set<IThemeUI> verifiedThemes = new HashSet<>();
+
         for (IThemeUI theme : addedThemeUIs) {
             if (theme.verifyData()) {
-                ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction(), theme.getDocumentation());
-                themeDatas.add(themeData);
+                verifiedThemes.add(theme);
             }
         }
 
-        for (IEventListener<Set<ThemeData>> sub : addNewThemeSubscribers) {
-            sub.onAction(themeDatas);
+        for (IEventListener<Set<IThemeUI>> sub : addNewThemeSubscribers) {
+            sub.onAction(verifiedThemes);
         }
     }
 
@@ -400,12 +397,12 @@ public class ElucidationViewController extends Component implements IElucidation
     public void onCaseCitizenInformation (IEventListener<String> listener) {editCitizenInformationSubscribers.add(listener); }
 
     @Override
-    public void onAddNewTheme(IEventListener<Set<ThemeData>> listener) {
+    public void onAddNewTheme(IEventListener<Set<IThemeUI>> listener) {
         addNewThemeSubscribers.add(listener);
     }
 
     @Override
-    public void onDeleteTheme(IEventListener<Set<ThemeData>> listener) {
+    public void onDeleteTheme(IEventListener<Set<IThemeUI>> listener) {
         deleteThemeSubscribers.add(listener);
     }
 
