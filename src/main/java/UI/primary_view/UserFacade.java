@@ -268,14 +268,14 @@ public class UserFacade implements IUserInterface, Initializable {
 					Platform.runLater(() -> {
 						startSpinner();
 					});
-					profile = business.getUserManager().signIn(data[0], data[1]);
-					return profile;
+					return business.getUserManager().signIn(data[0], data[1]);
+
 				}
 			});
 
 			task.setOnSucceeded(data1 -> {
-				if(profile != null && profile.getAccount() != null){
-					SecuredAspect.setAccount(profile.getAccount());
+				if(data1 != null){
+					SecuredAspect.setAccount(data1.getAccount());
 					Platform.runLater(() -> {
 						isLoggedIn.setValue(true);
 					});
@@ -283,7 +283,6 @@ public class UserFacade implements IUserInterface, Initializable {
 					logInView.writeError("Brugernavn eller adgangskode er forkert.");
 				}
 				Platform.runLater(() -> {
-					isLoggedIn.setValue(true);
 					stopSpinner();
 				});
 			});
