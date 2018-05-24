@@ -3,6 +3,7 @@ package BLL;
 import ACQ.*;
 import BLL.account_system.Address;
 import BLL.account_system.UserManager;
+import BLL.eboks.EBoks;
 import BLL.getter.address_getter.GetAddress;
 import BLL.getter.address_getter.IGetAddress;
 import BLL.log_agent.ChangeLog;
@@ -47,7 +48,7 @@ public class BusinessFacade implements IBusiness {
 
 	@Override
 	public IElucidationService getElucidationService() {
-		return elucidationService;
+		return new ElucidationServiceMediator(elucidationService, persistent.getHttp(), new EBoks(persistent.getHttp()));
 	}
 
 	/**
