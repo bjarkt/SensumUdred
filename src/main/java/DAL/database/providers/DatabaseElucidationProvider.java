@@ -9,10 +9,7 @@ import DAL.dataobject.Elucidation;
 import DAL.dataobject.Meeting;
 import DAL.dataobject.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -121,7 +118,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	}
 
 	@Override
-	public boolean updateGranting(long id, IGranting ... grantings) {
+	public boolean updateGrantings(long id, IGranting ... grantings) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -148,6 +145,20 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		});
 
 		return bool.get();
+	}
+
+	@Override
+	public boolean updateMeeting(long id, IMeeting meeting) {
+		AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+
+		executeQuery(conn -> {
+			boolean insertUpdate = updateMeetingColumns(conn, id, meeting);
+			boolean updateParticipants = updateMeetingParticipants(conn, id, meeting);
+
+			atomicBoolean.set(insertUpdate && updateParticipants);
+		});
+
+		return atomicBoolean.get();
 	}
 
 	@Override
@@ -313,6 +324,41 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		}
 
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
+	}
+
+	private boolean updateMeetingColumns(Connection conn, long id, IMeeting meeting) throws SQLException {
+		String query = "INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (?, ?, ?, ?, ?, ?) " +
+				"ON CONFLICT DO UPDATE SET date = ?, information = ?, iscancelled = ? WHERE elucidation_id = ? AND number = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+
+		ps.setTimestamp(1, new Timestamp(meeting.getMeetingDate().getTime()));
+		ps.setString(2, meeting.getInformation());
+		ps.setBoolean(3, meeting.isCancelled());
+		ps.setLong(4, id);
+		ps.setInt(5, meeting.getNumber());
+
+		return ps.executeUpdate() == 1;
+	}
+
+	private boolean updateMeetingParticipants(Connection conn, long id, IMeeting meeting) throws SQLException {
+		String deleteQuery = "DELETE FROM participates WHERE cases_id = ? AND meetings_number = ?;";
+		PreparedStatement ps1 = conn.prepareStatement(deleteQuery);
+
+		String insertQuery = "INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (?, ?, ?);";
+		PreparedStatement ps2 = conn.prepareStatement(insertQuery);
+
+		ps1.setLong(1, id);
+		ps1.setInt(2, meeting.getNumber());
+
+		ps2.setLong(1, id);
+		ps2.setInt(2, meeting.getNumber());
+
+		for(IUser user : meeting.getParticipants()) {
+			ps2.setString(3, user.getSocialSecurityNumber());
+			ps2.addBatch();
+		}
+
+		return ps1.executeUpdate() >= 0 && Arrays.stream(ps2.executeBatch()).allMatch(value -> value >= 0);
 	}
 
 	private Date getCreationDateForElucidation(Connection conn, long id) throws SQLException {

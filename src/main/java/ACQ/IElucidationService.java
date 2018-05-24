@@ -24,7 +24,7 @@ public interface IElucidationService {
 	boolean updateInquiryDescription(long id, String newDescription);
 
 	/**
-	 *
+	 * Update caseworkers.
 	 * @param id the identifier of the elucidation
 	 * @param users caseworkers assigned to the elucidation
 	 * @return true, if successful; otherwise false
@@ -32,7 +32,7 @@ public interface IElucidationService {
 	boolean updateCaseworkers(long id, IUser ... users);
 
 	/**
-	 *
+	 * Update citizen consent.
 	 * @param id the identifier of the elucidation
 	 * @param hasConsent has the citizen given a consent
 	 * @return true, if successful; otherwise false
@@ -40,7 +40,7 @@ public interface IElucidationService {
 	boolean updateCitizenConsent(long id, boolean hasConsent);
 
 	/**
-	 *
+	 * Update acting municipality.
 	 * @param id the identifier of the elucidation
 	 * @param municipality any municipality
 	 * @return true, if successful; otherwise false
@@ -48,7 +48,7 @@ public interface IElucidationService {
 	boolean updateActingMunicipality(long id, String municipality);
 
 	/**
-	 *
+	 * Update special circumstances.
 	 * @param id the identifier of the elucidation
 	 * @param newDescription any new description
 	 * @return true, if successful; otherwise false
@@ -56,7 +56,7 @@ public interface IElucidationService {
 	boolean updateSpecialCircumstances(long id, String newDescription);
 
 	/**
-	 *
+	 * Update guardian authority.
 	 * @param id the identifier of the elucidation
 	 * @param newDescription any new description
 	 * @return true, if successful; otherwise false
@@ -64,7 +64,7 @@ public interface IElucidationService {
 	boolean updateGuardianAuthority(long id, String newDescription);
 
 	/**
-	 *
+	 * Update total level of function.
 	 * @param id the identifier of the elucidation
 	 * @param letter the letter of the elucidation
 	 * @return true, if successful; otherwise false
@@ -72,7 +72,7 @@ public interface IElucidationService {
 	boolean updateTotalLevelOfFunction(long id, char letter);
 
 	/**
-	 *
+	 * Update offers.
 	 * @param id the identifier of the elucidation
 	 * @param offers the offers of the elucidation
 	 * @return true, if successful; otherwise false
@@ -80,20 +80,28 @@ public interface IElucidationService {
 	boolean updateOffers(long id, IOffer ... offers);
 
 	/**
-	 *
+	 * Update grantings.
 	 * @param id the identifier of the elucidation
 	 * @param grantings the grantings of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateGranting(long id, IGranting ... grantings);
+	boolean updateGrantings(long id, IGranting ... grantings);
 
 	/**
-	 *
+	 * Update themes.
 	 * @param id the identifier of the elucidation
 	 * @param themes the themes of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
 	boolean updateThemes(long id, ITheme ... themes);
+
+	/**
+	 * Update a meeting.
+	 * @param id the elucidation identifier
+	 * @param meeting a meeting within the elucidation
+	 * @return true, if successful; otherwise false
+	 */
+	boolean updateMeeting(long id, IMeeting meeting);
 
 	/**
 	 *
