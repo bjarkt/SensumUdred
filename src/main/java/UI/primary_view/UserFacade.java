@@ -247,8 +247,10 @@ public class UserFacade implements IUserInterface, Initializable {
 			});
 
 			loadElucidationsTask.setOnSucceeded(data1 -> {
-				Platform.runLater(() -> stopSpinner());
-				homeView.tickList(data1);
+				Platform.runLater(() -> {
+					stopSpinner();
+					homeView.tickList(data1);
+				});
 			});
 
 		});
