@@ -18,16 +18,23 @@ public interface IBusiness {
 	void injectPersistent(IPersistent persistent);
 
 	/**
-	 * Get the Signing Service.
-	 * It contains sign in, sign out and sign up.
-	 * @return signing service
+	 * Get admin service, which grants access for admin commands.
+	 * It can change password for a user, change security level and more.
+	 * @return admin service
 	 */
-	ISigningService getSigningService();
+	IAdminService getAdminService();
+
+	/**
+	 * Get default service, which contains common services.
+	 * It can get all users, get all accounts, search and more.
+	 * @return default service
+	 */
+	IDefaultService getDefaultService();
 
 	/**
 	 * Get the User Manager.
-	 * It can receive the signed user (if any) and contains admin services,
-	 * such as changePassword, lock and unlock accounts.
+	 * It can receive the signed account and user (if any).
+	 * It can sign in, sign out and sign up.
 	 * @return user manager
 	 */
 	IUserManager getUserManager();

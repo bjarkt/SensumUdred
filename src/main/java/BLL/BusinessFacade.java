@@ -29,9 +29,19 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
+	@SecurityLevel(1000)
 	@Override
-	public ISigningService getSigningService() {
-		return userManager;
+	public IAdminService getAdminService() {
+		return adminService;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SecurityLevel(0)
+	@Override
+	public IDefaultService getDefaultService() {
+		return defaultService;
 	}
 
 	/**
