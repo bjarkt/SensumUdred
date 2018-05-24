@@ -269,19 +269,16 @@ public class UserFacade implements IUserInterface, Initializable {
 				}
 			});
 
-			task.setFinishedListener((observable, oldValue, newValue) -> {
-				Platform.runLater(() -> {
-					stopSpinner();
-				});
-			});
-
 			task.setOnSucceeded(data1 -> {
 				if(profile != null && profile.getAccount() != null){
 					SecuredAspect.setAccount(profile.getAccount());
-					Platform.runLater(() -> {
-						isLoggedIn.setValue(true);
-					});
+				} else{
+					logInView.writeError("Brugernavn eller adgangskode er forkert.");
 				}
+				Platform.runLater(() -> {
+					isLoggedIn.setValue(true);
+					stopSpinner();
+				});
 			});
 		});
 	}
