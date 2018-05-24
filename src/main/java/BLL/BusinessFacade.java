@@ -23,6 +23,7 @@ public class BusinessFacade implements IBusiness {
 	private IUserManager userManager;
 	private IDefaultService defaultService;
 	private IAdminService adminService;
+	private IElucidationService elucidationService;
 
 	public BusinessFacade() { }
 
@@ -42,6 +43,11 @@ public class BusinessFacade implements IBusiness {
 	@Override
 	public IDefaultService getDefaultService() {
 		return defaultService;
+	}
+
+	@Override
+	public IElucidationService getElucidationService() {
+		return null;
 	}
 
 	/**
@@ -163,6 +169,7 @@ public class BusinessFacade implements IBusiness {
 		this.defaultService = service.getDefaultService();
 		this.adminService = service.getAdminService();
 		this.userManager = new UserManager(this.defaultService, service.getSigningService());
+		this.elucidationService = service.getElucidationService();
 
 		LogAspect.setPersistent(persistent);
 	}

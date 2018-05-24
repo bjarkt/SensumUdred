@@ -1,7 +1,5 @@
 package ACQ;
 
-import BLL.case_opening.third_party_information.IAttachment;
-
 import java.util.Set;
 
 public interface IElucidationService {
@@ -10,18 +8,26 @@ public interface IElucidationService {
 	 * @param citizen the citizen it is about
 	 * @param caseworkers the caseworkers on the elucidation
 	 * @param inquiry the inquiry about/from the citizen
-	 * @param dialog a dialog... (WIP)
 	 * @return the built elucidation
 	 */
-	IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry, IDialog dialog);
+	IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry);
 
 	/**
 	 * Update the inquiry in an elucidation.
 	 * @param id the identifier of the elucidation
-	 * @param newDescription any new description
+	 * @param inquiry the inquiry to update
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateInquiryDescription(long id, String newDescription);
+	boolean updateInquiry(long id, IInquiry inquiry);
+
+	/**
+	 * Set the state of an elucidation.
+	 * It can either be in open state or closed state.
+	 * @param id the identifier of the elucidation
+	 * @param isclosed is it closed or open
+	 * @return true, if successful; otherwise false
+	 */
+	boolean updateState(long id, boolean isclosed);
 
 	/**
 	 * Update caseworkers.
@@ -29,7 +35,7 @@ public interface IElucidationService {
 	 * @param users caseworkers assigned to the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateCaseworkers(long id, IUser ... users);
+	boolean updateCaseworkers(long id, Set<IUser> users);
 
 	/**
 	 * Update citizen consent.
@@ -77,7 +83,7 @@ public interface IElucidationService {
 	 * @param offers the offers of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateOffers(long id, IOffer ... offers);
+	boolean updateOffers(long id, Set<IOffer> offers);
 
 	/**
 	 * Update grantings.
@@ -85,7 +91,7 @@ public interface IElucidationService {
 	 * @param grantings the grantings of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateGrantings(long id, IGranting ... grantings);
+	boolean updateGrantings(long id, Set<IGranting> grantings);
 
 	/**
 	 * Update themes.
@@ -93,7 +99,7 @@ public interface IElucidationService {
 	 * @param themes the themes of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateThemes(long id, ITheme ... themes);
+	boolean updateThemes(long id, Set<ITheme> themes);
 
 	/**
 	 * Update a meeting.
@@ -109,7 +115,7 @@ public interface IElucidationService {
 	 * @param attachments the attachments of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateThirdPartyAttachments(long id, IAttachment ... attachments);
+	boolean updateThirdPartyAttachments(long id, Set<IAttachment> attachments);
 
 	/**
 	 * Get an elucidation based on the elucidation identifier

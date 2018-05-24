@@ -1,8 +1,6 @@
 package BLL.case_opening.third_party_information;
 
-import ACQ.HttpAcceptType;
-import ACQ.HttpMethod;
-import ACQ.IHttp;
+import ACQ.*;
 
 import java.io.IOException;
 import java.util.Date;

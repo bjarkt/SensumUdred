@@ -1,7 +1,7 @@
 package DAL.database.providers;
 
 import ACQ.*;
-import BLL.case_opening.third_party_information.IAttachment;
+import ACQ.IAttachment;
 import DAL.database.DatabaseHelper;
 import DAL.database.PostgreSqlDatabase;
 import DAL.dataobject.Dialog;
@@ -9,33 +9,104 @@ import DAL.dataobject.Elucidation;
 import DAL.dataobject.Meeting;
 import DAL.dataobject.User;
 
+import java.lang.ref.Reference;
 import java.sql.*;
-import java.util.Arrays;
+import java.util.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DatabaseElucidationProvider extends PostgreSqlDatabase implements IElucidationService {
+	/**
+	 * Create an elucidation with the data it could insert into the database.
+	 * So, if only the main elucidation data is registered,
+	 * then it will only contain that information.
+	 * id = -1, means it could not save default data.
+	 * @param citizen the citizen it is about
+	 * @param caseworkers the caseworkers on the elucidation
+	 * @param inquiry the inquiry about/from the citizen
+	 * @return a data-only elucidation
+	 */
 	@Override
-	public IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry, IDialog dialog) {
-		return null;
+	public IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry) {
+		AtomicReference<Elucidation> atomicReference = new AtomicReference<>();
+
+		executeQuery(conn -> {
+			String insertElucidationQuery = "INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (DEFAULT, ?, ?, ?);";
+			PreparedStatement ps1 = conn.prepareStatement(insertElucidationQuery, Statement.RETURN_GENERATED_KEYS);
+
+			Timestamp timestamp = Timestamp.from((new Date().toInstant()));
+
+			ps1.setString(1, citizen.getSocialSecurityNumber());
+			ps1.setTimestamp(2, timestamp);
+			ps1.setBoolean(3, false);
+
+			boolean insertedElucidation = ps1.executeUpdate() == 1;
+
+			ResultSet rs = ps1.getGeneratedKeys();
+
+			Elucidation elucidation;
+
+			if(insertedElucidation && rs.next()) {
+				long id = rs.getLong("id");
+
+				boolean insertedCaseworkers = insertCaseworkers(conn, id, caseworkers);
+				boolean insertedInquiry = updateInquiry(id, inquiry);
+
+				elucidation = new Elucidation(
+						id,
+						citizen,
+						insertedCaseworkers ? caseworkers : null,
+						timestamp,
+						null
+				);
+
+				if(insertedInquiry) elucidation.setTask(inquiry);
+
+				atomicReference.set(elucidation);
+			}
+		});
+
+		return atomicReference.get();
 	}
 
 	@Override
-	public boolean updateInquiryDescription(long id, String newDescription) {
+	public boolean updateInquiry(long id, IInquiry inquiry) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			bool.set(updateColumnOnATableWithStringOnTaskId(conn, id, newDescription, "inquiries", "description"));
+			String query = "INSERT INTO inquiries(task_id, source, description) VALUES (?, ?, ?) ON CONFLICT ON CONSTRAINT inquiries_pkey DO UPDATE SET source = ?, description = ?;";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setLong(1, id);
+			ps.setString(2, inquiry.getSource());
+			ps.setString(3, inquiry.getDescription());
+			ps.setString(4, inquiry.getSource());
+			ps.setString(5, inquiry.getDescription());
+
+			bool.set(ps.executeUpdate() == 1);
 		});
 
 		return bool.get();
 	}
 
 	@Override
-	public boolean updateCaseworkers(long id, IUser... users) {
+	public boolean updateState(long id, boolean isclosed) {
+		AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+
+		executeQuery(conn -> {
+			String query = "UPDATE elucidations SET isclosed = ? WHERE id = ?;";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setBoolean(1, isclosed);
+			ps.setLong(2, id);
+
+			atomicBoolean.set(ps.executeUpdate() == 1);
+		});
+
+		return atomicBoolean.get();
+	}
+
+	@Override
+	public boolean updateCaseworkers(long id, Set<IUser> users) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -104,7 +175,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	}
 
 	@Override
-	public boolean updateOffers(long id, IOffer ... offers) {
+	public boolean updateOffers(long id, Set<IOffer> offers) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -118,7 +189,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	}
 
 	@Override
-	public boolean updateGrantings(long id, IGranting ... grantings) {
+	public boolean updateGrantings(long id, Set<IGranting> grantings) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -132,7 +203,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	}
 
 	@Override
-	public boolean updateThemes(long id, ITheme ... themes) {
+	public boolean updateThemes(long id, Set<ITheme> themes) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -162,7 +233,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	}
 
 	@Override
-	public boolean updateThirdPartyAttachments(long id, IAttachment... attachments) {
+	public boolean updateThirdPartyAttachments(long id, Set<IAttachment> attachments) {
 		return false;
 	}
 
@@ -171,6 +242,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		AtomicReference<Elucidation> elucidation = new AtomicReference<>();
 
 		executeQuery(conn -> elucidation.set(new Elucidation(
+				id,
 				getCitizenForElucidation(conn, id),
 				getCaseworkersForElucidation(conn, id),
 				getCreationDateForElucidation(conn, id),
@@ -237,7 +309,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return ps.executeUpdate() >= 0;
 	}
 
-	private boolean insertCaseworkers(Connection conn, long id, IUser ... caseworkers) throws SQLException {
+	private boolean insertCaseworkers(Connection conn, long id, Set<IUser> caseworkers) throws SQLException {
 		String query = "INSERT INTO worksin(elucidations_id, users_ssn) VALUES (?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
@@ -255,7 +327,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return deleteByCaseId(conn, id, "DELETE FROM offerings WHERE cases_id = ?;");
 	}
 
-	private boolean insertOffers(Connection conn, long id, IOffer ... offers) throws SQLException {
+	private boolean insertOffers(Connection conn, long id, Set<IOffer> offers) throws SQLException {
 		String query = "INSERT INTO offerings(cases_id, description, paragraph) VALUES (?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
@@ -273,7 +345,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return deleteByCaseId(conn, id, "DELETE FROM grantings WHERE cases_id = ?;");
 	}
 
-	private boolean insertGrantings(Connection conn, long id, IGranting ... grantings) throws SQLException {
+	private boolean insertGrantings(Connection conn, long id, Set<IGranting> grantings) throws SQLException {
 		String query = "INSERT INTO grantings(cases_id, description) VALUES (?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
@@ -295,7 +367,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return deleteByCaseId(conn, id, "DELETE FROM casehasthemes WHERE cases_id = ?;");
 	}
 
-	private boolean insertThemes(Connection conn, long id, ITheme ... themes) throws SQLException {
+	private boolean insertThemes(Connection conn, long id, Set<ITheme> themes) throws SQLException {
 		String query = "INSERT INTO themes(cases_id, theme, subtheme, leveloffunction) VALUES (?, ?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
@@ -311,7 +383,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
-	private boolean insertHasThemes(Connection conn, long id, ITheme ... themes) throws SQLException {
+	private boolean insertHasThemes(Connection conn, long id, Set<ITheme> themes) throws SQLException {
 		String query = "INSERT INTO casehasthemes(cases_id, theme, documentation) VALUES (?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
@@ -328,7 +400,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 
 	private boolean updateMeetingColumns(Connection conn, long id, IMeeting meeting) throws SQLException {
 		String query = "INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (?, ?, ?, ?, ?, ?) " +
-				"ON CONFLICT DO UPDATE SET date = ?, information = ?, iscancelled = ? WHERE elucidation_id = ? AND number = ?;";
+				"ON CONFLICT DO UPDATE SET date = ?, information = ?, iscancelled = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
 
 		ps.setTimestamp(1, new Timestamp(meeting.getMeetingDate().getTime()));

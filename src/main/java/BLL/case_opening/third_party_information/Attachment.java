@@ -1,5 +1,7 @@
 package BLL.case_opening.third_party_information;
 
+import ACQ.IAttachment;
+
 public class Attachment implements IAttachment {
 	private long number;
 	private AttachmentEnum type;

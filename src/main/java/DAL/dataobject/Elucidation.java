@@ -1,6 +1,7 @@
 package DAL.dataobject;
 
 import ACQ.IElucidation;
+import ACQ.ITask;
 import ACQ.IUser;
 import ACQ.IDialog;
 import BLL.open_case.Guardianship;
@@ -9,16 +10,26 @@ import javafx.util.Pair;
 import java.util.*;
 
 public class Elucidation implements IElucidation {
+	private long id;
 	private IUser citizen;
 	private Set<IUser> caseworkers;
-	private Date creationTime;
 	private IDialog dialog;
+	private ITask task;
+	private Date creationTime;
 
-	public Elucidation(IUser citizen, Set<IUser> caseworkers, Date creationTime, IDialog dialog) {
+	public Elucidation(long id, IUser citizen, Set<IUser> caseworkers, Date creationTime, IDialog dialog) {
 		this.citizen = citizen;
 		this.caseworkers = caseworkers;
 		this.creationTime = creationTime;
 		this.dialog = dialog;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public long getId() {
+		return id;
 	}
 
 	/**
@@ -56,6 +67,11 @@ public class Elucidation implements IElucidation {
 	}
 
 	@Override
+	public ITask getTask() {
+		return task;
+	}
+
+	@Override
 	public Date getCreationDate() {
 		return creationTime;
 	}
@@ -71,6 +87,10 @@ public class Elucidation implements IElucidation {
 
 	public void setCaseworkers(Set<IUser> caseworkers) {
 		this.caseworkers = caseworkers;
+	}
+
+	public void setTask(ITask task) {
+		this.task = task;
 	}
 
 	public void setCreationTime(Date creationTime) {

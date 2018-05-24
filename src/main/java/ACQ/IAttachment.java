@@ -1,4 +1,7 @@
-package BLL.case_opening.third_party_information;
+package ACQ;
+
+import BLL.case_opening.third_party_information.AttachmentEnum;
+import BLL.case_opening.third_party_information.Request;
 
 /**
  * An IAttachment describes what an attachment should contain within the system.
