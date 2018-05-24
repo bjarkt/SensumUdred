@@ -139,16 +139,17 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/* Setup listeners for components */
+		// Setup listeners for components
 		setupUpLoginView();
 		setupHeader();
 		setupVerticalMenu();
 		setupAllElucidationsView();
 		setupElucidationView();
 
-		/* Set initial view to be log in view */
+		// Set initial view to be log in view
 		setCenter(logInView);
 
+		// Displays loading spinner when background loading tasks are running.
 		Task.onRunningTasksChanged((observable, oldValue, newValue) -> {
 			Platform.runLater(() -> {
 				if(newValue.intValue() > 0) startSpinner();
@@ -163,7 +164,7 @@ public class UserFacade implements IUserInterface, Initializable {
 				canvas.setLeft(verticalMenu.getView());
 				canvas.getLeft().getStyleClass().add("canvas_left");
 				setCenter(homeView);
-				//homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
+				tickMyElucidations();
 				setupUserMenu();
 				verticalMenu.setMyElucidationsButtonActive();
 
@@ -246,20 +247,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		verticalMenu.onMyElucidationsClick(data -> {
 			if(isMobile) drawer.close();
 			setCenter(homeView);
-
-			Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
-				@Override
-				public Set<IElucidation> get() {
-					return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
-				}
-			});
-
-			loadElucidationsTask.setOnSucceeded(data1 -> {
-				Platform.runLater(() -> {
-					homeView.tickList(data1);
-				});
-			});
-
+			tickMyElucidations();
 		});
 
 		verticalMenu.onUserManagement(data -> {
@@ -411,6 +399,22 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void stopSpinner(){
 		isSpinning = false;
 		screen.getChildren().remove(spinnerWrapper);
+	}
+
+	// Method to update all the user's elucidation.
+	private void tickMyElucidations(){
+		Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
+			@Override
+			public Set<IElucidation> get() {
+				return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
+			}
+		});
+
+		loadElucidationsTask.setOnSucceeded(data1 -> {
+			Platform.runLater(() -> {
+				homeView.tickList(data1);
+			});
+		});
 	}
 
 
