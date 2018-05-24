@@ -175,8 +175,6 @@ public class UserFacade implements IUserInterface, Initializable {
 				drawer.close();
 			}
 		});
-
-
 	}
 
 	/**
@@ -231,6 +229,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		verticalMenu.onMyElucidationsClick(data -> {
 			if(isMobile) drawer.close();
 			setCenter(homeView);
+			
 		});
 
 		verticalMenu.onUserManagement(data -> {
