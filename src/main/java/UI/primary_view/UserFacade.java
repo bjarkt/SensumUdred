@@ -149,6 +149,12 @@ public class UserFacade implements IUserInterface, Initializable {
 		/* Set initial view to be log in view */
 		setCenter(logInView);
 
+		Task.onRunningTasksChanged((observable, oldValue, newValue) -> {
+			Platform.runLater(() -> {
+				if(newValue.intValue() > 0) startSpinner();
+				else stopSpinner();
+			});
+		});
 
 		/* Only present certain UI elements if user is logged in */
 		isLoggedIn.addListener((loginObservable, oldLoginValue, newLoginValue) -> {
@@ -244,14 +250,12 @@ public class UserFacade implements IUserInterface, Initializable {
 			Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
 				@Override
 				public Set<IElucidation> get() {
-					Platform.runLater(() -> startSpinner());
 					return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
 				}
 			});
 
 			loadElucidationsTask.setOnSucceeded(data1 -> {
 				Platform.runLater(() -> {
-					stopSpinner();
 					homeView.tickList(data1);
 				});
 			});
@@ -286,9 +290,6 @@ public class UserFacade implements IUserInterface, Initializable {
 			Task<IProfile> task = new Task<>(new Supplier<IProfile>() {
 				@Override
 				public IProfile get() {
-					Platform.runLater(() -> {
-						startSpinner();
-					});
 					return business.getUserManager().signIn(data[0], data[1]);
 
 				}
@@ -306,9 +307,6 @@ public class UserFacade implements IUserInterface, Initializable {
 						logInView.writeError("Brugernavn eller adgangskode er forkert.");
 					});
 				}
-				Platform.runLater(() -> {
-					stopSpinner();
-				});
 			});
 		});
 	}
