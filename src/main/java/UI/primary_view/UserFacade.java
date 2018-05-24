@@ -276,6 +276,9 @@ public class UserFacade implements IUserInterface, Initializable {
 			task.setOnSucceeded(data1 -> {
 				if(profile != null && profile.getAccount() != null){
 					SecuredAspect.setAccount(profile.getAccount());
+					Platform.runLater(() -> {
+						isLoggedIn.setValue(true);
+					});
 				} else{
 					logInView.writeError("Brugernavn eller adgangskode er forkert.");
 				}
