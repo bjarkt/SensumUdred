@@ -47,7 +47,7 @@ public class BusinessFacade implements IBusiness {
 
 	@Override
 	public IElucidationService getElucidationService() {
-		return null;
+		return elucidationService;
 	}
 
 	/**
