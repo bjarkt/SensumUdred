@@ -7,19 +7,18 @@ import javafx.beans.value.ChangeListener;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Task<T> {
     private ExecutorService executor;
     private CompletableFuture<T> myData;
-    private BooleanProperty running;
+    private BooleanProperty finished;
 
     public Task(Supplier<T> data) {
         executor = Executors.newFixedThreadPool(1);
 
-        running = new SimpleBooleanProperty(true);
+        finished = new SimpleBooleanProperty(false);
         myData = CompletableFuture.supplyAsync(data, executor);
     }
 
@@ -28,14 +27,14 @@ public class Task<T> {
             @Override
             public void accept(T t) {
                 callback.action(t);
-                running.setValue(false);
+                finished.setValue(true);
                 executor.shutdown();
             }
         });
     }
 
     public void setFinishedListener(ChangeListener<Boolean> changeListener) {
-        running.addListener(changeListener);
+        finished.addListener(changeListener);
     }
 }
 
