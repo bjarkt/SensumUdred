@@ -3,7 +3,6 @@ package UI.task;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Task<T> {
@@ -17,13 +16,10 @@ public class Task<T> {
     }
 
     public void setOnSucceeded(CallbackWithData<T> callback) {
-         myData.thenAcceptAsync(new Consumer<T>() {
-            @Override
-            public void accept(T t) {
-                callback.action(t);
-                executor.shutdown();
-            }
-        });
+         myData.thenAcceptAsync(t -> {
+             callback.action(t);
+             executor.shutdown();
+         });
     }
 }
 
