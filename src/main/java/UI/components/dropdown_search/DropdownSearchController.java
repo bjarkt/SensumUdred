@@ -5,12 +5,17 @@ import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
+import javax.script.Bindings;
 import java.net.URL;
 import java.util.*;
 
@@ -42,24 +47,44 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        results.setCellFactory(param -> required.getCellFactory());
+        results.setCellFactory(param -> {
+            required.getCellFactory().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                T item = required.getCellFactory().getItem();
+                if(results.getSelectionModel().getSelectedItems().contains(item)){
+                    results.getSelectionModel().getSelectedItems().remove(item);
+                } else{
+                    results.getSelectionModel().getSelectedItems().add(item);
+                }
+                event.consume();
+            });
+            return required.getCellFactory();
+        });
+
+        results.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         addButton = new JFXButton("Tilføj");
         addButton.getStyleClass().addAll("flat-button", "flat-button_outlined");
         addButton.setOnAction(clickEvent -> {
             done();
         });
-        collapse();
+
+        results.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<T>() {
+            @Override
+            public void onChanged(Change<? extends T> c) {
+                for (T t : results.getSelectionModel().getSelectedItems()) {
+                    System.out.println(t);
+                }
+            }
+        });
+
     }
 
     @FXML
     void search(KeyEvent event) {
-        if(inputField.getText().length() < 1){
-            collapse();
-            removeButton();
+        if(inputField.getText().length() == 0){
+            System.out.println(inputField.getText().length());
         } else{
-            expand();
             onTypeSubscribers.forEach(listener -> listener.onAction(inputField.getText()));
-            displayButton();
         }
     }
 
@@ -71,7 +96,6 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
         onDoneSubscribers.forEach(listener -> {
             listener.onAction(selectedItems);
         });
-        collapse();
         inputField.clear();
         removeButton();
     }
@@ -94,7 +118,7 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
 
     @Override
     public void expand() {
-        results.setMaxHeight(300);
+        results.setMaxHeight(Region.USE_COMPUTED_SIZE);
         results.setVisible(true);
     }
 

@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -32,29 +33,15 @@ public abstract class NameCheckboxCell extends JFXListCell{
         hBox.setHgrow(spacer, Priority.ALWAYS);
         hBox.setAlignment(Pos.CENTER_LEFT);
         this.cellRippler.setRipplerFill(Color.rgb(42, 112, 226, 0.7));
-        this.setOnMouseClicked(event -> {
-            if(checked == true)  {
-                checkBox.setSelected(!checked);
-                this.updateSelected(!checked);
-                checked = !checked;
-            } else if(checked == false) {
-                checkBox.setSelected(!checked);
-                this.updateSelected(!checked);
-                checked = !checked;
-            }
+
+        this.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) checkBox.setSelected(true);
+            else checkBox.setSelected(false);
         });
-        checkBox.setOnMouseClicked(event -> {
-            if(checked == true)  {
-                checkBox.setSelected(false);
-                checked = false;
-                this.updateSelected(false);
-            } else if(checked == false) {
-                checkBox.setSelected(true);
-                checked = true;
-                this.updateSelected(true);
-            }
-        });
+
+
     }
+
 
     @Override
     protected void updateItem(Object item, boolean empty) {
