@@ -24,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class HomeViewController extends Component implements IHomeView {
 
@@ -48,23 +49,21 @@ public class HomeViewController extends Component implements IHomeView {
     private VBox vbox;
 
     @FXML
-    private JFXListView<String> tasksList;
+    private JFXListView<IElucidation> tasksList;
 
     public HomeViewController() {
         super("home_view.fxml", "Hjem");
         buttons = new ArrayList<>();
     }
 
-    ObservableSet<IElucidation> elucidations = FXCollections.observableSet();
-
-    ObservableList<String> listView = FXCollections.observableArrayList("Lasse", "Dennis", "Bjarke", "Lavanbro", "Adrian", "Christian");
+    ObservableList<IElucidation> elucidations = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttons.add(newInquiryButton);
         this.newInquiryButton = newInquiryButton;
         tasksList.setExpanded(true);
-        tasksList.setItems(listView);
+        tasksList.setItems(elucidations);
         tasksList.setCellFactory(param -> new Cell());
     }
 
@@ -72,6 +71,12 @@ public class HomeViewController extends Component implements IHomeView {
     void taskListClicked(MouseEvent event) {
         System.out.println("Clicked" + tasksList.getSelectionModel().getSelectedItems());
         elucidationListSubscribers.forEach(listener -> listener.onAction(null));
+    }
+
+    @Override
+    public void tickList(Set<IElucidation> elucidations) {
+        this.elucidations.clear();
+        this.elucidations.addAll(elucidations);
     }
 
     @FXML
@@ -89,7 +94,7 @@ public class HomeViewController extends Component implements IHomeView {
         newInquirySubscribers.add(listener);
     }
 
-    static class Cell extends JFXListCell<String>{
+    static class Cell extends JFXListCell<IElucidation>{
         HBox hBox = new HBox();
         VBox vBox = new VBox();
         JFXCheckBox checkBox = new JFXCheckBox();
@@ -110,12 +115,12 @@ public class HomeViewController extends Component implements IHomeView {
             this.cellRippler.setRipplerFill(Color.rgb(42,112,226,0.7));
         }
 
-        public void updateItem(String name, boolean empty){
-            super.updateItem(name, empty);
+        public void updateItem(IElucidation elucidation, boolean empty){
+            super.updateItem(elucidation, empty);
             setText(null);
             setGraphic(null);
-            if(name != null && !empty){
-                citizenName.setText(name);
+            if(elucidation != null && !empty){
+                citizenName.setText(elucidation.getCitizen().getName());
                 setGraphic(hBox);
             }
         }
