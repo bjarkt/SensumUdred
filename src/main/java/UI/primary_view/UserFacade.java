@@ -43,6 +43,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -67,6 +68,9 @@ public class UserFacade implements IUserInterface, Initializable {
 	private IUserMenu userMenu;
 
 	private boolean isMobile;
+
+	// Wrapper for loading spinner.
+	private StackPane spinnerWrapper;
 
 	/** Reference to the current center page component visible. */
 	private IComponent currentCenterView;
@@ -364,24 +368,21 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	}
 
-
-	FlowPane flowPane = new FlowPane();
-
 	/**
 	 * Starts loading spinner to visualize a present call to database.
 	 */
 	private void startSpinner(){
-		flowPane.getChildren().add(new JFXSpinner());
-		screen.getChildren().add(flowPane);
-		screen.setLeftAnchor(flowPane, 0.);
-		screen.setRightAnchor(flowPane, 0.);
-		screen.setTopAnchor(flowPane, 0.);
-		screen.setBottomAnchor(flowPane, 0.);
+		JFXSpinner spinner = new JFXSpinner();
+		spinner.setRadius(12);
+		spinnerWrapper = new StackPane(spinner);
+		screen.getChildren().add(spinnerWrapper);
+		screen.setLeftAnchor(spinnerWrapper, 0.);
+		screen.setRightAnchor(spinnerWrapper, 0.);
+		screen.setBottomAnchor(spinnerWrapper, 20.);
 	}
 
 	private void stopSpinner(){
-		screen.getChildren().remove(flowPane);
-		flowPane = null;
+		screen.getChildren().remove(spinnerWrapper);
 	}
 
 
