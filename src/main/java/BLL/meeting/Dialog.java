@@ -59,4 +59,8 @@ public class Dialog implements IDialog {
     public Set<IMeeting> getMeetings() {
         return meetings;
     }
+
+    public void setMeetings(Set<IMeeting> meetings) {
+        this.meetings = meetings;
+    }
 }

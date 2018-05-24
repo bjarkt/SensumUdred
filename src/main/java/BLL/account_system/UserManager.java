@@ -34,11 +34,11 @@ public final class UserManager implements IUserManager {
 
 	    if(defaultService.accountExists(username)) {
             profile = service.signIn(username, password);
-
-            if(profile.getUser() != null && profile.getAccount() != null) {
-	            SecuritySystem.getInstance().setAccount(profile.getAccount());
+            // hvis man allerede er logget ind, er profile null
+            if (profile != null && profile.getUser() != null && profile.getAccount() != null) {
+                SecuritySystem.getInstance().setAccount(profile.getAccount());
             } else {
-            	profile = null;
+                profile = null;
             }
         }
 
