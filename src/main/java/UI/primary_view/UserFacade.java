@@ -1,5 +1,6 @@
 package UI.primary_view;
 
+import ACQ.IElucidation;
 import ACQ.IProfile;
 import BLL.IBusiness;
 import UI.IUserInterface;
@@ -47,6 +48,7 @@ import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
@@ -235,7 +237,20 @@ public class UserFacade implements IUserInterface, Initializable {
 		verticalMenu.onMyElucidationsClick(data -> {
 			if(isMobile) drawer.close();
 			setCenter(homeView);
-			//homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
+
+			Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
+				@Override
+				public Set<IElucidation> get() {
+					Platform.runLater(() -> startSpinner());
+					return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
+				}
+			});
+
+			loadElucidationsTask.setOnSucceeded(data1 -> {
+				Platform.runLater(() -> stopSpinner());
+				homeView.tickList(data1);
+			});
+
 		});
 
 		verticalMenu.onUserManagement(data -> {
@@ -260,6 +275,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 
+	// Set up the login view with eventhandlers and calls to domain layer.
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
 			Task<IProfile> task = new Task<>(new Supplier<IProfile>() {
