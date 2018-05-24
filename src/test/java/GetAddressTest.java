@@ -1,7 +1,7 @@
 import ACQ.IAddress;
 import BLL.account_system.Address;
-import BLL.address_getter.GetAddress;
-import BLL.address_getter.IGetAddress;
+import BLL.getter.address_getter.GetAddress;
+import BLL.getter.address_getter.IGetAddress;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
