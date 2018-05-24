@@ -94,6 +94,16 @@ public class HomeViewController extends Component implements IHomeView {
         newInquirySubscribers.add(listener);
     }
 
+    @Override
+    public void disableList() {
+        tasksList.setDisable(true);
+    }
+
+    @Override
+    public void enableList() {
+        tasksList.setDisable(false);
+    }
+
     static class Cell extends JFXListCell<IElucidation>{
         HBox hBox = new HBox();
         VBox vBox = new VBox();

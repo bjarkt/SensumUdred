@@ -406,6 +406,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
 			@Override
 			public Set<IElucidation> get() {
+				Platform.runLater(() -> homeView.disableList());
 				return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
 			}
 		});
@@ -413,6 +414,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		loadElucidationsTask.setOnSucceeded(data1 -> {
 			Platform.runLater(() -> {
 				homeView.tickList(data1);
+				homeView.enableList();
 			});
 		});
 	}

@@ -14,4 +14,8 @@ public interface IHomeView extends IComponent {
 
     void tickList(Set<IElucidation> elucidations);
 
+    void disableList();
+
+    void enableList();
+
 }
