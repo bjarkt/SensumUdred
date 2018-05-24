@@ -2,6 +2,7 @@ package UI.components.meetingPopUp;
 
 import ACQ.IEventListener;
 import ACQ.IProfile;
+import ACQ.IUser;
 import UI.components.IComponent;
 import UI.components.dropdown_search.IDropdownSearch;
 
@@ -12,6 +13,6 @@ public interface IMeetingPopUp extends IComponent {
 
     void close();
 
-    IDropdownSearch<IProfile> getDropdownSearch();
+    IDropdownSearch<IUser> getDropdownSearch();
 
 }

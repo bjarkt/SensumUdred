@@ -10,7 +10,7 @@ public interface IDropdownSearch<T> extends IComponent {
 
     void setRequired(IDropdownSearchRequire required);
 
-    void updateList(List<T> searchResults);
+    void updateList(Set<T> searchResults);
 
     void onType(IEventListener<String> listener);
 

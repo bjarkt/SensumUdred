@@ -1,6 +1,7 @@
 package UI.components.dropdown_search;
 
 import ACQ.IProfile;
+import ACQ.IUser;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import javafx.geometry.Pos;
@@ -61,9 +62,9 @@ public abstract class NameCheckboxCell extends JFXListCell{
         setGraphic(null);
         setText(null);
         if(item != null){
-            citizenName.setText(((IProfile)item).getUser().getName());
-            //id.setText(((IProfile)item).getAccount().getUsername());
-            //this.getChildren().add(new Label(((IProfile)item).getAccount().getUsername()));
+            citizenName.setText(((IUser)item).getName());
+            id.setText(((IUser)item).getEmail());
+            this.getChildren().add(new Label(((IUser)item).getEmail()));
             setGraphic(hBox);
         }
     }

@@ -185,7 +185,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	@Override
 	public void shutdown() {
 		if (profile != null && profile.getAccount() != null) {
-			business.getSigningService().signOut(profile.getAccount().getUsername());
+			business.getUserManager().signOut(profile.getAccount().getUsername());
 		}
 	}
 
@@ -246,7 +246,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupUserMenu(){
 		userMenu.onLogOut(data -> {
-			business.getSigningService().signOut(profile.getAccount().getUsername());
+			business.getUserManager().signOut(profile.getAccount().getUsername());
 			isLoggedIn.setValue(false);
 			logInView = new LogInViewController();
 			setupUpLoginView();
@@ -255,11 +255,9 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 
-
-
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
-			profile = business.getSigningService().signIn(data[0], data[1]);
+			profile = business.getUserManager().signIn(data[0], data[1]);
 			if(profile != null && profile.getAccount() != null){
 				SecuredAspect.setAccount(profile.getAccount());
 				isLoggedIn.setValue(true);
@@ -329,7 +327,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			});
 			meetingPopUp.show("Indkald til møde", "Data her");
 
-
+			meetingPopUp.getDropdownSearch().updateList(business.getDefaultService().getAllUsers(2));
 
 
 		});

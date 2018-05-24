@@ -77,7 +77,7 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
     }
 
     @Override
-    public void updateList(List<T> searchResults) {
+    public void updateList(Set<T> searchResults) {
         this.searchResults = FXCollections.observableArrayList(searchResults);
         results.setItems(this.searchResults);
     }

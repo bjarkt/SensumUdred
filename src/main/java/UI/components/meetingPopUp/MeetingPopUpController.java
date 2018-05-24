@@ -9,9 +9,13 @@ import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
 import UI.components.dropdown_search.NameCheckboxCell;
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -34,7 +38,13 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
     private Text message;
 
-    private IDropdownSearch<IProfile> dropdownSearch;
+    private IDropdownSearch<IUser> dropdownSearch;
+
+    private HBox attendees;
+
+    private TextArea attendeesText;
+
+    private ObservableSet<IUser> chosenAttendees = FXCollections.observableSet();
 
     public MeetingPopUpController(IMeetingPopUpRequire required) {
         super("meetingPopUp.fxml");
@@ -69,7 +79,7 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
         VBox textfieldsWrapper = new VBox();
 
-        dropdownSearch = new DropdownSearchController<>(new IDropdownSearchRequire<IProfile>() {
+        dropdownSearch = new DropdownSearchController<>(new IDropdownSearchRequire<IUser>() {
             @Override
             public JFXListCell getCellFactory() {
                 return new NameCheckboxCell(){};
@@ -88,6 +98,7 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
         innercontent.getChildren().addAll(datePickerWrapper, textfieldsWrapper);
 
+
         content.setBody(innercontent);
         dialog.setDialogContainer(content);
         dialog = new JFXDialog(container, content, JFXDialog.DialogTransition.CENTER);
@@ -95,11 +106,19 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
             required.getParent().getChildren().remove(this.getView());
         });
 
+        attendees = new HBox();
+        attendeesText = new TextArea();
+
         dropdownSearch.onDone(data -> {
-            HBox attendees = new HBox();
-            textfieldsWrapper.getChildren().add(attendees);
-            for (IProfile profile : data) {
-                attendees.getChildren().add(new Label(profile.getUser().getName()));
+            for (IUser user : data) {
+                chosenAttendees.add(user);
+            }
+        });
+
+        chosenAttendees.addListener(new SetChangeListener<IUser>() {
+            @Override
+            public void onChanged(Change<? extends IUser> change) {
+
             }
         });
 
@@ -133,7 +152,7 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
     }
 
     @Override
-    public IDropdownSearch<IProfile> getDropdownSearch() {
+    public IDropdownSearch<IUser> getDropdownSearch() {
         return dropdownSearch;
     }
 }
