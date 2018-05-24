@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.Set;
 
 public interface IInquiry extends ITask {
-
-
     /**
      * Accessor method for inquiry description.
      * @return inquiry description.

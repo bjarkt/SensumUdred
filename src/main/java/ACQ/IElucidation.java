@@ -11,6 +11,13 @@ import java.util.Set;
 public interface IElucidation {
 
     /**
+     * Get the id of the elucidation.
+     * This identifier is unique to each elucidation.
+     * @return id
+     */
+    long getId();
+
+    /**
      * Get the applicant or citizen this elucidation involves.
      */
     IUser getCitizen();
@@ -41,15 +48,22 @@ public interface IElucidation {
     void openCase(String description, @Nullable List<Pair<String, String>> offerings, @Nullable List<String> grantings, @Nullable IUser guardian, @Nullable Guardianship guardianship, String informationAboutAuthority, boolean citizenAgreesWithOpeningOfCase, String citizensMunicipality, String specialCircumstances);
 
     /**
-     * Get the time of opening the elucidation.
-     * @return  time of opening.
+     * Get the task of the elucidation.
+     * The task can tell if it is a {@link IInquiry} or {@link ICase}.
+     * @return the task
      */
-    Date getCreationDate();
+    ITask getTask();
 
     /**
      * Get the dialog object, which contains meetings.
      * @return dialog object
      */
     IDialog getDialog();
+
+    /**
+     * Get the time of opening the elucidation.
+     * @return  time of opening.
+     */
+    Date getCreationDate();
 
 }

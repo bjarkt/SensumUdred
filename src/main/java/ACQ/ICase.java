@@ -1,10 +1,8 @@
 package ACQ;
 
-import BLL.case_opening.third_party_information.IAttachment;
-
 import java.util.Set;
 
-public interface ICase extends IInquiry{
+public interface ICase extends IInquiry {
 
     /**
      * Accessor method for citizen's consent to case opening.

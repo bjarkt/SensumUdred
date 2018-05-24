@@ -32,6 +32,13 @@ public interface IBusiness {
 	IDefaultService getDefaultService();
 
 	/**
+	 * Get the elucidation service. It contains services with elucidation as topic.
+	 * It can create an elucidation, update an elucidation or get all open/closed elucidations based on the ssn.
+	 * @return elucidation service
+	 */
+	IElucidationService getElucidationService();
+
+	/**
 	 * Get the User Manager.
 	 * It can receive the signed account and user (if any).
 	 * It can sign in, sign out and sign up.

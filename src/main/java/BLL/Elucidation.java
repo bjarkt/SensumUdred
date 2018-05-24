@@ -1,11 +1,7 @@
 package BLL;
 
-import ACQ.IElucidation;
-import ACQ.IInquiry;
-import ACQ.IUser;
-import ACQ.Task;
+import ACQ.*;
 import BLL.Inquiry.Inquiry;
-import ACQ.IDialog;
 import BLL.open_case.Case;
 import BLL.open_case.Guardianship;
 import BLL.open_case.ICase;
@@ -14,7 +10,7 @@ import javafx.util.Pair;
 import java.util.*;
 
 public class Elucidation implements IElucidation {
-
+    private long id;
     private IUser citizen;
     private Set<IUser> caseworkers;
     private Task task;
@@ -22,13 +18,22 @@ public class Elucidation implements IElucidation {
     private IDialog dialog;
 
 
-    public Elucidation(IUser citizen, IUser creator, IDialog dialog){
+    public Elucidation(long id, IUser citizen, IUser creator, IDialog dialog){
+        this.id = id;
         dateOfOpening = new Date();
         this.citizen = citizen;
         caseworkers = new HashSet<>();
         caseworkers.add(creator);
         task = new Inquiry();
         this.dialog = dialog;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getId() {
+        return id;
     }
 
     /**
@@ -53,6 +58,14 @@ public class Elucidation implements IElucidation {
     @Override
     public Set<IUser> getCaseworkers() {
         return caseworkers;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ITask getTask() {
+        return task;
     }
 
     /**
