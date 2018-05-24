@@ -25,7 +25,6 @@ public class BusinessFacade implements IBusiness {
 	private IUserManager userManager;
 	private IDefaultService defaultService;
 	private IAdminService adminService;
-	private IElucidationService elucidationService;
 
 	private IElucidationService elucidationServiceMediator;
 
@@ -173,9 +172,7 @@ public class BusinessFacade implements IBusiness {
 		this.defaultService = service.getDefaultService();
 		this.adminService = service.getAdminService();
 		this.userManager = new UserManager(this.defaultService, service.getSigningService());
-		this.elucidationService = service.getElucidationService();
-
-		this.elucidationServiceMediator = new ElucidationServiceMediator(elucidationService, persistent.getHttp(), new EBoks(persistent.getHttp()));
+		this.elucidationServiceMediator = new ElucidationServiceMediator(service.getElucidationService(), persistent.getHttp(), new EBoks(persistent.getHttp()));
 
 		LogAspect.setPersistent(persistent);
 	}
