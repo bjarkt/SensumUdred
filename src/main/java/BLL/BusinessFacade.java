@@ -8,6 +8,7 @@ import BLL.getter.address_getter.GetAddress;
 import BLL.getter.address_getter.IGetAddress;
 import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
+import BLL.mediators.ElucidationServiceMediator;
 import BLL.open_case.ICase;
 import BLL.security_system.SecurityLevel;
 import BLL.security_system.SecuritySystem;
@@ -25,6 +26,8 @@ public class BusinessFacade implements IBusiness {
 	private IDefaultService defaultService;
 	private IAdminService adminService;
 	private IElucidationService elucidationService;
+
+	private IElucidationService elucidationServiceMediator;
 
 	public BusinessFacade() { }
 
@@ -48,7 +51,7 @@ public class BusinessFacade implements IBusiness {
 
 	@Override
 	public IElucidationService getElucidationService() {
-		return new ElucidationServiceMediator(elucidationService, persistent.getHttp(), new EBoks(persistent.getHttp()));
+		return elucidationServiceMediator;
 	}
 
 	/**
@@ -171,6 +174,8 @@ public class BusinessFacade implements IBusiness {
 		this.adminService = service.getAdminService();
 		this.userManager = new UserManager(this.defaultService, service.getSigningService());
 		this.elucidationService = service.getElucidationService();
+
+		this.elucidationServiceMediator = new ElucidationServiceMediator(elucidationService, persistent.getHttp(), new EBoks(persistent.getHttp()));
 
 		LogAspect.setPersistent(persistent);
 	}

@@ -6,7 +6,7 @@ import ACQ.IUser;
 
 import java.util.*;
 
-class Meeting implements IMeeting {
+public class Meeting implements IMeeting {
     private IUser creator;
     private Set<IUser> participants;
     private String information;
@@ -20,7 +20,7 @@ class Meeting implements IMeeting {
      * @param creator creator of the meeting
      * @param eboks eBoks object
      */
-    Meeting(IUser creator, IEBoks eboks, int number) {
+    public Meeting(IUser creator, IEBoks eboks, int number) {
         this.participants = new HashSet<>();
         this.meetingDate = null;
         this.eBoks = eboks;

@@ -1,8 +1,12 @@
-package BLL;
+package BLL.mediators;
 
 import ACQ.*;
+import BLL.Elucidation;
 import BLL.meeting.Dialog;
+import BLL.meeting.Meeting;
 
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ElucidationServiceMediator implements IElucidationService {
@@ -32,18 +36,9 @@ public class ElucidationServiceMediator implements IElucidationService {
     public IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry) {
         IElucidation DALElucidation = dataElucidationService.createElucidation(citizen, caseworkers, inquiry);
 
-        IUser creator = null;
-        if (DALElucidation.getCaseworkers().stream().findFirst().isPresent()) {
-            creator = DALElucidation.getCaseworkers().stream().findFirst().get();
-        }
+        IElucidation realElucidation = this.convertToRealElucidation(DALElucidation);
 
-        Set<IUser> caseworkersExceptCreator = DALElucidation.getCaseworkers();
-        caseworkersExceptCreator.remove(creator);
-
-        IElucidation BLLElucidation = new Elucidation(DALElucidation.getId(), DALElucidation.getCitizen(), creator, new Dialog(httpClient, eboks));
-        BLLElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
-
-        return BLLElucidation;
+        return realElucidation;
     }
 
     @Override
@@ -113,16 +108,58 @@ public class ElucidationServiceMediator implements IElucidationService {
 
     @Override
     public IElucidation getElucidation(long id) {
-        return dataElucidationService.getElucidation(id);
+        IElucidation DALElucidation = dataElucidationService.getElucidation(id);
+
+        IElucidation realElucidation = this.convertToRealElucidation(DALElucidation);
+
+        return realElucidation;
     }
 
     @Override
     public Set<IElucidation> getOpenElucidationsFromSSN(String ssn) {
-        return dataElucidationService.getOpenElucidationsFromSSN(ssn);
+        Set<IElucidation> realOpenElucidations = new HashSet<>();
+        dataElucidationService.getOpenElucidationsFromSSN(ssn).forEach(e -> realOpenElucidations.add(convertToRealElucidation(e)));
+        return realOpenElucidations;
     }
 
     @Override
     public Set<IElucidation> getClosedElucidationsFromSSN(String ssn) {
-        return dataElucidationService.getClosedElucidationsFromSSN(ssn);
+        Set<IElucidation> realClosedElucidations = new HashSet<>();
+        dataElucidationService.getClosedElucidationsFromSSN(ssn).forEach(e -> realClosedElucidations.add(convertToRealElucidation(e)));
+        return realClosedElucidations;
+    }
+
+
+    private Elucidation convertToRealElucidation(IElucidation DALElucidation) {
+        Set<IMeeting> realMeetings = new HashSet<>();
+
+        for (IMeeting dalMeeting : DALElucidation.getDialog().getMeetings()) {
+            BLL.meeting.Meeting bllMeeting = new Meeting(dalMeeting.getCreator(), eboks, dalMeeting.getNumber());
+            bllMeeting.setInformation(dalMeeting.getInformation());
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dalMeeting.getMeetingDate());
+
+            bllMeeting.setMeetingDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
+            bllMeeting.setNumber(dalMeeting.getNumber());
+
+            realMeetings.add(bllMeeting);
+        }
+
+        Dialog realDialog = new Dialog(httpClient, eboks);
+        realDialog.setMeetings(realMeetings);
+
+        IUser creator = null;
+        if (DALElucidation.getCaseworkers().stream().findFirst().isPresent()) {
+            creator = DALElucidation.getCaseworkers().stream().findFirst().get();
+        }
+
+        Set<IUser> caseworkersExceptCreator = DALElucidation.getCaseworkers();
+        caseworkersExceptCreator.remove(creator);
+
+        Elucidation realElucidation = new Elucidation(DALElucidation.getId(), DALElucidation.getCitizen(), creator, realDialog);
+        realElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
+
+        return realElucidation;
     }
 }
