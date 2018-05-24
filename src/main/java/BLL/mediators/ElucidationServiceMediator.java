@@ -5,9 +5,7 @@ import BLL.Elucidation;
 import BLL.meeting.Dialog;
 import BLL.meeting.Meeting;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ElucidationServiceMediator implements IElucidationService {
 
@@ -117,14 +115,14 @@ public class ElucidationServiceMediator implements IElucidationService {
 
     @Override
     public Set<IElucidation> getOpenElucidationsFromSSN(String ssn) {
-        Set<IElucidation> realOpenElucidations = new HashSet<>();
+        Set<IElucidation> realOpenElucidations = new TreeSet<>(getIElucidationComparator());
         dataElucidationService.getOpenElucidationsFromSSN(ssn).forEach(e -> realOpenElucidations.add(convertToRealElucidation(e)));
         return realOpenElucidations;
     }
 
     @Override
     public Set<IElucidation> getClosedElucidationsFromSSN(String ssn) {
-        Set<IElucidation> realClosedElucidations = new HashSet<>();
+        Set<IElucidation> realClosedElucidations = new TreeSet<>(getIElucidationComparator());
         dataElucidationService.getClosedElucidationsFromSSN(ssn).forEach(e -> realClosedElucidations.add(convertToRealElucidation(e)));
         return realClosedElucidations;
     }
@@ -161,5 +159,9 @@ public class ElucidationServiceMediator implements IElucidationService {
         realElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
 
         return realElucidation;
+    }
+
+    private Comparator<IElucidation> getIElucidationComparator() {
+        return Comparator.comparingLong(IElucidation::getId);
     }
 }
