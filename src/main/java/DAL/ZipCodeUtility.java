@@ -10,12 +10,12 @@ import java.util.Map;
  * Utility class to get info about zip codes
  */
 public class ZipCodeUtility {
-    private String filename;
+    private String fileName;
     private Map<Integer, String> zipMap;
     private static ZipCodeUtility INSTANCE;
 
     private ZipCodeUtility() {
-        this.filename = "zipcodes.csv";
+        this.fileName = "zipcodes.csv";
         this.zipMap = new HashMap<>();
         readData();
     }
@@ -33,7 +33,7 @@ public class ZipCodeUtility {
      * Read zip code data from the file, into a map
      */
     private void readData() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filename)))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(fileName)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");

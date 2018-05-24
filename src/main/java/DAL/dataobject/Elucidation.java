@@ -81,22 +81,42 @@ public class Elucidation implements IElucidation {
 		return dialog;
 	}
 
+	/**
+	 * Set the citizen for the elucidation.
+	 * @param citizen citizen that applies to the current elucidation
+	 */
 	public void setCitizen(IUser citizen) {
 		this.citizen = citizen;
 	}
 
+	/**
+	 * Set the caseworkers that are attached to the elucidation.
+	 * @param caseworkers the caseworkers of the elucidation
+	 */
 	public void setCaseworkers(Set<IUser> caseworkers) {
 		this.caseworkers = caseworkers;
 	}
 
+	/**
+	 * Set the task for the elucidation, either an inquiry or case.
+	 * @param task inquiry or case
+	 */
 	public void setTask(ITask task) {
 		this.task = task;
 	}
 
+	/**
+	 * Set the creation time of the elucidation
+	 * @param creationTime the creation time
+	 */
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 
+	/**
+	 * Set the dialog of the elucidation
+	 * @param dialog the dialog of the elucidation
+	 */
 	public void setDialog(IDialog dialog) {
 		this.dialog = dialog;
 	}
