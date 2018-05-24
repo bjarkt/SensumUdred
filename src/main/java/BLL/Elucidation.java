@@ -1,11 +1,7 @@
 package BLL;
 
-import ACQ.IElucidation;
-import ACQ.IInquiry;
-import ACQ.IUser;
-import ACQ.Task;
+import ACQ.*;
 import BLL.Inquiry.Inquiry;
-import ACQ.IDialog;
 import BLL.open_case.Case;
 import BLL.open_case.Guardianship;
 import BLL.open_case.ICase;
@@ -62,6 +58,14 @@ public class Elucidation implements IElucidation {
     @Override
     public Set<IUser> getCaseworkers() {
         return caseworkers;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ITask getTask() {
+        return task;
     }
 
     /**
