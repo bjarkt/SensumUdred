@@ -1,15 +1,11 @@
 package UI.primary_view;
 
-import ACQ.IAccount;
-import ACQ.IAddress;
 import ACQ.IProfile;
-import ACQ.IUser;
 import BLL.IBusiness;
 import UI.IUserInterface;
 import UI.JavaFX;
 import UI.SecuredAspect;
 import UI.components.IComponent;
-import UI.components.LoadingService;
 import UI.components.all_elucidations_view.HomeViewController;
 import UI.components.all_elucidations_view.IHomeView;
 import UI.components.data_prompt.DataPromptController;
@@ -34,8 +30,11 @@ import UI.components.user_menu.IUserMenu;
 import UI.components.user_menu.UserMenuController;
 import UI.components.vertical_menu.IVerticalMenu;
 import UI.components.vertical_menu.VerticalMenuController;
+import UI.task.Task;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -43,11 +42,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 
 public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
@@ -257,13 +258,22 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
-			profile = business.getUserManager().signIn(data[0], data[1]);
-			if(profile != null && profile.getAccount() != null){
-				SecuredAspect.setAccount(profile.getAccount());
-				isLoggedIn.setValue(true);
-			} else{
-				logInView.writeError("Brugernavn eller password er forkert.");
-			}
+			Task<IProfile> task = new Task<>(new Supplier<IProfile>() {
+				@Override
+				public IProfile get() {
+					profile = business.getUserManager().signIn(data[0], data[1]);
+					return profile;
+				}
+			});
+
+			task.setOnSucceeded(data1 -> {
+				if(profile != null && profile.getAccount() != null){
+					SecuredAspect.setAccount(profile.getAccount());
+					Platform.runLater(() -> {
+						isLoggedIn.setValue(true);
+					});
+				}
+			});
 		});
 	}
 
@@ -274,8 +284,8 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		homeView.onNewInquiry(data -> {
 			IDataPrompt dataPrompt = new DataPromptController();
-			dataPrompt.setPrompt("Hvem er borgeren?");
 			setCenter(dataPrompt);
+			dataPrompt.setPrompt("Hvem er borgeren?");
 			dataPrompt.addTextFields("CPR-nummer", "Fornavn", "Efternavn", "Email", "Telefon");
 			dataPrompt.onContinue(data1 -> {
 				dataPrompt.setPrompt("Beskriv henvendelsen");
@@ -349,6 +359,24 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 
+	FlowPane flowPane = new FlowPane();
+
+	/**
+	 * Starts loading spinner to visualize a present call to database.
+	 */
+	private void startSpinner(){
+		flowPane.getChildren().add(new JFXSpinner());
+		screen.getChildren().add(flowPane);
+		screen.setLeftAnchor(flowPane, 0.);
+		screen.setRightAnchor(flowPane, 0.);
+		screen.setTopAnchor(flowPane, 0.);
+		screen.setBottomAnchor(flowPane, 0.);
+	}
+
+	private void stopSpinner(){
+		screen.getChildren().remove(flowPane);
+		flowPane = null;
+	}
 
 
 	/**
