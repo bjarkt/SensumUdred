@@ -7,13 +7,13 @@ import java.util.function.Supplier;
 
 public class Task<T> {
     private ExecutorService executor;
-    private Supplier<T> data;
     private CompletableFuture<T> myData;
+    private CallbackWithoutData runningCallback;
 
-    public Task(Supplier<T> data) {
+    public Task(Supplier<T> data, CallbackWithoutData runningCallback) {
         executor = Executors.newFixedThreadPool(1);
 
-        this.data = data;
+        runningCallback.action();
         myData = CompletableFuture.supplyAsync(data, executor);
     }
 
