@@ -13,14 +13,14 @@ class Meeting implements IMeeting {
     private GregorianCalendar meetingDate;
     private IEBoks eBoks;
     private boolean isCancelled;
-    private long id;
+    private int id;
 
     /**
      * Create meeting without id
      * @param creator creator of the meeting
      * @param eboks eBoks object
      */
-    Meeting(IUser creator, IEBoks eboks, long number) {
+    Meeting(IUser creator, IEBoks eboks, int number) {
         this.participants = new HashSet<>();
         this.meetingDate = null;
         this.eBoks = eboks;
@@ -138,7 +138,7 @@ class Meeting implements IMeeting {
      * {@inheritDoc}
      */
     @Override
-    public long getNumber() {
+    public int getNumber() {
         return id;
     }
 
@@ -146,7 +146,7 @@ class Meeting implements IMeeting {
      * {@inheritDoc}
      */
     @Override
-    public void setNumber(long n) {
+    public void setNumber(int n) {
         this.id = n;
     }
 

@@ -3,6 +3,7 @@ package DAL.database;
 import ACQ.*;
 import DAL.database.providers.DatabaseAdminProvider;
 import DAL.database.providers.DatabaseDefaultProvider;
+import DAL.database.providers.DatabaseElucidationProvider;
 import DAL.database.providers.DatabaseSigningProvider;
 
 import java.sql.PreparedStatement;
@@ -13,11 +14,13 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 	private IDefaultService defaultService;
 	private IAdminService adminService;
 	private ISigningService signingService;
+	private IElucidationService elucidationService;
 
 	public DatabaseService() {
 		this.defaultService = new DatabaseDefaultProvider();
 		this.adminService = new DatabaseAdminProvider();
 		this.signingService = new DatabaseSigningProvider();
+		this.elucidationService = new DatabaseElucidationProvider();
 	}
 
 	/**
@@ -45,6 +48,11 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 	@Override
 	public ISigningService getSigningService() {
 		return signingService;
+	}
+
+	@Override
+	public IElucidationService getElucidationService() {
+		return elucidationService;
 	}
 
 	@Override

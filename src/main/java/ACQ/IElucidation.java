@@ -1,6 +1,5 @@
 package ACQ;
 
-import BLL.meeting.IDialog;
 import BLL.open_case.Guardianship;
 import com.sun.istack.internal.Nullable;
 import javafx.util.Pair;
@@ -20,7 +19,7 @@ public interface IElucidation {
      * Add one or more caseworkers to the elucidation.
      * @param caseworker    one or more caseworkers.
      */
-    void addCaseworker(IUser ...caseworker);
+    void addCaseworker(IUser ...caseworkers);
 
     /**
      * Get the caseworkers on this elucidation.
@@ -45,7 +44,7 @@ public interface IElucidation {
      * Get the time of opening the elucidation.
      * @return  time of opening.
      */
-    Date getTimeOfOpening();
+    Date getCreationDate();
 
     /**
      * Get the dialog object, which contains meetings.

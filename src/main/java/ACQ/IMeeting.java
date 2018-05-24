@@ -79,13 +79,13 @@ public interface IMeeting {
      * Get the number of the meeting
      * @return number of meeting
      */
-    long getNumber();
+    int getNumber();
 
     /**
      * Set the number
      * @param n new number
      */
-    void setNumber(long n);
+    void setNumber(int n);
 
     /**
      * Get the user that created the meeting
