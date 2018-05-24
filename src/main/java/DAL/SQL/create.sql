@@ -59,11 +59,13 @@ CREATE TABLE participates(
 );
 
 CREATE TABLE meetings(
-  number INT PRIMARY KEY ,
+  elucidation_id BIGINT,
+  number INT,
   information TEXT,
-  date DATE,
-  creaton VARCHAR(10),
-  isCancelled BOOLEAN
+  date TIMESTAMP,
+  creator VARCHAR(10),
+  isCancelled BOOLEAN,
+  PRIMARY KEY (elucidation_id, number)
 );
 
 CREATE TABLE worksin(
@@ -75,7 +77,7 @@ CREATE TABLE worksin(
 CREATE TABLE elucidations(
   ID BIGSERIAL PRIMARY KEY ,
   applies_ssn TEXT NOT NULL,
-  creationDate DATE
+  creationDate TIMESTAMP
 );
 
 CREATE TABLE elucidationsHasTasks(

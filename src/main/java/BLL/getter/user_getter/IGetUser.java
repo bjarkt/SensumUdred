@@ -1,4 +1,4 @@
-package BLL.user_getter;
+package BLL.getter.user_getter;
 
 import ACQ.IUser;
 

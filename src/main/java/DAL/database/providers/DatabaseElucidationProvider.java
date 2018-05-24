@@ -2,14 +2,16 @@ package DAL.database.providers;
 
 import ACQ.*;
 import BLL.case_opening.third_party_information.IAttachment;
-import BLL.meeting.IDialog;
+import ACQ.IDialog;
+import DAL.database.DatabaseHelper;
 import DAL.database.PostgreSqlDatabase;
+import DAL.dataobject.Dialog;
+import DAL.dataobject.Meeting;
+import DAL.dataobject.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Set;
+import java.sql.*;
+import java.util.*;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DatabaseElucidationProvider extends PostgreSqlDatabase implements IElucidationService {
@@ -34,7 +36,10 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
+			boolean deleted = deleteCaseworkers(conn, id);
+			boolean inserted = insertCaseworkers(conn, id, users);
 
+			bool.set(deleted && inserted);
 		});
 
 		return bool.get();
@@ -222,7 +227,6 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
-
 	private boolean deleteThemes(Connection conn, long id) throws SQLException {
 		return deleteByCaseId(conn, id, "DELETE FROM themes WHERE cases_id = ?;");
 	}
@@ -260,5 +264,122 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		}
 
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
+	}
+
+	private Date getCreationDateForElucidation(Connection conn, long id) throws SQLException {
+		String query = "SELECT creationdate FROM elucidations WHERE id = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		Date date = null;
+
+		if(rs.next()) {
+			date = rs.getTimestamp(1);
+		}
+
+		return date;
+	}
+
+	private IUser getCitizenForElucidation(Connection conn, long id) throws SQLException {
+		String query = "SELECT * FROM users WHERE ssn = (SELECT applies_ssn FROM elucidations WHERE id = ?);";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		User user = new User();
+
+		if(rs.next()) {
+			DatabaseHelper.setUserFromResultSet(rs, user);
+		} else {
+			user = null;
+		}
+
+		return user;
+	}
+
+	private Set<IUser> getCaseworkersForElucidation(Connection conn, long id) throws SQLException {
+		String query = "SELECT * FROM users WHERE ssn IN (SELECT users_ssn FROM worksin WHERE elucidations_id = ?);";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<IUser> users = new HashSet<>();
+
+		User user;
+		while(rs.next()) {
+			user = new User();
+			DatabaseHelper.setUserFromResultSet(rs, user);
+			users.add(user);
+		}
+
+		return users;
+	}
+
+	private IDialog getDialogForElucidation(Connection conn, long id) throws SQLException {
+		Dialog dialog = new Dialog();
+		dialog.setMeetings(getDialogMeetings(conn, id));
+		return dialog;
+	}
+
+	private Set<IMeeting> getDialogMeetings(Connection conn, long id) throws SQLException {
+		String query = "SELECT * FROM meetings WHERE elucidation_id = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<IMeeting> meetings = new HashSet<>();
+
+		Meeting meeting;
+		while(rs.next()) {
+			meeting = new Meeting();
+			meeting.setNumber(rs.getInt("number"));
+			meeting.setInformation(rs.getString("information"));
+			meeting.setMeetingDate(rs.getTimestamp("date"));
+			meeting.setCreator(getMeetingCreator(conn, rs.getString("creator")));
+			meeting.setParticipants(getMeetingParticipates(conn, id, meeting));
+		}
+
+		return meetings;
+	}
+
+	private Set<IUser> getMeetingParticipates(Connection conn, long id, IMeeting meeting) throws SQLException {
+		String query = "SELECT * FROM users WHERE ssn IN (SELECT users_ssn FROM participates WHERE cases_id = ? AND meetings_number = ?);";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+		ps.setInt(2, meeting.getNumber());
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<IUser> participates = new HashSet<>();
+
+		User user;
+		if(rs.next()) {
+			user = new User();
+			DatabaseHelper.setUserFromResultSet(rs, user);
+			participates.add(user);
+		}
+
+		return participates;
+	}
+
+	private IUser getMeetingCreator(Connection conn, String ssn) throws SQLException {
+		String query = "SELECT * FROM users WHERE ssn = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setString(1, ssn);
+
+		ResultSet rs = ps.executeQuery();
+
+		User user = new User();
+
+		if(rs.next()) {
+			DatabaseHelper.setUserFromResultSet(rs, user);
+		}
+
+		return user;
 	}
 }

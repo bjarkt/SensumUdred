@@ -1,6 +1,6 @@
 import ACQ.IUser;
-import BLL.user_getter.GetUser;
-import BLL.user_getter.IGetUser;
+import BLL.getter.user_getter.GetUser;
+import BLL.getter.user_getter.IGetUser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

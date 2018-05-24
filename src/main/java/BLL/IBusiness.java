@@ -1,12 +1,11 @@
 package BLL;
 
 import ACQ.*;
-import BLL.address_getter.IGetAddress;
+import BLL.getter.address_getter.IGetAddress;
 import BLL.log_agent.ChangeLog;
-import BLL.meeting.IDialog;
 import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
-import BLL.user_getter.IGetUser;
+import BLL.getter.user_getter.IGetUser;
 import DAL.IPersistent;
 
 import java.util.Set;

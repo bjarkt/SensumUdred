@@ -1,10 +1,14 @@
-import ACQ.IAccount;
-import ACQ.IAddress;
-import ACQ.IHttp;
-import ACQ.IUser;
+import ACQ.*;
 import DAL.PersistentFacade;
+import DAL.database.DatabaseService;
 
 public class TestHelper {
+    private static IDatabaseService service;
+
+    static {
+        service = new DatabaseService();
+    }
+
     public static IUser createUser(String ssn) {
         return new IUser() {
             @Override
@@ -46,5 +50,9 @@ public class TestHelper {
 
     public static IHttp getHttpClient() {
         return new PersistentFacade().getHttp();
+    }
+
+    public static IDatabaseService getDatabaseService() {
+        return service;
     }
 }

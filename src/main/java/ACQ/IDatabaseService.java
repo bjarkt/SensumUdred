@@ -22,6 +22,12 @@ public interface IDatabaseService {
 	ISigningService getSigningService();
 
 	/**
+	 * Get the elucidation service.
+	 * @return elucidation service interface
+	 */
+	IElucidationService getElucidationService();
+
+	/**
 	 * Files a meeting into the database.
 	 * @param meeting any meeting
 	 * @return successful or not

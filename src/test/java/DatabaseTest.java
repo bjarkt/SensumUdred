@@ -10,7 +10,7 @@ public class DatabaseTest {
 	private IDatabaseService dbService;
 
 	public DatabaseTest() {
-		this.dbService = new DatabaseService();
+		this.dbService = TestHelper.getDatabaseService();
 	}
 
 	@Test

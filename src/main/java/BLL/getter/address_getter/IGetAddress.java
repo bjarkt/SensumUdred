@@ -1,4 +1,4 @@
-package BLL.address_getter;
+package BLL.getter.address_getter;
 
 import ACQ.IAddress;
 

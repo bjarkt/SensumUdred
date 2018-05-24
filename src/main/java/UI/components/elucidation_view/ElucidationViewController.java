@@ -1,6 +1,7 @@
 package UI.components.elucidation_view;
 
-import ACQ.*;
+import ACQ.IEventListener;
+import ACQ.IProfile;
 import UI.Secured;
 import UI.components.Component;
 import UI.components.dropdown_search.DropdownSearchController;
@@ -13,10 +14,11 @@ import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithChec
 import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController;
 import UI.components.elucidation_view.theme.IThemeUI;
 import UI.components.elucidation_view.theme.ThemeController;
-import UI.components.elucidation_view.theme.ThemeData;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -29,8 +31,6 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElucidationViewController extends Component implements IElucidationView {
 
@@ -44,6 +44,8 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<String>> saveSpecialCircumstancesSubscribers = new ArrayList<>();
     private List<IEventListener<String>> editCitizenInformationSubscribers = new ArrayList<>();
     private List<IEventListener<?>> createMeetingSubscribers = new ArrayList<>();
+    private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
+    private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
 
 
     private IElucidationViewRequire required;
@@ -239,58 +241,65 @@ public class ElucidationViewController extends Component implements IElucidation
             caseThemeWrapper.getChildren().remove(theme.getView());
             addedThemeUIs.remove(theme);
         }
+
+        for (IEventListener<Set<IThemeUI>> sub : deleteThemeSubscribers) {
+            sub.onAction(listOfChosenThemes);
+        }
+
         listOfChosenThemes.clear();
     }
 
     @FXML
     void saveCaseThemes(ActionEvent event) {
-        Set<ThemeData> themeDatas = new HashSet<>();
+        Set<IThemeUI> verifiedThemes = new HashSet<>();
+
         for (IThemeUI theme : addedThemeUIs) {
-            ThemeData themeData = new ThemeData(theme.getTheme(), theme.getSubtheme(), theme.getLevelOfFunction());
-            
-            if (themeData.getThemeEnum() == null || theme.getSubtheme().length() == 0 || theme.getLevelOfFunction() == null) {
-                // TODO: 23/05/18 lav popup box her måske?
-                //System.out.println("Fejl i tema data");
-            } else {
-                themeDatas.add(themeData);
+            if (theme.verifyData()) {
+                verifiedThemes.add(theme);
             }
         }
-        //System.out.println(themeDatas);
+
+        for (IEventListener<Set<IThemeUI>> sub : addNewThemeSubscribers) {
+            sub.onAction(verifiedThemes);
+        }
     }
 
     private void setupUpThemesSection() {
         listOfChosenThemes.addListener(new SetChangeListener<IThemeUI>() {
             @Override
             public void onChanged(Change<? extends IThemeUI> change) {
-                if(listOfChosenThemes.size() > 0){
-                    deleteCaseThemeButton.setVisible(true);
-                    deleteCaseThemeButton.setDisable(false);
-                    deleteCaseThemeButton.setText("Slet " + listOfChosenThemes.size() + " tema" + ((listOfChosenThemes.size() > 1) ? "er" : ""));
-                } else{
-                    deleteCaseThemeButton.setVisible(false);
-                    deleteCaseThemeButton.setDisable(true);
-                    deleteCaseThemeButton.setText("Ingen temaer valgt");
-                }
+                changeButtonTextBasedOnListSize(listOfChosenThemes.size(), deleteCaseThemeButton, new String[]{"Slet", "tema", "temaer"}, "Ingen temaer valgt");
             }
         });
 
         addedThemeUIs.addListener(new SetChangeListener<IThemeUI>() {
             @Override
             public void onChanged(Change<? extends IThemeUI> change) {
-                if (addedThemeUIs.size() > 0) {
-                    saveCaseThemeButton.setVisible(true);
-                    saveCaseThemeButton.setDisable(false);
-                    saveCaseThemeButton.setText("Gem " + addedThemeUIs.size() + " tema" + ((addedThemeUIs.size() > 1) ? "er" : ""));
-                }else{
-                    saveCaseThemeButton.setVisible(false);
-                    saveCaseThemeButton.setDisable(true);
-                    saveCaseThemeButton.setText("Ingen temaer tilføjet");
-                }
+                changeButtonTextBasedOnListSize(addedThemeUIs.size(), saveCaseThemeButton, new String[]{"Gem", "tema", "temaer"}, "Ingen temaer tilføjet");
             }
         });
     }
+
     //endregion
 
+    /**
+     * Change button text based on list size, with plural word.
+     * @param listSize size of list.
+     * @param button which button.
+     * @param positiveText array of string. example: new String[]{"Gem", "tema", "temaer"}. [0] element is verb, [1] is singular of word, [2] is plural of word.
+     * @param negativeText text to display in negative situation.
+     */
+    private void changeButtonTextBasedOnListSize(int listSize, JFXButton button, String[] positiveText, String negativeText) {
+        if (listSize > 0) {
+            button.setVisible(true);
+            button.setDisable(false);
+            button.setText(positiveText[0] + " " + listSize + " " + ((listSize > 1) ? positiveText[2] : positiveText[1] ));
+        } else {
+            button.setVisible(false);
+            button.setDisable(true);
+            button.setText(negativeText);
+        }
+    }
 
     @FXML
     private JFXButton editCaseSpecialCircumstancesButton;
@@ -402,6 +411,16 @@ public class ElucidationViewController extends Component implements IElucidation
     public void onCaseSpecialCircumstancesField(IEventListener<String> listener) {saveSpecialCircumstancesSubscribers.add(listener); }
     @Override
     public void onCaseCitizenInformation (IEventListener<String> listener) {editCitizenInformationSubscribers.add(listener); }
+
+    @Override
+    public void onAddNewTheme(IEventListener<Set<IThemeUI>> listener) {
+        addNewThemeSubscribers.add(listener);
+    }
+
+    @Override
+    public void onDeleteTheme(IEventListener<Set<IThemeUI>> listener) {
+        deleteThemeSubscribers.add(listener);
+    }
 
     @Override
     public void tickOffersList(String... offers) {
