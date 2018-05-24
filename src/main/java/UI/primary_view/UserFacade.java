@@ -1,6 +1,9 @@
 package UI.primary_view;
 
+import ACQ.IAccount;
+import ACQ.IAddress;
 import ACQ.IProfile;
+import ACQ.IUser;
 import BLL.IBusiness;
 import UI.IUserInterface;
 import UI.JavaFX;
@@ -42,6 +45,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserFacade implements IUserInterface, Initializable {
@@ -322,8 +327,57 @@ public class UserFacade implements IUserInterface, Initializable {
 					return screen;
 				}
 			});
-
 			meetingPopUp.show("Indkald til møde", "Data her");
+
+			List<IProfile> profiles = new ArrayList<>();
+			profiles.add(new IProfile() {
+				@Override
+				public IUser getUser() {
+					return new IUser() {
+						@Override
+						public String getSocialSecurityNumber() {
+							return null;
+						}
+
+						@Override
+						public String getFirstName() {
+							return null;
+						}
+
+						@Override
+						public String getLastName() {
+							return null;
+						}
+
+						@Override
+						public IAddress getAddress() {
+							return null;
+						}
+
+						@Override
+						public String getPhoneNumber() {
+							return null;
+						}
+
+						@Override
+						public String getEmail() {
+							return null;
+						}
+
+						@Override
+						public String getName() {
+							return "Lasse Traberg";
+						}
+					};
+				}
+
+				@Override
+				public IAccount getAccount() {
+					return null;
+				}
+			});
+
+			meetingPopUp.getDropdownSearch().updateList(profiles);
 
 
 		});

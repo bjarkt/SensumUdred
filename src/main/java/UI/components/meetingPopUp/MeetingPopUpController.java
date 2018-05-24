@@ -1,7 +1,6 @@
 package UI.components.meetingPopUp;
 
-import ACQ.IEventListener;
-import ACQ.IProfile;
+import ACQ.*;
 import UI.components.Component;
 import UI.components.data_prompt.DataPromptController;
 import UI.components.data_prompt.IDataPrompt;
@@ -11,16 +10,13 @@ import UI.components.dropdown_search.IDropdownSearchRequire;
 import UI.components.dropdown_search.NameCheckboxCell;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
@@ -37,6 +33,8 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
     private Text subject;
 
     private Text message;
+
+    private IDropdownSearch<IProfile> dropdownSearch;
 
     public MeetingPopUpController(IMeetingPopUpRequire required) {
         super("meetingPopUp.fxml");
@@ -71,7 +69,7 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
         VBox textfieldsWrapper = new VBox();
 
-        IDropdownSearch<IProfile> dropdownSearch = new DropdownSearchController<>(new IDropdownSearchRequire<IProfile>() {
+        dropdownSearch = new DropdownSearchController<>(new IDropdownSearchRequire<IProfile>() {
             @Override
             public JFXListCell getCellFactory() {
                 return new NameCheckboxCell(){};
@@ -97,10 +95,19 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
             required.getParent().getChildren().remove(this.getView());
         });
 
+        dropdownSearch.onDone(data -> {
+            HBox attendees = new HBox();
+            textfieldsWrapper.getChildren().add(attendees);
+            for (IProfile profile : data) {
+                attendees.getChildren().add(new Label(profile.getUser().getName()));
+            }
+        });
+
     }
 
     @Override
     public void show(String subject, String message) {
+
         this.subject.setText(subject);
         this.message.setText(message);
         if(!required.getParent().getChildren().contains(this.getView())) {
@@ -123,5 +130,10 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
     @Override
     public void setRequired(IMeetingPopUpRequire required) {
         this.required = required;
+    }
+
+    @Override
+    public IDropdownSearch<IProfile> getDropdownSearch() {
+        return dropdownSearch;
     }
 }
