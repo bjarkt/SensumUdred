@@ -255,18 +255,18 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	@Override
 	public Set<IElucidation> getOpenElucidationsFromSSN(String ssn) {
 		AtomicReference<Set<IElucidation>> atomicSet = new AtomicReference<>();
-		executeQuery(conn -> atomicSet.set(getElucidationsFromSSN(conn, ssn, true)));
+		executeQuery(conn -> atomicSet.set(getElucidationsFromSSN(conn, ssn, false)));
 		return atomicSet.get();
 	}
 
 	@Override
 	public Set<IElucidation> getClosedElucidationsFromSSN(String ssn) {
 		AtomicReference<Set<IElucidation>> atomicSet = new AtomicReference<>();
-		executeQuery(conn -> atomicSet.set(getElucidationsFromSSN(conn, ssn, false)));
+		executeQuery(conn -> atomicSet.set(getElucidationsFromSSN(conn, ssn, true)));
 		return atomicSet.get();
 	}
 
-	private Set<IElucidation> getElucidationsFromSSN(Connection conn, String ssn, boolean getOpenElucidations) throws SQLException {
+	private Set<IElucidation> getElucidationsFromSSN(Connection conn, String ssn, boolean getClosedElucidations) throws SQLException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT id FROM elucidations WHERE isclosed = ? AND id IN (");
 		sb.append("SELECT id FROM elucidations WHERE applies_ssn = '90909090' OR id IN (");
