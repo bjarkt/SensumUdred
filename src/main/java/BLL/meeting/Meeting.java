@@ -129,7 +129,7 @@ class Meeting implements IMeeting {
         meetingDate.set(GregorianCalendar.YEAR, year);
         meetingDate.set(GregorianCalendar.MONTH, month);
         meetingDate.set(GregorianCalendar.DAY_OF_MONTH, day);
-        meetingDate.set(GregorianCalendar.HOUR, hour);
+        meetingDate.set(GregorianCalendar.HOUR_OF_DAY, hour);
         meetingDate.set(GregorianCalendar.MINUTE, minute);
         meetingDate.set(GregorianCalendar.SECOND, 0);
     }
