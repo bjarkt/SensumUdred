@@ -329,55 +329,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			});
 			meetingPopUp.show("Indkald til møde", "Data her");
 
-			List<IProfile> profiles = new ArrayList<>();
-			profiles.add(new IProfile() {
-				@Override
-				public IUser getUser() {
-					return new IUser() {
-						@Override
-						public String getSocialSecurityNumber() {
-							return null;
-						}
 
-						@Override
-						public String getFirstName() {
-							return null;
-						}
-
-						@Override
-						public String getLastName() {
-							return null;
-						}
-
-						@Override
-						public IAddress getAddress() {
-							return null;
-						}
-
-						@Override
-						public String getPhoneNumber() {
-							return null;
-						}
-
-						@Override
-						public String getEmail() {
-							return null;
-						}
-
-						@Override
-						public String getName() {
-							return "Lasse Traberg";
-						}
-					};
-				}
-
-				@Override
-				public IAccount getAccount() {
-					return null;
-				}
-			});
-
-			meetingPopUp.getDropdownSearch().updateList(profiles);
 
 
 		});
