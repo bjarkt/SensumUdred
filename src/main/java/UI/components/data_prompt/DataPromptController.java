@@ -39,10 +39,19 @@ public class DataPromptController extends Component implements IDataPrompt {
     private ObservableList<ITextField> textFields = FXCollections.observableArrayList();
 
     @FXML
+    private VBox wrapper;
+
+    @FXML
     private Label dataprompt_question;
 
     @FXML
     private VBox fieldsWrapper;
+
+    @FXML
+    private VBox contentWrapper;
+
+    @FXML
+    private HBox buttonWrapper;
 
     @FXML
     private JFXButton dataprompt_continueButton;
@@ -73,8 +82,19 @@ public class DataPromptController extends Component implements IDataPrompt {
 
     @Override
     public void setPrompt(String prompt) {
-        this.promptText = prompt;
-        if(dataprompt_question != null) dataprompt_question.setText(this.promptText);
+        if(prompt == null) wrapper.getChildren().remove(dataprompt_question);
+        else{
+            this.promptText = prompt;
+            dataprompt_question.setText(this.promptText);
+        }
+    }
+
+    @Override
+    public void setButtonText(String text) {
+        if(text == null) contentWrapper.getChildren().remove(buttonWrapper);
+        else {
+            this.dataprompt_continueButton.setText(text);
+        }
     }
 
     @FXML

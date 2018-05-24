@@ -14,4 +14,6 @@ public interface IDataPrompt extends IComponent {
 
     void addTextFields(String ...field);
 
+    void setButtonText(String text);
+
 }

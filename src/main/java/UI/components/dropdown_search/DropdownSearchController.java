@@ -43,7 +43,7 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         results.setCellFactory(param -> required.getCellFactory());
-        addButton = new JFXButton("Tilføj sagsbehandler");
+        addButton = new JFXButton("Tilføj");
         addButton.getStyleClass().addAll("flat-button", "flat-button_outlined");
         addButton.setOnAction(clickEvent -> {
             done();

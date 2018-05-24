@@ -15,6 +15,8 @@ public interface IElucidationView extends IComponent {
 
     void tickOffersList(String ...offers);
 
+    void onCreateMeeting(IEventListener<?> listener);
+
     void onCaseCitzenAgreement (IEventListener<String> listener);
 
     void onCaseCitizenMunicipality (IEventListener<String> listener);

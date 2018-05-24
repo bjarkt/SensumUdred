@@ -1,0 +1,23 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+
+.dialog_subject{
+    -fx-font-size: 15px;
+    -fx-text-fill: #484848;
+}
+
+.dialog_message{
+    -fx-font-size: 14px;
+    -fx-opacity: 0.75;
+    -fx-font-family: "Circular Std Book";
+}
+
+.dialog_button{
+    -fx-text-fill: #1B71FF;
+    -fx-font-size: 15px;
+}
+
+.datopicker{
+    -fx-font-size: 17px;
+}

@@ -1,4 +1,4 @@
-package UI.components.elucidation_view;
+package UI.components.dropdown_search;
 
 import ACQ.IProfile;
 import ACQ.IUser;

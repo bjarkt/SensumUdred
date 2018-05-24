@@ -3,10 +3,10 @@ package UI.components.elucidation_view;
 import ACQ.*;
 import UI.Secured;
 import UI.components.Component;
-import UI.components.IComponent;
 import UI.components.dropdown_search.DropdownSearchController;
 import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
+import UI.components.dropdown_search.NameCheckboxCell;
 import UI.components.elucidation_view.granting.GrantingController;
 import UI.components.elucidation_view.granting.IGranting;
 import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithCheckbox;
@@ -15,25 +15,17 @@ import UI.components.elucidation_view.theme.IThemeUI;
 import UI.components.elucidation_view.theme.ThemeController;
 import UI.components.elucidation_view.theme.ThemeData;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.*;
@@ -51,6 +43,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<String>> saveCitizenMunicipalitySubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveSpecialCircumstancesSubscribers = new ArrayList<>();
     private List<IEventListener<String>> editCitizenInformationSubscribers = new ArrayList<>();
+    private List<IEventListener<?>> createMeetingSubscribers = new ArrayList<>();
 
 
     private IElucidationViewRequire required;
@@ -141,7 +134,6 @@ public class ElucidationViewController extends Component implements IElucidation
     }
     //endregion
 
-
     //region setup grantings section
 
     private ObservableSet<IGranting> listOfChosenGrantings = FXCollections.observableSet();
@@ -192,6 +184,21 @@ public class ElucidationViewController extends Component implements IElucidation
                 }
             }
         });
+    }
+
+    //endregion
+
+    //region meeting
+
+
+    @Override
+    public void onCreateMeeting(IEventListener<?> listener) {
+        createMeetingSubscribers.add(listener);
+    }
+
+    @FXML
+    void createMeeting(ActionEvent event) {
+        createMeetingSubscribers.forEach(listener -> listener.onAction(null));
     }
 
     //endregion

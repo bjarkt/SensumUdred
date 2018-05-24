@@ -6,6 +6,7 @@ import UI.IUserInterface;
 import UI.JavaFX;
 import UI.SecuredAspect;
 import UI.components.IComponent;
+import UI.components.LoadingService;
 import UI.components.all_elucidations_view.HomeViewController;
 import UI.components.all_elucidations_view.IHomeView;
 import UI.components.data_prompt.DataPromptController;
@@ -19,11 +20,12 @@ import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
 import UI.components.log_in_page.ILogInView;
 import UI.components.log_in_page.LogInViewController;
+import UI.components.meetingPopUp.IMeetingPopUp;
+import UI.components.meetingPopUp.IMeetingPopUpRequire;
+import UI.components.meetingPopUp.MeetingPopUpController;
 import UI.components.popUp.IPopUpRequire;
 import UI.components.popUp.IPopup;
 import UI.components.popUp.PopUpController;
-import UI.components.textfield.ITextField;
-import UI.components.textfield.TextFieldController;
 import UI.components.user_menu.IUserMenu;
 import UI.components.user_menu.UserMenuController;
 import UI.components.vertical_menu.IVerticalMenu;
@@ -39,10 +41,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
@@ -249,6 +248,9 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 	}
 
+
+
+
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
 			profile = business.getSigningService().signIn(data[0], data[1]);
@@ -312,7 +314,24 @@ public class UserFacade implements IUserInterface, Initializable {
 			System.out.println(data);
 		});
 
+		elucidationView.onCreateMeeting(data -> {
+			IMeetingPopUp meetingPopUp = new MeetingPopUpController(new IMeetingPopUpRequire() {
+				@Override
+				public AnchorPane getParent() {
+					return screen;
+				}
+			});
+
+			meetingPopUp.show("Indkald til møde", "Data her");
+
+
+		});
+
+
 	}
+
+
+
 
 	/**
 	 * {@inheritDoc}
