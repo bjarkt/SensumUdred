@@ -234,6 +234,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			userDrawer.open();
 			userDrawer.setContent();
 			userMenu.setUsersName(profile.getUser().getName());
+			userMenu.setUserID(profile.getAccount().getUsername());
 		});
 	}
 
@@ -261,6 +262,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	}
 
+	// Setup the user drawer with event handlers.
 	private void setupUserMenu(){
 		userMenu.onLogOut(data -> {
 			business.getUserManager().signOut(profile.getAccount().getUsername());
@@ -301,6 +303,8 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupAllElucidationsView(){
 		homeView.onElucidationClick(data -> {
+			elucidationView = new ElucidationViewController();
+			setupElucidationView();
 			setCenter(elucidationView);
 		});
 

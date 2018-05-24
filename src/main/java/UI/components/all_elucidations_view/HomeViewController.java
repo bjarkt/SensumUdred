@@ -107,7 +107,6 @@ public class HomeViewController extends Component implements IHomeView {
     static class Cell extends JFXListCell<IElucidation>{
         HBox hBox = new HBox();
         VBox vBox = new VBox();
-        JFXCheckBox checkBox = new JFXCheckBox();
         Label citizenName = new Label("");
         Label createdDate = new Label("11/03/1997");
         Label lastEditedDate = new Label("14/05/2018");
@@ -116,7 +115,7 @@ public class HomeViewController extends Component implements IHomeView {
             super();
             vBox.getChildren().addAll(citizenName, createdDate);
             vBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.getChildren().addAll(vBox, spacer, checkBox);
+            hBox.getChildren().addAll(vBox, spacer);
             citizenName.getStyleClass().add("eludicationsList_citizenName");
             createdDate.getStyleClass().add("eludicationsList_createdDate");
             lastEditedDate.getStyleClass().add("eludicationsList_lastEditedDate");

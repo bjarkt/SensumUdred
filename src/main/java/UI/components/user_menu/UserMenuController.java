@@ -22,6 +22,9 @@ public class UserMenuController extends Component implements IUserMenu {
     @FXML
     private Label usersName;
 
+    @FXML
+    private Label username;
+
     public UserMenuController() {
         super("user_menu.fxml");
     }
@@ -38,7 +41,7 @@ public class UserMenuController extends Component implements IUserMenu {
 
     @Override
     public void setUserID(String userID) {
-
+        this.username.setText(userID);
     }
 
     @Override
