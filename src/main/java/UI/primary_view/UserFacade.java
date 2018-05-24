@@ -2,6 +2,7 @@ package UI.primary_view;
 
 import ACQ.IElucidation;
 import ACQ.IProfile;
+import ACQ.IUser;
 import BLL.IBusiness;
 import UI.IUserInterface;
 import UI.JavaFX;
@@ -290,6 +291,8 @@ public class UserFacade implements IUserInterface, Initializable {
 					profile = data1;
 					SecuredAspect.setAccount(data1.getAccount());
 					Platform.runLater(() -> {
+						homeView = new HomeViewController();
+						setupAllElucidationsView();
 						isLoggedIn.setValue(true);
 					});
 				} else{
@@ -309,13 +312,18 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		homeView.onNewInquiry(data -> {
+			IUser citizen;
+			String inquiry = "";
+
 			IDataPrompt dataPrompt = new DataPromptController();
 			setCenter(dataPrompt);
 			dataPrompt.setPrompt("Hvem er borgeren?");
 			dataPrompt.addTextFields("CPR-nummer", "Fornavn", "Efternavn", "Email", "Telefon");
 			dataPrompt.onContinue(data1 -> {
+				System.out.println("Hey");
 				dataPrompt.setPrompt("Beskriv henvendelsen");
 				dataPrompt.addTextFields("Om henvendelsen");
+				System.out.println("Hey2");
 			});
 		});
 	}
