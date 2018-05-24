@@ -147,6 +147,7 @@ public class UserFacade implements IUserInterface, Initializable {
 				canvas.setLeft(verticalMenu.getView());
 				canvas.getLeft().getStyleClass().add("canvas_left");
 				setCenter(homeView);
+				homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
 				setupUserMenu();
 				verticalMenu.setMyElucidationsButtonActive();
 
@@ -229,7 +230,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		verticalMenu.onMyElucidationsClick(data -> {
 			if(isMobile) drawer.close();
 			setCenter(homeView);
-			
+			homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
 		});
 
 		verticalMenu.onUserManagement(data -> {
