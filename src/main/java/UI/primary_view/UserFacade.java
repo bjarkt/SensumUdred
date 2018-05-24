@@ -281,7 +281,9 @@ public class UserFacade implements IUserInterface, Initializable {
 						isLoggedIn.setValue(true);
 					});
 				} else{
-					logInView.writeError("Brugernavn eller adgangskode er forkert.");
+					Platform.runLater(() -> {
+						logInView.writeError("Brugernavn eller adgangskode er forkert.");
+					});
 				}
 				Platform.runLater(() -> {
 					stopSpinner();
