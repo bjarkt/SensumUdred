@@ -320,10 +320,8 @@ public class UserFacade implements IUserInterface, Initializable {
 			dataPrompt.setPrompt("Hvem er borgeren?");
 			dataPrompt.addTextFields("CPR-nummer", "Fornavn", "Efternavn", "Email", "Telefon");
 			dataPrompt.onContinue(data1 -> {
-				System.out.println("Hey");
 				dataPrompt.setPrompt("Beskriv henvendelsen");
 				dataPrompt.addTextFields("Om henvendelsen");
-				System.out.println("Hey2");
 			});
 		});
 	}
