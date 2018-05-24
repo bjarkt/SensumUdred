@@ -27,7 +27,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	}
 
 	@Override
-	public boolean updateInqueryDescription(long id, String newDescription) {
+	public boolean updateInquiryDescription(long id, String newDescription) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -167,6 +167,40 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		);
 
 		return elucidation.get();
+	}
+
+	@Override
+	public Set<IElucidation> getOpenElucidationsFromSSN(String ssn) {
+		AtomicReference<Set<IElucidation>> atomicSet = new AtomicReference<>();
+		executeQuery(conn -> atomicSet.set(getElucidationsFromSSN(conn, ssn, true)));
+		return atomicSet.get();
+	}
+
+	@Override
+	public Set<IElucidation> getClosedElucidationsFromSSN(String ssn) {
+		AtomicReference<Set<IElucidation>> atomicSet = new AtomicReference<>();
+		executeQuery(conn -> atomicSet.set(getElucidationsFromSSN(conn, ssn, false)));
+		return atomicSet.get();
+	}
+
+	private Set<IElucidation> getElucidationsFromSSN(Connection conn, String ssn, boolean getOpenElucidations) throws SQLException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT id FROM elucidations WHERE isclosed = ? AND id IN (");
+		sb.append("SELECT id FROM elucidations WHERE applies_ssn = '90909090' OR id IN (");
+		sb.append("SELECT elucidations_id FROM worksin WHERE users_ssn = '90909090'));");
+
+		PreparedStatement ps = conn.prepareStatement(sb.toString());
+		ps.setBoolean(1, getOpenElucidations);
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<IElucidation> elucidations = new HashSet<>();
+
+		while(rs.next()) {
+			elucidations.add(getElucidation(rs.getLong(1)));
+		}
+
+		return elucidations;
 	}
 
 	private boolean updateColumnOnATableWithStringOnTaskId(Connection conn, long id, String newDescription, String table, String column) throws SQLException {
