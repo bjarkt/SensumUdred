@@ -18,6 +18,7 @@ public class Elucidation implements IElucidation {
 	private Date creationTime;
 
 	public Elucidation(long id, IUser citizen, Set<IUser> caseworkers, Date creationTime, IDialog dialog) {
+		this.id = id;
 		this.citizen = citizen;
 		this.caseworkers = caseworkers;
 		this.creationTime = creationTime;
