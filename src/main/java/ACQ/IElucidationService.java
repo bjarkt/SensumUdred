@@ -4,7 +4,7 @@ import java.util.Set;
 
 public interface IElucidationService {
 	/**
-	 * Create an elucidation with given informations.
+	 * Create an elucidation with given information.
 	 * @param citizen the citizen it is about
 	 * @param caseworkers the caseworkers on the elucidation
 	 * @param inquiry the inquiry about/from the citizen

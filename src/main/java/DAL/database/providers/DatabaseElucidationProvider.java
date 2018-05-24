@@ -70,6 +70,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return atomicReference.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateInquiry(long id, IInquiry inquiry) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -89,6 +92,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateState(long id, boolean isclosed) {
 		AtomicBoolean atomicBoolean = new AtomicBoolean(false);
@@ -105,6 +111,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return atomicBoolean.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateCaseworkers(long id, Set<IUser> users) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -119,6 +128,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateCitizenConsent(long id, boolean hasConsent) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -136,6 +148,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateActingMunicipality(long id, String municipality) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -145,6 +160,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateSpecialCircumstances(long id, String newDescription) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -154,6 +172,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateGuardianAuthority(long id, String newDescription) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -163,6 +184,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateTotalLevelOfFunction(long id, char letter) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -174,6 +198,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateOffers(long id, Set<IOffer> offers) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -188,6 +215,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateGrantings(long id, Set<IGranting> grantings) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -202,6 +232,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateThemes(long id, Set<ITheme> themes) {
 		AtomicBoolean bool = new AtomicBoolean(false);
@@ -218,6 +251,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return bool.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateMeeting(long id, IMeeting meeting) {
 		AtomicBoolean atomicBoolean = new AtomicBoolean(false);
@@ -232,11 +268,17 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return atomicBoolean.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean updateThirdPartyAttachments(long id, Set<IAttachment> attachments) {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IElucidation getElucidation(long id) {
 		AtomicReference<Elucidation> elucidation = new AtomicReference<>();
@@ -252,6 +294,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return elucidation.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<IElucidation> getOpenElucidationsFromSSN(String ssn) {
 		AtomicReference<Set<IElucidation>> atomicSet = new AtomicReference<>();
@@ -259,6 +304,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return atomicSet.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<IElucidation> getClosedElucidationsFromSSN(String ssn) {
 		AtomicReference<Set<IElucidation>> atomicSet = new AtomicReference<>();
@@ -273,7 +321,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		sb.append("SELECT elucidations_id FROM worksin WHERE users_ssn = '90909090'));");
 
 		PreparedStatement ps = conn.prepareStatement(sb.toString());
-		ps.setBoolean(1, getOpenElucidations);
+		ps.setBoolean(1, getClosedElucidations);
 
 		ResultSet rs = ps.executeQuery();
 
