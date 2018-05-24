@@ -15,7 +15,7 @@ public class Dialog implements IDialog {
 	 * Not implemented.
 	 */
 	@Override
-	public IMeeting createMeeting(IUser currentUser, long meetingNumber) {
+	public IMeeting createMeeting(IUser currentUser, int meetingNumber) {
 		return null;
 	}
 

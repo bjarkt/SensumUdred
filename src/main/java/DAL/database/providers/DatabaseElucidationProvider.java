@@ -2,17 +2,23 @@ package DAL.database.providers;
 
 import ACQ.*;
 import BLL.case_opening.third_party_information.IAttachment;
-import ACQ.IDialog;
 import DAL.database.DatabaseHelper;
 import DAL.database.PostgreSqlDatabase;
 import DAL.dataobject.Dialog;
+import DAL.dataobject.Elucidation;
 import DAL.dataobject.Meeting;
 import DAL.dataobject.User;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DatabaseElucidationProvider extends PostgreSqlDatabase implements IElucidationService {
 	@Override
@@ -151,7 +157,16 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 
 	@Override
 	public IElucidation getElucidation(long id) {
-		return null;
+		AtomicReference<Elucidation> elucidation = new AtomicReference<>();
+
+		executeQuery(conn -> elucidation.set(new Elucidation(
+				getCitizenForElucidation(conn, id),
+				getCaseworkersForElucidation(conn, id),
+				getCreationDateForElucidation(conn, id),
+				getDialogForElucidation(conn, id)))
+		);
+
+		return elucidation.get();
 	}
 
 	private boolean updateColumnOnATableWithStringOnTaskId(Connection conn, long id, String newDescription, String table, String column) throws SQLException {

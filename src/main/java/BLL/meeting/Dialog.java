@@ -20,7 +20,7 @@ public class Dialog implements IDialog {
      * {@inheritDoc}
      */
     @Override
-    public IMeeting createMeeting(IUser currentUser, long meetingNumber) {
+    public IMeeting createMeeting(IUser currentUser, int meetingNumber) {
         IMeeting meeting = new Meeting(currentUser, eBoks, meetingNumber);
         meetings.add(meeting);
         return meeting;
@@ -53,5 +53,10 @@ public class Dialog implements IDialog {
             }
         }
         return meetingsToBeFound;
+    }
+
+    @Override
+    public Set<IMeeting> getMeetings() {
+        return meetings;
     }
 }

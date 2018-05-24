@@ -3,6 +3,8 @@ package BLL.account_system;
 import ACQ.*;
 import BLL.security_system.SecuritySystem;
 
+import java.util.Locale;
+
 public final class UserManager implements IUserManager {
 	private IDefaultService defaultService;
     private ISigningService service;
@@ -27,6 +29,8 @@ public final class UserManager implements IUserManager {
     @Override
     public IProfile signIn(String username, String password) {
 	    IProfile profile = null;
+
+	    username = username.toLowerCase(Locale.ROOT);
 
 	    if(defaultService.accountExists(username)) {
             profile = service.signIn(username, password);
