@@ -74,6 +74,9 @@ public class UserFacade implements IUserInterface, Initializable {
 	// Wrapper for loading spinner.
 	private StackPane spinnerWrapper;
 
+	// Boolean attribute holding spinning state.
+	private boolean isSpinning;
+
 	/** Reference to the current center page component visible. */
 	private IComponent currentCenterView;
 
@@ -395,16 +398,20 @@ public class UserFacade implements IUserInterface, Initializable {
 	 * Starts loading spinner to visualize a present call to database.
 	 */
 	private void startSpinner(){
-		JFXSpinner spinner = new JFXSpinner();
-		spinner.setRadius(12);
-		spinnerWrapper = new StackPane(spinner);
-		screen.getChildren().add(spinnerWrapper);
-		screen.setLeftAnchor(spinnerWrapper, 0.);
-		screen.setRightAnchor(spinnerWrapper, 0.);
-		screen.setBottomAnchor(spinnerWrapper, 20.);
+		if(isSpinning == false) {
+			isSpinning = true;
+			JFXSpinner spinner = new JFXSpinner();
+			spinner.setRadius(12);
+			spinnerWrapper = new StackPane(spinner);
+			screen.getChildren().add(spinnerWrapper);
+			screen.setLeftAnchor(spinnerWrapper, 0.);
+			screen.setRightAnchor(spinnerWrapper, 0.);
+			screen.setBottomAnchor(spinnerWrapper, 20.);
+		}
 	}
 
 	private void stopSpinner(){
+		isSpinning = false;
 		screen.getChildren().remove(spinnerWrapper);
 	}
 
