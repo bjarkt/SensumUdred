@@ -148,7 +148,7 @@ public class UserFacade implements IUserInterface, Initializable {
 				canvas.setLeft(verticalMenu.getView());
 				canvas.getLeft().getStyleClass().add("canvas_left");
 				setCenter(homeView);
-				homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
+				//homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
 				setupUserMenu();
 				verticalMenu.setMyElucidationsButtonActive();
 
@@ -231,7 +231,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		verticalMenu.onMyElucidationsClick(data -> {
 			if(isMobile) drawer.close();
 			setCenter(homeView);
-			homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
+			//homeView.tickList(business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber()));
 		});
 
 		verticalMenu.onUserManagement(data -> {
@@ -261,9 +261,18 @@ public class UserFacade implements IUserInterface, Initializable {
 			Task<IProfile> task = new Task<>(new Supplier<IProfile>() {
 				@Override
 				public IProfile get() {
+					Platform.runLater(() -> {
+						startSpinner();
+					});
 					profile = business.getUserManager().signIn(data[0], data[1]);
 					return profile;
 				}
+			});
+
+			task.setFinishedListener((observable, oldValue, newValue) -> {
+				Platform.runLater(() -> {
+					stopSpinner();
+				});
 			});
 
 			task.setOnSucceeded(data1 -> {
