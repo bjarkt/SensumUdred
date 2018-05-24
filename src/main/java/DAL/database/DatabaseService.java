@@ -10,6 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Contains all the different providers in the database section.
+ * It can invoke all methods the different services provide.
+ */
 public class DatabaseService extends PostgreSqlDatabase implements IDatabaseService {
 	private IDefaultService defaultService;
 	private IAdminService adminService;
@@ -50,31 +54,20 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 		return signingService;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
 	@Override
 	public IElucidationService getElucidationService() {
 		return elucidationService;
 	}
 
-	@Override
-	public boolean fileMeeting(IMeeting meeting) {
-		final AtomicBoolean isFiled = new AtomicBoolean(false);
-		final String query = "";
-
-		executeQuery(conn-> {
-			PreparedStatement ps = conn.prepareStatement(query);
-			//ps.set
-			// set the parameters to the SQL...
-
-			isFiled.set(ps.executeUpdate() > 0);
-		});
-
-		return isFiled.get();
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void testConnection() throws SQLException {
 		PostgreSqlDatabase.getConnection();
 	}
-
-
 }
