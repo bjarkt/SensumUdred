@@ -275,6 +275,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 			task.setOnSucceeded(data1 -> {
 				if(data1 != null){
+					profile = data1;
 					SecuredAspect.setAccount(data1.getAccount());
 					Platform.runLater(() -> {
 						isLoggedIn.setValue(true);
