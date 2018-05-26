@@ -84,7 +84,8 @@ CREATE TABLE elucidations(
 CREATE TABLE elucidationsHasTasks(
   elucidations_ID BIGINT,
   task_ID BIGINT,
-  state TEXT
+  state TEXT,
+  PRIMARY KEY (elucidations_ID, task_ID)
 );
 
 CREATE TABLE inquiries(
@@ -96,6 +97,7 @@ CREATE TABLE inquiries(
 CREATE TABLE cases(
   task_ID BIGSERIAL PRIMARY KEY,
   inquries_description TEXT DEFAULT '',
+  inquries_source TEXT DEFAULT '',
   guardianAuthority TEXT DEFAULT '',
   citizensConsent BOOLEAN DEFAULT false,
   actingMunicipality TEXT DEFAULT '',
