@@ -171,8 +171,8 @@ public class Case extends Inquiry implements ICase {
      */
     @Override
     public void setTotalLevelOfFunction(char level) {
-        if (level < 'A' || level > 'F') {
-            throw new IllegalArgumentException("level must be between A and F, it was " + level);
+        if (level < 'A' || level > 'E') {
+            throw new IllegalArgumentException("level must be between A and E, it was " + level);
         }
 
         this.totalLevelOfFunction = level;

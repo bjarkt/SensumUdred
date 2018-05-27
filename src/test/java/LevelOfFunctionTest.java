@@ -47,21 +47,21 @@ public class LevelOfFunctionTest {
     public void setTotalLevelOfFunctionTest() {
         ICase aCase = createCase();
 
-        char[] badFunctionLevels = {'@', 'G'};
+        char[] badFunctionLevels = {'@', 'F'};
         char goodFunctionLevel = 'A';
 
         try {
             aCase.setTotalLevelOfFunction(badFunctionLevels[0]);
             fail("Expected an IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[0]);
+            assertEquals(iae.getMessage(), "level must be between A and E, it was " + badFunctionLevels[0]);
         }
 
         try {
             aCase.setTotalLevelOfFunction(badFunctionLevels[1]);
             fail("Expected an IllegalArgumentException to be thrown");
         } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[1]);
+            assertEquals(iae.getMessage(), "level must be between A and E, it was " + badFunctionLevels[1]);
         }
 
         aCase.setTotalLevelOfFunction(goodFunctionLevel);
