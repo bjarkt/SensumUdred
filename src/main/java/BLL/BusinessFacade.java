@@ -2,6 +2,7 @@ package BLL;
 
 import ACQ.*;
 import BLL.account_system.Address;
+import BLL.account_system.User;
 import BLL.account_system.UserManager;
 import BLL.eboks.EBoks;
 import BLL.getter.address_getter.GetAddress;
@@ -151,7 +152,7 @@ public class BusinessFacade implements IBusiness {
 	@SecurityLevel(500)
 	@Override
 	public IGetUser getGetUser() {
-		return new GetUser(persistent.getHttp());
+		return new GetUser(persistent.getHttp(), Address.class, User.class);
 	}
 
 	/**
