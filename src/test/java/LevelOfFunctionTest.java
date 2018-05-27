@@ -71,18 +71,13 @@ public class LevelOfFunctionTest {
 
         int[] badFunctionLevels = {-1, 5};
 
-        try {
-            themeList.get(0).setLevelOfFunction(badFunctionLevels[0]);
-            fail("Expected an IllegalArgumentException to be thrown");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevels[0]);
-        }
-
-        try {
-            themeList.get(0).setLevelOfFunction(badFunctionLevels[1]);
-            fail("Expected an IllegalArgumentException to be thrown");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevels[1]);
+        for (int badFunctionLevel : badFunctionLevels) {
+            try {
+                themeList.get(0).setLevelOfFunction(badFunctionLevel);
+                fail("Expected an IllegalArgumentException to be thrown");
+            } catch (IllegalArgumentException iae) {
+                assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevel);
+            }
         }
 
         assertEquals(-1, themeList.get(0).getLevelOfFunction());
