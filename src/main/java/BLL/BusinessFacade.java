@@ -152,7 +152,7 @@ public class BusinessFacade implements IBusiness {
 	@SecurityLevel(500)
 	@Override
 	public IGetUser getGetUser() {
-		return new GetUser(persistent.getHttp(), Address.class, User.class);
+		return new GetUser(persistent.getHttp(), User.class);
 	}
 
 	/**

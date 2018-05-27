@@ -11,7 +11,7 @@ public class GetUserTest {
 
     @Test
     public void TestUserGetter() {
-        IGetUser getUser = new GetUser(TestHelper.getHttpClient(), Address.class, User.class);
+        IGetUser getUser = new GetUser(TestHelper.getHttpClient(), User.class);
 
         IUser userResult = getUser.getUser("1104694124");
 
