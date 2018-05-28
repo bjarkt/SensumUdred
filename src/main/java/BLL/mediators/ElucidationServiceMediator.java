@@ -131,17 +131,19 @@ public class ElucidationServiceMediator implements IElucidationService {
     private Elucidation convertToRealElucidation(IElucidation DALElucidation) {
         Set<IMeeting> realMeetings = new HashSet<>();
 
-        for (IMeeting dalMeeting : DALElucidation.getDialog().getMeetings()) {
-            BLL.meeting.Meeting bllMeeting = new Meeting(dalMeeting.getCreator(), eboks, dalMeeting.getNumber());
-            bllMeeting.setInformation(dalMeeting.getInformation());
+        if (DALElucidation.getDialog() != null) {
+            for (IMeeting dalMeeting : DALElucidation.getDialog().getMeetings()) {
+                BLL.meeting.Meeting bllMeeting = new Meeting(dalMeeting.getCreator(), eboks, dalMeeting.getNumber());
+                bllMeeting.setInformation(dalMeeting.getInformation());
 
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(dalMeeting.getMeetingDate());
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dalMeeting.getMeetingDate());
 
-            bllMeeting.setMeetingDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
-            bllMeeting.setNumber(dalMeeting.getNumber());
+                bllMeeting.setMeetingDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
+                bllMeeting.setNumber(dalMeeting.getNumber());
 
-            realMeetings.add(bllMeeting);
+                realMeetings.add(bllMeeting);
+            }
         }
 
         Dialog realDialog = new Dialog(httpClient, eboks);

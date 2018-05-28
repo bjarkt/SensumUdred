@@ -12,13 +12,32 @@ import java.util.*;
 
 public class Inquiry extends Task implements IInquiry {
 
+    private String description;
+    private String source;
+
+    public Inquiry(String description, String source) {
+        this.description = description;
+        this.source = source;
+    }
+
+    public Inquiry(IInquiry inquiry) {
+        this.description = inquiry.getDescription();
+        this.source = inquiry.getSource();
+    }
+
+    public Inquiry() {
+        this.description = "";
+        this.source = "";
+    }
+
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public String getSource() {
-        return null;
+        return source;
     }
+
 }

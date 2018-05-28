@@ -1,6 +1,7 @@
 package BLL;
 
 import ACQ.*;
+import BLL.Inquiry.Inquiry;
 import BLL.account_system.Address;
 import BLL.account_system.User;
 import BLL.account_system.UserManager;
@@ -76,6 +77,16 @@ public class BusinessFacade implements IBusiness {
 		return user;
 	}
 
+	@Override
+	public IUser createUser(String ssn, String firstName, String lastName, IAddress address, String phone, String email) {
+		User user = new User(ssn, firstName, lastName);
+		user.setAddress((Address)address);
+		user.setPhoneNumber(phone);
+		user.setEmail(email);
+
+		return user;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -115,8 +126,8 @@ public class BusinessFacade implements IBusiness {
 	 */
 	@SecurityLevel(500)
 	@Override
-	public void createInquiry() {
-
+	public IInquiry createInquiry(String description, String source) {
+		return new Inquiry(description, source);
 	}
 
 	/**

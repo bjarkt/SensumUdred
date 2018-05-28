@@ -59,6 +59,7 @@ public class Case extends Inquiry implements ICase {
     private char totalLevelOfFunction;
 
     public Case(IInquiry inquiry){
+        super(inquiry);
         setState(ElucidationState.CASE);
         this.description = inquiry.getDescription();
         offers = new HashSet<>();
