@@ -83,6 +83,8 @@ public class BusinessFacade implements IBusiness {
 		user.setPhoneNumber(phone);
 		user.setEmail(email);
 
+		userManager.signUpUser(ssn, firstName, lastName, phone, email);
+
 		return user;
 	}
 
