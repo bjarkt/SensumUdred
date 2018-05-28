@@ -8,33 +8,33 @@ INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@te
 INSERT INTO haslogin VALUES ('99999999', 10001);
 INSERT INTO accounts VALUES(10001, 'tester', '$2a$10$sXLHK59F9z.P5rRVycQ4N.FIwMYdo0pF2Rl10NYNToXD57s7cVBzu', 0, false, false, 0, null);
 
--- Accounts for each member
+-- Users and Accounts for CASEWORKERS
 
-INSERT INTO users VALUES ('90909090', 'Lasse', 'Bubbibjørn', '80808080', 'lasse@lasse.com');
-INSERT INTO haslogin VALUES ('90909090', 10002);
+INSERT INTO users VALUES ('1103971427', 'Lasse', 'Traberg-Larsen', '28499228', 'lasse@traberg-larsen.dk');
+INSERT INTO haslogin VALUES ('1103971427', 10002);
 INSERT INTO accounts VALUES(10002, 'lasse', '$2a$10$tfYqKXCgmHFyBtHisQLJ6uWEc8eLeF3mc8zDSchnhThDKpj/VHKxO', 1000, false, false, 0, null);
 
-INSERT INTO users VALUES ('80808080', 'Bjarke', 'Pingvinbjørn', '', 'bjarke@bjarke.com');
-INSERT INTO haslogin VALUES ('80808080', 10003);
+INSERT INTO users VALUES ('2705973047', 'Bjarke', 'Tobiesen', '', 'blarke@tobiesenet.com');
+INSERT INTO haslogin VALUES ('2705973047', 10003);
 INSERT INTO accounts VALUES(10003, 'bjarke', '$2a$10$dCZFD3vrEyDWierWbBW09.AhPaGNrKg9dkfS/UUOH3e1xZF0OjIEG', 1000, false, false, 0, null);
 
-INSERT INTO users VALUES ('70707070', 'Lavan', 'Højbjørn', '', 'lavan@lavan.com');
-INSERT INTO haslogin VALUES ('70707070', 10004);
+INSERT INTO users VALUES ('0112982851', 'Lavan', 'Sathiyaseelan', '', 'lavansathi@gmail.com');
+INSERT INTO haslogin VALUES ('0112982851', 10004);
 INSERT INTO accounts VALUES(10004, 'lavan', '$2a$10$IcK4B09228.mbfqJBwlUq.SSxaRkmk405yqcKpETSkHboPa1qNZmS', 1000, false, false, 0, null);
 
-INSERT INTO users VALUES ('60606060', 'Dennis', 'Isbjørn', '', 'dennis@dennis.com');
-INSERT INTO haslogin VALUES ('60606060', 10005);
+INSERT INTO users VALUES ('0610970819', 'Dennis', 'Petersen', '', 'dennistp@hotmail.dk');
+INSERT INTO haslogin VALUES ('0610970819', 10005);
 INSERT INTO accounts VALUES(10005, 'dennis', '$2a$10$Jg3ovmsApjj8yWpdAUR3ruX1S8m/do07oNLYv6kAD7naksiW1AfHq', 1000, false, false, 0, null);
 
-INSERT INTO users VALUES ('50505050', 'Christian', 'Spisebjørn', '', 'christian@christian.com');
-INSERT INTO haslogin VALUES ('50505050', 10006);
+INSERT INTO users VALUES ('1501982132', 'Christian', 'Aaby', '', 'christian@christian.com');
+INSERT INTO haslogin VALUES ('1501982132', 10006);
 INSERT INTO accounts VALUES(10006, 'christian', '$2a$10$pUJoeK62U1mB5AoxU4NY9.hVvOYb.CMW/IGRD5Vc3T.u.rP8ILog6', 1000, false, false, 0, null);
 
-INSERT INTO users VALUES ('40404040', 'Adrian', 'Cykelbjørn', '', 'adrian@adrian.com');
-INSERT INTO haslogin VALUES ('40404040', 10007);
+INSERT INTO users VALUES ('2802972051', 'Adrian', 'Navntoft', '', 'adrian@adrian.com');
+INSERT INTO haslogin VALUES ('2802972051', 10007);
 INSERT INTO accounts VALUES(10007, 'adrian', '$2a$10$823Zj8H9Qd5syYxfEkxLjO6V6OLKyRIcIgRRqeQN6QlBE6U84Fu/2', 1000, false, false, 0, null);
 
--- TEST USERS
+-- Users and Accounts for CITIZENS
 
 INSERT INTO users VALUES ('12345678', 'Frank', 'Poulsen', '', 'frank@poulsen.com');
 INSERT INTO haslogin VALUES ('12345678', 10008);
