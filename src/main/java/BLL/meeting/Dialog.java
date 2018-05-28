@@ -20,8 +20,13 @@ public class Dialog implements IDialog {
      * {@inheritDoc}
      */
     @Override
-    public IMeeting createMeeting(IUser currentUser, int meetingNumber) {
-        IMeeting meeting = new Meeting(currentUser, eBoks, meetingNumber);
+    public IMeeting createMeeting(IUser currentUser) {
+        int largestNum = 0;
+        for (IMeeting meeting : meetings) {
+            largestNum = Math.max(largestNum, meeting.getNumber());
+        }
+
+        IMeeting meeting = new Meeting(currentUser, eBoks, largestNum+1);
         meetings.add(meeting);
         return meeting;
     }

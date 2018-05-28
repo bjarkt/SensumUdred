@@ -11,7 +11,7 @@ public interface IDialog {
      * Create a new meeting and add it to the collection of meetings
      * @return new IMeeting
      */
-    IMeeting createMeeting(IUser currentUser, int meetingNumber);
+    IMeeting createMeeting(IUser currentUser);
 
     /**
      * Cancel a meeting, and remove it from the collection of meetings

@@ -13,7 +13,7 @@ public class Elucidation implements IElucidation {
     private long id;
     private IUser citizen;
     private Set<IUser> caseworkers;
-    private Task task;
+    private ITask task;
     private Date dateOfOpening;
     private IDialog dialog;
 
@@ -24,7 +24,7 @@ public class Elucidation implements IElucidation {
         this.citizen = citizen;
         caseworkers = new HashSet<>();
         caseworkers.add(creator);
-        task = task;
+        this.task = task;
         this.dialog = dialog;
     }
 

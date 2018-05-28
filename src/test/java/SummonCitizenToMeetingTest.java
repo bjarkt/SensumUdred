@@ -23,7 +23,7 @@ public class SummonCitizenToMeetingTest {
     @BeforeEach
     public void initialize() {
         dialog = new Dialog(httpClient, new EBoks(httpClient));
-        meeting = dialog.createMeeting(creatorOfMeeting, 0);
+        meeting = dialog.createMeeting(creatorOfMeeting);
         meeting.addParticipant(participant, TestHelper.createUser("0987"));
         meeting.setMeetingDate(2018, 6, 25, 6, 4);
         meeting.setInformation("HEJ");
@@ -35,6 +35,7 @@ public class SummonCitizenToMeetingTest {
 
         assertTrue(meetingMessageisSent);
         assertEquals("HEJ", meeting.getInformation());
+        assertEquals(1, dialog.getMeetings().stream().findFirst().get().getNumber());
     }
 
     @Test
