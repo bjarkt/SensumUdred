@@ -38,13 +38,13 @@ public interface ICase extends IInquiry {
      * Accessor method for case's grantings.
      * @return case's grantings.
      */
-    Set<IGranting> getGrantings();
+    Set<IOffer> getOffers();
 
     /**
      * Accessor method for case's offers.
      * @return  case's offers.
      */
-    Set<IOffer> getOffers();
+    Set<IGranting> getGrantings();
 
     /**
      * Accessor method for third party informations.

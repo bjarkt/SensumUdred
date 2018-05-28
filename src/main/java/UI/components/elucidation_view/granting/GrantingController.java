@@ -14,9 +14,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
-public class GrantingController extends Component implements IGranting {
+public class GrantingController extends Component implements IGrantingUI {
 
-    private List<IEventListener<IGranting>> onGrantingSelectedSubscribers = new ArrayList<>();
+    private List<IEventListener<IGrantingUI>> onGrantingSelectedSubscribers = new ArrayList<>();
 
     private boolean selected;
 
@@ -45,7 +45,7 @@ public class GrantingController extends Component implements IGranting {
     }
 
     @Override
-    public void onGrantingSelected(IEventListener<IGranting> listener) {
+    public void onGrantingSelected(IEventListener<IGrantingUI> listener) {
         onGrantingSelectedSubscribers.add(listener);
     }
 
@@ -80,6 +80,12 @@ public class GrantingController extends Component implements IGranting {
     @Override
     public boolean isSelected() {
         return selected;
+    }
+
+    @Override
+    public void setData(String description, String paragraph) {
+        this.textField.setText(description);
+        this.paragraph.setText(paragraph);
     }
 
     public String getText(){

@@ -93,7 +93,7 @@ public interface IElucidationService {
 	 * @param offers the offers of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateOffers(long id, Set<IOffer> offers);
+	boolean updateOffers(long id, Set<IGranting> offers);
 
 	/**
 	 * Update grantings.
@@ -101,7 +101,7 @@ public interface IElucidationService {
 	 * @param grantings the grantings of the elucidation
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateGrantings(long id, Set<IGranting> grantings);
+	boolean updateGrantings(long id, Set<IOffer> grantings);
 
 	/**
 	 * Update themes.

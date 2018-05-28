@@ -86,12 +86,12 @@ public class ElucidationServiceMediator implements IElucidationService {
     }
 
     @Override
-    public boolean updateOffers(long id, Set<IOffer> offers) {
+    public boolean updateOffers(long id, Set<IGranting> offers) {
         return dataElucidationService.updateOffers(id, offers);
     }
 
     @Override
-    public boolean updateGrantings(long id, Set<IGranting> grantings) {
+    public boolean updateGrantings(long id, Set<IOffer> grantings) {
         return dataElucidationService.updateGrantings(id, grantings);
     }
 

@@ -8,7 +8,7 @@ import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
 import UI.components.dropdown_search.NameCheckboxCell;
 import UI.components.elucidation_view.granting.GrantingController;
-import UI.components.elucidation_view.granting.IGranting;
+import UI.components.elucidation_view.granting.IGrantingUI;
 import UI.components.elucidation_view.textfield_with_checkbox.ITextFieldWithCheckbox;
 import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheckboxController;
 import UI.components.elucidation_view.theme.IThemeUI;
@@ -20,6 +20,7 @@ import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -33,6 +34,8 @@ import java.util.*;
 
 public class ElucidationViewController extends Component implements IElucidationView {
 
+    // Reference to the current displayed elucidation.
+    private IElucidationViewRequire required;
 
     private List<IEventListener<?>> leaveEludicationSubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveCaseDescriptionSubscribers = new ArrayList<>();
@@ -46,10 +49,11 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onSendMessageSubscriber = new ArrayList<>();
+    private List<IEventListener<ElucidationState>> onToggleStateSubscribers = new ArrayList<>();
+    private List<IEventListener<?>> onCloseCaseSubscribers = new ArrayList<>();
 
 
-    private IElucidationViewRequire required;
-
+    // Boolean attribute used for component scaling.
     private boolean isMobile;
 
     @Secured("addCaseworkerToCase")
@@ -57,6 +61,44 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     private VBox caseWorkerContainer;
+
+    //region general elements
+    @FXML
+    private Label taskTitle;
+
+    @FXML
+    private JFXButton stateButton;
+
+    @FXML
+    void toggleState(ActionEvent event) {
+        System.out.println(required.getElucidation());
+        if(required.getElucidation().getTask().getState() == ElucidationState.INQUIRY){
+            onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationState.CASE));
+        } else {
+            onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationState.INQUIRY));
+        }
+    }
+
+    @Override
+    public void onToggleState(IEventListener<ElucidationState> listener) {
+        onToggleStateSubscribers.add(listener);
+    }
+
+
+    @FXML
+    private JFXButton closeToggleButton;
+
+    @FXML
+    void toggleCloseElucidation(ActionEvent event) {
+        onCloseCaseSubscribers.forEach(listener -> listener.onAction(null));
+    }
+
+    @Override
+    public void onCloseCase(IEventListener<?> listener) {
+        onCloseCaseSubscribers.add(listener);
+    }
+
+    //regionend
 
     //region offers_section
 
@@ -138,7 +180,8 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //region setup grantings section
 
-    private ObservableSet<IGranting> listOfChosenGrantings = FXCollections.observableSet();
+    private ObservableSet<IGrantingUI> listOfChosenGrantings = FXCollections.observableSet();
+    private ObservableSet<IGranting> listOfGrantings = FXCollections.observableSet();
 
     @FXML
     private VBox grantingsContainer;
@@ -154,26 +197,27 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     void addCaseGranting(ActionEvent event) {
-        IGranting granting = new GrantingController();
+        IGrantingUI granting = new GrantingController();
         granting.onGrantingSelected(data -> {
             if(data.isSelected()) listOfChosenGrantings.add(data);
             else listOfChosenGrantings.remove(data);
         });
+
         grantingWrapper.getChildren().add(granting.getView());
     }
 
     @FXML
     void deleteGranting(ActionEvent event) {
-        for (IGranting granting : listOfChosenGrantings) {
+        for (IGrantingUI granting : listOfChosenGrantings) {
             grantingWrapper.getChildren().remove(granting.getView());
         }
         listOfChosenGrantings.clear();
     }
 
     private void setupUpGrantingsSection(){
-        listOfChosenGrantings.addListener(new SetChangeListener<IGranting>() {
+        listOfChosenGrantings.addListener(new SetChangeListener<IGrantingUI>() {
             @Override
-            public void onChanged(Change<? extends IGranting> change) {
+            public void onChanged(Change<? extends IGrantingUI> change) {
                 if(listOfChosenGrantings.size() > 0){
                     deleteGrantingsButton.setVisible(true);
                     deleteGrantingsButton.setDisable(false);
@@ -183,6 +227,23 @@ public class ElucidationViewController extends Component implements IElucidation
                     deleteGrantingsButton.setVisible(false);
                     deleteGrantingsButton.setDisable(true);
                     deleteGrantingsButton.setText("Ingen ydelser valgt");
+                }
+            }
+        });
+
+        // Updates the list of grantings every time a change to the list happens.
+        listOfGrantings.addListener(new SetChangeListener<IGranting>() {
+            @Override
+            public void onChanged(Change<? extends IGranting> change) {
+                grantingWrapper.getChildren().clear();
+                for (IGranting granting : listOfGrantings) {
+                    IGrantingUI grantingUI = new GrantingController();
+                    grantingUI.setData(granting.getDescription(),Integer.toString(granting.getParagraph()));
+                    grantingUI.onGrantingSelected(data -> {
+                        if(data.isSelected()) listOfChosenGrantings.add(data);
+                        else listOfChosenGrantings.remove(data);
+                    });
+                    grantingWrapper.getChildren().add(grantingUI.getView());
                 }
             }
         });
@@ -346,8 +407,10 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox elucidationView_verticalLayout;
 
-    public ElucidationViewController() {
+    public ElucidationViewController(IElucidationViewRequire elucidationViewRequire) {
         super("elucidation_view.fxml", "Elucidation_Name");
+        setRequired(elucidationViewRequire);
+
     }
 
     @Override
@@ -672,11 +735,18 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @Override
     public void setElucidationData(IElucidation elucidation) {
+        taskTitle.setText("Sagsnummer: " + Long.toString(elucidation.getId()));
         if(elucidation.getTask().getState() == ElucidationState.INQUIRY){
             this.caseDescriptionField.setText(((IInquiry)(elucidation.getTask())).getDescription());
         } else{
-           // ((ICase)(elucidation.getTask())).getOffers().
+            listOfGrantings.addAll(((ICase)(elucidation.getTask())).getGrantings());
+           // ((ICase)(elucidation.getTask())).getGrantings().
         }
+    }
+
+    @Override
+    public void setRequired(IElucidationViewRequire required) {
+        this.required = required;
     }
 }
 

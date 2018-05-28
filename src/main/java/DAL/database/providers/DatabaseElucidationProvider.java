@@ -6,7 +6,6 @@ import DAL.database.DatabaseHelper;
 import DAL.database.PostgreSqlDatabase;
 import DAL.dataobject.*;
 
-import java.lang.ref.Reference;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -244,7 +243,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean updateOffers(long id, Set<IOffer> offers) {
+	public boolean updateOffers(long id, Set<IGranting> offers) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -261,7 +260,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean updateGrantings(long id, Set<IGranting> grantings) {
+	public boolean updateGrantings(long id, Set<IOffer> grantings) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -420,11 +419,11 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return deleteByCaseId(conn, id, "DELETE FROM offerings WHERE cases_id = ?;");
 	}
 
-	private boolean insertOffers(Connection conn, long id, Set<IOffer> offers) throws SQLException {
+	private boolean insertOffers(Connection conn, long id, Set<IGranting> offers) throws SQLException {
 		String query = "INSERT INTO offerings(cases_id, description, paragraph) VALUES (?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
-		for(IOffer offer : offers) {
+		for(IGranting offer : offers) {
 			ps.setLong(1, id);
 			ps.setString(2, offer.getDescription());
 
@@ -438,11 +437,11 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return deleteByCaseId(conn, id, "DELETE FROM grantings WHERE cases_id = ?;");
 	}
 
-	private boolean insertGrantings(Connection conn, long id, Set<IGranting> grantings) throws SQLException {
+	private boolean insertGrantings(Connection conn, long id, Set<IOffer> grantings) throws SQLException {
 		String query = "INSERT INTO grantings(cases_id, description) VALUES (?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
 
-		for(IGranting granting : grantings) {
+		for(IOffer granting : grantings) {
 			ps.setLong(1, id);
 			ps.setString(2, granting.getDescription());
 

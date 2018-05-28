@@ -1,9 +1,6 @@
 package UI.primary_view;
 
-import ACQ.IElucidation;
-import ACQ.IInquiry;
-import ACQ.IProfile;
-import ACQ.IUser;
+import ACQ.*;
 import BLL.IBusiness;
 import UI.IUserInterface;
 import UI.JavaFX;
@@ -18,6 +15,7 @@ import UI.components.drawer.IDrawer;
 import UI.components.drawer.IDrawerRequire;
 import UI.components.elucidation_view.ElucidationViewController;
 import UI.components.elucidation_view.IElucidationView;
+import UI.components.elucidation_view.IElucidationViewRequire;
 import UI.components.elucidation_view.theme.IThemeUI;
 import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
@@ -46,6 +44,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -109,8 +108,6 @@ public class UserFacade implements IUserInterface, Initializable {
 		verticalMenu = new VerticalMenuController();
 
 		userMenu = new UserMenuController();
-
-		elucidationView = new ElucidationViewController();
 
 		drawer = new DrawerController(new IDrawerRequire() {
 			@Override
@@ -318,9 +315,16 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	private void setupAllElucidationsView(){
+
+		// Instantiate and switch to elucidation view when user selects elucidation.
 		homeView.onElucidationClick(data -> {
 			if(data != null) {
-				elucidationView = new ElucidationViewController();
+				elucidationView = new ElucidationViewController(new IElucidationViewRequire() {
+					@Override
+					public IElucidation getElucidation() {
+						return data;
+					}
+				});
 				setCenter(elucidationView);
 				setupElucidationView(data);
 			}
@@ -386,6 +390,26 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		// Parses data about elucidation to loaded view.
 		elucidationView.setElucidationData(elucidation);
+
+		// Setup listener for when caseworker toggles state.
+		elucidationView.onToggleState(data -> {
+			business.getElucidationService().updateState(elucidation.getId(), false);
+			if(elucidation.getTask().getState() == ElucidationState.INQUIRY){
+				business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationState.CASE);
+			} else {
+				business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationState.INQUIRY);
+			}
+		});
+
+		elucidationView.onCloseCase(data -> {
+			business.getElucidationService().updateState(elucidation.getId(), true);
+			setCenter(homeView);
+		});
+
+
+
+
+
 
 		elucidationView.onSendMessage(data -> {
 			sendPopup.show();
@@ -495,13 +519,18 @@ public class UserFacade implements IUserInterface, Initializable {
 		Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
 			@Override
 			public Set<IElucidation> get() {
-				Platform.runLater(() -> homeView.disableList());
+				Platform.runLater(() -> {
+					homeView.disableList();
+					canvas.setCenter(new Label("Indlæser dine sager..."));
+				});
 				return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
 			}
 		});
 
 		loadElucidationsTask.setOnSucceeded(data1 -> {
 			Platform.runLater(() -> {
+				setCenter(homeView);
+				setupAllElucidationsView();
 				homeView.tickList(data1);
 				homeView.enableList();
 			});
