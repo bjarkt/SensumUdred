@@ -319,9 +319,11 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private void setupAllElucidationsView(){
 		homeView.onElucidationClick(data -> {
-			elucidationView = new ElucidationViewController();
-			setCenter(elucidationView);
-			setupElucidationView(data);
+			if(data != null) {
+				elucidationView = new ElucidationViewController();
+				setCenter(elucidationView);
+				setupElucidationView(data);
+			}
 		});
 
 		homeView.onNewInquiry(data -> {
@@ -381,6 +383,8 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	private void setupElucidationView(IElucidation elucidation){
+
+		// Parses data about elucidation to loaded view.
 		elucidationView.setElucidationData(elucidation);
 
 		elucidationView.onSendMessage(data -> {
@@ -389,10 +393,25 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		elucidationView.onLeaveElucidation(data -> {
 			setCenter(homeView);
+			tickMyElucidations();
 		});
 
 		elucidationView.onCaseSaveDescription(data -> {
-			System.out.println(data);
+			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getElucidationService().updateInquiry(elucidation.getId(), business.createInquiry(data, ((IInquiry)elucidation.getTask()).getSource()));
+				}
+			});
+
+			task.setOnSucceeded(returnData -> {
+				if(returnData == true) {
+					Platform.runLater(() -> {
+						popUp.show("Gemt!", "Sagens beskrivelse blev gemt korrekt.");
+					});
+				}
+			});
+
 		});
 
 		elucidationView.onAddNewOffer(data -> {

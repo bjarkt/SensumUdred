@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
+<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -72,7 +72,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <TextArea fx:id="caseDescriptionField" editable="false" promptText="Om sagen" styleClass="elucidationView_textArea" />
+                                          <TextArea fx:id="caseDescriptionField" editable="false" promptText="Om sagen" styleClass="elucidationView_textArea" wrapText="true" />
                                        </children>
                                     </VBox>
                                     <VBox fx:id="grantingsContainer" spacing="10.0">
@@ -316,37 +316,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
                                              <children>
-                                                <Label styleClass="elucidationView_inputField_description" text="By" HBox.hgrow="ALWAYS">
-                                                   <HBox.margin>
-                                                      <Insets right="11.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                                <TextField fx:id="cityField" editable="false" onMouseClicked="#editAdressCityOnClick" onMouseEntered="#saveAdressCityOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown" HBox.hgrow="SOMETIMES" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
-                                             <children>
-                                                <Label styleClass="elucidationView_inputField_description" text="Adresse" HBox.hgrow="ALWAYS">
-                                                   <HBox.margin>
-                                                      <Insets right="11.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                                <TextField fx:id="addressField" editable="false" onMouseClicked="#editAdressStreetOnClick" onMouseEntered="#saveAdressStreetOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Uptown Boulevard 1" HBox.hgrow="SOMETIMES" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
-                                             <children>
-                                                <Label styleClass="elucidationView_inputField_description" text="Civiltilstand" HBox.hgrow="ALWAYS">
-                                                   <HBox.margin>
-                                                      <Insets right="11.0" />
-                                                   </HBox.margin>
-                                                </Label>
-                                                <TextField fx:id="civilStatusField" editable="false" onMouseClicked="#editCivilStatusOnClick" onMouseEntered="#saveCivilStatusOnEnter" promptText="CPR" styleClass="elucidationView_inputField" text="Single" HBox.hgrow="SOMETIMES" />
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
-                                             <children>
-                                                <Label styleClass="elucidationView_inputField_description" text="Telefonnummer" HBox.hgrow="ALWAYS">
+                                                <Label styleClass="elucidationView_inputField_description" text="Mobilnummer" HBox.hgrow="ALWAYS">
                                                    <HBox.margin>
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
@@ -356,7 +326,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
                                              <children>
-                                                <Label styleClass="elucidationView_inputField_description" text="Mobilnummer" HBox.hgrow="ALWAYS">
+                                                <Label styleClass="elucidationView_inputField_description" text="Email" HBox.hgrow="ALWAYS">
                                                    <HBox.margin>
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
