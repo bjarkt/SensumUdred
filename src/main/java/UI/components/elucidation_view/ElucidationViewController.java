@@ -25,9 +25,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.net.URL;
 import java.util.*;
@@ -70,6 +68,21 @@ public class ElucidationViewController extends Component implements IElucidation
     @Secured("")
     @FXML
     private JFXButton stateButton;
+
+    @FXML
+    private VBox headerVbox;
+
+    @FXML
+    private HBox headerHbox;
+
+    @FXML
+    private Region headerSpacer;
+
+    @FXML
+    private HBox headerLeft;
+
+    @FXML
+    private FlowPane headerRight;
 
     @FXML
     void toggleState(ActionEvent event) {
@@ -143,6 +156,7 @@ public class ElucidationViewController extends Component implements IElucidation
             CPRField.getStyleClass().remove("editing");
             phoneNumberField.getStyleClass().remove("editing");
             emailField.getStyleClass().add("editing");
+            editCaseCitizenInformation.getStyleClass().remove("editing");
             editCaseCitizenInformation.setText("Rediger");
 
             String[] data = new String[4];
@@ -380,27 +394,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //endregion
 
-
-
-    /**
-     * Change button text based on list size, with plural word.
-     * @param listSize size of list.
-     * @param button which button.
-     * @param positiveText array of string. example: new String[]{"Gem", "tema", "temaer"}. [0] element is verb, [1] is singular of word, [2] is plural of word.
-     * @param negativeText text to display in negative situation.
-     */
-    private void changeButtonTextBasedOnListSize(int listSize, JFXButton button, String[] positiveText, String negativeText) {
-        if (listSize > 0) {
-            button.setVisible(true);
-            button.setDisable(false);
-            button.setText(positiveText[0] + " " + listSize + " " + ((listSize > 1) ? positiveText[2] : positiveText[1] ));
-        } else {
-            button.setVisible(false);
-            button.setDisable(true);
-            button.setText(negativeText);
-        }
-    }
-
     @FXML
     private JFXButton editCaseSpecialCircumstancesButton;
 
@@ -459,9 +452,13 @@ public class ElucidationViewController extends Component implements IElucidation
             if(isMobile && newValue.doubleValue() > 800){
                 isMobile = false;
                 elucidationView_horizontalLayout.getChildren().addAll(elucidationView_horizontalLayout_left, elucidationView_horizontalLayout_right);
+                headerHbox.getChildren().remove(headerSpacer);
+                headerHbox.getChildren().addAll(headerLeft, headerSpacer, headerRight);
+                headerHbox.setHgrow(headerSpacer, Priority.ALWAYS);
             } else if(!isMobile && newValue.doubleValue() < 800){
                 isMobile = true;
                 elucidationView_verticalLayout.getChildren().addAll(elucidationView_horizontalLayout_left, elucidationView_horizontalLayout_right);
+                headerVbox.getChildren().addAll(headerLeft, headerRight);
             }
         });
 
@@ -728,6 +725,25 @@ public class ElucidationViewController extends Component implements IElucidation
         leaveEludicationSubscribers.add(listener);
     }
 
+
+    /**
+     * Change button text based on list size, with plural word.
+     * @param listSize size of list.
+     * @param button which button.
+     * @param positiveText array of string. example: new String[]{"Gem", "tema", "temaer"}. [0] element is verb, [1] is singular of word, [2] is plural of word.
+     * @param negativeText text to display in negative situation.
+     */
+    private void changeButtonTextBasedOnListSize(int listSize, JFXButton button, String[] positiveText, String negativeText) {
+        if (listSize > 0) {
+            button.setVisible(true);
+            button.setDisable(false);
+            button.setText(positiveText[0] + " " + listSize + " " + ((listSize > 1) ? positiveText[2] : positiveText[1] ));
+        } else {
+            button.setVisible(false);
+            button.setDisable(true);
+            button.setText(negativeText);
+        }
+    }
 
     /**
      * {@inheritDoc}
