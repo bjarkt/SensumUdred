@@ -8,7 +8,6 @@ import BLL.account_system.UserManager;
 import BLL.eboks.EBoks;
 import BLL.getter.address_getter.GetAddress;
 import BLL.getter.address_getter.IGetAddress;
-import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
 import BLL.mediators.ElucidationServiceMediator;
 import BLL.open_case.ICase;
@@ -101,15 +100,6 @@ public class BusinessFacade implements IBusiness {
 	@Override
 	public void setSecurityEventListener(IEventListener<SecurityException> eventListener) {
 		SecuritySystem.getInstance().setEventListener(eventListener);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SecurityLevel(1000)
-	@Override
-	public Set<ChangeLog> getChangeLog() {
-		return null;
 	}
 
 	/**

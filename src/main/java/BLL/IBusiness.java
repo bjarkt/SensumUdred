@@ -3,7 +3,6 @@ package BLL;
 import ACQ.*;
 import BLL.account_system.User;
 import BLL.getter.address_getter.IGetAddress;
-import BLL.log_agent.ChangeLog;
 import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
 import BLL.getter.user_getter.IGetUser;
@@ -62,12 +61,6 @@ public interface IBusiness {
 	 * @param eventListener any event listener
 	 */
 	void setSecurityEventListener(IEventListener<SecurityException> eventListener);
-
-	/**
-	 * Get the complete change log.
-	 * @return	change logl
-	 */
-	Set<ChangeLog> getChangeLog();
 
 	/**
 	 * Get the user's elucidations.
