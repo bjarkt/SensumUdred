@@ -15,16 +15,16 @@ public class GetUserTest {
 
         IUser userResult = getUser.getUser("1104694124");
 
-        assertEquals("Jonathan", userResult.getFirstName());
-        assertEquals("Gregersen", userResult.getLastName());
-        assertEquals("51364257", userResult.getPhoneNumber());
-        assertEquals("JonathanSGregersen@teleworm.us", userResult.getEmail());
+        assertEquals("Jeppe", userResult.getFirstName());
+        assertEquals("Damgaard", userResult.getLastName());
+        assertEquals("25208168", userResult.getPhoneNumber());
+        assertEquals("JeppeSDamgaard@teleworm.us", userResult.getEmail());
 
-        assertEquals("Lærkevej", userResult.getAddress().getStreetName());
-        assertEquals("127", userResult.getAddress().getHouseNumber());
-        assertEquals("3120", userResult.getAddress().getZipCode());
-        assertEquals("Glumsø", userResult.getAddress().getCity());
-        assertEquals("Samsø", userResult.getAddress().getMunicipality());
+        assertEquals("Skovvej", userResult.getAddress().getStreetName());
+        assertEquals("61", userResult.getAddress().getHouseNumber());
+        assertEquals("7550", userResult.getAddress().getZipCode());
+        assertEquals("Trustrup", userResult.getAddress().getCity());
+        assertEquals("Rebild", userResult.getAddress().getMunicipality());
         assertEquals("Denmark", userResult.getAddress().getCountry());
     }
 }

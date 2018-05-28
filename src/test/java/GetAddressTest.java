@@ -13,11 +13,11 @@ public class GetAddressTest {
         IGetAddress getAddress = new GetAddress(TestHelper.getHttpClient(), Address.class);
 
         IAddress addressResult = getAddress.getAddress("1104694124");
-        assertEquals("Lærkevej", addressResult.getStreetName());
-        assertEquals("127", addressResult.getHouseNumber());
-        assertEquals("3120", addressResult.getZipCode());
-        assertEquals("Glumsø", addressResult.getCity());
-        assertEquals("Samsø", addressResult.getMunicipality());
+        assertEquals("Skovvej", addressResult.getStreetName());
+        assertEquals("61", addressResult.getHouseNumber());
+        assertEquals("7550", addressResult.getZipCode());
+        assertEquals("Trustrup", addressResult.getCity());
+        assertEquals("Rebild", addressResult.getMunicipality());
         assertEquals("Denmark", addressResult.getCountry());
     }
 }
