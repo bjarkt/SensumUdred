@@ -1,8 +1,8 @@
 package BLL;
 
 import ACQ.*;
+import BLL.account_system.User;
 import BLL.getter.address_getter.IGetAddress;
-import BLL.log_agent.ChangeLog;
 import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
 import BLL.getter.user_getter.IGetUser;
@@ -53,18 +53,14 @@ public interface IBusiness {
 	 */
 	IUser getUser(String ssn);
 
+	IUser createUser(String ssn, String firstName, String lastName, IAddress address, String phone, String email);
+
 	/**
 	 * Set an event listener for when the security system 'throws' out an exception.
 	 * This exception will only occur if the user does not the required security level.
 	 * @param eventListener any event listener
 	 */
 	void setSecurityEventListener(IEventListener<SecurityException> eventListener);
-
-	/**
-	 * Get the complete change log.
-	 * @return	change logl
-	 */
-	Set<ChangeLog> getChangeLog();
 
 	/**
 	 * Get the user's elucidations.
@@ -105,7 +101,7 @@ public interface IBusiness {
 	/**
 	 * Creates a new inquiry.
 	 */
-	void createInquiry();
+	IInquiry createInquiry(String description, String source);
 	IElucidation getElucidation(int ID);
 
 }

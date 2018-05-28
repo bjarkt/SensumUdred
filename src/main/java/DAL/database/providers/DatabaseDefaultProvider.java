@@ -29,7 +29,9 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 				PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE ssn = ?;");
 				ps.setString(1, ssn);
 
-				DatabaseHelper.setUserFromResultSet(ps.executeQuery(), user.get());
+				ResultSet rs = ps.executeQuery();
+
+				if(rs.next()) DatabaseHelper.setUserFromResultSet(rs, user.get());
 			});
 		} else {
 			user.set(null);
@@ -62,7 +64,9 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 			PreparedStatement ps = conn.prepareStatement("SELECT ssn FROM users WHERE ssn = ?;");
 			ps.setString(1, ssn);
 
-			exists.set(ps.execute());
+			ResultSet rs = ps.executeQuery();
+
+			exists.set(rs.next());
 		});
 
 		return exists.get();

@@ -80,22 +80,22 @@ INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (1, 2, '80
 
  -- 2
 
-INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (2, '55667788', '2018-05-24 09:00:00', false);
+INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (200000, '55667788', '2018-05-24 09:00:00', false);
 INSERT INTO inquiries(source, description) VALUES ('source ...', 'description');
-INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (2, 2, 'INQUIRY');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (2, '87654321');
+INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (200000, 200000, 'INQUIRY');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (200000, '87654321');
 
 -- 3
 
-INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (3, '44332211', '2018-05-24 11:00:00', false);
+INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (300000, '44332211', '2018-05-24 11:00:00', false);
 INSERT INTO inquiries(source, description) VALUES ('source ...', 'description');
-INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (3, 3, 'INQUIRY');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (3, '88776655');
+INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (300000, 300000, 'INQUIRY');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (300000, '88776655');
 
 -- 4
 
-INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (4, '12345678', '2018-05-24 12:00:00', false);
+INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (400000, '12345678', '2018-05-24 12:00:00', false);
 INSERT INTO inquiries(source, description) VALUES ('source ...', 'description');
-INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (4, 4, 'INQUIRY');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (4, '88776655');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (4, '87654321');
+INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (400000, 400000, 'INQUIRY');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (400000, '88776655');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (400000, '87654321');

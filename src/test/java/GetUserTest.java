@@ -1,4 +1,6 @@
 import ACQ.IUser;
+import BLL.account_system.Address;
+import BLL.account_system.User;
 import BLL.getter.user_getter.GetUser;
 import BLL.getter.user_getter.IGetUser;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,7 @@ public class GetUserTest {
 
     @Test
     public void TestUserGetter() {
-        IGetUser getUser = new GetUser(TestHelper.getHttpClient());
+        IGetUser getUser = new GetUser(TestHelper.getHttpClient(), User.class);
 
         IUser userResult = getUser.getUser("1104694124");
 

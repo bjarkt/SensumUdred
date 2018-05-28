@@ -14,4 +14,4 @@ Using http server to simulate various external services, such as cpr register an
 
 https://sensumudred-api.herokuapp.com/docs/
 
-Valid api keys for the server are ['1234', 'blabla']
+Valid api keys for the server are ['12345', 'blablabla']

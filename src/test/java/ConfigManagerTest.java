@@ -11,6 +11,6 @@ public class ConfigManagerTest {
     public void PropertiesTest() {
         Properties properties = ConfigManager.getInstance().getProperties();
 
-        assertEquals("1234", properties.get("api-key"));
+        assertEquals("12345", properties.get("api-key"));
     }
 }

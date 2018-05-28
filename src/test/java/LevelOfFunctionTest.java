@@ -47,27 +47,21 @@ public class LevelOfFunctionTest {
     public void setTotalLevelOfFunctionTest() {
         ICase aCase = createCase();
 
-        char[] badFunctionLevels = {'@', 'G'};
+        char[] badFunctionLevels = {'@', 'F'};
         char goodFunctionLevel = 'A';
 
-        try {
-            aCase.setTotalLevelOfFunction(badFunctionLevels[0]);
-            fail("Expected an IndexOutOfBoundsException to be thrown");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[0]);
-        }
-
-        try {
-            aCase.setTotalLevelOfFunction(badFunctionLevels[1]);
-            fail("Expected an IndexOutOfBoundsException to be thrown");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "level must be between A and F, it was " + badFunctionLevels[1]);
+        for (char badFunctionLevel : badFunctionLevels) {
+            try {
+                aCase.setTotalLevelOfFunction(badFunctionLevel);
+                fail("Expected an IllegalArgumentException to be thrown");
+            } catch (IllegalArgumentException iae) {
+                assertEquals(iae.getMessage(), "level must be between A and E, it was " + badFunctionLevel);
+            }
         }
 
         aCase.setTotalLevelOfFunction(goodFunctionLevel);
 
         assertEquals(goodFunctionLevel, aCase.getTotalLevelOfFunction());
-
     }
 
     @Test
@@ -77,18 +71,13 @@ public class LevelOfFunctionTest {
 
         int[] badFunctionLevels = {-1, 5};
 
-        try {
-            themeList.get(0).setLevelOfFunction(badFunctionLevels[0]);
-            fail("Expected an IndexOutOfBoundsException to be thrown");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevels[0]);
-        }
-
-        try {
-            themeList.get(0).setLevelOfFunction(badFunctionLevels[1]);
-            fail("Expected an IndexOutOfBoundsException to be thrown");
-        } catch (IllegalArgumentException iae) {
-            assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevels[1]);
+        for (int badFunctionLevel : badFunctionLevels) {
+            try {
+                themeList.get(0).setLevelOfFunction(badFunctionLevel);
+                fail("Expected an IllegalArgumentException to be thrown");
+            } catch (IllegalArgumentException iae) {
+                assertEquals(iae.getMessage(), "levelOfFunction must be between 0 and 4, it was " + badFunctionLevel);
+            }
         }
 
         assertEquals(-1, themeList.get(0).getLevelOfFunction());

@@ -1,12 +1,13 @@
 package BLL;
 
 import ACQ.*;
+import BLL.Inquiry.Inquiry;
 import BLL.account_system.Address;
+import BLL.account_system.User;
 import BLL.account_system.UserManager;
 import BLL.eboks.EBoks;
 import BLL.getter.address_getter.GetAddress;
 import BLL.getter.address_getter.IGetAddress;
-import BLL.log_agent.ChangeLog;
 import BLL.log_system.LogAspect;
 import BLL.mediators.ElucidationServiceMediator;
 import BLL.open_case.ICase;
@@ -75,6 +76,18 @@ public class BusinessFacade implements IBusiness {
 		return user;
 	}
 
+	@Override
+	public IUser createUser(String ssn, String firstName, String lastName, IAddress address, String phone, String email) {
+		User user = new User(ssn, firstName, lastName);
+		user.setAddress((Address)address);
+		user.setPhoneNumber(phone);
+		user.setEmail(email);
+
+		userManager.signUpUser(ssn, firstName, lastName, phone, email);
+
+		return user;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -94,15 +107,6 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SecurityLevel(1000)
-	@Override
-	public Set<ChangeLog> getChangeLog() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@SecurityLevel(0)
 	@Override
 	public Set<IElucidation> getMyElucidations() {
@@ -114,8 +118,8 @@ public class BusinessFacade implements IBusiness {
 	 */
 	@SecurityLevel(500)
 	@Override
-	public void createInquiry() {
-
+	public IInquiry createInquiry(String description, String source) {
+		return new Inquiry(description, source);
 	}
 
 	/**
@@ -151,7 +155,7 @@ public class BusinessFacade implements IBusiness {
 	@SecurityLevel(500)
 	@Override
 	public IGetUser getGetUser() {
-		return new GetUser(persistent.getHttp());
+		return new GetUser(persistent.getHttp(), User.class);
 	}
 
 	/**

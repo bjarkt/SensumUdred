@@ -130,7 +130,7 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 		AtomicBoolean signedUp = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?);");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?);");
 
 			ps.setString(1, SSN);
 			ps.setString(2, firstName);

@@ -1,6 +1,7 @@
 package UI.primary_view;
 
 import ACQ.IElucidation;
+import ACQ.IInquiry;
 import ACQ.IProfile;
 import ACQ.IUser;
 import BLL.IBusiness;
@@ -28,6 +29,9 @@ import UI.components.meetingPopUp.MeetingPopUpController;
 import UI.components.popUp.IPopUpRequire;
 import UI.components.popUp.IPopup;
 import UI.components.popUp.PopUpController;
+import UI.components.send_popUp.ISendPopUpRequire;
+import UI.components.send_popUp.ISendPopup;
+import UI.components.send_popUp.SendPopUpController;
 import UI.components.user_menu.IUserMenu;
 import UI.components.user_menu.UserMenuController;
 import UI.components.vertical_menu.IVerticalMenu;
@@ -48,10 +52,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 public class UserFacade implements IUserInterface, Initializable {
@@ -69,6 +75,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private IPopup popUp;
 	private IVerticalMenu verticalMenu;
 	private IUserMenu userMenu;
+	private ISendPopup sendPopup;
 
 	private boolean isMobile;
 
@@ -94,6 +101,12 @@ public class UserFacade implements IUserInterface, Initializable {
 	public UserFacade(){
 		SecuredAspect.setBusiness(business);
 		SecuredAspect.setPopup(popUp);
+		sendPopup = new SendPopUpController(new ISendPopUpRequire() {
+			@Override
+			public AnchorPane getParent() {
+				return screen;
+			}
+		});
 
 		headerController = new HeaderController();
 		logInView = new LogInViewController();
@@ -312,21 +325,46 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		homeView.onNewInquiry(data -> {
-			IUser citizen;
-			String inquiry = "";
+			AtomicReference<IUser> citizen = new AtomicReference<>();
+			AtomicReference<String> inquiryStr = new AtomicReference<>();
+			Set<IUser> caseworkers = new HashSet<>();
+			caseworkers.add(profile.getUser());
 
 			IDataPrompt dataPrompt = new DataPromptController();
 			setCenter(dataPrompt);
 			dataPrompt.setPrompt("Hvem er borgeren?");
 			dataPrompt.addTextFields("CPR-nummer", "Fornavn", "Efternavn", "Email", "Telefon");
 			dataPrompt.onContinue(data1 -> {
-				dataPrompt.setPrompt("Beskriv henvendelsen");
-				dataPrompt.addTextFields("Om henvendelsen");
+				System.out.println(data1);
+				IDataPrompt dataPrompt2 = new DataPromptController();
+				setCenter(dataPrompt2);
+				dataPrompt2.setPrompt("Beskriv henvendelsen, og kilde");
+				dataPrompt2.addTextFields("Om henvendelsen", "Kilde til henvendelse");
+				dataPrompt2.onContinue(data2 -> {
+					IInquiry inq = business.createInquiry(data2.get(0), data2.get(1));
+					citizen.set(business.getUser(data1.get(0)));
+
+					// Does the user exist?
+					if (business.getUser(data1.get(0)) == null) {
+						citizen.set(business.createUser(data1.get(0), data1.get(1), data1.get(2), null, data1.get(3), data1.get(4)));
+					} else { // if user exists, use data from DB
+						citizen.set(business.getUser(data1.get(0)));
+					}
+
+					business.getElucidationService().createElucidation(citizen.get(), caseworkers, inq);
+					setCenter(homeView);
+				});
 			});
 		});
 	}
 
 	private void setupElucidationView(){
+
+		elucidationView.onSendMessage(data -> {
+			sendPopup.getView();
+			sendPopup.show();
+		});
+
 		elucidationView.onLeaveElucidation(data -> {
 			setCenter(homeView);
 		});
