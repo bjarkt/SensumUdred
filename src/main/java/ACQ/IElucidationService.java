@@ -13,14 +13,6 @@ public interface IElucidationService {
 	IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry);
 
 	/**
-	 * Update the inquiry in an elucidation.
-	 * @param id the identifier of the elucidation
-	 * @param inquiry the inquiry to update
-	 * @return true, if successful; otherwise false
-	 */
-	boolean updateInquiry(long id, IInquiry inquiry);
-
-	/**
 	 * Set the state of an elucidation.
 	 * It can either be in open state or closed state.
 	 * @param id the identifier of the elucidation
@@ -30,12 +22,30 @@ public interface IElucidationService {
 	boolean updateState(long id, boolean isclosed);
 
 	/**
+	 * Update the inquiry in an elucidation.
+	 * @param id the identifier of the elucidation
+	 * @param inquiry the inquiry to update
+	 * @return true, if successful; otherwise false
+	 */
+	boolean updateInquiry(long id, IInquiry inquiry);
+
+	/**
 	 * Update caseworkers.
 	 * @param id the identifier of the elucidation
 	 * @param users caseworkers assigned to the elucidation
 	 * @return true, if successful; otherwise false
 	 */
 	boolean updateCaseworkers(long id, Set<IUser> users);
+
+	/**
+	 * Update task state.
+	 * Changing the state will create and delete
+	 * necessary and unnecessary objects.
+	 * @param id the identifier of the elucidation
+	 * @param state the new state of the task.
+	 * @return true, if successful; otherwise false
+	 */
+	boolean updateTaskState(long id, ElucidationState state);
 
 	/**
 	 * Update citizen consent.

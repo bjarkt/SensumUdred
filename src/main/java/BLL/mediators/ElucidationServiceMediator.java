@@ -56,6 +56,11 @@ public class ElucidationServiceMediator implements IElucidationService {
     }
 
     @Override
+    public boolean updateTaskState(long id, ElucidationState state) {
+        return dataElucidationService.updateTaskState(id, state);
+    }
+
+    @Override
     public boolean updateCitizenConsent(long id, boolean hasConsent) {
         return dataElucidationService.updateCitizenConsent(id, hasConsent);
     }

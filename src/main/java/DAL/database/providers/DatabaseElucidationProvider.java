@@ -76,13 +76,21 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			String query = "INSERT INTO inquiries(task_id, source, description) VALUES (?, ?, ?) ON CONFLICT ON CONSTRAINT inquiries_pkey DO UPDATE SET source = ?, description = ?;";
-			PreparedStatement ps = conn.prepareStatement(query);
+			StringBuilder builder = new StringBuilder();
+			builder.append("BEGIN TRANSACTION;");
+			builder.append("INSERT INTO inquiries(task_id, source, description) VALUES (?, ?, ?) ON CONFLICT ON CONSTRAINT inquiries_pkey DO UPDATE SET source = ?, description = ?;");
+			builder.append("UPDATE cases SET inquries_source = ?, inquries_description = ? WHERE task_id = ?;");
+			builder.append("COMMIT;");
+
+			PreparedStatement ps = conn.prepareStatement(builder.toString());
 			ps.setLong(1, id);
 			ps.setString(2, inquiry.getSource());
 			ps.setString(3, inquiry.getDescription());
 			ps.setString(4, inquiry.getSource());
 			ps.setString(5, inquiry.getDescription());
+			ps.setString(6, inquiry.getSource());
+			ps.setString(7, inquiry.getDescription());
+			ps.setLong(8, id);
 
 			bool.set(ps.executeUpdate() == 1);
 		});
@@ -121,6 +129,42 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 			boolean inserted = insertCaseworkers(conn, id, users);
 
 			bool.set(deleted && inserted);
+		});
+
+		return bool.get();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean updateTaskState(long id, ElucidationState state) {
+		AtomicBoolean bool = new AtomicBoolean(false);
+
+		executeQuery(conn -> {
+			String updateTaskStateQuery = "UPDATE elucidationshastasks SET state = ? WHERE elucidations_id = ?;";
+			PreparedStatement ps1 = conn.prepareStatement(updateTaskStateQuery);
+			ps1.setString(1, state.name());
+			ps1.setLong(2, id);
+
+			PreparedStatement ps2 = null;
+
+			switch(state) {
+				case INQUIRY:
+					String removeCaseQuery = "DELETE FROM cases WHERE task_id = ?;";
+					ps2 = conn.prepareStatement(removeCaseQuery);
+					ps2.setLong(1, id);
+
+					break;
+				case CASE:
+					String insertCaseQuery = "INSERT INTO cases(task_id) VALUES (?) ON CONFLICT ON CONSTRAINT cases_pkey DO NOTHING;";
+					ps2 = conn.prepareStatement(insertCaseQuery);
+					ps2.setLong(1, id);
+
+					break;
+			}
+
+			bool.set(ps1.executeUpdate() == 1 && ps2.executeUpdate() == 1);
 		});
 
 		return bool.get();
