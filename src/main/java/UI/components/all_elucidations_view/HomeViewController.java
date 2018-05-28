@@ -30,7 +30,7 @@ public class HomeViewController extends Component implements IHomeView {
 
     private List<JFXButton> buttons;
 
-    private List<IEventListener<?>> elucidationListSubscribers = new ArrayList<>();
+    private List<IEventListener<IElucidation>> elucidationListSubscribers = new ArrayList<>();
     private List<IEventListener<?>> newInquirySubscribers = new ArrayList<>();
 
     private IHomeViewRequire required;
@@ -69,8 +69,7 @@ public class HomeViewController extends Component implements IHomeView {
 
     @FXML
     void taskListClicked(MouseEvent event) {
-        System.out.println("Clicked" + tasksList.getSelectionModel().getSelectedItems());
-        elucidationListSubscribers.forEach(listener -> listener.onAction(null));
+        elucidationListSubscribers.forEach(listener -> listener.onAction(tasksList.getSelectionModel().getSelectedItem()));
     }
 
     @Override
@@ -85,7 +84,7 @@ public class HomeViewController extends Component implements IHomeView {
     }
 
     @Override
-    public void onElucidationClick(IEventListener<?> listener) {
+    public void onElucidationClick(IEventListener<IElucidation> listener) {
         elucidationListSubscribers.add(listener);
     }
 

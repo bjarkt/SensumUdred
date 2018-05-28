@@ -1,7 +1,6 @@
 package UI.components.elucidation_view;
 
-import ACQ.IEventListener;
-import ACQ.IProfile;
+import ACQ.*;
 import UI.Secured;
 import UI.components.Component;
 import UI.components.dropdown_search.DropdownSearchController;
@@ -669,6 +668,15 @@ public class ElucidationViewController extends Component implements IElucidation
     @Override
     public void onLeaveElucidation(IEventListener<?> listener) {
         leaveEludicationSubscribers.add(listener);
+    }
+
+    @Override
+    public void setElucidationData(IElucidation elucidation) {
+        if(elucidation.getTask().getState() == ElucidationState.INQUIRY){
+            this.caseDescriptionField.setText(((IInquiry)(elucidation.getTask())).getDescription());
+        } else{
+           // ((ICase)(elucidation.getTask())).getOffers().
+        }
     }
 }
 

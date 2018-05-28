@@ -158,7 +158,6 @@ public class UserFacade implements IUserInterface, Initializable {
 		setupHeader();
 		setupVerticalMenu();
 		setupAllElucidationsView();
-		setupElucidationView();
 
 		// Set initial view to be log in view
 		setCenter(logInView);
@@ -320,8 +319,8 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void setupAllElucidationsView(){
 		homeView.onElucidationClick(data -> {
 			elucidationView = new ElucidationViewController();
-			setupElucidationView();
 			setCenter(elucidationView);
+			setupElucidationView(data);
 		});
 
 		homeView.onNewInquiry(data -> {
@@ -380,7 +379,8 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 	}
 
-	private void setupElucidationView(){
+	private void setupElucidationView(IElucidation elucidation){
+		elucidationView.setElucidationData(elucidation);
 
 		elucidationView.onSendMessage(data -> {
 			sendPopup.getView();

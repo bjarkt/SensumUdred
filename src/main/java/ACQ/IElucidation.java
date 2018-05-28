@@ -24,7 +24,7 @@ public interface IElucidation {
 
     /**
      * Add one or more caseworkers to the elucidation.
-     * @param caseworker    one or more caseworkers.
+     * @param caseworkers    one or more caseworkers.
      */
     void addCaseworker(IUser ...caseworkers);
 

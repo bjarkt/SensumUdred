@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface IHomeView extends IComponent {
 
-    void onElucidationClick(IEventListener<?> listener);
+    void onElucidationClick(IEventListener<IElucidation> listener);
 
     void onNewInquiry(IEventListener<?> listener);
 

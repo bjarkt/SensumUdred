@@ -1,12 +1,16 @@
 package UI.components.elucidation_view;
 
-import ACQ.IEventListener;
+import ACQ.*;
 import UI.components.IComponent;
 import UI.components.elucidation_view.theme.IThemeUI;
 
 import java.util.Set;
 
 public interface IElucidationView extends IComponent {
+
+    void setElucidationData(IElucidation elucidation);
+
+    // Event listeners
 
     void onLeaveElucidation(IEventListener<?> listener);
 
