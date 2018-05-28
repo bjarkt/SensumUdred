@@ -29,7 +29,7 @@ CREATE TABLE users(
 
 CREATE TABLE haslogin(
   users_SSN VARCHAR(10),
-  accounts_ID BIGSERIAL,
+  accounts_ID BIGINT,
   PRIMARY KEY (users_SSN, accounts_ID)
 );
 
@@ -96,6 +96,7 @@ CREATE TABLE inquiries(
 CREATE TABLE cases(
   task_ID BIGSERIAL PRIMARY KEY,
   inquries_description TEXT DEFAULT '',
+  inquries_source TEXT DEFAULT  '',
   guardianAuthority TEXT DEFAULT '',
   citizensConsent BOOLEAN DEFAULT false,
   actingMunicipality TEXT DEFAULT '',
