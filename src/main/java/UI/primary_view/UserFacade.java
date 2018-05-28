@@ -101,12 +101,6 @@ public class UserFacade implements IUserInterface, Initializable {
 	public UserFacade(){
 		SecuredAspect.setBusiness(business);
 		SecuredAspect.setPopup(popUp);
-		sendPopup = new SendPopUpController(new ISendPopUpRequire() {
-			@Override
-			public AnchorPane getParent() {
-				return screen;
-			}
-		});
 
 		headerController = new HeaderController();
 		logInView = new LogInViewController();
@@ -128,6 +122,13 @@ public class UserFacade implements IUserInterface, Initializable {
 				return verticalMenu.getView();
 			}
 		}, JFXDrawer.DrawerDirection.LEFT, "Menu");
+
+		sendPopup = new SendPopUpController(new ISendPopUpRequire() {
+			@Override
+			public AnchorPane getParent() {
+				return screen;
+			}
+		});
 
 		userDrawer = new DrawerController(new IDrawerRequire() {
 			@Override
@@ -383,7 +384,6 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void setupElucidationView(){
 
 		elucidationView.onSendMessage(data -> {
-			sendPopup.getView();
 			sendPopup.show();
 		});
 
