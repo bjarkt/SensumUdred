@@ -4,11 +4,11 @@
 <?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="499.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.send_popUp.SendPopUpController">
    <children>
       <JFXDialog fx:id="dialog">
          <children>
-            <JFXDialogLayout fx:id="content" prefHeight="2658.0" prefWidth="416.0" style="-fx-background-color: transparent;" />
+            <JFXDialogLayout fx:id="content" />
          </children>
       </JFXDialog>
    </children>

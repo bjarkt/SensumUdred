@@ -4,10 +4,7 @@ import ACQ.*;
 import ACQ.IAttachment;
 import DAL.database.DatabaseHelper;
 import DAL.database.PostgreSqlDatabase;
-import DAL.dataobject.Dialog;
-import DAL.dataobject.Elucidation;
-import DAL.dataobject.Meeting;
-import DAL.dataobject.User;
+import DAL.dataobject.*;
 
 import java.lang.ref.Reference;
 import java.sql.*;
@@ -58,6 +55,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 						citizen,
 						insertedCaseworkers ? caseworkers : null,
 						timestamp,
+						null,
 						null
 				);
 
@@ -288,7 +286,8 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 				getCitizenForElucidation(conn, id),
 				getCaseworkersForElucidation(conn, id),
 				getCreationDateForElucidation(conn, id),
-				getDialogForElucidation(conn, id)))
+				getDialogForElucidation(conn, id),
+				getInquiryForElucidation(conn, id)))
 		);
 
 		return elucidation.get();
@@ -497,6 +496,20 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		}
 
 		return date;
+	}
+
+	private Inquiry getInquiryForElucidation(Connection conn, long id) throws SQLException {
+		String query = "SELECT source, description from inquiries WHERE task_id = ?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+		Inquiry inquiry = null;
+
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			inquiry = new Inquiry(rs.getString("source"), rs.getString("description"), null);
+		}
+
+		return inquiry;
 	}
 
 	private IUser getCitizenForElucidation(Connection conn, long id) throws SQLException {
