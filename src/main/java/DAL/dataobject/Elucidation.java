@@ -17,12 +17,13 @@ public class Elucidation implements IElucidation {
 	private ITask task;
 	private Date creationTime;
 
-	public Elucidation(long id, IUser citizen, Set<IUser> caseworkers, Date creationTime, IDialog dialog) {
+	public Elucidation(long id, IUser citizen, Set<IUser> caseworkers, Date creationTime, IDialog dialog, ITask task) {
 		this.id = id;
 		this.citizen = citizen;
 		this.caseworkers = caseworkers;
 		this.creationTime = creationTime;
 		this.dialog = dialog;
+		this.task = task;
 	}
 
 	/**

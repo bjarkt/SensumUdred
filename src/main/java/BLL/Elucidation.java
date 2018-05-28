@@ -18,13 +18,13 @@ public class Elucidation implements IElucidation {
     private IDialog dialog;
 
 
-    public Elucidation(long id, IUser citizen, IUser creator, IDialog dialog){
+    public Elucidation(long id, IUser citizen, IUser creator, IDialog dialog, ITask task){
         this.id = id;
         dateOfOpening = new Date();
         this.citizen = citizen;
         caseworkers = new HashSet<>();
         caseworkers.add(creator);
-        task = new Inquiry();
+        task = task;
         this.dialog = dialog;
     }
 

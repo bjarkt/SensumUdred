@@ -2,6 +2,7 @@ package BLL.mediators;
 
 import ACQ.*;
 import BLL.Elucidation;
+import BLL.Inquiry.Inquiry;
 import BLL.meeting.Dialog;
 import BLL.meeting.Meeting;
 
@@ -157,7 +158,9 @@ public class ElucidationServiceMediator implements IElucidationService {
         Set<IUser> caseworkersExceptCreator = DALElucidation.getCaseworkers();
         caseworkersExceptCreator.remove(creator);
 
-        Elucidation realElucidation = new Elucidation(DALElucidation.getId(), DALElucidation.getCitizen(), creator, realDialog);
+        ITask realInquiry = new Inquiry(((IInquiry)DALElucidation.getTask()));
+
+        Elucidation realElucidation = new Elucidation(DALElucidation.getId(), DALElucidation.getCitizen(), creator, realDialog, realInquiry);
         realElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
 
         return realElucidation;
