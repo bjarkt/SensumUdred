@@ -46,6 +46,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<?>> createMeetingSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
+    private List<IEventListener<?>> onSendMessageSubscriber = new ArrayList<>();
 
 
     private IElucidationViewRequire required;
@@ -653,6 +654,16 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     void saveRegistrationDateOnEnter(MouseEvent event) {
 
+    }
+
+    @FXML
+    void sendPopUp(ActionEvent event)   {
+        onSendMessageSubscriber.forEach(iEventListener -> iEventListener.onAction(null) );
+    }
+
+    @Override
+    public void onSendMessage(IEventListener<?> listener) {
+        onSendMessageSubscriber.add(listener);
     }
 
     @Override

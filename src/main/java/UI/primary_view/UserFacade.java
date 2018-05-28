@@ -28,6 +28,9 @@ import UI.components.meetingPopUp.MeetingPopUpController;
 import UI.components.popUp.IPopUpRequire;
 import UI.components.popUp.IPopup;
 import UI.components.popUp.PopUpController;
+import UI.components.send_popUp.ISendPopUpRequire;
+import UI.components.send_popUp.ISendPopup;
+import UI.components.send_popUp.SendPopUpController;
 import UI.components.user_menu.IUserMenu;
 import UI.components.user_menu.UserMenuController;
 import UI.components.vertical_menu.IVerticalMenu;
@@ -69,6 +72,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private IPopup popUp;
 	private IVerticalMenu verticalMenu;
 	private IUserMenu userMenu;
+	private ISendPopup sendPopup;
 
 	private boolean isMobile;
 
@@ -94,6 +98,12 @@ public class UserFacade implements IUserInterface, Initializable {
 	public UserFacade(){
 		SecuredAspect.setBusiness(business);
 		SecuredAspect.setPopup(popUp);
+		sendPopup = new SendPopUpController(new ISendPopUpRequire() {
+			@Override
+			public AnchorPane getParent() {
+				return screen;
+			}
+		});
 
 		headerController = new HeaderController();
 		logInView = new LogInViewController();
@@ -327,6 +337,12 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	private void setupElucidationView(){
+
+		elucidationView.onSendMessage(data -> {
+			sendPopup.getView();
+			sendPopup.show();
+		});
+
 		elucidationView.onLeaveElucidation(data -> {
 			setCenter(homeView);
 		});

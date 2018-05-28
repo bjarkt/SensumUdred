@@ -32,4 +32,6 @@ public interface IElucidationView extends IComponent {
 
     void onDeleteTheme(IEventListener<Set<IThemeUI>> listener);
 
+    void onSendMessage(IEventListener<?> listener);
+
 }

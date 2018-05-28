@@ -1,37 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="combobox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="499.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="580.0" style="-fx-background-color: white; -fx-border-color: #dce0e0; -fx-border-width: 0 0 1 0;">
+      <JFXDialog fx:id="dialog">
          <children>
-            <Label prefHeight="31.0" prefWidth="342.0" styleClass="myElucidationsTitle" text="Sagsnummer: 151248" textFill="#484848">
-               <font>
-                  <Font name="CircularStd-Bold" size="26.0" />
-               </font>
-            </Label>
-            <Region prefHeight="31.0" prefWidth="236.0" />
-            <SVGPath content="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-            <Region prefHeight="31.0" prefWidth="19.0" />
+            <JFXDialogLayout fx:id="content" prefHeight="2658.0" prefWidth="416.0" style="-fx-background-color: transparent;" />
          </children>
-         <padding>
-            <Insets bottom="10.0" />
-         </padding>
-      </HBox>
-      <CheckBox layoutX="436.0" layoutY="216.0" mnemonicParsing="false" text="Godkend" />
-      <Button layoutX="450.0" layoutY="313.0" mnemonicParsing="false" styleClass="button-raised" text="Send" />
-      <TextArea layoutX="31.0" layoutY="80.0" prefHeight="289.0" prefWidth="294.0" />
-      <ComboBox layoutX="395.0" layoutY="113.0" prefHeight="27.0" prefWidth="160.0" promptText="Vælg Institution" visibleRowCount="6" />
+      </JFXDialog>
    </children>
-</AnchorPane>
+</StackPane>
