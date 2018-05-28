@@ -160,7 +160,7 @@ CREATE TABLE changelogs(
   ID BIGSERIAL PRIMARY KEY ,
   now TEXT,
   previous TEXT,
-  dateTime DATE,
+  dateTime TIMESTAMP,
   fieldCode TEXT
 );
 
@@ -168,37 +168,6 @@ CREATE TABLE eventlogs(
   ID BIGSERIAL PRIMARY KEY,
   description TEXT,
   logLevel INTEGER,
-  logAction INTEGER
+  logAction INTEGER,
+  dateTime TIMESTAMP
 );
-
-INSERT INTO users VALUES ('00000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
-INSERT INTO haslogin VALUES ('0000000000', 1);
-INSERT INTO accounts VALUES(1, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
-
-INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@tester.com');
-INSERT INTO haslogin VALUES ('99999999', 2);
-INSERT INTO accounts VALUES(2, 'tester', '$2a$10$sXLHK59F9z.P5rRVycQ4N.FIwMYdo0pF2Rl10NYNToXD57s7cVBzu', 0, false, false, 0, null);
-
-INSERT INTO users VALUES ('90909090', 'Lasse', 'Bubbibjørn', '80808080', 'lasse@lasse.com');
-INSERT INTO haslogin VALUES ('90909090', 3);
-INSERT INTO accounts VALUES(3, 'lasse', '$2a$10$tfYqKXCgmHFyBtHisQLJ6uWEc8eLeF3mc8zDSchnhThDKpj/VHKxO', 1000, false, false, 0, null);
-
-INSERT INTO users VALUES ('80808080', 'Bjarke', 'Pingvinbjørn', '', 'bjarke@bjarke.com');
-INSERT INTO haslogin VALUES ('80808080', 4);
-INSERT INTO accounts VALUES(4, 'bjarke', '$2a$10$dCZFD3vrEyDWierWbBW09.AhPaGNrKg9dkfS/UUOH3e1xZF0OjIEG', 1000, false, false, 0, null);
-
-INSERT INTO users VALUES ('70707070', 'Lavan', 'Højbjørn', '', 'lavan@lavan.com');
-INSERT INTO haslogin VALUES ('70707070', 5);
-INSERT INTO accounts VALUES(5, 'lavan', '$2a$10$IcK4B09228.mbfqJBwlUq.SSxaRkmk405yqcKpETSkHboPa1qNZmS', 1000, false, false, 0, null);
-
-INSERT INTO users VALUES ('60606060', 'Dennis', 'Isbjørn', '', 'dennis@dennis.com');
-INSERT INTO haslogin VALUES ('60606060', 6);
-INSERT INTO accounts VALUES(6, 'dennis', '$2a$10$Jg3ovmsApjj8yWpdAUR3ruX1S8m/do07oNLYv6kAD7naksiW1AfHq', 1000, false, false, 0, null);
-
-INSERT INTO users VALUES ('50505050', 'Christian', 'Spisebjørn', '', 'christian@christian.com');
-INSERT INTO haslogin VALUES ('50505050', 7);
-INSERT INTO accounts VALUES(7, 'christian', '$2a$10$pUJoeK62U1mB5AoxU4NY9.hVvOYb.CMW/IGRD5Vc3T.u.rP8ILog6', 1000, false, false, 0, null);
-
-INSERT INTO users VALUES ('40404040', 'Adrian', 'Cykelbjørn', '', 'adrian@adrian.com');
-INSERT INTO haslogin VALUES ('40404040', 8);
-INSERT INTO accounts VALUES(8, 'adrian', '$2a$10$823Zj8H9Qd5syYxfEkxLjO6V6OLKyRIcIgRRqeQN6QlBE6U84Fu/2', 1000, false, false, 0, null);
