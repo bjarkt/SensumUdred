@@ -333,7 +333,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			IDataPrompt dataPrompt = new DataPromptController();
 			setCenter(dataPrompt);
 			dataPrompt.setPrompt("Hvem er borgeren?");
-			dataPrompt.addTextFields("CPR-nummer", "Fornavn", "Efternavn", "Email", "Telefon");
+			dataPrompt.addTextFields("CPR-nummer", "Fornavn", "Efternavn", "Telefon", "Email");
 			dataPrompt.onContinue(data1 -> {
 				System.out.println(data1);
 				IDataPrompt dataPrompt2 = new DataPromptController();
