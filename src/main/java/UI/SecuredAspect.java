@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Aspect
-public aspect SecuredAspect {
+public class SecuredAspect {
 
     private static IAccount account;
     private static IBusiness business;
