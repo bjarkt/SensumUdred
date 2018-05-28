@@ -179,6 +179,6 @@ public class BusinessFacade implements IBusiness {
 		this.userManager = new UserManager(new DefaultServiceMediator(service.getDefaultService(), getGetAddress()), new SigningServiceMediator(service.getSigningService(), getGetAddress()));
 		this.elucidationServiceMediator = new ElucidationServiceMediator(service.getElucidationService(), persistent.getHttp(), new EBoks(persistent.getHttp()), getGetAddress());
 
-		LogAspect.setPersistent(persistent);
+		LogAspect.setLoggingService(service.getLoggingService());
 	}
 }

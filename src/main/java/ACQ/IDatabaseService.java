@@ -28,6 +28,12 @@ public interface IDatabaseService {
 	IElucidationService getElucidationService();
 
 	/**
+	 * Get the logging service.
+	 * @return logging service interface
+	 */
+	ILoggingService getLoggingService();
+
+	/**
 	 * Tests the connection to the database.
 	 * @throws SQLException if any error occurs
 	 */

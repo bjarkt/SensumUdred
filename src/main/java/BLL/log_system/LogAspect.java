@@ -1,5 +1,9 @@
 package BLL.log_system;
 
+import ACQ.ILoggingService;
+import ACQ.LogAction;
+import ACQ.LogLevel;
+import ACQ.Loggable;
 import BLL.security_system.SecuritySystem;
 import DAL.IPersistent;
 import org.aspectj.lang.JoinPoint;
@@ -11,10 +15,14 @@ import java.lang.reflect.Method;
 
 @Aspect
 public class LogAspect {
-	private static IPersistent persistent;
+	private static ILoggingService logService;
 
-	public static void setPersistent(IPersistent persistent) {
-		LogAspect.persistent = persistent;
+	/**
+	 * Set the log service for the aspect.
+	 * @param logService any log service
+	 */
+	public static void setLoggingService(ILoggingService logService) {
+		LogAspect.logService = logService;
 	}
 
 	@After("@annotation(Loggable) && execution(* *(..))")
@@ -27,11 +35,9 @@ public class LogAspect {
 		LogLevel ll = annotation.level();
 		LogAction la = annotation.action();
 		String desc = annotation.actionDescription();
-		int userSecurityLevel = SecuritySystem.getInstance().getAccount().getSecurityLevel();
+		// int userSecurityLevel = SecuritySystem.getInstance().getAccount().getSecurityLevel();
 
-		System.out.println(ll);
-		System.out.println(la);
-		System.out.println(desc);
-		System.out.println(userSecurityLevel);
+		long id = logService.logEvent(method.getName(), desc, ll, la);
+		logService.addToLogs(10002, -1, -1, id);
 	}
 }

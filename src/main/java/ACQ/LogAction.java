@@ -1,6 +1,7 @@
-package BLL.log_system;
+package ACQ;
 
 public enum LogAction {
 	CLICK,
-	SWITCH
+	SWITCH,
+	CALL
 }
