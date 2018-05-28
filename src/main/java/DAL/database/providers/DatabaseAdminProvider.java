@@ -8,6 +8,49 @@ import java.sql.PreparedStatement;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminService {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean changeSSN(String oldSSN, String newSSN) {
+		return changeStringValueOnColumnForUser(oldSSN, "ssn", newSSN);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean changeFirstName(String ssn, String newFirstName) {
+		return changeStringValueOnColumnForUser(ssn, "firstname", newFirstName);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean changeLastName(String ssn, String newLastName) {
+		return changeStringValueOnColumnForUser(ssn, "lastname", newLastName);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean changePhoneNumber(String ssn, String newPhoneNumber) {
+		return changeStringValueOnColumnForUser(ssn, "phonenumber", newPhoneNumber);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean changeEmail(String ssn, String newEmail) {
+		return changeStringValueOnColumnForUser(ssn, "email", newEmail);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean lockAccount(String accountName) {
 		AtomicBoolean locked = new AtomicBoolean(false);
@@ -22,6 +65,9 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		return locked.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean unlockAccount(String accountName) {
 		AtomicBoolean unlocked = new AtomicBoolean(false);
@@ -36,6 +82,9 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		return unlocked.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean changeSecurityLevel(String accountName, int newSecurityLevel) {
 		AtomicBoolean changed = new AtomicBoolean(false);
@@ -52,6 +101,9 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		return changed.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean changePassword(String accountName, String newPassword) {
 		AtomicBoolean changed = new AtomicBoolean(false);
@@ -69,5 +121,20 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		});
 
 		return changed.get();
+	}
+
+	private boolean changeStringValueOnColumnForUser(String ssn, String column, String value) {
+		AtomicBoolean bool = new AtomicBoolean(false);
+
+		executeQuery(conn -> {
+			PreparedStatement ps = conn.prepareStatement("UPDATE users SET ? = ? WHERE ssn = ?;");
+			ps.setString(1, column);
+			ps.setString(2, value);
+			ps.setString(3, ssn);
+
+			bool.set(ps.executeUpdate() == 1);
+		});
+
+		return bool.get();
 	}
 }

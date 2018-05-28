@@ -24,6 +24,7 @@ public class LogAspect {
 
 		Loggable annotation = method.getAnnotation(Loggable.class);
 
+		System.out.println(method.);
 		LogLevel ll = annotation.level();
 		LogAction la = annotation.action();
 		String desc = annotation.actionDescription();
