@@ -116,6 +116,10 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //region citizen_section
 
+    @Secured("getAdminService")
+    @FXML
+    private JFXButton editCaseCitizenInformation;
+
     @FXML
     private TextField nameField;
 
@@ -131,12 +135,16 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private TextField dateField;
 
+    private String citizenPrevSSN;
+
     @Override
     public void onCaseCitizenInformation (IEventListener<String[]> listener) {editCitizenInformationSubscribers.add(listener); }
+
 
     @FXML
     void editCitizenInfo(ActionEvent event) {
         if(editCaseCitizenInformation.getText().equals("Rediger")){
+            citizenPrevSSN = CPRField.getText();
             nameField.setEditable(true);
             CPRField.setEditable(true);
             phoneNumberField.setEditable(true);
@@ -159,11 +167,12 @@ public class ElucidationViewController extends Component implements IElucidation
             editCaseCitizenInformation.getStyleClass().remove("editing");
             editCaseCitizenInformation.setText("Rediger");
 
-            String[] data = new String[4];
-            data[0] = nameField.getText();
-            data[1] = CPRField.getText();
-            data[2] = phoneNumberField.getText();
-            data[3] = emailField.getText();
+            String[] data = new String[5];
+            data[0] = citizenPrevSSN;
+            data[1] = nameField.getText();
+            data[2] = CPRField.getText();
+            data[3] = phoneNumberField.getText();
+            data[4] = emailField.getText();
 
             editCitizenInformationSubscribers.forEach(listener -> listener.onAction(data));
         }
@@ -180,9 +189,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     private VBox caseOffersWrapper;
-
-    @FXML
-    private JFXButton editCaseCitizenInformation;
 
     @FXML
     private JFXButton editOffersbutton;

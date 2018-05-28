@@ -288,6 +288,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	// Set up the login view with eventhandlers and calls to domain layer.
 	private void setupUpLoginView(){
 		logInView.onLogIn(data -> {
+
 			Task<IProfile> task = new Task<>(new Supplier<IProfile>() {
 				@Override
 				public IProfile get() {
@@ -417,7 +418,11 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		elucidationView.onCaseCitizenInformation(data -> {
-			// TODO: I NEED TO CALL BUSINESS TO UPDATE CITIZEN INFO
+			business.getAdminService().changeFirstName(data[0], (data[1].split("\\s+")[0]));
+			business.getAdminService().changeLastName(data[0], (data[1].split("\\s+")[1]));
+			business.getAdminService().changePhoneNumber(data[0], data[3]);
+			business.getAdminService().changeEmail(data[0], data[4]);
+			business.getAdminService().changeSSN(data[0], data[2]);
 		});
 
 

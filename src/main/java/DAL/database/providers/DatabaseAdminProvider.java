@@ -127,10 +127,9 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			PreparedStatement ps = conn.prepareStatement("UPDATE users SET ? = ? WHERE ssn = ?;");
-			ps.setString(1, column);
-			ps.setString(2, value);
-			ps.setString(3, ssn);
+			PreparedStatement ps = conn.prepareStatement("UPDATE users SET " + column + " = ? WHERE ssn = ?;");
+			ps.setString(1, value);
+			ps.setString(2, ssn);
 
 			bool.set(ps.executeUpdate() == 1);
 		});
