@@ -341,9 +341,8 @@ public class UserFacade implements IUserInterface, Initializable {
 				dataPrompt2.setPrompt("Beskriv henvendelsen, og kilde");
 				dataPrompt2.addTextFields("Om henvendelsen", "Kilde til henvendelse");
 				dataPrompt2.onContinue(data2 -> {
+					setCenter(homeView);
 					IInquiry inq = business.createInquiry(data2.get(0), data2.get(1));
-					citizen.set(business.getUser(data1.get(0)));
-
 					// Does the user exist?
 					if (business.getUser(data1.get(0)) == null) {
 						citizen.set(business.createUser(data1.get(0), data1.get(1), data1.get(2), null, data1.get(3), data1.get(4)));
@@ -351,8 +350,31 @@ public class UserFacade implements IUserInterface, Initializable {
 						citizen.set(business.getUser(data1.get(0)));
 					}
 
-					business.getElucidationService().createElucidation(citizen.get(), caseworkers, inq);
-					setCenter(homeView);
+					Task<IElucidation> task = new Task<>(new Supplier<IElucidation>() {
+						@Override
+						public IElucidation get() {
+							return business.getElucidationService().createElucidation(citizen.get(), caseworkers, inq);
+
+						}
+					});
+
+					task.setOnSucceeded(returnData -> {
+						if(returnData != null) {
+							Platform.runLater(() -> {
+								tickMyElucidations();
+							});
+						}
+					});
+
+
+
+
+
+
+
+
+
+
 				});
 			});
 		});
