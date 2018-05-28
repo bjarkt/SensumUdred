@@ -9,7 +9,9 @@ import BLL.eboks.EBoks;
 import BLL.getter.address_getter.GetAddress;
 import BLL.getter.address_getter.IGetAddress;
 import BLL.log_system.LogAspect;
+import BLL.mediators.DefaultServiceMediator;
 import BLL.mediators.ElucidationServiceMediator;
+import BLL.mediators.SigningServiceMediator;
 import BLL.open_case.ICase;
 import BLL.security_system.SecurityLevel;
 import BLL.security_system.SecuritySystem;
@@ -24,10 +26,10 @@ import java.util.Set;
 public class BusinessFacade implements IBusiness {
 	private IPersistent persistent;
 	private IUserManager userManager;
-	private IDefaultService defaultService;
 	private IAdminService adminService;
 
 	private IElucidationService elucidationServiceMediator;
+	private IDefaultService defaultServiceMediator;
 
 	public BusinessFacade() { }
 
@@ -46,7 +48,7 @@ public class BusinessFacade implements IBusiness {
 	@SecurityLevel(0)
 	@Override
 	public IDefaultService getDefaultService() {
-		return defaultService;
+		return defaultServiceMediator;
 	}
 
 	@Override
@@ -161,7 +163,6 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SecurityLevel(500)
 	@Override
 	public IGetAddress getGetAddress() {
 		return new GetAddress(persistent.getHttp(), Address.class);
@@ -173,10 +174,10 @@ public class BusinessFacade implements IBusiness {
 
 		IDatabaseService service = persistent.getDatabaseService();
 
-		this.defaultService = service.getDefaultService();
+		this.defaultServiceMediator = new DefaultServiceMediator(service.getDefaultService(), getGetAddress());
 		this.adminService = service.getAdminService();
-		this.userManager = new UserManager(this.defaultService, service.getSigningService());
-		this.elucidationServiceMediator = new ElucidationServiceMediator(service.getElucidationService(), persistent.getHttp(), new EBoks(persistent.getHttp()));
+		this.userManager = new UserManager(new DefaultServiceMediator(service.getDefaultService(), getGetAddress()), new SigningServiceMediator(service.getSigningService(), getGetAddress()));
+		this.elucidationServiceMediator = new ElucidationServiceMediator(service.getElucidationService(), persistent.getHttp(), new EBoks(persistent.getHttp()), getGetAddress());
 
 		LogAspect.setPersistent(persistent);
 	}

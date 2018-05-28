@@ -3,6 +3,9 @@ package BLL.mediators;
 import ACQ.*;
 import BLL.Elucidation;
 import BLL.Inquiry.Inquiry;
+import BLL.account_system.Address;
+import BLL.account_system.User;
+import BLL.getter.address_getter.IGetAddress;
 import BLL.meeting.Dialog;
 import BLL.meeting.Meeting;
 
@@ -25,10 +28,16 @@ public class ElucidationServiceMediator implements IElucidationService {
      */
     private IEBoks eboks;
 
-    public ElucidationServiceMediator(IElucidationService dataElucidationService, IHttp httpClient, IEBoks eboks) {
+    /**
+     * To get Address from CPR number
+     */
+    private IGetAddress getAddress;
+
+    public ElucidationServiceMediator(IElucidationService dataElucidationService, IHttp httpClient, IEBoks eboks, IGetAddress getAddress) {
         this.dataElucidationService = dataElucidationService;
         this.httpClient = httpClient;
         this.eboks = eboks;
+        this.getAddress = getAddress;
     }
 
     @Override
@@ -165,7 +174,13 @@ public class ElucidationServiceMediator implements IElucidationService {
 
         ITask realInquiry = new Inquiry(((IInquiry)DALElucidation.getTask()));
 
-        Elucidation realElucidation = new Elucidation(DALElucidation.getId(), DALElucidation.getCitizen(), creator, realDialog, realInquiry);
+        IUser citizen = DALElucidation.getCitizen();
+        User realCitizen = new User(citizen.getSocialSecurityNumber(), citizen.getFirstName(), citizen.getLastName());
+        realCitizen.setPhoneNumber(citizen.getPhoneNumber());
+        realCitizen.setEmail(citizen.getEmail());
+        realCitizen.setAddress((Address) getAddress.getAddress(realCitizen.getSocialSecurityNumber()));
+
+        Elucidation realElucidation = new Elucidation(DALElucidation.getId(), realCitizen, creator, realDialog, realInquiry);
         realElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
 
         return realElucidation;

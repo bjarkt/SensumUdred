@@ -28,13 +28,15 @@ public class GetAddress implements IGetAddress {
      */
     public IAddress getAddress(String cpr) {
         IAddress address = null;
-        Map<String, Object> queryMap = new HashMap<>();
-        queryMap.put("cpr", cpr);
-        try {
-            String result = new String(httpClient.makeHttpRequest(apiUrl, queryMap, HttpMethod.POST, HttpAcceptType.JSON));
-            address = gson.fromJson(result, addressClass);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (cpr.matches("^[0-9]+$")) {
+            Map<String, Object> queryMap = new HashMap<>();
+            queryMap.put("cpr", cpr);
+            try {
+                String result = new String(httpClient.makeHttpRequest(apiUrl, queryMap, HttpMethod.POST, HttpAcceptType.JSON));
+                address = gson.fromJson(result, addressClass);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
