@@ -31,22 +31,24 @@ public class GetUser implements IGetUser {
     @Override
     public IUser getUser(String cpr) {
         IUser user = null;
-        Map<String, Object> queryMap = new HashMap<>();
-        queryMap.put("cpr", cpr);
-        try {
-            String result = new String(httpClient.makeHttpRequest(apiUrl, queryMap, HttpMethod.POST, HttpAcceptType.JSON));
+        if (cpr.matches("^[0-9]+$")) {
+            Map<String, Object> queryMap = new HashMap<>();
+            queryMap.put("cpr", cpr);
+            try {
+                String result = new String(httpClient.makeHttpRequest(apiUrl, queryMap, HttpMethod.POST, HttpAcceptType.JSON));
 
-            JsonObject o = jsonParser.parse(result).getAsJsonObject();
-            JsonObject addressData = o.getAsJsonObject("addressData");
-            JsonObject userData = o.getAsJsonObject("userData");
+                JsonObject o = jsonParser.parse(result).getAsJsonObject();
+                JsonObject addressData = o.getAsJsonObject("addressData");
+                JsonObject userData = o.getAsJsonObject("userData");
 
-            JsonElement addressElement = gson.fromJson(addressData.toString(), JsonElement.class);
-            userData.add("address", addressElement);
-            userData.addProperty("ssn", cpr);
+                JsonElement addressElement = gson.fromJson(addressData.toString(), JsonElement.class);
+                userData.add("address", addressElement);
+                userData.addProperty("ssn", cpr);
 
-            user = gson.fromJson(userData.toString(), userClass);
-        } catch (IOException e) {
-            e.printStackTrace();
+                user = gson.fromJson(userData.toString(), userClass);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return user;

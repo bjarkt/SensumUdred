@@ -5,6 +5,7 @@ import BLL.getter.address_getter.IGetAddress;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GetAddressTest {
 
@@ -19,5 +20,14 @@ public class GetAddressTest {
         assertEquals("Trustrup", addressResult.getCity());
         assertEquals("Rebild", addressResult.getMunicipality());
         assertEquals("Denmark", addressResult.getCountry());
+    }
+
+    @Test
+    public void TestBadAddressGetter() {
+        IGetAddress getAddress = new GetAddress(TestHelper.getHttpClient(), Address.class);
+
+        IAddress addressResult = getAddress.getAddress("bad");
+
+        assertNull(addressResult);
     }
 }

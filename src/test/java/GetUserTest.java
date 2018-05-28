@@ -6,6 +6,7 @@ import BLL.getter.user_getter.IGetUser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GetUserTest {
 
@@ -26,5 +27,14 @@ public class GetUserTest {
         assertEquals("Trustrup", userResult.getAddress().getCity());
         assertEquals("Rebild", userResult.getAddress().getMunicipality());
         assertEquals("Denmark", userResult.getAddress().getCountry());
+    }
+
+    @Test
+    public void TestBadUserGetter() {
+        IGetUser getUser = new GetUser(TestHelper.getHttpClient(), User.class);
+
+        IUser userResult = getUser.getUser("bad");
+
+        assertNull(userResult);
     }
 }
