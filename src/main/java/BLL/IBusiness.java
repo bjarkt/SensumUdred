@@ -1,6 +1,7 @@
 package BLL;
 
 import ACQ.*;
+import BLL.account_system.User;
 import BLL.getter.address_getter.IGetAddress;
 import BLL.log_agent.ChangeLog;
 import BLL.open_case.ICase;
@@ -52,6 +53,8 @@ public interface IBusiness {
 	 * @return user with that ssn
 	 */
 	IUser getUser(String ssn);
+
+	IUser createUser(String ssn, String firstName, String lastName, IAddress address, String phone, String email);
 
 	/**
 	 * Set an event listener for when the security system 'throws' out an exception.
@@ -105,7 +108,7 @@ public interface IBusiness {
 	/**
 	 * Creates a new inquiry.
 	 */
-	void createInquiry();
+	IInquiry createInquiry(String description, String source);
 	IElucidation getElucidation(int ID);
 
 }

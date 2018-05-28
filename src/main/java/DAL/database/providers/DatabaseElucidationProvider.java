@@ -317,11 +317,13 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	private Set<IElucidation> getElucidationsFromSSN(Connection conn, String ssn, boolean getClosedElucidations) throws SQLException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT id FROM elucidations WHERE isclosed = ? AND id IN (");
-		sb.append("SELECT id FROM elucidations WHERE applies_ssn = '90909090' OR id IN (");
-		sb.append("SELECT elucidations_id FROM worksin WHERE users_ssn = '90909090'));");
+		sb.append("SELECT id FROM elucidations WHERE applies_ssn = ? OR id IN (");
+		sb.append("SELECT elucidations_id FROM worksin WHERE users_ssn = ?));");
 
 		PreparedStatement ps = conn.prepareStatement(sb.toString());
 		ps.setBoolean(1, getClosedElucidations);
+		ps.setString(2, ssn);
+		ps.setString(3, ssn);
 
 		ResultSet rs = ps.executeQuery();
 
