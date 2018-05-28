@@ -387,10 +387,6 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	private void setupElucidationView(IElucidation elucidation){
-
-		// Parses data about elucidation to loaded view.
-		elucidationView.setElucidationData(elucidation);
-
 		// Setup listener for when caseworker toggles state.
 		elucidationView.onToggleState(data -> {
 			business.getElucidationService().updateState(elucidation.getId(), false);
@@ -401,9 +397,24 @@ public class UserFacade implements IUserInterface, Initializable {
 			}
 		});
 
+
+		// Setup listener for when caseworkers closes elucidation.
 		elucidationView.onCloseCase(data -> {
-			business.getElucidationService().updateState(elucidation.getId(), true);
 			setCenter(homeView);
+
+			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getElucidationService().updateState(elucidation.getId(), true);
+				}
+			});
+
+			task.setOnSucceeded(data1 -> {
+				Platform.runLater(() -> {
+					popUp.show("Sag lukket.", "Sagsnummer " + elucidation.getId() + " er nu blevet lukket.");
+					tickMyElucidations();
+				});
+			});
 		});
 
 

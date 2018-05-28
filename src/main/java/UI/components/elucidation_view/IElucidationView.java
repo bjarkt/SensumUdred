@@ -8,11 +8,14 @@ import java.util.Set;
 
 public interface IElucidationView extends IComponent {
 
-    void setElucidationData(IElucidation elucidation);
+    /**
+     * Updates the
+     */
+    void tick();
 
     /**
-     *
-     * @param required
+     * Sets which object of type {@link IElucidation} to be presented.
+     * @param required  elucidation data to be shown.
      */
     void setRequired(IElucidationViewRequire required);
 

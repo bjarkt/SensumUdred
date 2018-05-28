@@ -53,7 +53,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<?>> onCloseCaseSubscribers = new ArrayList<>();
 
 
-    // Boolean attribute used for component scaling.
+    /* Boolean attribute used for component scaling */
     private boolean isMobile;
 
     @Secured("addCaseworkerToCase")
@@ -62,10 +62,14 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox caseWorkerContainer;
 
+
+
+
     //region general elements
     @FXML
     private Label taskTitle;
 
+    @Secured("")
     @FXML
     private JFXButton stateButton;
 
@@ -98,7 +102,55 @@ public class ElucidationViewController extends Component implements IElucidation
         onCloseCaseSubscribers.add(listener);
     }
 
-    //regionend
+    //endregion
+
+    //region citizen_section
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField CPRField;
+
+    @FXML
+    private TextField phoneNumberField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField dateField;
+
+    @FXML
+    void editCitizenInfo(ActionEvent event) {
+        if(editCaseCitizenInformation.getText().equals("Rediger")){
+            nameField.setEditable(true);
+            CPRField.setEditable(true);
+            phoneNumberField.setEditable(true);
+            emailField.setEditable(true);
+            nameField.getStyleClass().add("editing");
+            CPRField.getStyleClass().add("editing");
+            phoneNumberField.getStyleClass().add("editing");
+            emailField.getStyleClass().add("editing");
+            editCaseCitizenInformation.setText("Gem");
+            editCaseCitizenInformation.getStyleClass().add("editing");
+        } else if(editCaseCitizenInformation.getText().equals("Gem")){
+            nameField.setEditable(false);
+            CPRField.setEditable(false);
+            phoneNumberField.setEditable(false);
+            emailField.setEditable(false);
+            nameField.getStyleClass().remove("editing");
+            CPRField.getStyleClass().remove("editing");
+            phoneNumberField.getStyleClass().remove("editing");
+            emailField.getStyleClass().add("editing");
+            editCaseCitizenInformation.setText("Rediger");
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(nameField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(CPRField.getText()));
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(phoneNumberField.getText()));
+        }
+    }
+
+    //endregion
 
     //region offers_section
 
@@ -111,27 +163,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private VBox caseOffersWrapper;
 
     @FXML
-    private TextField nameField;
-
-    @FXML
-    private TextField CPRField;
-
-    @FXML
-    private TextField cityField;
-
-    @FXML
-    private TextField addressField;
-
-    @FXML
-    private TextField civilStatusField;
-
-    @FXML
-    private TextField phoneNumberField;
-    @FXML
     private JFXButton editCaseCitizenInformation;
-
-    @FXML
-    private TextField cellphoneNumberField;
 
     @FXML
     private JFXButton editOffersbutton;
@@ -343,6 +375,8 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //endregion
 
+
+
     /**
      * Change button text based on list size, with plural word.
      * @param listSize size of list.
@@ -449,6 +483,9 @@ public class ElucidationViewController extends Component implements IElucidation
         setupUpGrantingsSection();
         setupOffersSection();
         setupUpThemesSection();
+
+        /* Update data to user. */
+        tick();
 
     }
 
@@ -571,51 +608,6 @@ public class ElucidationViewController extends Component implements IElucidation
         }
 
     }
-    @FXML
-    void setEditCaseCitizenInformation (ActionEvent event) {
-        if(editCaseCitizenInformation.getText().equals("Rediger")){
-            nameField.setEditable(true);
-            CPRField.setEditable(true);
-            cityField.setEditable(true);
-            addressField.setEditable(true);
-            civilStatusField.setEditable(true);
-            phoneNumberField.setEditable(true);
-            cellphoneNumberField.setEditable(true);
-            nameField.getStyleClass().add("editing");
-            CPRField.getStyleClass().add("editing");
-            cityField.getStyleClass().add("editing");
-            addressField.getStyleClass().add("editing");
-            civilStatusField.getStyleClass().add("editing");
-            phoneNumberField.getStyleClass().add("editing");
-            cellphoneNumberField.getStyleClass().add("editing");
-            editCaseCitizenInformation.setText("Gem");
-            editCaseCitizenInformation.getStyleClass().add("editing");
-        } else if(editCaseCitizenInformation.getText().equals("Gem")){
-            nameField.setEditable(false);
-            CPRField.setEditable(false);
-            cityField.setEditable(false);
-            addressField.setEditable(false);
-            civilStatusField.setEditable(false);
-            phoneNumberField.setEditable(false);
-            cellphoneNumberField.setEditable(false);
-            editCaseCitizenInformation.setText("Rediger");
-            nameField.getStyleClass().remove("editing");
-            CPRField.getStyleClass().remove("editing");
-            cityField.getStyleClass().remove("editing");
-            addressField.getStyleClass().remove("editing");
-            civilStatusField.getStyleClass().remove("editing");
-            phoneNumberField.getStyleClass().remove("editing");
-            cellphoneNumberField.getStyleClass().remove("editing");
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(nameField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(CPRField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(cityField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(addressField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(civilStatusField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(phoneNumberField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(cellphoneNumberField.getText()));
-        }
-
-    }
 
 
     @FXML
@@ -733,17 +725,31 @@ public class ElucidationViewController extends Component implements IElucidation
         leaveEludicationSubscribers.add(listener);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setElucidationData(IElucidation elucidation) {
-        taskTitle.setText("Sagsnummer: " + Long.toString(elucidation.getId()));
-        if(elucidation.getTask().getState() == ElucidationState.INQUIRY){
-            this.caseDescriptionField.setText(((IInquiry)(elucidation.getTask())).getDescription());
+    public void tick() {
+        /* Tick generel info */
+        taskTitle.setText("Sagsnummer: " + Long.toString(required.getElucidation().getId()));
+        nameField.setText(required.getElucidation().getCitizen().getName());
+        CPRField.setText(required.getElucidation().getCitizen().getSocialSecurityNumber());
+        phoneNumberField.setText(required.getElucidation().getCitizen().getPhoneNumber());
+        emailField.setText(required.getElucidation().getCitizen().getEmail());
+        dateField.setText(required.getElucidation().getCreationDate().toString());
+
+        if(required.getElucidation().getTask().getState() == ElucidationState.INQUIRY){
+            this.caseDescriptionField.setText(((IInquiry)(required.getElucidation().getTask())).getDescription());
         } else{
-            listOfGrantings.addAll(((ICase)(elucidation.getTask())).getGrantings());
-           // ((ICase)(elucidation.getTask())).getGrantings().
+            listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings());
+            // ((ICase)(elucidation.getTask())).getGrantings().
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setRequired(IElucidationViewRequire required) {
         this.required = required;

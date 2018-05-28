@@ -295,7 +295,7 @@
                                              <children>
                                                 <Label styleClass="elucidationView_sideBox_title" text="Borgeren" />
                                                 <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton fx:id="editCaseCitizenInformation" text="Rediger">
+                                                <JFXButton fx:id="editCaseCitizenInformation" onAction="#editCitizenInfo" text="Rediger">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
@@ -346,7 +346,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField fx:id="cellphoneNumberField" editable="false" onMouseClicked="#editContactDetailsCellOnClick" onMouseEntered="#saveContactDetailsCellOnEnter" promptText="Email" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="emailField" editable="false" onMouseClicked="#editContactDetailsCellOnClick" onMouseEntered="#saveContactDetailsCellOnEnter" promptText="Email" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" styleClass="elucidationView_inputField_wrapper">
@@ -356,7 +356,7 @@
                                                       <Insets right="11.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField editable="false" onMouseClicked="#editRegistrationDateOnClick" onMouseEntered="#saveRegistrationDateOnEnter" promptText="Dato" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
+                                                <TextField fx:id="dateField" editable="false" onMouseClicked="#editRegistrationDateOnClick" onMouseEntered="#saveRegistrationDateOnEnter" promptText="Dato" styleClass="elucidationView_inputField" HBox.hgrow="SOMETIMES" />
                                              </children>
                                           </HBox>
                                        </children>
