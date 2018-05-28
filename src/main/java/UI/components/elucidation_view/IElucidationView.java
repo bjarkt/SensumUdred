@@ -79,7 +79,7 @@ public interface IElucidationView extends IComponent {
      *
      * @param listener
      */
-    void onCaseCitizenInformation (IEventListener<String> listener);
+    void onCaseCitizenInformation (IEventListener<String[]> listener);
 
     /**
      *

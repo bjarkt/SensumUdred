@@ -397,7 +397,6 @@ public class UserFacade implements IUserInterface, Initializable {
 			}
 		});
 
-
 		// Setup listener for when caseworkers closes elucidation.
 		elucidationView.onCloseCase(data -> {
 			setCenter(homeView);
@@ -416,6 +415,11 @@ public class UserFacade implements IUserInterface, Initializable {
 				});
 			});
 		});
+
+		elucidationView.onCaseCitizenInformation(data -> {
+			// TODO: I NEED TO CALL BUSINESS TO UPDATE CITIZEN INFO
+		});
+
 
 
 
@@ -452,9 +456,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		elucidationView.onAddNewOffer(data -> {
 			System.out.println(data);
 		});
-		elucidationView.onCaseCitizenInformation(data -> {
-			System.out.println(data);
-		});
+
 		elucidationView.onCaseCitizenMunicipality(data -> {
 			System.out.println(data);
 		});

@@ -34,9 +34,10 @@ import java.util.*;
 
 public class ElucidationViewController extends Component implements IElucidationView {
 
-    // Reference to the current displayed elucidation.
+    /* Required interface: Reference to the current displayed elucidation. */
     private IElucidationViewRequire required;
 
+    /* Lists of subscribers */
     private List<IEventListener<?>> leaveEludicationSubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveCaseDescriptionSubscribers = new ArrayList<>();
     private List<IEventListener<String>> addNewOfferSubscribers = new ArrayList<>();
@@ -44,7 +45,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<String>> saveCitizenAgreementSubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveCitizenMunicipalitySubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveSpecialCircumstancesSubscribers = new ArrayList<>();
-    private List<IEventListener<String>> editCitizenInformationSubscribers = new ArrayList<>();
+    private List<IEventListener<String[]>> editCitizenInformationSubscribers = new ArrayList<>();
     private List<IEventListener<?>> createMeetingSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
@@ -62,9 +63,6 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox caseWorkerContainer;
 
-
-
-
     //region general elements
     @FXML
     private Label taskTitle;
@@ -75,7 +73,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     void toggleState(ActionEvent event) {
-        System.out.println(required.getElucidation());
         if(required.getElucidation().getTask().getState() == ElucidationState.INQUIRY){
             onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationState.CASE));
         } else {
@@ -121,6 +118,9 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private TextField dateField;
 
+    @Override
+    public void onCaseCitizenInformation (IEventListener<String[]> listener) {editCitizenInformationSubscribers.add(listener); }
+
     @FXML
     void editCitizenInfo(ActionEvent event) {
         if(editCaseCitizenInformation.getText().equals("Rediger")){
@@ -144,9 +144,14 @@ public class ElucidationViewController extends Component implements IElucidation
             phoneNumberField.getStyleClass().remove("editing");
             emailField.getStyleClass().add("editing");
             editCaseCitizenInformation.setText("Rediger");
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(nameField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(CPRField.getText()));
-            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(phoneNumberField.getText()));
+
+            String[] data = new String[4];
+            data[0] = nameField.getText();
+            data[1] = CPRField.getText();
+            data[2] = phoneNumberField.getText();
+            data[3] = emailField.getText();
+
+            editCitizenInformationSubscribers.forEach(listener -> listener.onAction(data));
         }
     }
 
@@ -210,7 +215,7 @@ public class ElucidationViewController extends Component implements IElucidation
     }
     //endregion
 
-    //region setup grantings section
+    //region grantings section
 
     private ObservableSet<IGrantingUI> listOfChosenGrantings = FXCollections.observableSet();
     private ObservableSet<IGranting> listOfGrantings = FXCollections.observableSet();
@@ -509,8 +514,6 @@ public class ElucidationViewController extends Component implements IElucidation
     public void onCaseCitzenAgreement(IEventListener<String> listener) {saveCitizenAgreementSubscribers.add(listener);}
     @Override
     public void onCaseSpecialCircumstancesField(IEventListener<String> listener) {saveSpecialCircumstancesSubscribers.add(listener); }
-    @Override
-    public void onCaseCitizenInformation (IEventListener<String> listener) {editCitizenInformationSubscribers.add(listener); }
 
     @Override
     public void onAddNewTheme(IEventListener<Set<IThemeUI>> listener) {
