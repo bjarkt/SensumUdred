@@ -166,6 +166,7 @@ CREATE TABLE changelogs(
 
 CREATE TABLE eventlogs(
   ID BIGSERIAL PRIMARY KEY,
+  method_name TEXT,
   description TEXT,
   logLevel INTEGER,
   logAction INTEGER,

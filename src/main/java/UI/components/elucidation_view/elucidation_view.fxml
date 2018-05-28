@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -21,39 +22,48 @@
             <Insets left="22.0" right="22.0" top="22.0" />
          </padding>
          <children>
-            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #dce0e0; -fx-border-width: 0 0 1 0;">
+            <VBox fx:id="headerVbox" spacing="20.0" />
+            <HBox fx:id="headerHbox" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #dce0e0; -fx-border-width: 0 0 1 0;" VBox.vgrow="ALWAYS">
                <children>
-                  <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#leaveElucidation">
-                     <graphic>
-                        <SVGPath content="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-                     </graphic>
-                  </JFXButton>
-                  <Label fx:id="taskTitle" styleClass="myElucidationsTitle" text="Sagsnummer: 151248" textFill="#484848">
-                     <font>
-                        <Font name="CircularStd-Bold" size="26.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <JFXButton fx:id="closeToggleButton" onAction="#toggleCloseElucidation" text="Luk sag">
-                     <styleClass>
-                        <String fx:value="flat-button" />
-                        <String fx:value="flat-button_outlined" />
-                     </styleClass>
-                  </JFXButton>
-                  <JFXButton onAction="#sendPopUp" text="Henvis">
-                     <HBox.margin>
-                        <Insets right="12.0" />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="flat-button" />
-                        <String fx:value="flat-button_outlined" />
-                     </styleClass></JFXButton>
-                  <JFXButton onAction="#createMeeting" text="Indkald til møde">
-                     <styleClass>
-                        <String fx:value="flat-button" />
-                        <String fx:value="flat-button_outlined" />
-                     </styleClass></JFXButton>
-                  <JFXButton fx:id="stateButton" onAction="#toggleState" styleClass="flat-button" text="Opgradér til" />
+                  <HBox fx:id="headerLeft" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#leaveElucidation">
+                           <graphic>
+                              <SVGPath content="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                           </graphic>
+                        </JFXButton>
+                        <Label fx:id="taskTitle" styleClass="myElucidationsTitle" text="Sagsnummer: 151248" textFill="#484848">
+                           <font>
+                              <Font name="CircularStd-Bold" size="26.0" />
+                           </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Region fx:id="headerSpacer" HBox.hgrow="ALWAYS" />
+                  <FlowPane fx:id="headerRight" alignment="CENTER_RIGHT" columnHalignment="CENTER" hgap="10.0" prefWrapLength="470.0">
+                     <children>
+                        <JFXButton fx:id="closeToggleButton" onAction="#toggleCloseElucidation" text="Luk sag">
+                           <styleClass>
+                              <String fx:value="flat-button" />
+                              <String fx:value="flat-button_outlined" />
+                           </styleClass>
+                        </JFXButton>
+                        <JFXButton onAction="#sendPopUp" text="Henvis">
+                           <styleClass>
+                              <String fx:value="flat-button" />
+                              <String fx:value="flat-button_outlined" />
+                           </styleClass>
+                        </JFXButton>
+                        <JFXButton onAction="#createMeeting" text="Indkald til møde">
+                           <styleClass>
+                              <String fx:value="flat-button" />
+                              <String fx:value="flat-button_outlined" />
+                           </styleClass>
+                        </JFXButton>
+                        <JFXButton fx:id="stateButton" onAction="#toggleState" styleClass="flat-button" text="Opgradér til" />
+                     </children>
+                  </FlowPane>
                </children>
                <padding>
                   <Insets bottom="10.0" />

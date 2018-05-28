@@ -1,4 +1,4 @@
-package BLL.log_system;
+package ACQ;
 
 public enum LogLevel {
 	FATAL,

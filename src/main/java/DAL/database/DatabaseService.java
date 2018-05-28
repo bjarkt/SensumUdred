@@ -1,10 +1,8 @@
 package DAL.database;
 
 import ACQ.*;
-import DAL.database.providers.DatabaseAdminProvider;
-import DAL.database.providers.DatabaseDefaultProvider;
-import DAL.database.providers.DatabaseElucidationProvider;
-import DAL.database.providers.DatabaseSigningProvider;
+import DAL.database.providers.*;
+import org.eclipse.core.runtime.ILog;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,12 +17,14 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 	private IAdminService adminService;
 	private ISigningService signingService;
 	private IElucidationService elucidationService;
+	private ILoggingService loggingService;
 
 	public DatabaseService() {
 		this.defaultService = new DatabaseDefaultProvider();
 		this.adminService = new DatabaseAdminProvider();
 		this.signingService = new DatabaseSigningProvider();
 		this.elucidationService = new DatabaseElucidationProvider();
+		this.loggingService = new DatabaseLoggingProvider();
 	}
 
 	/**
@@ -61,6 +61,15 @@ public class DatabaseService extends PostgreSqlDatabase implements IDatabaseServ
 	@Override
 	public IElucidationService getElucidationService() {
 		return elucidationService;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
+	@Override
+	public ILoggingService getLoggingService() {
+		return loggingService;
 	}
 
 	/**
