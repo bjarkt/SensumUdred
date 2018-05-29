@@ -796,10 +796,10 @@ public class ElucidationViewController extends Component implements IElucidation
         headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
         // listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
 
-        if(required.getElucidation().getTask().getState() == ElucidationState.INQUIRY){
-
-        } else if(required.getElucidation().getTask().getState() == ElucidationState.CASE){
-
+        if(required.getElucidation().getTask() instanceof IInquiry){
+            System.out.println("THIS IS AN INQUIRY!");
+        } else if(required.getElucidation().getTask() instanceof ICase){
+            System.out.println("THIS IS A CASE!");
         }
 
 

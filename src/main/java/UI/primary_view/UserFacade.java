@@ -100,50 +100,6 @@ public class UserFacade implements IUserInterface, Initializable {
 	public UserFacade(){
 		SecuredAspect.setBusiness(business);
 		SecuredAspect.setPopup(popUp);
-
-		headerController = new HeaderController();
-		logInView = new LogInViewController();
-		homeView = new HomeViewController();
-
-		verticalMenu = new VerticalMenuController();
-
-		userMenu = new UserMenuController();
-
-		drawer = new DrawerController(new IDrawerRequire() {
-			@Override
-			public AnchorPane getParent() {
-				return screen;
-			}
-			@Override
-			public Parent getContent() {
-				return verticalMenu.getView();
-			}
-		}, JFXDrawer.DrawerDirection.LEFT, "Menu");
-
-		sendPopup = new SendPopUpController(new ISendPopUpRequire() {
-			@Override
-			public AnchorPane getParent() {
-				return screen;
-			}
-		});
-
-		userDrawer = new DrawerController(new IDrawerRequire() {
-			@Override
-			public AnchorPane getParent() {
-				return screen;
-			}
-
-			@Override
-			public Parent getContent() {
-				return userMenu.getView();
-			}
-		}, JFXDrawer.DrawerDirection.RIGHT, "Brugerprofil");
-
-		popUp = new PopUpController(new IPopUpRequire() {
-			@Override
-			public AnchorPane getParent() { return screen; }
-		});
-
 		isLoggedIn = new SimpleBooleanProperty();
 		isLoggedIn.setValue(false);
 
@@ -151,14 +107,10 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Setup listeners for components
-		setupUpLoginView();
-		setupHeader();
-		setupVerticalMenu();
-		setupAllElucidationsView();
-
 		// Set initial view to be log in view
+		logInView = new LogInViewController();
 		setCenter(logInView);
+		setupUpLoginView();
 
 		// Displays loading spinner when background loading tasks are running.
 		Task.onRunningTasksChanged((observable, oldValue, newValue) -> {
@@ -171,6 +123,57 @@ public class UserFacade implements IUserInterface, Initializable {
 		/* Only present certain UI elements if user is logged in */
 		isLoggedIn.addListener((loginObservable, oldLoginValue, newLoginValue) -> {
 			if(newLoginValue){
+
+				//region initialize controllers
+				headerController = new HeaderController();
+				homeView = new HomeViewController();
+
+				verticalMenu = new VerticalMenuController();
+
+				userMenu = new UserMenuController();
+
+				drawer = new DrawerController(new IDrawerRequire() {
+					@Override
+					public AnchorPane getParent() {
+						return screen;
+					}
+					@Override
+					public Parent getContent() {
+						return verticalMenu.getView();
+					}
+				}, JFXDrawer.DrawerDirection.LEFT, "Menu");
+
+				sendPopup = new SendPopUpController(new ISendPopUpRequire() {
+					@Override
+					public AnchorPane getParent() {
+						return screen;
+					}
+				});
+
+				userDrawer = new DrawerController(new IDrawerRequire() {
+					@Override
+					public AnchorPane getParent() {
+						return screen;
+					}
+
+					@Override
+					public Parent getContent() {
+						return userMenu.getView();
+					}
+				}, JFXDrawer.DrawerDirection.RIGHT, "Brugerprofil");
+
+				popUp = new PopUpController(new IPopUpRequire() {
+					@Override
+					public AnchorPane getParent() { return screen; }
+				});
+				//endregion
+
+				//region setup listeners
+				setupHeader();
+				setupVerticalMenu();
+				setupAllElucidationsView();
+				//endregion
+
 				canvas.setTop(headerController.getView());
 				canvas.setLeft(verticalMenu.getView());
 				canvas.getLeft().getStyleClass().add("canvas_left");
@@ -204,16 +207,6 @@ public class UserFacade implements IUserInterface, Initializable {
 				drawer.close();
 			}
 		});
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void shutdown() {
-		if (profile != null && profile.getAccount() != null) {
-			business.getUserManager().signOut(profile.getAccount().getUsername());
-		}
 	}
 
 	/**
@@ -276,11 +269,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	// Setup the user drawer with event handlers.
 	private void setupUserMenu(){
 		userMenu.onLogOut(data -> {
-			business.getUserManager().signOut(profile.getAccount().getUsername());
-			isLoggedIn.setValue(false);
-			logInView = new LogInViewController();
-			setupUpLoginView();
-			setCenter(logInView);
+			shutdown();
 		});
 	}
 
@@ -302,8 +291,6 @@ public class UserFacade implements IUserInterface, Initializable {
 					profile = data1;
 					SecuredAspect.setAccount(data1.getAccount());
 					Platform.runLater(() -> {
-						homeView = new HomeViewController();
-						setupAllElucidationsView();
 						isLoggedIn.setValue(true);
 					});
 				} else{
@@ -627,4 +614,36 @@ public class UserFacade implements IUserInterface, Initializable {
 	public void startApplication(String[] args) {
 		Application.launch(JavaFX.class, args);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void shutdown() {
+		if (profile != null && profile.getAccount() != null) {
+			Task<Boolean> signOutTask = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					Platform.runLater(() -> {
+						canvas.setLeft(null);
+						canvas.setTop(null);
+						userDrawer.close();
+						canvas.setCenter(new Label("Logger ud..."));
+					});
+					if(profile != null) return business.getUserManager().signOut(profile.getAccount().getUsername());
+					else return null;
+				}
+			});
+			signOutTask.setOnSucceeded(data -> {
+				Platform.runLater(() -> {
+					isLoggedIn.setValue(false);
+					profile = null;
+					logInView = new LogInViewController();
+					setupUpLoginView();
+					setCenter(logInView);
+				});
+			});
+		}
+	}
+
 }
