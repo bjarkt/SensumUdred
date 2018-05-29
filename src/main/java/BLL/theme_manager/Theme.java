@@ -76,7 +76,7 @@ public class Theme implements ITheme{
      * {@inheritDoc}
      */
     @Override
-    public int compareTo(Theme theme) {
-        return Integer.compare(this.theme.ordinal(), theme.theme.ordinal());
+    public int compareTo(ITheme theme) {
+        return Integer.compare(this.theme.ordinal(), theme.getTheme().ordinal());
     }
 }
