@@ -72,11 +72,11 @@ class MediatorHelper {
         // Setup creator and caseworkers
         IUser creator = null;
         if (dataElucidation.getCaseworkers().stream().findFirst().isPresent()) {
-            creator = dataElucidation.getCaseworkers().stream().findFirst().get();
+            creator = MediatorHelper.convertDataUserToRealUser(dataElucidation.getCaseworkers().stream().findFirst().get(), getAddress);
         }
         Set<IUser> caseworkersExceptCreator = dataElucidation.getCaseworkers();
 
-        caseworkersExceptCreator.remove(creator);
+        caseworkersExceptCreator.remove(dataElucidation.getCaseworkers().stream().findFirst().get());
 
         // Setup inquiry / case
         switch (dataElucidation.getTask().getState()) {
