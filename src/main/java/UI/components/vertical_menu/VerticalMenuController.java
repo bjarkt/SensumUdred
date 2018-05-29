@@ -26,7 +26,7 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @FXML
     private JFXButton myElucidationsButton;
 
-    @Secured("getChangeLog")
+    @Secured("getLogGetterService")
     @FXML
     private JFXButton logButton;
 

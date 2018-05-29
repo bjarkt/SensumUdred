@@ -58,11 +58,21 @@ public class BusinessFacade implements IBusiness {
 		return elucidationServiceMediator;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@SecurityLevel(500)
 	@Override
 	public ILoggingService getLoggingService() {
+		return loggingService;
+	}
+
+	@Override
+	@SecurityLevel(0)
+	public ILogMakerService getLogMakerService() {
+		return loggingService;
+	}
+
+	@SecurityLevel(500)
+	@Override
+	public ILogGetterService getLogGetterService() {
 		return loggingService;
 	}
 
