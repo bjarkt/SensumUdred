@@ -80,7 +80,7 @@ public class DatabaseLoggingProvider extends PostgreSqlDatabase implements ILogg
 			PreparedStatement ps = conn.prepareStatement(query);
 
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				long id = rs.getLong("id");
 				String methodName = rs.getString("method_name");
 				String description = rs.getString("description");
