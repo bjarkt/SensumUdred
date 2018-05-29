@@ -1,5 +1,7 @@
 package ACQ;
 
+import java.util.Set;
+
 public interface ILoggingService {
 
 
@@ -23,4 +25,16 @@ public interface ILoggingService {
 	 * @return true, if successful; otherwise false
 	 */
 	boolean addToLogs(long accountId, long sessionId, long changelogId, long eventLogId);
+
+	/**
+	 * Get all event logs
+	 * @return Sorted set of event logs
+	 */
+	Set<IEventLog> getEventLogs();
+
+	/**
+	 * Get event log for SSN
+	 * @param ssn User's ssn
+	 */
+	void getEventLogForSSN(String ssn);
 }
