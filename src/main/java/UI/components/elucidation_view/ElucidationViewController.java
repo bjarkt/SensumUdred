@@ -65,9 +65,17 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private Label taskTitle;
 
-    @Secured("")
+    @Secured("createInquiry")
     @FXML
     private JFXButton stateButton;
+
+    @Secured("createInquiry")
+    @FXML
+    private JFXButton meetingButton;
+
+    @Secured("createInquiry")
+    @FXML
+    private JFXButton referButton;
 
     @FXML
     private VBox headerVbox;
@@ -79,10 +87,19 @@ public class ElucidationViewController extends Component implements IElucidation
     private Region headerSpacer;
 
     @FXML
+    private VBox consentContainer;
+
+    @FXML
+    private VBox municipalityContainer;
+
+    @FXML
     private HBox headerLeft;
 
     @FXML
     private FlowPane headerRight;
+
+    @FXML
+    private TextField inquirySourceFIeld;
 
     @FXML
     void toggleState(ActionEvent event) {
@@ -99,6 +116,7 @@ public class ElucidationViewController extends Component implements IElucidation
     }
 
 
+    @Secured("createInquiry")
     @FXML
     private JFXButton closeToggleButton;
 
@@ -294,6 +312,7 @@ public class ElucidationViewController extends Component implements IElucidation
             public void onChanged(Change<? extends IGranting> change) {
                 grantingWrapper.getChildren().clear();
                 for (IGranting granting : listOfGrantings) {
+                    System.out.println(granting.getDescription());
                     IGrantingUI grantingUI = new GrantingController();
                     grantingUI.setData(granting.getDescription(),Integer.toString(granting.getParagraph()));
                     grantingUI.onGrantingSelected(data -> {
@@ -763,13 +782,27 @@ public class ElucidationViewController extends Component implements IElucidation
         phoneNumberField.setText(required.getElucidation().getCitizen().getPhoneNumber());
         emailField.setText(required.getElucidation().getCitizen().getEmail());
         dateField.setText(required.getElucidation().getCreationDate().toString());
+        inquirySourceFIeld.setText(((IInquiry)(required.getElucidation().getTask())).getSource());
+        this.caseDescriptionField.setText(((IInquiry)(required.getElucidation().getTask())).getDescription());
+
+        // IF TASK IS INQUIRY
+        grantingsContainer.setVisible(false);
+        offersContainer.setVisible(false);
+        themesContainer.setVisible(false);
+        consentContainer.setVisible(false);
+        municipalityContainer.setVisible(false);
+
+        // IF TASK STATE IS CASE
+        headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
+        // listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
 
         if(required.getElucidation().getTask().getState() == ElucidationState.INQUIRY){
-            this.caseDescriptionField.setText(((IInquiry)(required.getElucidation().getTask())).getDescription());
-        } else{
-            listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings());
-            // ((ICase)(elucidation.getTask())).getGrantings().
+
+        } else if(required.getElucidation().getTask().getState() == ElucidationState.CASE){
+
         }
+
+
     }
 
     /**

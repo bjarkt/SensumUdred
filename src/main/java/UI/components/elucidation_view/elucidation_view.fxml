@@ -49,13 +49,13 @@
                               <String fx:value="flat-button_outlined" />
                            </styleClass>
                         </JFXButton>
-                        <JFXButton onAction="#sendPopUp" text="Henvis">
+                        <JFXButton fx:id="referButton" onAction="#sendPopUp" text="Henvis">
                            <styleClass>
                               <String fx:value="flat-button" />
                               <String fx:value="flat-button_outlined" />
                            </styleClass>
                         </JFXButton>
-                        <JFXButton onAction="#createMeeting" text="Indkald til møde">
+                        <JFXButton fx:id="meetingButton" onAction="#createMeeting" text="Indkald til møde">
                            <styleClass>
                               <String fx:value="flat-button" />
                               <String fx:value="flat-button_outlined" />
@@ -98,6 +98,27 @@
                                              </VBox.margin>
                                           </HBox>
                                           <TextArea fx:id="caseDescriptionField" editable="false" promptText="Om sagen" styleClass="elucidationView_textArea" wrapText="true" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="10.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
+                                             <children>
+                                                <Label styleClass="elucidationView_section_title" text="Kilde til henvendelse" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="16.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <TextField fx:id="inquirySourceFIeld" editable="false" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </VBox>
                                     <VBox fx:id="grantingsContainer" spacing="10.0">
@@ -214,7 +235,7 @@
                                           <VBox fx:id="caseThemeWrapper" />
                                        </children>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox fx:id="consentContainer" spacing="10.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
@@ -241,7 +262,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox fx:id="municipalityContainer" spacing="10.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
@@ -264,33 +285,6 @@
                                           <HBox>
                                              <children>
                                                 <TextField fx:id="caseCitizenMunicipalityField" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox spacing="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
-                                             <children>
-                                                <Label styleClass="elucidationView_section_title" text="Særlige omstændigheder" />
-                                                <Region HBox.hgrow="ALWAYS" />
-                                                <JFXButton fx:id="editCaseSpecialCircumstancesButton" onAction="#editSpecialCircumstancesButton" text="Rediger">
-                                                   <styleClass>
-                                                      <String fx:value="flat-button" />
-                                                      <String fx:value="flat-button_outlined" />
-                                                   </styleClass>
-                                                </JFXButton>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="16.0" />
-                                             </padding>
-                                             <VBox.margin>
-                                                <Insets bottom="5.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <HBox>
-                                             <children>
-                                                <TextField fx:id="caseSpecialCircumstancesField" styleClass="elucidationView_simpleInputField" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
                                        </children>

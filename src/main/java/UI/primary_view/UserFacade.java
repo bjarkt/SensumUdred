@@ -388,17 +388,42 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	private void setupElucidationView(IElucidation elucidation){
-		// Setup listener for when caseworker toggles state.
+
+
+		// Setup listener for when caseworker upgrades task state to case.
 		elucidationView.onToggleState(data -> {
-			business.getElucidationService().updateState(elucidation.getId(), false);
-			if(elucidation.getTask().getState() == ElucidationState.INQUIRY){
-				business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationState.CASE);
-			} else {
-				business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationState.INQUIRY);
-			}
+			canvas.setCenter(new Label("Opgraderer udredning til sag..."));
+			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationState.CASE);
+				}
+			});
+			task.setOnSucceeded(data1 -> {
+				Task<IElucidation> task2 = new Task<>(new Supplier<IElucidation>() {
+					@Override
+					public IElucidation get() {
+						return business.getElucidationService().getElucidation(elucidation.getId());
+					}
+				});
+				task2.setOnSucceeded(data2 -> {
+					Platform.runLater(() -> {
+						elucidationView = new ElucidationViewController(new IElucidationViewRequire() {
+							@Override
+							public IElucidation getElucidation() {
+								return data2;
+							}
+						});
+						setCenter(elucidationView);
+						setupElucidationView(data2);
+						popUp.show("Sag oprettet.", "Der er nu oprettet en konkret sag for sagsnummer " + elucidation.getId());
+					});
+				});
+			});
+
 		});
 
-		// Setup listener for when caseworkers closes elucidation.
+		/* Setup listener for when caseworkers closes elucidation. */
 		elucidationView.onCloseCase(data -> {
 			setCenter(homeView);
 
@@ -417,12 +442,48 @@ public class UserFacade implements IUserInterface, Initializable {
 			});
 		});
 
+		/* Setup listener for when admin updates citizen's info. */
 		elucidationView.onCaseCitizenInformation(data -> {
-			business.getAdminService().changeFirstName(data[0], (data[1].split("\\s+")[0]));
-			business.getAdminService().changeLastName(data[0], (data[1].split("\\s+")[1]));
-			business.getAdminService().changePhoneNumber(data[0], data[3]);
-			business.getAdminService().changeEmail(data[0], data[4]);
-			business.getAdminService().changeSSN(data[0], data[2]);
+
+			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getAdminService().changeFirstName(data[0], (data[1].split("\\s+")[0]));
+				}
+			});
+			task.setOnSucceeded(data1 -> {});
+
+			Task<Boolean> task2 = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getAdminService().changeLastName(data[0], (data[1].split("\\s+")[1]));
+				}
+			});
+			task2.setOnSucceeded(data1 -> {});
+
+			Task<Boolean> task3 = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getAdminService().changePhoneNumber(data[0], data[3]);
+				}
+			});
+			task3.setOnSucceeded(data1 -> {});
+
+			Task<Boolean> task4 = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getAdminService().changeEmail(data[0], data[4]);
+				}
+			});
+			task4.setOnSucceeded(data1 -> {});
+
+			Task<Boolean> task5 = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getAdminService().changeSSN(data[0], data[2]);
+				}
+			});
+			task5.setOnSucceeded(data1 -> {});
 		});
 
 
@@ -440,6 +501,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			tickMyElucidations();
 		});
 
+		/* Setup listener for when caseworker updates inquiry description. */
 		elucidationView.onCaseSaveDescription(data -> {
 			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
 				@Override
@@ -449,11 +511,9 @@ public class UserFacade implements IUserInterface, Initializable {
 			});
 
 			task.setOnSucceeded(returnData -> {
-				if(returnData == true) {
-					Platform.runLater(() -> {
-						popUp.show("Gemt!", "Sagens beskrivelse blev gemt korrekt.");
-					});
-				}
+				Platform.runLater(() -> {
+					popUp.show("Gemt!", "Sagens beskrivelse blev gemt korrekt.");
+				});
 			});
 
 		});
@@ -468,9 +528,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		elucidationView.onCaseCitzenAgreement(data -> {
 			System.out.println(data);
 		});
-		elucidationView.onCaseSaveDescription(data -> {
-			System.out.println(data);
-		});
+
 		elucidationView.onDeleteOffers(data -> {
 			System.out.println(data);
 		});
