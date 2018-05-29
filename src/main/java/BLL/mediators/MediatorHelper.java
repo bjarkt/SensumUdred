@@ -129,6 +129,7 @@ class MediatorHelper {
             realElucidation = new Elucidation(dataElucidation.getId(), realCitizen, creator, realDialog, realInquiry);
         }
         realElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
+        realElucidation.setDateOfOpening(dataElucidation.getCreationDate());
 
         return realElucidation;
     }
