@@ -1,7 +1,7 @@
+import ACQ.ICase;
 import ACQ.ITheme;
 import BLL.Inquiry.Inquiry;
 import BLL.open_case.Case;
-import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
 import BLL.theme_manager.ThemeManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +45,7 @@ public class LevelOfFunctionTest {
 
     @Test
     public void setTotalLevelOfFunctionTest() {
-        ICase aCase = createCase();
+        Case aCase = (Case) createCase();
 
         char[] badFunctionLevels = {'@', 'F'};
         char goodFunctionLevel = 'A';
@@ -89,11 +89,6 @@ public class LevelOfFunctionTest {
     }
 
     private ICase createCase() {
-        return new Case(new Inquiry() {
-            @Override
-            public String getDescription() {
-                return "inquiry description";
-            }
-        });
+        return new Case(new Inquiry("Description", "Source"));
     }
 }

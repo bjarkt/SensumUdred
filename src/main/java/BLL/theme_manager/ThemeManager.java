@@ -1,7 +1,7 @@
 package BLL.theme_manager;
 
+import ACQ.ICase;
 import ACQ.ThemeEnum;
-import BLL.open_case.ICase;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ public class ThemeManager implements IThemeManager {
      */
     public void addNewTheme(ThemeEnum theme, String subtheme, String documentation) {
         Theme newTheme = new Theme(theme, subtheme, documentation);
-        this.theCase.addThemes(newTheme);
+        this.theCase.addTheme(newTheme);
         this.currentThemes.add(newTheme);
     }
 

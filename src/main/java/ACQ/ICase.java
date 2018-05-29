@@ -41,6 +41,12 @@ public interface ICase extends IInquiry {
     Set<ITheme> getThemes();
 
     /**
+     * Add new themes to the case
+     * @param theme new theme
+     */
+    void addTheme(ITheme ...theme);
+
+    /**
      * Accessor method for case's grantings.
      * @return case's grantings.
      */

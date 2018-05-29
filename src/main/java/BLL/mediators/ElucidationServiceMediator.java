@@ -1,13 +1,7 @@
 package BLL.mediators;
 
 import ACQ.*;
-import BLL.Elucidation;
-import BLL.Inquiry.Inquiry;
-import BLL.account_system.Address;
-import BLL.account_system.User;
 import BLL.getter.address_getter.IGetAddress;
-import BLL.meeting.Dialog;
-import BLL.meeting.Meeting;
 
 import java.util.*;
 
@@ -47,7 +41,7 @@ public class ElucidationServiceMediator implements IElucidationService {
     public IElucidation createElucidation(IUser citizen, Set<IUser> caseworkers, IInquiry inquiry) {
         IElucidation DALElucidation = dataElucidationService.createElucidation(citizen, caseworkers, inquiry);
 
-        IElucidation realElucidation = this.convertToRealElucidation(DALElucidation);
+        IElucidation realElucidation = MediatorHelper.convertDataElucidationToRealElucidation(DALElucidation, getAddress, httpClient, eboks);
 
         return realElucidation;
     }
@@ -171,7 +165,7 @@ public class ElucidationServiceMediator implements IElucidationService {
     public IElucidation getElucidation(long id) {
         IElucidation DALElucidation = dataElucidationService.getElucidation(id);
 
-        IElucidation realElucidation = this.convertToRealElucidation(DALElucidation);
+        IElucidation realElucidation = MediatorHelper.convertDataElucidationToRealElucidation(DALElucidation, getAddress, httpClient, eboks);
 
         return realElucidation;
     }
@@ -182,7 +176,7 @@ public class ElucidationServiceMediator implements IElucidationService {
     @Override
     public Set<IElucidation> getOpenElucidationsFromSSN(String ssn) {
         Set<IElucidation> realOpenElucidations = new TreeSet<>(getIElucidationComparator());
-        dataElucidationService.getOpenElucidationsFromSSN(ssn).forEach(e -> realOpenElucidations.add(convertToRealElucidation(e)));
+        dataElucidationService.getOpenElucidationsFromSSN(ssn).forEach(e -> realOpenElucidations.add(MediatorHelper.convertDataElucidationToRealElucidation(e, getAddress, httpClient, eboks)));
         return realOpenElucidations;
     }
 
@@ -192,58 +186,8 @@ public class ElucidationServiceMediator implements IElucidationService {
     @Override
     public Set<IElucidation> getClosedElucidationsFromSSN(String ssn) {
         Set<IElucidation> realClosedElucidations = new TreeSet<>(getIElucidationComparator());
-        dataElucidationService.getClosedElucidationsFromSSN(ssn).forEach(e -> realClosedElucidations.add(convertToRealElucidation(e)));
+        dataElucidationService.getClosedElucidationsFromSSN(ssn).forEach(e -> realClosedElucidations.add(MediatorHelper.convertDataElucidationToRealElucidation(e, getAddress, httpClient, eboks)));
         return realClosedElucidations;
-    }
-
-    /**
-     * Convert a elucidation from the DAL to BLL elucidation.
-     * The reason to change is for the logic beneath the BLL object.
-     * DAL object is only for getting the data.
-     * @param DALElucidation any dal elucidation
-     * @return a BLL elucidation
-     */
-    private Elucidation convertToRealElucidation(IElucidation DALElucidation) {
-        Set<IMeeting> realMeetings = new HashSet<>();
-
-        if (DALElucidation.getDialog() != null) {
-            for (IMeeting dalMeeting : DALElucidation.getDialog().getMeetings()) {
-                BLL.meeting.Meeting bllMeeting = new Meeting(dalMeeting.getCreator(), eboks, dalMeeting.getNumber());
-                bllMeeting.setInformation(dalMeeting.getInformation());
-
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(dalMeeting.getMeetingDate());
-
-                bllMeeting.setMeetingDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
-                bllMeeting.setNumber(dalMeeting.getNumber());
-
-                realMeetings.add(bllMeeting);
-            }
-        }
-
-        Dialog realDialog = new Dialog(httpClient, eboks);
-        realDialog.setMeetings(realMeetings);
-
-        IUser creator = null;
-        if (DALElucidation.getCaseworkers().stream().findFirst().isPresent()) {
-            creator = DALElucidation.getCaseworkers().stream().findFirst().get();
-        }
-
-        Set<IUser> caseworkersExceptCreator = DALElucidation.getCaseworkers();
-        caseworkersExceptCreator.remove(creator);
-
-        ITask realInquiry = new Inquiry(((IInquiry)DALElucidation.getTask()));
-
-        IUser citizen = DALElucidation.getCitizen();
-        User realCitizen = new User(citizen.getSocialSecurityNumber(), citizen.getFirstName(), citizen.getLastName());
-        realCitizen.setPhoneNumber(citizen.getPhoneNumber());
-        realCitizen.setEmail(citizen.getEmail());
-        realCitizen.setAddress((Address) getAddress.getAddress(realCitizen.getSocialSecurityNumber()));
-
-        Elucidation realElucidation = new Elucidation(DALElucidation.getId(), realCitizen, creator, realDialog, realInquiry);
-        realElucidation.addCaseworker(caseworkersExceptCreator.toArray(new IUser[0]));
-
-        return realElucidation;
     }
 
     /**

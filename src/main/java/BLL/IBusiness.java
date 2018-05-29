@@ -3,7 +3,6 @@ package BLL;
 import ACQ.*;
 import BLL.getter.address_getter.IGetAddress;
 import BLL.getter.user_getter.IGetUser;
-import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
 import DAL.IPersistent;
 

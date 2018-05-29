@@ -14,7 +14,6 @@ import BLL.log_system.LogAspect;
 import BLL.mediators.DefaultServiceMediator;
 import BLL.mediators.ElucidationServiceMediator;
 import BLL.mediators.SigningServiceMediator;
-import BLL.open_case.ICase;
 import BLL.security_system.SecuritySystem;
 import BLL.theme_manager.IThemeManager;
 import BLL.theme_manager.ThemeManager;

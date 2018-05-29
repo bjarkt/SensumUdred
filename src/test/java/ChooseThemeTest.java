@@ -1,6 +1,6 @@
+import ACQ.ICase;
 import BLL.Inquiry.Inquiry;
 import BLL.open_case.Case;
-import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
 import BLL.theme_manager.Theme;
 import BLL.theme_manager.ThemeManager;
@@ -33,11 +33,6 @@ public class ChooseThemeTest {
     }
 
     private ICase createCase() {
-        return new Case(new Inquiry() {
-            @Override
-            public String getDescription() {
-                return "inquiry description";
-            }
-        });
+        return new Case(new Inquiry("Description", "Source"));
     }
 }

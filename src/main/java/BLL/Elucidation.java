@@ -1,10 +1,6 @@
 package BLL;
 
 import ACQ.*;
-import BLL.open_case.Case;
-import BLL.open_case.Guardianship;
-import BLL.open_case.ICase;
-import javafx.util.Pair;
 
 import java.util.*;
 
@@ -67,20 +63,6 @@ public class Elucidation implements IElucidation {
         return task;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void openCase(String description, List<Pair<String, String>> offerings, List<String> grantings, IUser guardian, Guardianship guardianship, String informationAboutAuthority, boolean citizenAgreesWithOpeningOfCase, String citizensMunicipality, String specialCircumstances) {
-        task = new Case((IInquiry) task);
-        ((ICase) task).addDescription(description);
-        offerings.forEach(offering -> ((ICase) task).addOffers(offering));
-        grantings.forEach(granting -> ((ICase) task).addGrantings(granting));
-        ((ICase) task).setGuardianship(guardian, guardianship, informationAboutAuthority);
-        ((ICase) task).setConsentToCaseOpening(citizenAgreesWithOpeningOfCase);
-        ((ICase) task).setMunicipality(citizensMunicipality);
-        ((ICase) task).addSpecialCircumstances(specialCircumstances);
-    }
 
     /**
      * {@inheritDoc}
@@ -97,4 +79,9 @@ public class Elucidation implements IElucidation {
     public IDialog getDialog() {
         return dialog;
     }
+
+    public void setDateOfOpening(Date dateOfOpening) {
+        this.dateOfOpening = dateOfOpening;
+    }
+
 }

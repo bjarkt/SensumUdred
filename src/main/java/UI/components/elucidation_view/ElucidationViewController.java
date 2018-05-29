@@ -314,7 +314,7 @@ public class ElucidationViewController extends Component implements IElucidation
                 for (IGranting granting : listOfGrantings) {
                     System.out.println(granting.getDescription());
                     IGrantingUI grantingUI = new GrantingController();
-                    grantingUI.setData(granting.getDescription(),Integer.toString(granting.getParagraph()));
+      //              grantingUI.setData(granting.getDescription(),Integer.toString(granting.getParagraph()));
                     grantingUI.onGrantingSelected(data -> {
                         if(data.isSelected()) listOfChosenGrantings.add(data);
                         else listOfChosenGrantings.remove(data);

@@ -753,6 +753,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		String query = "SELECT state, source, description from elucidationshastasks, inquiries WHERE elucidationshastasks.task_id = ? AND inquiries.task_id = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setLong(1, id);
+		ps.setLong(2, id);
 		Inquiry inquiry = null;
 
 		ResultSet rs = ps.executeQuery();
@@ -781,7 +782,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
-			_case = new Case(rs.getString("source"), rs.getString("description"), ElucidationTaskState.valueOf(rs.getString("state")));
+			_case = new Case(rs.getString("inquries_source"), rs.getString("inquries_description"), ElucidationTaskState.valueOf(rs.getString("state")));
 			_case.setCitizenConsent(rs.getBoolean("citizensconsent"));
 			_case.setSpecialCircumstances(rs.getString("specialcircumstances"));
 			_case.setActingMunicipality(rs.getString("actingmunicipality"));

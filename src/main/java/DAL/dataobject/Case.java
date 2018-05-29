@@ -2,6 +2,7 @@ package DAL.dataobject;
 
 import ACQ.*;
 
+import java.util.Arrays;
 import java.util.Set;
 
 public class Case extends Inquiry implements ICase {
@@ -65,6 +66,11 @@ public class Case extends Inquiry implements ICase {
 	@Override
 	public Set<ITheme> getThemes() {
 		return themes;
+	}
+
+	@Override
+	public void addTheme(ITheme... theme) {
+		this.themes.addAll(Arrays.asList(theme));
 	}
 
 	/**
