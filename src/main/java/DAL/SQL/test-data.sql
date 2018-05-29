@@ -66,8 +66,10 @@ INSERT INTO accounts VALUES(10013, 'kimingeman', '$2a$10$IcK4B09228.mbfqJBwlUq.S
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (100000, '12345678', '2018-05-24 09:00:00', false);
 INSERT INTO inquiries(task_id, source, description) VALUES (100000, 'En mand ved navn Dennis fortalte om ham selv og at han mangler hjælp.', 'Dennis er en mand med mange mentale problemer. Personen tanker er i et andet univers, han lever i en verden med magi og drager.');
-INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (100000, 100000, 'INQUIRY');
+INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (100000, 100000, 'CASE');
 INSERT INTO worksin(elucidations_id, users_ssn) VALUES (100000, '1103971427');
+INSERT into casehasthemes(cases_id, theme, documentation) VALUES (100000, 'Testtema', 'Dette er en dokumentation');
+INSERT INTO themes(cases_id, theme, subtheme, leveloffunction) VALUES (100000, 'Testtema', 'Testsubtema', 4);
 
 INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (100000, 1, 'Meeting information', 'today', '90909090', false);
 INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (100000, 2, 'Meeting information', 'tomorrow', '80808080', false);
