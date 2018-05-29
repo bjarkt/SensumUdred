@@ -1,8 +1,8 @@
 package UI.components.all_elucidations_view;
 
 import ACQ.IElucidation;
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 
 import java.util.Set;
 

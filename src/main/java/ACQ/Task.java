@@ -2,18 +2,18 @@ package ACQ;
 
 public abstract class Task implements ITask{
 
-    ElucidationState state;
+    ElucidationTaskState state;
 
     public Task(){
-        state = ElucidationState.INQUIRY;
+        state = ElucidationTaskState.INQUIRY;
     }
 
     @Override
-    public ElucidationState getState() {
+    public ElucidationTaskState getState() {
         return state;
     }
 
-    protected void setState(ElucidationState state){
+    protected void setState(ElucidationTaskState state){
         this.state = state;
     }
 

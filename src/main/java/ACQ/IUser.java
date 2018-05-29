@@ -42,6 +42,4 @@ public interface IUser {
 	 * @return the user's full name.
 	 */
 	String getName();
-
-
 }

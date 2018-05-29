@@ -1,4 +1,7 @@
-import ACQ.*;
+import ACQ.IAddress;
+import ACQ.IDatabaseService;
+import ACQ.IHttp;
+import ACQ.IUser;
 import DAL.PersistentFacade;
 import DAL.database.DatabaseService;
 

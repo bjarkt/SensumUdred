@@ -16,16 +16,25 @@ public final class UserManager implements IUserManager {
         this.service = service;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccount getSignedInAccount() {
         return signedInAccount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IUser getSignedInUser() {
         return signedInUser;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IProfile signIn(String username, String password) {
 	    IProfile profile = null;
@@ -45,6 +54,9 @@ public final class UserManager implements IUserManager {
 	    return profile;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signOut(String accountName) {
         this.signedInAccount = null;
@@ -53,21 +65,33 @@ public final class UserManager implements IUserManager {
         return service.signOut(accountName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUpUser(String ssn) {
         return service.signUpUser(ssn);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUpUser(String ssn, String firstName, String lastName, String phoneNumber, String email) {
         return service.signUpUser(ssn, firstName, lastName, phoneNumber, email);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUpUser(IUser user) {
         return service.signUpUser(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUpAccount(String ssn, String username, String password, int securityLevel) {
         boolean signedUp = false;

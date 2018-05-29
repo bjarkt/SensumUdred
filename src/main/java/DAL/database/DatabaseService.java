@@ -3,9 +3,7 @@ package DAL.database;
 import ACQ.*;
 import DAL.database.providers.*;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Contains all the different providers in the database section.

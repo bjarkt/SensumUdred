@@ -25,6 +25,9 @@ public class DefaultServiceMediator implements IDefaultService {
         this.getAddress = getAddress;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IUser getUser(String ssn) {
         IUser dataUser = dataDefaultService.getUser(ssn);
@@ -33,16 +36,25 @@ public class DefaultServiceMediator implements IDefaultService {
         return realUser;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean accountExists(String accountName) {
         return dataDefaultService.accountExists(accountName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean userExists(String ssn) {
         return dataDefaultService.userExists(ssn);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<IUser> getAllUsers(int limit) {
         Set<IUser> dataUsers = dataDefaultService.getAllUsers(limit);
@@ -56,9 +68,11 @@ public class DefaultServiceMediator implements IDefaultService {
         return realUsers;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<IAccount> getAllAccounts(int limit) {
         return dataDefaultService.getAllAccounts(limit);
     }
-
 }

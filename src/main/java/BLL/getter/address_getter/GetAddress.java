@@ -39,7 +39,6 @@ public class GetAddress implements IGetAddress {
             }
         }
 
-
         return address;
     }
 }

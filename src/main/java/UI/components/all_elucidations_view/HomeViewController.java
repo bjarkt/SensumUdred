@@ -1,16 +1,14 @@
 package UI.components.all_elucidations_view;
 
 import ACQ.IElucidation;
+import ACQ.IEventListener;
 import UI.Secured;
 import UI.components.Component;
-import ACQ.IEventListener;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;

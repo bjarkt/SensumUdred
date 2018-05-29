@@ -1,11 +1,10 @@
 package BLL;
 
 import ACQ.*;
-import BLL.account_system.User;
 import BLL.getter.address_getter.IGetAddress;
+import BLL.getter.user_getter.IGetUser;
 import BLL.open_case.ICase;
 import BLL.theme_manager.IThemeManager;
-import BLL.getter.user_getter.IGetUser;
 import DAL.IPersistent;
 
 import java.util.Set;

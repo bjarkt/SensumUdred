@@ -1,8 +1,7 @@
 package UI.components.data_prompt;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
-import UI.components.textfield.ITextField;
+import UI.components.IComponent;
 
 import java.util.List;
 

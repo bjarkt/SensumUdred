@@ -61,7 +61,7 @@ public class Theme implements ITheme {
 	 * Not implemented.
 	 */
 	@Override
-	public int compareTo(BLL.theme_manager.Theme theme) {
+	public int compareTo(ITheme theme) {
 		return 0;
 	}
 }

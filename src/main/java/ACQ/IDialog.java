@@ -1,8 +1,5 @@
 package ACQ;
 
-import ACQ.IMeeting;
-import ACQ.IUser;
-
 import java.util.Collection;
 import java.util.Set;
 

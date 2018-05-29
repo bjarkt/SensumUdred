@@ -58,15 +58,31 @@ public class Theme implements ITheme{
         this.levelOfFunction = levelOfFunction;
     }
 
+    /**
+     * Checks if two themes are equal to each other.
+     * @param o any object
+     * @return true, if they are equal; otherwise false
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Theme theme1 = (Theme) o;
-        return theme == theme1.theme &&
-                Objects.equals(documentation, theme1.documentation);
+        boolean equal;
+
+        if(this == o) {
+            equal = true;
+        } else if (o == null || getClass() != o.getClass()) {
+            equal = false;
+        } else {
+            Theme theme1 = (Theme) o;
+            equal = theme == theme1.theme && Objects.equals(documentation, theme1.documentation);
+        }
+
+        return equal;
     }
 
+    /**
+     * Create an unique hash based on the object.
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(theme, documentation);

@@ -1,10 +1,10 @@
+import ACQ.AttachmentEnum;
 import ACQ.IHttp;
+import ACQ.IRequest;
+import ACQ.ThirdPartyService;
 import BLL.case_opening.CaseOpeningProvider;
 import BLL.case_opening.ICaseOpeningService;
-import BLL.case_opening.third_party_information.AttachmentEnum;
-import ACQ.IRequest;
 import BLL.case_opening.third_party_information.Request;
-import BLL.case_opening.third_party_information.ThirdPartyService;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

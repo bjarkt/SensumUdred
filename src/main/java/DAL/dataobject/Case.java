@@ -15,7 +15,7 @@ public class Case extends Inquiry implements ICase {
 	private Set<IGranting> grantings;
 	private Set<IAttachment> attachments;
 
-	public Case(String source, String description, ElucidationState state) {
+	public Case(String source, String description, ElucidationTaskState state) {
 		super(source, description, state);
 	}
 

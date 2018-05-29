@@ -60,11 +60,18 @@ public class Dialog implements IDialog {
         return meetingsToBeFound;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<IMeeting> getMeetings() {
         return meetings;
     }
 
+    /**
+     * Set the meetings.
+     * @param meetings any set with meetings
+     */
     public void setMeetings(Set<IMeeting> meetings) {
         this.meetings = meetings;
     }

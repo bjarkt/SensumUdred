@@ -1,7 +1,7 @@
 package UI.components.vertical_menu;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 
 public interface IVerticalMenu extends IComponent {
 

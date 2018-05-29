@@ -138,7 +138,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean updateTaskState(long id, ElucidationState state) {
+	public boolean updateTaskState(long id, ElucidationTaskState state) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
@@ -757,7 +757,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
-			inquiry = new Inquiry(rs.getString("source"), rs.getString("description"), ElucidationState.valueOf(rs.getString("state")));
+			inquiry = new Inquiry(rs.getString("source"), rs.getString("description"), ElucidationTaskState.valueOf(rs.getString("state")));
 		}
 
 		return inquiry;
@@ -781,7 +781,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
-			_case = new Case(rs.getString("source"), rs.getString("description"), ElucidationState.valueOf(rs.getString("state")));
+			_case = new Case(rs.getString("source"), rs.getString("description"), ElucidationTaskState.valueOf(rs.getString("state")));
 			_case.setCitizenConsent(rs.getBoolean("citizensconsent"));
 			_case.setSpecialCircumstances(rs.getString("specialcircumstances"));
 			_case.setActingMunicipality(rs.getString("actingmunicipality"));

@@ -45,7 +45,7 @@ public interface IElucidationService {
 	 * @param state the new state of the task.
 	 * @return true, if successful; otherwise false
 	 */
-	boolean updateTaskState(long id, ElucidationState state);
+	boolean updateTaskState(long id, ElucidationTaskState state);
 
 	/**
 	 * Update citizen consent.

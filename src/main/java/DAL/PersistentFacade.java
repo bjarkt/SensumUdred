@@ -20,6 +20,9 @@ public class PersistentFacade implements IPersistent {
         return HttpRequestUtility::makeHttpRequest;
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IDatabaseService getDatabaseService() {
 		return database;

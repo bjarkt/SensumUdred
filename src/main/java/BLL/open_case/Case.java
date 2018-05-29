@@ -1,9 +1,9 @@
 package BLL.open_case;
 
-import ACQ.ElucidationState;
+import ACQ.ElucidationTaskState;
+import ACQ.IInquiry;
 import ACQ.ITheme;
 import ACQ.IUser;
-import ACQ.IInquiry;
 import BLL.Inquiry.Inquiry;
 import javafx.util.Pair;
 
@@ -60,7 +60,7 @@ public class Case extends Inquiry implements ICase {
 
     public Case(IInquiry inquiry){
         super(inquiry);
-        setState(ElucidationState.CASE);
+        setState(ElucidationTaskState.CASE);
         this.description = inquiry.getDescription();
         offers = new HashSet<>();
         grantings = new HashSet<>();

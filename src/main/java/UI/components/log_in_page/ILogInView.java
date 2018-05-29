@@ -1,7 +1,7 @@
 package UI.components.log_in_page;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 
 public interface ILogInView extends IComponent {
 

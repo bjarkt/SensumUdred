@@ -8,17 +8,16 @@ import BLL.account_system.UserManager;
 import BLL.eboks.EBoks;
 import BLL.getter.address_getter.GetAddress;
 import BLL.getter.address_getter.IGetAddress;
+import BLL.getter.user_getter.GetUser;
+import BLL.getter.user_getter.IGetUser;
 import BLL.log_system.LogAspect;
 import BLL.mediators.DefaultServiceMediator;
 import BLL.mediators.ElucidationServiceMediator;
 import BLL.mediators.SigningServiceMediator;
 import BLL.open_case.ICase;
-import BLL.security_system.SecurityLevel;
 import BLL.security_system.SecuritySystem;
 import BLL.theme_manager.IThemeManager;
 import BLL.theme_manager.ThemeManager;
-import BLL.getter.user_getter.GetUser;
-import BLL.getter.user_getter.IGetUser;
 import DAL.IPersistent;
 
 import java.util.Set;
@@ -51,6 +50,9 @@ public class BusinessFacade implements IBusiness {
 		return defaultServiceMediator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IElucidationService getElucidationService() {
 		return elucidationServiceMediator;
@@ -78,6 +80,9 @@ public class BusinessFacade implements IBusiness {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IUser createUser(String ssn, String firstName, String lastName, IAddress address, String phone, String email) {
 		User user = new User(ssn, firstName, lastName);
@@ -168,6 +173,9 @@ public class BusinessFacade implements IBusiness {
 		return new GetAddress(persistent.getHttp(), Address.class);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void injectPersistent(IPersistent persistent) {
 		this.persistent = persistent;

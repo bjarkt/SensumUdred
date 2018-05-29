@@ -1,10 +1,4 @@
-package BLL.security_system;
-
-import ACQ.IAccount;
-import ACQ.IEventListener;
-import ACQ.IUser;
-
-import java.util.Set;
+package ACQ;
 
 public interface ISecurityService {
 	/**

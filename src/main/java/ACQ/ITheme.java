@@ -37,5 +37,4 @@ public interface ITheme extends Comparable<ITheme>  {
      * @return compareTo int
      */
     int compareTo(ITheme theme);
-
 }

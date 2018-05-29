@@ -1,13 +1,12 @@
 package DAL.dataobject;
 
+import ACQ.IDialog;
 import ACQ.IElucidation;
 import ACQ.ITask;
 import ACQ.IUser;
-import ACQ.IDialog;
-import BLL.open_case.Guardianship;
-import javafx.util.Pair;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 
 public class Elucidation implements IElucidation {
 	private long id;
@@ -61,23 +60,23 @@ public class Elucidation implements IElucidation {
 
 	/**
 	 * {@inheritDoc}
-	 * Not implemented.
 	 */
-	@Override
-	public void openCase(String description, List<Pair<String, String>> offerings, List<String> grantings, IUser guardian, Guardianship guardianship, String informationAboutAuthority, boolean citizenAgreesWithOpeningOfCase, String citizensMunicipality, String specialCircumstances) {
-
-	}
-
 	@Override
 	public ITask getTask() {
 		return task;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Date getCreationDate() {
 		return creationTime;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IDialog getDialog() {
 		return dialog;
@@ -101,7 +100,7 @@ public class Elucidation implements IElucidation {
 
 	/**
 	 * Set the task for the elucidation, either an inquiry or case.
-	 * @param task inquiry or case
+	 * @param task {@link ACQ.IInquiry} or {@link ACQ.ICase}
 	 */
 	public void setTask(ITask task) {
 		this.task = task;

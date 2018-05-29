@@ -1,6 +1,9 @@
 package BLL.getter.user_getter;
 
-import ACQ.*;
+import ACQ.HttpAcceptType;
+import ACQ.HttpMethod;
+import ACQ.IHttp;
+import ACQ.IUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

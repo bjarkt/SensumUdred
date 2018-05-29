@@ -1,17 +1,9 @@
 package BLL.Inquiry;
 
 import ACQ.IInquiry;
-import ACQ.IUser;
 import ACQ.Task;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.*;
-
 public class Inquiry extends Task implements IInquiry {
-
     private String description;
     private String source;
 
@@ -30,14 +22,19 @@ public class Inquiry extends Task implements IInquiry {
         this.source = "";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSource() {
         return source;
     }
-
 }

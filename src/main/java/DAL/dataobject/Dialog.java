@@ -1,8 +1,8 @@
 package DAL.dataobject;
 
+import ACQ.IDialog;
 import ACQ.IMeeting;
 import ACQ.IUser;
-import ACQ.IDialog;
 
 import java.util.Collection;
 import java.util.Set;
