@@ -37,6 +37,24 @@ public interface IBusiness {
 	IElucidationService getElucidationService();
 
 	/**
+	 * Get the logging service, which can make and get logs;
+	 * @return logging service
+	 */
+	ILoggingService getLoggingService();
+
+	/**
+	 * Get the logging service, which can make, not get logs
+	 * @return log maker service
+	 */
+	ILogMakerService getLogMakerService();
+
+	/**
+	 * Get the logging service, which can get logs, not make logs
+	 * @return log getter service
+	 */
+	ILogGetterService getLogGetterService();
+
+	/**
 	 * Get the User Manager.
 	 * It can receive the signed account and user (if any).
 	 * It can sign in, sign out and sign up.

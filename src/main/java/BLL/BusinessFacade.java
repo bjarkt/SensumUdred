@@ -28,6 +28,7 @@ public class BusinessFacade implements IBusiness {
 
 	private IElucidationService elucidationServiceMediator;
 	private IDefaultService defaultServiceMediator;
+	private ILoggingService loggingService;
 
 	public BusinessFacade() { }
 
@@ -55,6 +56,24 @@ public class BusinessFacade implements IBusiness {
 	@Override
 	public IElucidationService getElucidationService() {
 		return elucidationServiceMediator;
+	}
+
+	@SecurityLevel(500)
+	@Override
+	public ILoggingService getLoggingService() {
+		return loggingService;
+	}
+
+	@Override
+	@SecurityLevel(0)
+	public ILogMakerService getLogMakerService() {
+		return loggingService;
+	}
+
+	@SecurityLevel(500)
+	@Override
+	public ILogGetterService getLogGetterService() {
+		return loggingService;
 	}
 
 	/**
@@ -183,6 +202,7 @@ public class BusinessFacade implements IBusiness {
 
 		this.defaultServiceMediator = new DefaultServiceMediator(service.getDefaultService(), getGetAddress());
 		this.adminService = service.getAdminService();
+		this.loggingService = service.getLoggingService();
 		this.userManager = new UserManager(new DefaultServiceMediator(service.getDefaultService(), getGetAddress()), new SigningServiceMediator(service.getSigningService(), getGetAddress()));
 		this.elucidationServiceMediator = new ElucidationServiceMediator(service.getElucidationService(), persistent.getHttp(), new EBoks(persistent.getHttp()), getGetAddress());
 
