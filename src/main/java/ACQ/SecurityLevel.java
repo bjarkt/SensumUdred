@@ -1,4 +1,4 @@
-package BLL.security_system;
+package ACQ;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,5 +8,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface SecurityLevel {
+	/**
+	 * The security level for a method.
+	 * @return security level
+	 */
 	int value() default 0;
 }

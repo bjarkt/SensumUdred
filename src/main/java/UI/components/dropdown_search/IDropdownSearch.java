@@ -1,9 +1,8 @@
 package UI.components.dropdown_search;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 
-import java.util.List;
 import java.util.Set;
 
 public interface IDropdownSearch<T> extends IComponent {

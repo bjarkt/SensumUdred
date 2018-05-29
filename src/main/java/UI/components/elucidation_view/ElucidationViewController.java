@@ -48,7 +48,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onSendMessageSubscriber = new ArrayList<>();
-    private List<IEventListener<ElucidationState>> onToggleStateSubscribers = new ArrayList<>();
+    private List<IEventListener<ElucidationTaskState>> onToggleStateSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onCloseCaseSubscribers = new ArrayList<>();
 
 
@@ -103,15 +103,15 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     void toggleState(ActionEvent event) {
-        if(required.getElucidation().getTask().getState() == ElucidationState.INQUIRY){
-            onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationState.CASE));
+        if(required.getElucidation().getTask().getState() == ElucidationTaskState.INQUIRY){
+            onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationTaskState.CASE));
         } else {
-            onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationState.INQUIRY));
+            onToggleStateSubscribers.forEach(listener -> listener.onAction(ElucidationTaskState.INQUIRY));
         }
     }
 
     @Override
-    public void onToggleState(IEventListener<ElucidationState> listener) {
+    public void onToggleState(IEventListener<ElucidationTaskState> listener) {
         onToggleStateSubscribers.add(listener);
     }
 

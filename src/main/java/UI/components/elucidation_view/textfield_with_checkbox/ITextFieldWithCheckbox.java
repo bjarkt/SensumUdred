@@ -1,7 +1,7 @@
 package UI.components.elucidation_view.textfield_with_checkbox;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 
 public interface ITextFieldWithCheckbox extends IComponent {
 

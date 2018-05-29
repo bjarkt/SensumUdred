@@ -1,7 +1,7 @@
 package UI.components.user_menu;
 
-import UI.components.Component;
 import ACQ.IEventListener;
+import UI.components.Component;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -10,5 +10,9 @@ public interface IPersistent {
      */
     IHttp getHttp();
 
+    /**
+     * Get the database service.
+     * @return database service
+     */
     IDatabaseService getDatabaseService();
 }

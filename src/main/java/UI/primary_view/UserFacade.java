@@ -47,15 +47,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
@@ -383,7 +380,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
 				@Override
 				public Boolean get() {
-					return business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationState.CASE);
+					return business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationTaskState.CASE);
 				}
 			});
 			task.setOnSucceeded(data1 -> {

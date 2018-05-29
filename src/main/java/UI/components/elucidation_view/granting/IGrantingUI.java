@@ -1,7 +1,7 @@
 package UI.components.elucidation_view.granting;
 
-import UI.components.IComponent;
 import ACQ.IEventListener;
+import UI.components.IComponent;
 
 public interface IGrantingUI extends IComponent {
 

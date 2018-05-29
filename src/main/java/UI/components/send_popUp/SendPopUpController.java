@@ -7,18 +7,13 @@ import com.jfoenix.controls.JFXDialogLayout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.xml.soap.Text;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class SendPopUpController extends Component implements ISendPopup {

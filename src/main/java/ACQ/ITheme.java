@@ -1,8 +1,6 @@
 package ACQ;
 
-import BLL.theme_manager.Theme;
-
-public interface ITheme extends Comparable<Theme>  {
+public interface ITheme extends Comparable<ITheme>  {
     /**
      * Get the theme
      * @return theme enum
@@ -38,6 +36,5 @@ public interface ITheme extends Comparable<Theme>  {
      * @param theme other theme
      * @return compareTo int
      */
-    int compareTo(Theme theme);
-
+    int compareTo(ITheme theme);
 }

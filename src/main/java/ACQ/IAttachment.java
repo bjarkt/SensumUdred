@@ -1,6 +1,5 @@
 package ACQ;
 
-import BLL.case_opening.third_party_information.AttachmentEnum;
 import BLL.case_opening.third_party_information.Request;
 
 /**

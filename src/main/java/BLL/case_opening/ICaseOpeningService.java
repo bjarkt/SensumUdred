@@ -1,7 +1,7 @@
 package BLL.case_opening;
 
 import ACQ.IHttp;
-import BLL.case_opening.third_party_information.ThirdPartyService;
+import ACQ.ThirdPartyService;
 
 /***
  * Contains and describes all the services the opening case operations.

@@ -112,7 +112,7 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 
 	/**
 	 * {@inheritDoc}
-	 * IS NOT IMPLEMENTED
+	 * IS NOT IMPLEMENTED.
 	 * @param SSN any ssn
 	 * @return false
 	 */

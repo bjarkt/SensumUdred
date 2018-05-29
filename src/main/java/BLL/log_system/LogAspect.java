@@ -4,8 +4,6 @@ import ACQ.ILoggingService;
 import ACQ.LogAction;
 import ACQ.LogLevel;
 import ACQ.Loggable;
-import BLL.security_system.SecuritySystem;
-import DAL.IPersistent;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,6 +23,12 @@ public class LogAspect {
 		LogAspect.logService = logService;
 	}
 
+	/**
+	 * Whenever a method is executed and contains the {@link Loggable} annotation,
+	 * this method will be called and a JoinPoint will be automatically added.
+	 * Never call this function by it's own.
+	 * @param joinPoint generated automatically
+	 */
 	@After("@annotation(Loggable) && execution(* *(..))")
 	public void logMethod(JoinPoint joinPoint) {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();

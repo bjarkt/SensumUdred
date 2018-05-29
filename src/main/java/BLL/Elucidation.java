@@ -1,7 +1,6 @@
 package BLL;
 
 import ACQ.*;
-import BLL.Inquiry.Inquiry;
 import BLL.open_case.Case;
 import BLL.open_case.Guardianship;
 import BLL.open_case.ICase;

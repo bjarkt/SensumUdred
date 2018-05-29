@@ -1,6 +1,6 @@
 package UI.components.meetingPopUp;
 
-import ACQ.*;
+import ACQ.IUser;
 import UI.components.Component;
 import UI.components.data_prompt.DataPromptController;
 import UI.components.data_prompt.IDataPrompt;
@@ -13,14 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
 
 public class MeetingPopUpController extends Component implements IMeetingPopUp {
 

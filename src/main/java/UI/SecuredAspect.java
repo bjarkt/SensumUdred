@@ -1,9 +1,8 @@
 package UI;
 
 import ACQ.IAccount;
-import ACQ.IUser;
+import ACQ.SecurityLevel;
 import BLL.IBusiness;
-import BLL.security_system.SecurityLevel;
 import UI.components.IComponent;
 import UI.components.popUp.IPopup;
 import javafx.scene.Node;

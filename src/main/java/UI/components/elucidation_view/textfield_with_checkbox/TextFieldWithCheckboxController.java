@@ -1,18 +1,19 @@
 package UI.components.elucidation_view.textfield_with_checkbox;
 
-import UI.components.Component;
 import ACQ.IEventListener;
+import UI.components.Component;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class TextFieldWithCheckboxController extends Component implements ITextFieldWithCheckbox {
 

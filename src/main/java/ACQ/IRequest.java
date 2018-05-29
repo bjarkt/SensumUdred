@@ -1,7 +1,5 @@
 package ACQ;
 
-import BLL.case_opening.third_party_information.ThirdPartyService;
-
 import java.io.IOException;
 import java.util.Date;
 /**

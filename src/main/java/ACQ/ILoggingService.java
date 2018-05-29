@@ -1,6 +1,8 @@
 package ACQ;
 
 public interface ILoggingService {
+
+
 	/**
 	 * Logs the event/method.
 	 * @param methodName name of the method.
@@ -18,7 +20,7 @@ public interface ILoggingService {
 	 * @param sessionId Id of the session (WIP)
 	 * @param changelogId Id of the changelog
 	 * @param eventLogId Id of the eventlog
-	 * @return
+	 * @return true, if successful; otherwise false
 	 */
 	boolean addToLogs(long accountId, long sessionId, long changelogId, long eventLogId);
 }

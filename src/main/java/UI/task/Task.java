@@ -3,7 +3,6 @@ package UI.task;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;

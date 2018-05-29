@@ -1,9 +1,7 @@
 package BLL.case_opening;
 
-import ACQ.IAttachment;
-import ACQ.IHttp;
-import ACQ.IRequest;
-import BLL.case_opening.third_party_information.*;
+import ACQ.*;
+import BLL.case_opening.third_party_information.Request;
 
 import java.io.IOException;
 

@@ -2,7 +2,7 @@ package BLL.security_system;
 
 import ACQ.IAccount;
 import ACQ.IEventListener;
-import ACQ.IUser;
+import ACQ.ISecurityService;
 
 /**
  * Allows to set the user for the automatically security to function properly.

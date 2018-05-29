@@ -1,6 +1,8 @@
 package UI.components.elucidation_view;
 
-import ACQ.*;
+import ACQ.ElucidationTaskState;
+import ACQ.IElucidation;
+import ACQ.IEventListener;
 import UI.components.IComponent;
 import UI.components.elucidation_view.theme.IThemeUI;
 
@@ -103,7 +105,7 @@ public interface IElucidationView extends IComponent {
      *
      * @param listener
      */
-    void onToggleState(IEventListener<ElucidationState> listener);
+    void onToggleState(IEventListener<ElucidationTaskState> listener);
 
     void onCloseCase(IEventListener<?> listener);
 

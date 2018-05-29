@@ -1,4 +1,4 @@
-package BLL.case_opening.third_party_information;
+package ACQ;
 
 /**
  * Contains all the different services the system have access to.

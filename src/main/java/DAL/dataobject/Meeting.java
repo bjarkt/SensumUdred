@@ -5,7 +5,10 @@ import ACQ.IMeeting;
 import ACQ.IUser;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 public class Meeting implements IMeeting {
 	private IUser creator;
@@ -19,6 +22,7 @@ public class Meeting implements IMeeting {
 	/**
 	 * {@inheritDoc}
 	 * Not implemented.
+	 * @return always false
 	 */
 	@Override
 	public boolean sendMeetingMessage() {
@@ -28,6 +32,7 @@ public class Meeting implements IMeeting {
 	/**
 	 * {@inheritDoc}
 	 * Not implemented!
+	 * @return always false
 	 */
 	@Override
 	public boolean cancelMeeting(IUser currentUser) {
@@ -54,6 +59,7 @@ public class Meeting implements IMeeting {
 	/**
 	 * {@inheritDoc}
 	 * Not implemented!
+	 * @return always false
 	 */
 	@Override
 	public boolean isUserParticipating(IUser participant) {
@@ -127,6 +133,9 @@ public class Meeting implements IMeeting {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IUser getCreator() {
 		return creator;

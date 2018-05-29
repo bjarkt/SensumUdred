@@ -40,6 +40,10 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 		return user.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
 	@Override
 	public boolean accountExists(String accountName) {
 		AtomicBoolean exists = new AtomicBoolean(false);
@@ -56,6 +60,10 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 		return exists.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
 	@Override
 	public boolean userExists(String ssn) {
 		AtomicBoolean exists = new AtomicBoolean(false);
@@ -72,6 +80,10 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 		return exists.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
 	@Override
 	public Set<IUser> getAllUsers(int limit) {
 		Set<IUser> users = new HashSet<>();
@@ -95,6 +107,10 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 		return users;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
 	@Override
 	public Set<IAccount> getAllAccounts(int limit) {
 		Set<IAccount> accounts = new HashSet<>();

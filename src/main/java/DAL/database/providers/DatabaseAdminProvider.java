@@ -123,6 +123,13 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 		return changed.get();
 	}
 
+	/**
+	 * Changes the string value for a column on a specific ssn/user.
+	 * @param ssn any ssn
+	 * @param column column that match the database
+	 * @param value any value
+	 * @return true, if successful; otherwise false
+	 */
 	private boolean changeStringValueOnColumnForUser(String ssn, String column, String value) {
 		AtomicBoolean bool = new AtomicBoolean(false);
 
