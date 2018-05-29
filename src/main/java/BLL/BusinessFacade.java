@@ -58,6 +58,9 @@ public class BusinessFacade implements IBusiness {
 		return elucidationServiceMediator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ILoggingService getLoggingService() {
 		return loggingService;

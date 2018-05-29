@@ -22,6 +22,5 @@ public class DatabaseLoggingTest {
         business.injectPersistent(persistent);
         ILoggingService loggingService = business.getLoggingService();
         Set<IEventLog> logs = loggingService.getEventLogs();
-        System.out.println(logs);
     }
 }
