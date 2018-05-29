@@ -61,7 +61,7 @@ public class SecuredAspect {
     }
 
     @Before("getField() && getSecuredAnnotation()")
-    public void hej3(JoinPoint joinPoint){
+    public void removeSecuredComponents(JoinPoint joinPoint){
         try {
             Field f = joinPoint.getThis().getClass().getDeclaredField(joinPoint.getSignature().getName());
             String methodName = f.getAnnotation(Secured.class).value();

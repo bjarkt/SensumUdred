@@ -16,5 +16,4 @@ public abstract class Task implements ITask{
     protected void setState(ElucidationTaskState state){
         this.state = state;
     }
-
 }
