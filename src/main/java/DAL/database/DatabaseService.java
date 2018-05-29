@@ -2,7 +2,6 @@ package DAL.database;
 
 import ACQ.*;
 import DAL.database.providers.*;
-import org.eclipse.core.runtime.ILog;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
