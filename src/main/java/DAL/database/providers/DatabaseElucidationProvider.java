@@ -1,14 +1,15 @@
 package DAL.database.providers;
 
 import ACQ.*;
-import ACQ.IAttachment;
 import DAL.database.DatabaseHelper;
 import DAL.database.PostgreSqlDatabase;
 import DAL.dataobject.*;
 
 import java.sql.*;
-import java.util.*;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -324,13 +325,20 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	public IElucidation getElucidation(long id) {
 		AtomicReference<Elucidation> elucidation = new AtomicReference<>();
 
-		executeQuery(conn -> elucidation.set(new Elucidation(
-				id,
-				getCitizenForElucidation(conn, id),
-				getCaseworkersForElucidation(conn, id),
-				getCreationDateForElucidation(conn, id),
-				getDialogForElucidation(conn, id),
-				getInquiryForElucidation(conn, id)))
+		executeQuery(conn -> {
+			ICase _case = getCaseForElucidation(conn, id);
+			IInquiry inquiry = getInquiryForElucidation(conn, id);
+
+			ITask task = (_case != null) ? _case : inquiry;
+
+			elucidation.set(new Elucidation(
+					id,
+					getCitizenForElucidation(conn, id),
+					getCaseworkersForElucidation(conn, id),
+					getCreationDateForElucidation(conn, id),
+					getDialogForElucidation(conn, id),
+					task));
+			}
 		);
 
 		return elucidation.get();
@@ -356,6 +364,14 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return atomicSet.get();
 	}
 
+	/**
+	 * Get all open or closed elucidations that is assigned to a SSN.
+	 * @param conn any connection
+	 * @param ssn any ssn
+	 * @param getClosedElucidations either true or false
+	 * @return a set of all the elucidations, if any
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private Set<IElucidation> getElucidationsFromSSN(Connection conn, String ssn, boolean getClosedElucidations) throws SQLException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT id FROM elucidations WHERE isclosed = ? AND id IN (");
@@ -378,22 +394,47 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return elucidations;
 	}
 
-	private boolean updateColumnOnATableWithStringOnTaskId(Connection conn, long id, String newDescription, String table, String column) throws SQLException {
+	/**
+	 * Update a column from a table with a string, if it is the WHERE is targeting task_id.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param newValue the new value to update
+	 * @param table the name of the table
+	 * @param column the name of the column
+	 * @return true, if change was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private boolean updateColumnOnATableWithStringOnTaskId(Connection conn, long id, String newValue, String table, String column) throws SQLException {
 		String query = "UPDATE "+ table +" SET "+ column +"= ? WHERE task_id = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
-		ps.setString(1, newDescription);
+		ps.setString(1, newValue);
 		ps.setLong(2, id);
 
 		return ps.executeUpdate() == 1;
 	}
 
-	private boolean deleteByCaseId(Connection conn, long id, String query) throws SQLException {
+	/**
+	 * Run a query if by the id only.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param query any query
+	 * @return true, if query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private boolean runQueryById(Connection conn, long id, String query) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setLong(1, id);
 
 		return ps.executeUpdate() >= 0;
 	}
 
+	/**
+	 * Delete caseworkers from an elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return true, if delete query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean deleteCaseworkers(Connection conn, long id) throws SQLException {
 		String query = "DELETE FROM worksin WHERE elucidations_id = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -401,6 +442,14 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return ps.executeUpdate() >= 0;
 	}
 
+	/**
+	 * Insert caseworkers to an elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param caseworkers a set of caseworkers for a specific elucidation
+	 * @return true, if insert query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean insertCaseworkers(Connection conn, long id, Set<IUser> caseworkers) throws SQLException {
 		String query = "INSERT INTO worksin(elucidations_id, users_ssn) VALUES (?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -415,10 +464,48 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
-	private boolean deleteOffers(Connection conn, long id) throws SQLException {
-		return deleteByCaseId(conn, id, "DELETE FROM offerings WHERE cases_id = ?;");
+	/**
+	 * Get offers from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return a set of offers, if any, from a specific elucidation
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private Set<IOffer> getOffers(Connection conn, long id) throws SQLException {
+		String query = "SELECT * FROM offerings WHERE cases_id = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<IOffer> offers = new HashSet<>();
+
+		while(rs.next()) {
+			offers.add(new Offer(rs.getString("description"), rs.getInt("paragraph")));
+		}
+
+		return offers;
 	}
 
+	/**
+	 * Delete offers from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return true, if delete query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private boolean deleteOffers(Connection conn, long id) throws SQLException {
+		return runQueryById(conn, id, "DELETE FROM offerings WHERE cases_id = ?;");
+	}
+
+	/**
+	 * Insert offers to a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param offers a set of offers
+	 * @return true, if insert query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean insertOffers(Connection conn, long id, Set<IGranting> offers) throws SQLException {
 		String query = "INSERT INTO offerings(cases_id, description, paragraph) VALUES (?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -433,10 +520,48 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
-	private boolean deleteGrantings(Connection conn, long id) throws SQLException {
-		return deleteByCaseId(conn, id, "DELETE FROM grantings WHERE cases_id = ?;");
+	/**
+	 * Get grantings from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return a set of granting, if any, from a specific elucidation
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private Set<IGranting> getGrantings(Connection conn, long id) throws SQLException {
+		String query = "SELECT * FROM grantings WHERE cases_id = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<IGranting> grantings = new HashSet<>();
+
+		while(rs.next()) {
+			grantings.add(new Granting(rs.getString("description")));
+		}
+
+		return grantings;
 	}
 
+	/**
+	 * Delete grantings from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return true, if delete query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private boolean deleteGrantings(Connection conn, long id) throws SQLException {
+		return runQueryById(conn, id, "DELETE FROM grantings WHERE cases_id = ?;");
+	}
+
+	/**
+	 * Insert grantings for a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param grantings a set of grantings to insert for a specific elucidation
+	 * @return true, if insert query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean insertGrantings(Connection conn, long id, Set<IOffer> grantings) throws SQLException {
 		String query = "INSERT INTO grantings(cases_id, description) VALUES (?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -451,14 +576,59 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
+	/**
+	 * Get themes from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return a set of themes, if any, from a specific elucidation
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private Set<ITheme> getThemes(Connection conn, long id) throws SQLException {
+		String query = "SELECT themes.*, casehasthemes.documentation FROM casehasthemes, themes WHERE themes.cases_id = ? AND themes.cases_id = casehasthemes.cases_id;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+
+		ResultSet rs = ps.executeQuery();
+
+		Set<ITheme> themes = new HashSet<>();
+
+		while(rs.next()) {
+			themes.add(new Theme(ThemeEnum.fromString(rs.getString("theme")), rs.getString("documentation"), rs.getString("subtheme"), rs.getInt("leveloffunction")));
+		}
+
+		return themes;
+	}
+
+	/**
+	 * Delete themes from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return true, if delete query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean deleteThemes(Connection conn, long id) throws SQLException {
-		return deleteByCaseId(conn, id, "DELETE FROM themes WHERE cases_id = ?;");
+		return runQueryById(conn, id, "DELETE FROM themes WHERE cases_id = ?;");
 	}
 
+	/**
+	 * Delete 'has themes' from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return true, if delete query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean deleteHasThemes(Connection conn, long id) throws SQLException {
-		return deleteByCaseId(conn, id, "DELETE FROM casehasthemes WHERE cases_id = ?;");
+		return runQueryById(conn, id, "DELETE FROM casehasthemes WHERE cases_id = ?;");
 	}
 
+	/**
+	 * Insert themes to a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param themes a set of themes to insert for a specific elucidation
+	 * @return true, if insert query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean insertThemes(Connection conn, long id, Set<ITheme> themes) throws SQLException {
 		String query = "INSERT INTO themes(cases_id, theme, subtheme, leveloffunction) VALUES (?, ?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -475,6 +645,14 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
+	/**
+	 * Insert 'has themes' to a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param themes a set of themes to insert for a specific elucidation
+	 * @return true, if insert query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean insertHasThemes(Connection conn, long id, Set<ITheme> themes) throws SQLException {
 		String query = "INSERT INTO casehasthemes(cases_id, theme, documentation) VALUES (?, ?, ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -490,6 +668,14 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return Arrays.stream(ps.executeBatch()).allMatch(value -> value >= 0);
 	}
 
+	/**
+	 * Update meeting columns for a meeting.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param meeting the meeting to insert or update
+	 * @return true, if update query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean updateMeetingColumns(Connection conn, long id, IMeeting meeting) throws SQLException {
 		String query = "INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (?, ?, ?, ?, ?, ?) " +
 				"ON CONFLICT DO UPDATE SET date = ?, information = ?, iscancelled = ?;";
@@ -504,6 +690,14 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return ps.executeUpdate() == 1;
 	}
 
+	/**
+	 * Update meeting participants for a meeting.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param meeting the meeting to update participants
+	 * @return true, if delete query was successful; otherwise false
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private boolean updateMeetingParticipants(Connection conn, long id, IMeeting meeting) throws SQLException {
 		String deleteQuery = "DELETE FROM participates WHERE cases_id = ? AND meetings_number = ?;";
 		PreparedStatement ps1 = conn.prepareStatement(deleteQuery);
@@ -525,6 +719,13 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return ps1.executeUpdate() >= 0 && Arrays.stream(ps2.executeBatch()).allMatch(value -> value >= 0);
 	}
 
+	/**
+	 * Get the creation date from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return get the creation date from a specific elucidation
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private Date getCreationDateForElucidation(Connection conn, long id) throws SQLException {
 		String query = "SELECT creationdate FROM elucidations WHERE id = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -541,20 +742,66 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return date;
 	}
 
+	/**
+	 * Get the inquiry that is attached to a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return Inquiry, if any; otherwise null;
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private Inquiry getInquiryForElucidation(Connection conn, long id) throws SQLException {
-		String query = "SELECT source, description from inquiries WHERE task_id = ?";
+		String query = "SELECT state, source, description from elucidationshastasks, inquiries WHERE elucidationshastasks.task_id = ? AND inquiries.task_id = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setLong(1, id);
 		Inquiry inquiry = null;
 
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
-			inquiry = new Inquiry(rs.getString("source"), rs.getString("description"), null);
+			inquiry = new Inquiry(rs.getString("source"), rs.getString("description"), ElucidationState.valueOf(rs.getString("state")));
 		}
 
 		return inquiry;
 	}
 
+	/**
+	 * Get the case from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return Case, if any; otherwise null
+	 * @throws SQLException if any sql exception occurs
+	 */
+	private Case getCaseForElucidation(Connection conn, long id) throws SQLException {
+		String query = "SELECT state, inquries_source, inquries_description, guardianauthority, citizensconsent, actingmunicipality, specialcircumstances, totalleveloffunction " +
+				"FROM elucidationshastasks, cases WHERE elucidationshastasks.task_id = ? AND cases.task_id = ?;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+		ps.setLong(2, id);
+
+		Case _case = null;
+
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			_case = new Case(rs.getString("source"), rs.getString("description"), ElucidationState.valueOf(rs.getString("state")));
+			_case.setCitizenConsent(rs.getBoolean("citizensconsent"));
+			_case.setSpecialCircumstances(rs.getString("specialcircumstances"));
+			_case.setActingMunicipality(rs.getString("actingmunicipality"));
+			_case.setGuardianAuthority(rs.getString("guardianauthority"));
+			_case.setTotalLevelOfFunction(rs.getString("totalleveloffunction").charAt(0));
+			_case.setThemes(getThemes(conn, id));
+			_case.setOffers(getOffers(conn, id));
+			_case.setGrantings(getGrantings(conn, id));
+		}
+
+		return _case;
+	}
+
+	/**
+	 * Get the citizen data from a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return a user, if connected; otherwise null
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private IUser getCitizenForElucidation(Connection conn, long id) throws SQLException {
 		String query = "SELECT * FROM users WHERE ssn = (SELECT applies_ssn FROM elucidations WHERE id = ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -573,6 +820,13 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return user;
 	}
 
+	/**
+	 * Get all the caseworkers that is attached to a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return a set of users/caseworkers, if any; otherwise an empty set
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private Set<IUser> getCaseworkersForElucidation(Connection conn, long id) throws SQLException {
 		String query = "SELECT * FROM users WHERE ssn IN (SELECT users_ssn FROM worksin WHERE elucidations_id = ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -592,12 +846,27 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return users;
 	}
 
+	/**
+	 * Get the dialog for a elucidation.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return A dialog object, if any; otherwise an empty dialog with limited functionality
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private IDialog getDialogForElucidation(Connection conn, long id) throws SQLException {
 		Dialog dialog = new Dialog();
 		dialog.setMeetings(getDialogMeetings(conn, id));
 		return dialog;
 	}
 
+	/**
+	 * Get dialog meetings from an elucidation.
+	 * Invoked by {@link DatabaseElucidationProvider#getDialogForElucidation(Connection, long)}.
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @return a set of meetings, if any; otherwise an empty set
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private Set<IMeeting> getDialogMeetings(Connection conn, long id) throws SQLException {
 		String query = "SELECT * FROM meetings WHERE elucidation_id = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -620,6 +889,14 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return meetings;
 	}
 
+	/**
+	 *
+	 * @param conn any connection
+	 * @param id any elucidation identifier
+	 * @param meeting the meeting to search for
+	 * @return A set of users, that is participating; otherwise an empty set
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private Set<IUser> getMeetingParticipates(Connection conn, long id, IMeeting meeting) throws SQLException {
 		String query = "SELECT * FROM users WHERE ssn IN (SELECT users_ssn FROM participates WHERE cases_id = ? AND meetings_number = ?);";
 		PreparedStatement ps = conn.prepareStatement(query);
@@ -640,6 +917,13 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		return participates;
 	}
 
+	/**
+	 * Get the creator of a meeting.
+	 * @param conn any connection
+	 * @param ssn any ssn
+	 * @return the creator in user format with all their information
+	 * @throws SQLException if any sql exception occurs
+	 */
 	private IUser getMeetingCreator(Connection conn, String ssn) throws SQLException {
 		String query = "SELECT * FROM users WHERE ssn = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);

@@ -17,6 +17,12 @@ public interface ICase extends IInquiry {
     String getSpecialCircumstances();
 
     /**
+     * Accessor method for case's acting municipality.
+     * @return acting municipality
+     */
+    String getActingMunicipality();
+
+    /**
      * Accessor method for guardian's authority-
      * @return  guardian's authority-
      */

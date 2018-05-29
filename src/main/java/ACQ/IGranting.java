@@ -1,17 +1,9 @@
 package ACQ;
 
 public interface IGranting {
-	char PARAGRAPH = '§';
-
 	/**
-	 * Get the description of the offer.
+	 * Get the description of the granting.
 	 * @return description
 	 */
 	String getDescription();
-
-	/**
-	 * Get the paragraph number.
-	 * @return paragraph number
-	 */
-	int getParagraph();
 }
