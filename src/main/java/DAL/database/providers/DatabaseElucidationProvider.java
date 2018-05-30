@@ -373,12 +373,9 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	 * @throws SQLException if any sql exception occurs
 	 */
 	private Set<IElucidation> getElucidationsFromSSN(Connection conn, String ssn, boolean getClosedElucidations) throws SQLException {
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT id FROM elucidations WHERE isclosed = ? AND id IN (");
-		sb.append("SELECT id FROM elucidations WHERE applies_ssn = ? OR id IN (");
-		sb.append("SELECT elucidations_id FROM worksin WHERE users_ssn = ?));");
+		String query = "SELECT id FROM elucidations WHERE isclosed = ? AND (applies_ssn = ? OR id IN (SELECT elucidations_id FROM worksin WHERE users_ssn = ?));";
 
-		PreparedStatement ps = conn.prepareStatement(sb.toString());
+		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setBoolean(1, getClosedElucidations);
 		ps.setString(2, ssn);
 		ps.setString(3, ssn);
@@ -890,6 +887,8 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 			meeting.setMeetingDate(rs.getTimestamp("date"));
 			meeting.setCreator(getMeetingCreator(conn, rs.getString("creator")));
 			meeting.setParticipants(getMeetingParticipates(conn, id, meeting));
+
+			meetings.add(meeting);
 		}
 
 		return meetings;
