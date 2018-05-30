@@ -45,6 +45,30 @@ public class DatabaseDefaultProvider extends PostgreSqlDatabase implements IDefa
 	 * Database service.
 	 */
 	@Override
+	public IAccount getAccount(String username) {
+		AtomicReference<Account> acc = new AtomicReference<>(new Account());
+
+		if(accountExists(username)) {
+			executeQuery(conn -> {
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM accounts WHERE username = ?;");
+				ps.setString(1, username);
+
+				ResultSet rs = ps.executeQuery();
+
+				if(rs.next()) DatabaseHelper.setAccountFromResultSet(rs, acc.get());
+			});
+		} else {
+			acc.set(null);
+		}
+
+		return acc.get();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Database service.
+	 */
+	@Override
 	public boolean accountExists(String accountName) {
 		AtomicBoolean exists = new AtomicBoolean(false);
 
