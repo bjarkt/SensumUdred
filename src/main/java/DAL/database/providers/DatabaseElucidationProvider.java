@@ -59,7 +59,10 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 						null
 				);
 
-				if(insertedInquiry) elucidation.setTask(inquiry);
+				if(insertedInquiry) {
+					elucidation.setTask(inquiry);
+					insertElicudationHasTask(conn, id);
+				}
 
 				atomicReference.set(elucidation);
 			}
@@ -76,23 +79,22 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		AtomicBoolean bool = new AtomicBoolean(false);
 
 		executeQuery(conn -> {
-			StringBuilder builder = new StringBuilder();
-			builder.append("BEGIN TRANSACTION;");
-			builder.append("INSERT INTO inquiries(task_id, source, description) VALUES (?, ?, ?) ON CONFLICT ON CONSTRAINT inquiries_pkey DO UPDATE SET source = ?, description = ?;");
-			builder.append("UPDATE cases SET inquries_source = ?, inquries_description = ? WHERE task_id = ?;");
-			builder.append("COMMIT;");
+			String insertQ = "INSERT INTO inquiries(task_id, source, description) VALUES (?, ?, ?) ON CONFLICT ON CONSTRAINT inquiries_pkey DO UPDATE SET source = ?, description = ?;";
+			String updateQ = "UPDATE cases SET inquries_source = ?, inquries_description = ? WHERE task_id = ?;";
 
-			PreparedStatement ps = conn.prepareStatement(builder.toString());
-			ps.setLong(1, id);
-			ps.setString(2, inquiry.getSource());
-			ps.setString(3, inquiry.getDescription());
-			ps.setString(4, inquiry.getSource());
-			ps.setString(5, inquiry.getDescription());
-			ps.setString(6, inquiry.getSource());
-			ps.setString(7, inquiry.getDescription());
-			ps.setLong(8, id);
+			PreparedStatement ps1 = conn.prepareStatement(insertQ);
+			ps1.setLong(1, id);
+			ps1.setString(2, inquiry.getSource());
+			ps1.setString(3, inquiry.getDescription());
+			ps1.setString(4, inquiry.getSource());
+			ps1.setString(5, inquiry.getDescription());
 
-			bool.set(ps.executeUpdate() == 1);
+			PreparedStatement ps2 = conn.prepareStatement(updateQ);
+			ps2.setString(1, inquiry.getSource());
+			ps2.setString(2, inquiry.getDescription());
+			ps2.setLong(3, id);
+
+			bool.set(ps1.executeUpdate() == 1 && ps2.executeUpdate() > -1);
 		});
 
 		return bool.get();
@@ -943,5 +945,16 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		}
 
 		return user;
+	}
+
+	private boolean insertElicudationHasTask(Connection conn, long id) throws SQLException {
+		String query = "INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (?, ?, ?) " +
+				"ON CONFLICT ON CONSTRAINT elucidationshastasks_pkey DO NOTHING;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+		ps.setLong(2, id);
+		ps.setString(3, ElucidationTaskState.INQUIRY.name());
+
+		return ps.executeUpdate() == 1;
 	}
 }

@@ -11,6 +11,13 @@ public interface IDefaultService {
 	IUser getUser(String ssn);
 
 	/**
+	 * Get a account from a username.
+	 * @param username any username
+	 * @return account with all their details
+	 */
+	IAccount getAccount(String username);
+
+	/**
 	 * Returns a true or false, depending on an account exists.
 	 * @param accountName any account name
 	 * @return true, if accounts exists; otherwise false
