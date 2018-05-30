@@ -63,7 +63,7 @@ public interface IElucidationView extends IComponent {
      *
      * @param listener
      */
-    void onCaseCitzenAgreement (IEventListener<String> listener);
+    void onCaseCitzenAgreement (IEventListener<Boolean> listener);
 
     /**
      *

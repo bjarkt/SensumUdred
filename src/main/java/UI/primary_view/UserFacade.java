@@ -509,10 +509,11 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		elucidationView.onCaseCitizenMunicipality(data -> {
-			System.out.println(data);
+			business.getElucidationService().updateActingMunicipality(elucidation.getId(),data);
 		});
+
 		elucidationView.onCaseCitzenAgreement(data -> {
-			System.out.println(data);
+			business.getElucidationService().updateCitizenConsent(elucidation.getId(), data);
 		});
 
 		elucidationView.onDeleteOffers(data -> {

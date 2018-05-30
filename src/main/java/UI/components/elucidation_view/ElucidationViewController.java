@@ -14,6 +14,7 @@ import UI.components.elucidation_view.textfield_with_checkbox.TextFieldWithCheck
 import UI.components.elucidation_view.theme.IThemeUI;
 import UI.components.elucidation_view.theme.ThemeController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -40,7 +41,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<String>> saveCaseDescriptionSubscribers = new ArrayList<>();
     private List<IEventListener<String>> addNewOfferSubscribers = new ArrayList<>();
     private List<IEventListener<String[]>> deleteOfferSubscribers = new ArrayList<>();
-    private List<IEventListener<String>> saveCitizenAgreementSubscribers = new ArrayList<>();
+    private List<IEventListener<Boolean>> saveCitizenAgreementSubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveCitizenMunicipalitySubscribers = new ArrayList<>();
     private List<IEventListener<String>> saveSpecialCircumstancesSubscribers = new ArrayList<>();
     private List<IEventListener<String[]>> editCitizenInformationSubscribers = new ArrayList<>();
@@ -448,7 +449,7 @@ public class ElucidationViewController extends Component implements IElucidation
     private TextArea caseDescriptionField;
 
     @FXML
-    private TextField caseCitizenAgreementField;
+    private JFXCheckBox caseCitizenAgreementField;
 
     @FXML
     private JFXButton editCaseCitizenAgreementButton;
@@ -528,7 +529,7 @@ public class ElucidationViewController extends Component implements IElucidation
         deleteOfferSubscribers.add(listener);
     }
     @Override
-    public void onCaseCitzenAgreement(IEventListener<String> listener) {saveCitizenAgreementSubscribers.add(listener);}
+    public void onCaseCitzenAgreement(IEventListener<Boolean> listener) {saveCitizenAgreementSubscribers.add(listener);}
     @Override
     public void onCaseSpecialCircumstancesField(IEventListener<String> listener) {saveSpecialCircumstancesSubscribers.add(listener); }
 
@@ -576,17 +577,17 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     void editCitizenAgreement (ActionEvent event) {
         if(editCaseCitizenAgreementButton.getText().equals("Rediger")){
-            caseCitizenAgreementField.setEditable(true);
+            caseCitizenAgreementField.setDisable(false);
             caseCitizenAgreementField.requestFocus();
             caseCitizenAgreementField.getStyleClass().add("editing");
             editCaseCitizenAgreementButton.setText("Gem");
             editCaseCitizenAgreementButton.getStyleClass().add("editing");
         } else if(editCaseCitizenAgreementButton.getText().equals("Gem")){
-            caseCitizenAgreementField.setEditable(false);
+            caseCitizenAgreementField.setDisable(true);
             editCaseCitizenAgreementButton.setText("Rediger");
             caseCitizenAgreementField.getStyleClass().remove("editing");
             editCaseCitizenAgreementButton.getStyleClass().remove("editing");
-            saveCitizenAgreementSubscribers.forEach(listener -> listener.onAction(caseCitizenAgreementField.getText()));
+            saveCitizenAgreementSubscribers.forEach(listener -> listener.onAction(caseCitizenAgreementField.isSelected()));
         }
 
     }
@@ -647,12 +648,36 @@ public class ElucidationViewController extends Component implements IElucidation
 
     @FXML
     void editCitizenAgreementButton(ActionEvent event) {
-
+        if(editCaseCitizenAgreementButton.getText().equals("Rediger")){
+            caseCitizenAgreementField.setDisable(false);
+            caseCitizenAgreementField.requestFocus();
+            caseCitizenAgreementField.getStyleClass().add("editing");
+            editCaseCitizenAgreementButton.setText("Gem");
+            editCaseCitizenAgreementButton.getStyleClass().add("editing");
+        } else if(editCaseCitizenAgreementButton.getText().equals("Gem")){
+            caseCitizenAgreementField.setDisable(true);
+            editCaseCitizenAgreementButton.setText("Rediger");
+            caseCitizenAgreementField.getStyleClass().remove("editing");
+            editCaseCitizenAgreementButton.getStyleClass().remove("editing");
+            saveCitizenAgreementSubscribers.forEach(listener -> listener.onAction(caseCitizenAgreementField.isSelected()));
+        }
     }
 
     @FXML
     void editCitizenMunicipalityButton(ActionEvent event) {
-
+        if(editCaseCitizenMunicipalityButton.getText().equals("Rediger")){
+            caseCitizenMunicipalityField.setEditable(true);
+            caseCitizenMunicipalityField.requestFocus();
+            caseCitizenMunicipalityField.getStyleClass().add("editing");
+            editCaseCitizenMunicipalityButton.setText("Gem");
+            editCaseCitizenMunicipalityButton.getStyleClass().add("editing");
+        } else if(editCaseCitizenMunicipalityButton.getText().equals("Gem")){
+            caseCitizenMunicipalityField.setEditable(false);
+            editCaseCitizenMunicipalityButton.setText("Rediger");
+            caseCitizenMunicipalityField.getStyleClass().remove("editing");
+            editCaseCitizenMunicipalityButton.getStyleClass().remove("editing");
+            saveCitizenMunicipalitySubscribers.forEach(listener -> listener.onAction(caseCitizenMunicipalityField.getText()));
+        }
     }
 
     @FXML
@@ -781,6 +806,8 @@ public class ElucidationViewController extends Component implements IElucidation
             offersContainer.setVisible(true);
             themesContainer.setVisible(true);
             consentContainer.setVisible(true);
+            caseCitizenAgreementField.setSelected(((ICase)required.getElucidation().getTask()).getCitizenConsent());
+            caseCitizenMunicipalityField.setText(((ICase)required.getElucidation().getTask()).getActingMunicipality());
             municipalityContainer.setVisible(true);
             headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
             listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
