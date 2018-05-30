@@ -804,6 +804,8 @@ public class ElucidationViewController extends Component implements IElucidation
         } else if(required.getElucidation().getTask().getState() == ElucidationTaskState.CASE){
             grantingsContainer.setVisible(true);
             offersContainer.setVisible(true);
+            grantingsContainer.setDisable(true);
+            offersContainer.setDisable(true);
             themesContainer.setVisible(true);
             consentContainer.setVisible(true);
             caseCitizenAgreementField.setSelected(((ICase)required.getElucidation().getTask()).getCitizenConsent());

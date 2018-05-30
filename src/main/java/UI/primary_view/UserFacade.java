@@ -395,18 +395,36 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		userManagementView.createUser(data -> {
-			if(business.getUser(data[0]) == null){
-				business.getUserManager().signUpUser(data[1], data[2], data[3], data[4], data[5]);
-			} else{
+			if(business.getDefaultService().userExists(data[1])){
 				business.getAdminService().changeSSN(data[0], data[1]);
 				business.getAdminService().changeFirstName(data[1], data[2]);
 				business.getAdminService().changeLastName(data[1], data[3]);
 				business.getAdminService().changePhoneNumber(data[1], data[4]);
 				business.getAdminService().changeEmail(data[1], data[5]);
+			} else{
+				business.getUserManager().signUpUser(data[1], data[2], data[3], data[4], data[5]);
 			}
 		});
 
+		userManagementView.activateAccount(data -> {
+			business.getAdminService().unlockAccount(data.getKey());
+		});
 
+		userManagementView.deactivateAccount(data -> {
+			business.getAdminService().lockAccount(data.getKey());
+		});
+
+		userManagementView.updatePassword(data -> {
+			business.getAdminService().changePassword(data.getKey(), data.getValue());
+		});
+
+		userManagementView.updateSecurityLevel(data -> {
+			business.getAdminService().changeSecurityLevel(data.getKey(), data.getValue());
+		});
+
+		userManagementView.createAccount(data -> {
+			business.getUserManager().signUpAccount(data[0], data[1], data[2], Integer.parseInt(data[3]));
+		});
 
 	}
 

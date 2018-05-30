@@ -96,7 +96,7 @@
                                           <HBox spacing="15.0">
                                              <children>
                                                 <JFXButton onAction="#updateSecurityLevel" styleClass="flat-button_outlined" text="Opdater sikkerhedsniveau" />
-                                                <JFXButton onAction="#updateUsername" styleClass="flat-button_outlined" text="Opdater brugernavn" />
+                                                <JFXButton disable="true" onAction="#updateUsername" styleClass="flat-button_outlined" text="Opdater brugernavn" />
                                                 <JFXButton onAction="#updatePassword" styleClass="flat-button_outlined" text="Opdater kodeord" />
                                              </children>
                                           </HBox>

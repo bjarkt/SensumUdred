@@ -111,22 +111,25 @@ public class UserManagementViewController extends Component implements IUserMana
 
     @FXML
     void createAccount(ActionEvent event) {
-        String[] details = new String[3];
+        String[] details = new String[4];
         details[0] = ssnload.getText();
         details[1] = username.getText();
         details[2] = pass.getText();
+        if(citizen.isSelected()) details[3] = String.valueOf(0);
+        if(caseworker.isSelected()) details[3] = String.valueOf(500);
+        if(admin.isSelected()) details[3]  = String.valueOf(1000);
         onCreateAccountSubscribers.forEach(listener -> listener.onAction(details));
     }
 
     @FXML
     void activateAccount(ActionEvent event) {
-        Pair<String, Boolean> data = new Pair<>(ssnload.getText(), Boolean.TRUE);
+        Pair<String, Boolean> data = new Pair<>(username.getText(), Boolean.TRUE);
         onActivateAccountSubscribers.forEach(pairIEventListener -> pairIEventListener.onAction(data));
     }
 
     @FXML
     void updatePassword(ActionEvent event) {
-        Pair<String, String> data = new Pair<>(ssnload.getText(), pass.getText());
+        Pair<String, String> data = new Pair<>(username.getText(), pass.getText());
         onUpdatePasswordSubscribers.forEach(pairIEventListener -> pairIEventListener.onAction(data));
     }
 
@@ -136,7 +139,7 @@ public class UserManagementViewController extends Component implements IUserMana
         if(citizen.isSelected()) securityLevel = 0;
         if(caseworker.isSelected()) securityLevel = 500;
         if(admin.isSelected()) securityLevel = 1000;
-        Pair<String, Integer> data = new Pair<>(ssnload.getText(), securityLevel);
+        Pair<String, Integer> data = new Pair<>(username.getText(), securityLevel);
         onUpdateSecurityLevelSubscribers.forEach(pairIEventListener -> pairIEventListener.onAction(data));
     }
 
@@ -148,7 +151,7 @@ public class UserManagementViewController extends Component implements IUserMana
 
     @FXML
     void deactivateAccount(ActionEvent event) {
-        Pair<String, Boolean> data = new Pair<>(ssnload.getText(), Boolean.FALSE);
+        Pair<String, Boolean> data = new Pair<>(username.getText(), Boolean.FALSE);
         onActivateAccountSubscribers.forEach(pairIEventListener -> pairIEventListener.onAction(data));
     }
 
