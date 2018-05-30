@@ -10,14 +10,9 @@ import java.net.URL;
 import java.util.Map;
 
 public class HttpRequestUtility {
+
     /**
-     * Make an HTTP request to the URL
-     * @param urlString Which url to request
-     * @param query Request queries, as a map
-     * @param method Which method to use (POST/GET/etc..)
-     * @param acceptType What do you except the server will output? text/pdf/etc...
-     * @return byte array of output from server
-     * @throws IOException
+     * {@inheritDoc}
      */
     public static byte[] makeHttpRequest(String urlString, Map<String, Object> query, HttpMethod method, HttpAcceptType acceptType) throws IOException {
         if (acceptType == HttpAcceptType.PDF && query != null) {
