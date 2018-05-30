@@ -36,7 +36,7 @@ public class DatabaseSigningProvider extends PostgreSqlDatabase implements ISign
 
 			ResultSet rs = ps1.executeQuery();
 
-			if(rs.next() && !rs.getBoolean("isloggedin") && BCrypt.checkpw(password, rs.getString("password_hash"))) {
+			if(rs.next() && !rs.getBoolean("islocked") && !rs.getBoolean("isloggedin") && BCrypt.checkpw(password, rs.getString("password_hash"))) {
 				Account account = new Account();
 				DatabaseHelper.setAccountFromResultSet(rs, account);
 

@@ -59,7 +59,10 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 						null
 				);
 
-				if(insertedInquiry) elucidation.setTask(inquiry);
+				if(insertedInquiry) {
+					elucidation.setTask(inquiry);
+					insertElicudationHasTask(conn, id);
+				}
 
 				atomicReference.set(elucidation);
 			}
@@ -943,5 +946,16 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 		}
 
 		return user;
+	}
+
+	private boolean insertElicudationHasTask(Connection conn, long id) throws SQLException {
+		String query = "INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (?, ?, ?) " +
+				"ON CONFLICT ON CONSTRAINT elucidationshastasks_pkey DO NOTHING;";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setLong(1, id);
+		ps.setLong(2, id);
+		ps.setString(3, ElucidationTaskState.INQUIRY.name());
+
+		return ps.executeUpdate() == 1;
 	}
 }
