@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="container" style="-fx-background-color: white;" stylesheets="@usermanagement_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.usermanagement_view.UserManagementViewController">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: white;">
+               <content>
+                  <VBox fx:id="vbox" spacing="23.0" style="-fx-background-color: white;">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-border-color: #dce0e0; -fx-border-width: 0 0 1 0;" VBox.vgrow="NEVER">
+                           <children>
+                              <Label styleClass="myElucidationsTitle" text="Brugeradministration" textFill="#484848">
+                                 <font>
+                                    <Font name="CircularStd-Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Region HBox.hgrow="ALWAYS" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </HBox>
+                        <VBox style="-fx-border-width: 0 0 1 0; -fx-border-color: a2a2a2;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="cpr" promptText="Søg CPR-nummer" styleClass="usermanager_simpleInputField" HBox.hgrow="ALWAYS" />
+                                    <JFXButton onAction="#loadData" styleClass="flat-button_outlined" text="Indlæs data" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="13.0" style="-fx-border-color: a2a2a2; -fx-border-width: 0 0 1 0;">
+                           <children>
+                              <HBox spacing="20.0">
+                                 <children>
+                                    <TextField fx:id="firstName" promptText="Fornavn" styleClass="usermanager_simpleInputField" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="lastName" promptText="Efternavn" styleClass="usermanager_simpleInputField" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <TextField fx:id="email" promptText="Email" styleClass="usermanager_simpleInputField" />
+                              <TextField fx:id="phone" layoutX="10.0" layoutY="69.0" promptText="Mobilnummer" styleClass="usermanager_simpleInputField" />
+                              <TextField fx:id="ssnload" promptText="CPR" styleClass="usermanager_simpleInputField" />
+                              <HBox spacing="15.0">
+                                 <children>
+                                    <JFXButton onAction="#createOrUpdateUser" styleClass="flat-button_outlined" text="Opret / opdater bruger" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="username" promptText="Brugernavn" styleClass="usermanager_simpleInputField" />
+                              <TextField fx:id="pass" layoutX="10.0" layoutY="10.0" promptText="Kodeord" styleClass="usermanager_simpleInputField" />
+                              <Label text="Sikkerhedsniveau:" />
+                              <FlowPane hgap="20.0" vgap="10.0">
+                                 <children>
+                                    <JFXRadioButton fx:id="citizen" text="Borger">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="securityLevel" />
+                                       </toggleGroup>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="caseworker" text="Sagsbehandler" toggleGroup="$securityLevel" />
+                                    <JFXRadioButton fx:id="admin" text="Administrativ bruger" toggleGroup="$securityLevel" />
+                                 </children>
+                              </FlowPane>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="13.0" style="-fx-border-color: a2a2a2; -fx-border-width: 0 0 1 0;">
+                           <children>
+                              <HBox spacing="20.0">
+                                 <children>
+                                    <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox spacing="15.0">
+                                             <children>
+                                                <JFXButton onAction="#updateSecurityLevel" styleClass="flat-button_outlined" text="Opdater sikkerhedsniveau" />
+                                                <JFXButton onAction="#updateUsername" styleClass="flat-button_outlined" text="Opdater brugernavn" />
+                                                <JFXButton onAction="#updatePassword" styleClass="flat-button_outlined" text="Opdater kodeord" />
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="15.0">
+                                             <children>
+                                                <JFXButton onAction="#createAccount" styleClass="flat-button_outlined" text="Opret konto" />
+                                                <JFXButton onAction="#deactivateAccount" styleClass="flat-button_outlined" text="Deaktiver konto" />
+                                                <JFXButton onAction="#activateAccount" styleClass="flat-button_outlined" text="Aktiver konto" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="50.0" left="22.0" right="22.0" top="22.0" />
+                     </padding>
+                  </VBox>
+               </content>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

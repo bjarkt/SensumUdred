@@ -36,6 +36,8 @@ import UI.components.send_popUp.ISendPopup;
 import UI.components.send_popUp.SendPopUpController;
 import UI.components.user_menu.IUserMenu;
 import UI.components.user_menu.UserMenuController;
+import UI.components.usermanagement_view.IUserManagementView;
+import UI.components.usermanagement_view.UserManagementViewController;
 import UI.components.vertical_menu.IVerticalMenu;
 import UI.components.vertical_menu.VerticalMenuController;
 import UI.task.Task;
@@ -71,6 +73,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private ILogInView logInView;
 	private ILogsView logsView;
 	private IDrawer drawer;
+	private IUserManagementView userManagementView;
 	private IDrawer userDrawer;
 	private IHomeView homeView;
 	private IMeetingsView meetingsView;
@@ -268,12 +271,10 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 
 		verticalMenu.onUserManagement(data -> {
-			business.setSecurityEventListener(data1 -> {
-				popUp.show("Manglende rettigheder", "Du har ikke rettigheder til at tilgå brugeradministration.");
-			});
-			business.getUserManager();
 			if(isMobile) drawer.close();
-			setCenter(null);
+			userManagementView = new UserManagementViewController();
+			setCenter(userManagementView);
+			setupUserManagementView();
 		});
 
 	}
@@ -385,6 +386,28 @@ public class UserFacade implements IUserInterface, Initializable {
 				});
 			});
 		});
+	}
+
+	private void setupUserManagementView(){
+		userManagementView.onLoadData(data -> {
+			IUser user = business.getUser(data);
+			userManagementView.setIUser(user);
+		});
+
+		userManagementView.createUser(data -> {
+			if(business.getUser(data[0]) == null){
+				business.getUserManager().signUpUser(data[1], data[2], data[3], data[4], data[5]);
+			} else{
+				business.getAdminService().changeSSN(data[0], data[1]);
+				business.getAdminService().changeFirstName(data[1], data[2]);
+				business.getAdminService().changeLastName(data[1], data[3]);
+				business.getAdminService().changePhoneNumber(data[1], data[4]);
+				business.getAdminService().changeEmail(data[1], data[5]);
+			}
+		});
+
+
+
 	}
 
 	private void setupElucidationView(IElucidation elucidation){
