@@ -583,9 +583,10 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	 * @throws SQLException if any sql exception occurs
 	 */
 	private Set<ITheme> getThemes(Connection conn, long id) throws SQLException {
-		String query = "SELECT themes.*, casehasthemes.documentation FROM casehasthemes, themes WHERE themes.cases_id = ? AND themes.cases_id = casehasthemes.cases_id;";
+		String query = "SELECT themes.*, casehasthemes.documentation FROM themes, casehasthemes WHERE themes.cases_id = ? AND casehasthemes.cases_id = ? AND casehasthemes.theme = themes.theme;";
 		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setLong(1, id);
+		ps.setLong(2, id);
 
 		ResultSet rs = ps.executeQuery();
 
@@ -636,7 +637,7 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 			ps.setLong(1, id);
 			ps.setString(2, theme.getTheme().getName());
 			ps.setString(3, theme.getSubtheme());
-			ps.setString(4, String.valueOf(theme.getLevelOfFunction()));
+			ps.setInt(4, theme.getLevelOfFunction());
 
 			ps.addBatch();
 		}

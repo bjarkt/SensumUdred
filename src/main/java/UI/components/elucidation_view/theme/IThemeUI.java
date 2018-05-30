@@ -1,7 +1,9 @@
 package UI.components.elucidation_view.theme;
 
 import ACQ.IEventListener;
+import ACQ.ITheme;
 import ACQ.ThemeEnum;
+import BLL.theme_manager.Theme;
 import UI.components.IComponent;
 
 public interface IThemeUI extends IComponent {
@@ -14,9 +16,14 @@ public interface IThemeUI extends IComponent {
 
     String getSubtheme();
 
-    Integer getLevelOfFunction();
+    int getLevelOfFunction();
 
     String getDocumentation();
+
+    void setTheme(ThemeEnum theme);
+    void setSubtheme(String subtheme);
+    void setLevelOfFunction(int levelOfFunction);
+    void setDocumentation(String documentation);
 
     /**
      * verify that it has data
