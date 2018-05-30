@@ -785,21 +785,17 @@ public class ElucidationViewController extends Component implements IElucidation
         inquirySourceFIeld.setText(((IInquiry)(required.getElucidation().getTask())).getSource());
         this.caseDescriptionField.setText(((IInquiry)(required.getElucidation().getTask())).getDescription());
 
-        // IF TASK IS INQUIRY
-       /* grantingsContainer.setVisible(false);
-        offersContainer.setVisible(false);
-        themesContainer.setVisible(false);
-        consentContainer.setVisible(false);
-        municipalityContainer.setVisible(false);*/
-
-        // IF TASK STATE IS CASE
-        headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
-        // listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
-
         if(required.getElucidation().getTask() instanceof IInquiry){
             System.out.println("THIS IS AN INQUIRY!");
+            grantingsContainer.setVisible(false);
+            offersContainer.setVisible(false);
+            themesContainer.setVisible(false);
+            consentContainer.setVisible(false);
+            municipalityContainer.setVisible(false);
         } else if(required.getElucidation().getTask().getState() == ElucidationTaskState.CASE){
             System.out.println("THIS IS A CASE!");
+            headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
+            // listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
         }
 
 
