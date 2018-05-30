@@ -3,6 +3,7 @@ package BLL.mediators;
 import ACQ.*;
 import BLL.Elucidation;
 import BLL.Inquiry.Inquiry;
+import BLL.account_system.Account;
 import BLL.account_system.Address;
 import BLL.account_system.User;
 import BLL.getter.address_getter.IGetAddress;
@@ -31,6 +32,20 @@ class MediatorHelper {
         realUser.setAddress((Address) getAddress.getAddress(realUser.getSocialSecurityNumber()));
 
         return realUser;
+    }
+
+    /**
+     * Convert a IAccount from DAL to a IAccount from BLL.
+     * The reason is the logic beneath the BLL.
+     * The DAL only contains data.
+     * @param dataAccount any DAL account
+     * @return a BLL IAccount
+     */
+    static IAccount convertDataAccountToRealAccount(IAccount dataAccount) {
+        Account realAccount = new Account(dataAccount.getUsername(), dataAccount.getSecurityLevel());
+        realAccount.setLocked(dataAccount.isLocked());
+
+        return realAccount;
     }
 
     /**

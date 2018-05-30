@@ -36,6 +36,14 @@ public class DefaultServiceMediator implements IDefaultService {
         return realUser;
     }
 
+    @Override
+    public IAccount getAccount(String username) {
+        IAccount dataAccount = dataDefaultService.getAccount(username);
+        IAccount realAccount = MediatorHelper.convertDataAccountToRealAccount(dataAccount);
+
+        return realAccount;
+    }
+
     /**
      * {@inheritDoc}
      */
