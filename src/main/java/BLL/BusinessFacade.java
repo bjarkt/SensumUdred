@@ -19,8 +19,6 @@ import BLL.theme_manager.IThemeManager;
 import BLL.theme_manager.ThemeManager;
 import DAL.IPersistent;
 
-import java.util.Set;
-
 public class BusinessFacade implements IBusiness {
 	private IPersistent persistent;
 	private IUserManager userManager;
@@ -76,13 +74,6 @@ public class BusinessFacade implements IBusiness {
 		return loggingService;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public IElucidation getElucidation(int ID) {
-		return null;
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -132,37 +123,10 @@ public class BusinessFacade implements IBusiness {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SecurityLevel(0)
-	@Override
-	public Set<IElucidation> getMyElucidations() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@SecurityLevel(500)
 	@Override
 	public IInquiry createInquiry(String description, String source) {
 		return new Inquiry(description, source);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SecurityLevel(500)
-	@Override
-	public Set<IUser> searchUsersContaining(String query) {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@SecurityLevel(500)
-	@Override
-	public void addCaseworkerToCase(IUser user) {
-
 	}
 
 	/**

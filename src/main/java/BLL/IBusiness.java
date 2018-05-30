@@ -79,23 +79,6 @@ public interface IBusiness {
 	void setSecurityEventListener(IEventListener<SecurityException> eventListener);
 
 	/**
-	 * Get the user's elucidations.
-	 * @return user's elucidations.
-	 */
-	Set<IElucidation> getMyElucidations();
-
-	/**
-	 * Search for users. Returns set with matched users.
-	 * @return	set of matched users.
-	 */
-	Set<IUser> searchUsersContaining(String query);
-
-	/**
-	 * Assigns caseworker to case.
-	 */
-	void addCaseworkerToCase(IUser user);
-
-	/**
 	 * Get the theme manager, for adding new themes to a case
 	 * @return theme manager;
 	 */
@@ -118,6 +101,5 @@ public interface IBusiness {
 	 * Creates a new inquiry.
 	 */
 	IInquiry createInquiry(String description, String source);
-	IElucidation getElucidation(int ID);
 
 }
