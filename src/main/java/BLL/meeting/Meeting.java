@@ -15,6 +15,22 @@ public class Meeting implements IMeeting {
     private boolean isCancelled;
     private int id;
 
+    public Meeting(IEBoks eboks, IMeeting meeting) {
+        this(meeting.getCreator(), eboks, meeting.getNumber());
+        this.participants = meeting.getParticipants();
+        this.information = meeting.getInformation();
+        this.isCancelled = meeting.isCancelled();
+        this.id = meeting.getNumber();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(meeting.getMeetingDate());
+
+        GregorianCalendar gcal = new GregorianCalendar();
+        gcal.setTime(cal.getTime());
+
+        this.meetingDate = gcal;
+    }
+
     /**
      * Create meeting without id
      * @param creator creator of the meeting

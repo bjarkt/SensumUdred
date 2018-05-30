@@ -10,6 +10,16 @@ public class Dialog implements IDialog {
     private Set<IMeeting> meetings;
     private IEBoks eBoks;
 
+    public Dialog(IHttp http, IEBoks eboks, IDialog dialog) {
+        this(http, eboks);
+
+        if(dialog.getMeetings() != null) {
+            for(IMeeting meeting : dialog.getMeetings()) {
+                meetings.add(new Meeting(eboks, meeting));
+            }
+        }
+    }
+
     public Dialog(IHttp http, IEBoks eboks) {
         meetings = new HashSet<>();
         this.eBoks = eboks;

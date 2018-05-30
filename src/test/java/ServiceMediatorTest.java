@@ -22,6 +22,6 @@ public class ServiceMediatorTest {
                 new EBoks(persistent.getHttp()),
                 new GetAddress(persistent.getHttp(), Address.class));
 
-        Set<IElucidation> elucidations = elucidationService.getOpenElucidationsFromSSN("1103971427");
+        Set<IElucidation> elucidations = elucidationService.getOpenElucidationsFromSSN("12345678");
     }
 }
