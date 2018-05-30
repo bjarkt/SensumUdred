@@ -133,7 +133,9 @@ public class Meeting implements IMeeting {
      */
     @Override
     public Date getMeetingDate() {
-        return new Date(meetingDate.getTimeInMillis());
+        if (meetingDate != null) {
+            return new Date(meetingDate.getTimeInMillis());
+        } else return null;
     }
 
     /**
@@ -158,10 +160,6 @@ public class Meeting implements IMeeting {
         return id;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setNumber(int n) {
         this.id = n;
     }

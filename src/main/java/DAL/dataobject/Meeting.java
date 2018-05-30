@@ -126,11 +126,9 @@ public class Meeting implements IMeeting {
 
 	/**
 	 * {@inheritDoc}
-	 * Not implemented.
 	 */
-	@Override
 	public void setNumber(int n) {
-
+		this.id = n;
 	}
 
 	/**
@@ -177,14 +175,5 @@ public class Meeting implements IMeeting {
 	 */
 	public void setCancelled(boolean cancelled) {
 		isCancelled = cancelled;
-	}
-
-	/**
-	 * Set the id (number) of the meeting.
-	 * Has to be unique.
-	 * @param id an unique number starting from 1
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 }
