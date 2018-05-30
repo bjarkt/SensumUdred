@@ -1,0 +1,46 @@
+/* IMPORT MAIN STYLESHEET */
+@import "/UI/primary_view/app.css";
+/* ----------------------------- */
+
+.myElucidationsTitle{
+    -fx-font-family: "Circular Std Bold";
+    -fx-font-size: 26px;
+    -fx-text-fill: #484848;
+}
+
+/* Override button hover behavior for cards */
+
+.elucidations_taskList .list-cell:hover{
+    -fx-cursor: hand;
+}
+
+.elucidations_taskList .list-cell:hover Label{
+    -fx-text-fill: #4177F6;
+}
+
+.list-cell:focused Label{
+    -fx-text-fill: #4177F6;
+}
+
+.list-cell:even{
+    -fx-background-color: #fcfcfc;
+}
+
+.list-cell:odd{
+    -fx-background-color: #fcfcfc;
+}
+
+.list-cell:focused{
+    -fx-background-color: #fcfcfc;
+}
+
+.eludicationsList_citizenName{
+    -fx-font-size: 15px;
+    -fx-font-family: "Circular Std Medium";
+}
+
+.eludicationsList_createdDate, .eludicationsList_lastEditedDate{
+    -fx-font-family: "Circular Std Book" !important;
+    -fx-font-size: 12px;
+    -fx-text-fill: #a2a2a2;
+}

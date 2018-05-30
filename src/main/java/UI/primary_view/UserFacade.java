@@ -24,6 +24,8 @@ import UI.components.log_in_page.LogInViewController;
 import UI.components.meetingPopUp.IMeetingPopUp;
 import UI.components.meetingPopUp.IMeetingPopUpRequire;
 import UI.components.meetingPopUp.MeetingPopUpController;
+import UI.components.meetings_view.IMeetingsView;
+import UI.components.meetings_view.MeetingsViewController;
 import UI.components.popUp.IPopUpRequire;
 import UI.components.popUp.IPopup;
 import UI.components.popUp.PopUpController;
@@ -240,6 +242,12 @@ public class UserFacade implements IUserInterface, Initializable {
 	}
 
 	private void setupVerticalMenu(){
+		verticalMenu.onMyMeetingsClick(data -> {
+			if(isMobile) drawer.close();
+			IMeetingsView meetingsView = new MeetingsViewController();
+			setCenter(meetingsView);
+		});
+
 		verticalMenu.onLogClick(data -> {
 			if(isMobile) drawer.close();
 			popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");

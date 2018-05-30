@@ -9,6 +9,8 @@ public interface IVerticalMenu extends IComponent {
 
     void onLogClick(IEventListener<?> listener);
 
+    void onMyMeetingsClick(IEventListener<?> listener);
+
     void onUserManagement(IEventListener<?> listener);
 
 	void setMyElucidationsButtonActive();

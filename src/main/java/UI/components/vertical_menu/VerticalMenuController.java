@@ -21,6 +21,7 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     private List<IEventListener<?>> onMyElucidationSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onLogSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onUserManagementSubscribers = new ArrayList<>();
+    private List<IEventListener<?>> onMyMeetingsSubscribers = new ArrayList<>();
 
     @Secured("getMyElucidations")
     @FXML
@@ -29,6 +30,10 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @Secured("getLogGetterService")
     @FXML
     private JFXButton logButton;
+
+
+    @FXML
+    private JFXButton myMeetings;
 
     //@Secured("getUserManager")
     @FXML
@@ -51,6 +56,7 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
         buttons.add(logButton);
         buttons.add(myElucidationsButton);
         buttons.add(userManagementButton);
+        buttons.add(myMeetings);
     }
 
     @Override
@@ -61,6 +67,11 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @Override
     public void onLogClick(IEventListener<?> listener) {
         onLogSubscribers.add(listener);
+    }
+
+    @Override
+    public void onMyMeetingsClick(IEventListener<?> listener) {
+        onMyMeetingsSubscribers.add(listener);
     }
 
     @Override
@@ -78,6 +89,12 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     void viewMyElucidations(ActionEvent event) {
         setMyElucidationsButtonActive();
         onMyElucidationSubscribers.forEach(listener -> listener.onAction(null));
+    }
+
+
+    @FXML
+    void viewMyMeetings(ActionEvent event) {
+        onMyMeetingsSubscribers.forEach(listener -> listener.onAction(null));
     }
 
     @FXML
