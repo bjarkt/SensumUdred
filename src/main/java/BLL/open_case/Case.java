@@ -2,6 +2,9 @@ package BLL.open_case;
 
 import ACQ.*;
 import BLL.Inquiry.Inquiry;
+import DAL.dataobject.Granting;
+import DAL.dataobject.Offer;
+import DAL.dataobject.Theme;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -28,6 +31,32 @@ public class Case extends Inquiry implements ICase {
     private boolean citizenConsentsCaseOpening;
 
     private char totalLevelOfFunction;
+
+    public Case(ICase _case) {
+        super(_case);
+
+        setState(_case.getState());
+        setCitizenConsentsCaseOpening(_case.getCitizenConsent());
+        setMunicipality(_case.getActingMunicipality());
+        setSpecialCircumstances(_case.getSpecialCircumstances());
+
+        if(_case.getTotalLevelOfFunction() != ' ') setTotalLevelOfFunction(_case.getTotalLevelOfFunction());
+
+        offers = new HashSet<>();
+        for(IOffer offer : _case.getOffers()) {
+            offers.add(new Offer(offer.getDescription(), offer.getParagraph()));
+        }
+
+        grantings = new HashSet<>();
+        for(IGranting granting : _case.getGrantings()) {
+            grantings.add(new Granting(granting.getDescription()));
+        }
+
+        themes = new HashSet<>();
+        for(ITheme theme : _case.getThemes()) {
+            themes.add(new Theme(theme.getTheme(), theme.getDocumentation(), theme.getSubtheme(), theme.getLevelOfFunction()));
+        }
+    }
 
     public Case(IInquiry inquiry){
         super(inquiry);
