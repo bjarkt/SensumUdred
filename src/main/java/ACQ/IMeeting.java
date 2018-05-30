@@ -82,12 +82,6 @@ public interface IMeeting {
     int getNumber();
 
     /**
-     * Set the number
-     * @param n new number
-     */
-    void setNumber(int n);
-
-    /**
      * Get the user that created the meeting
      * @return creator of meeting
      */
