@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
+<AnchorPane fx:id="elucidation_view_container" style="-fx-background-color: white;" stylesheets="@elucidation_view.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.components.all_elucidations_view.HomeViewController">
    <children>
       <VBox fx:id="elucidationView_contentWrapper" spacing="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -120,7 +120,7 @@
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
-                                                <Label styleClass="elucidationView_section_title" text="Ydelser" />
+                                                <Label disable="true" styleClass="elucidationView_section_title" text="Ydelser" />
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <JFXButton fx:id="deleteGrantingsButton" cancelButton="true" disable="true" onAction="#deleteGranting" text="Ingen ydelser valgt" visible="false">
                                                    <styleClass>
@@ -134,7 +134,7 @@
                                                       <Insets right="12.0" />
                                                    </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="addCaseGrantingsbutton" onAction="#addCaseGranting" text="Tilføj ydelse">
+                                                <JFXButton fx:id="addCaseGrantingsbutton" disable="true" onAction="#addCaseGranting" text="Tilføj ydelse">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
@@ -155,7 +155,7 @@
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
-                                                <Label styleClass="elucidationView_section_title" text="Tilbud" />
+                                                <Label disable="true" styleClass="elucidationView_section_title" text="Tilbud" />
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <JFXButton fx:id="deleteCaseOfferButton" cancelButton="true" disable="true" layoutX="582.0" layoutY="12.0" onAction="#deleteCaseOffers" text="Ingen tilbud valgt" visible="false">
                                                    <styleClass>
@@ -169,7 +169,7 @@
                                                       <Insets right="12.0" />
                                                    </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="editCaseOffersButton" onAction="#addCaseOffer" text="Tilbud tilføj">
+                                                <JFXButton fx:id="editCaseOffersButton" disable="true" onAction="#addCaseOffer" text="Tilbud tilføj">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
@@ -190,7 +190,7 @@
                                        <children>
                                           <HBox alignment="CENTER_LEFT" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0;">
                                              <children>
-                                                <Label styleClass="elucidationView_section_title" text="Temaer" />
+                                                <Label disable="true" styleClass="elucidationView_section_title" text="Temaer" />
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <JFXButton fx:id="saveCaseThemeButton" disable="true" onAction="#saveCaseThemes" text="Ingen temaer tilføjet" visible="false">
                                                    <styleClass>
@@ -213,7 +213,7 @@
                                                       <Insets right="12.0" />
                                                    </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="editCaseThemeButton" onAction="#addCaseTheme" text="Tilføj tema">
+                                                <JFXButton fx:id="editCaseThemeButton" disable="true" onAction="#addCaseTheme" text="Tilføj tema">
                                                    <styleClass>
                                                       <String fx:value="flat-button" />
                                                       <String fx:value="flat-button_outlined" />
