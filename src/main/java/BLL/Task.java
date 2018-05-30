@@ -1,8 +1,11 @@
-package ACQ;
+package BLL;
 
-public abstract class Task implements ITask{
+import ACQ.ElucidationTaskState;
+import ACQ.ITask;
 
-    ElucidationTaskState state;
+public abstract class Task implements ITask {
+
+    private ElucidationTaskState state;
 
     public Task(){
         state = ElucidationTaskState.INQUIRY;

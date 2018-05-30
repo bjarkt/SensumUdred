@@ -1,7 +1,7 @@
 package BLL.Inquiry;
 
 import ACQ.IInquiry;
-import ACQ.Task;
+import BLL.Task;
 
 public class Inquiry extends Task implements IInquiry {
     private String description;
