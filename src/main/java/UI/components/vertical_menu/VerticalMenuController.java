@@ -31,7 +31,6 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @FXML
     private JFXButton logButton;
 
-
     @FXML
     private JFXButton myMeetings;
 
@@ -94,6 +93,7 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
 
     @FXML
     void viewMyMeetings(ActionEvent event) {
+        setMeetingsButtonActive();
         onMyMeetingsSubscribers.forEach(listener -> listener.onAction(null));
     }
 
@@ -123,6 +123,11 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @Override
     public void setUserManagementButtonActive() {
         setActiveButtonStyle(userManagementButton);
+    }
+
+
+    public void setMeetingsButtonActive() {
+        setActiveButtonStyle(myMeetings);
     }
 
 }

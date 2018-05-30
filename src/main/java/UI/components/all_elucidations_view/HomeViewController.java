@@ -127,6 +127,7 @@ public class HomeViewController extends Component implements IHomeView {
             setGraphic(null);
             if(elucidation != null && !empty){
                 citizenName.setText(elucidation.getCitizen().getName());
+                createdDate.setText("Oprettet:" + elucidation.getCreationDate().toString());
                 setGraphic(hBox);
             }
         }

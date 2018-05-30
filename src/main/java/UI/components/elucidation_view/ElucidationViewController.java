@@ -47,7 +47,6 @@ public class ElucidationViewController extends Component implements IElucidation
     private List<IEventListener<?>> createMeetingSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> addNewThemeSubscribers = new ArrayList<>();
     private List<IEventListener<Set<IThemeUI>>> deleteThemeSubscribers = new ArrayList<>();
-    private List<IEventListener<?>> onSendMessageSubscriber = new ArrayList<>();
     private List<IEventListener<ElucidationTaskState>> onToggleStateSubscribers = new ArrayList<>();
     private List<IEventListener<?>> onCloseCaseSubscribers = new ArrayList<>();
 
@@ -72,10 +71,6 @@ public class ElucidationViewController extends Component implements IElucidation
     @Secured("createInquiry")
     @FXML
     private JFXButton meetingButton;
-
-    @Secured("createInquiry")
-    @FXML
-    private JFXButton referButton;
 
     @FXML
     private VBox headerVbox;
@@ -735,16 +730,6 @@ public class ElucidationViewController extends Component implements IElucidation
 
     }
 
-    @FXML
-    void sendPopUp(ActionEvent event)   {
-        onSendMessageSubscriber.forEach(iEventListener -> iEventListener.onAction(null) );
-    }
-
-    @Override
-    public void onSendMessage(IEventListener<?> listener) {
-        onSendMessageSubscriber.add(listener);
-    }
-
     @Override
     public void onLeaveElucidation(IEventListener<?> listener) {
         leaveEludicationSubscribers.add(listener);
@@ -785,17 +770,20 @@ public class ElucidationViewController extends Component implements IElucidation
         inquirySourceFIeld.setText(((IInquiry)(required.getElucidation().getTask())).getSource());
         this.caseDescriptionField.setText(((IInquiry)(required.getElucidation().getTask())).getDescription());
 
-        if(required.getElucidation().getTask() instanceof IInquiry){
-            System.out.println("THIS IS AN INQUIRY!");
+        if(required.getElucidation().getTask().getState() == ElucidationTaskState.INQUIRY){
             grantingsContainer.setVisible(false);
             offersContainer.setVisible(false);
             themesContainer.setVisible(false);
             consentContainer.setVisible(false);
             municipalityContainer.setVisible(false);
         } else if(required.getElucidation().getTask().getState() == ElucidationTaskState.CASE){
-            System.out.println("THIS IS A CASE!");
+            grantingsContainer.setVisible(true);
+            offersContainer.setVisible(true);
+            themesContainer.setVisible(true);
+            consentContainer.setVisible(true);
+            municipalityContainer.setVisible(true);
             headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
-            // listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
+            listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
         }
 
 

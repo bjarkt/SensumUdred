@@ -99,12 +99,6 @@ public interface IElucidationView extends IComponent {
      *
      * @param listener
      */
-    void onSendMessage(IEventListener<?> listener);
-
-    /**
-     *
-     * @param listener
-     */
     void onToggleState(IEventListener<ElucidationTaskState> listener);
 
     void onCloseCase(IEventListener<?> listener);

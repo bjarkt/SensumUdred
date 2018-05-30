@@ -66,16 +66,6 @@ public class DropdownSearchController<T> extends Component implements IDropdownS
         addButton.setOnAction(clickEvent -> {
             done();
         });
-
-        results.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<T>() {
-            @Override
-            public void onChanged(Change<? extends T> c) {
-                for (T t : results.getSelectionModel().getSelectedItems()) {
-                    System.out.println(t);
-                }
-            }
-        });
-
     }
 
     @FXML

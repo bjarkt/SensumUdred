@@ -678,14 +678,19 @@ public class DatabaseElucidationProvider extends PostgreSqlDatabase implements I
 	 */
 	private boolean updateMeetingColumns(Connection conn, long id, IMeeting meeting) throws SQLException {
 		String query = "INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (?, ?, ?, ?, ?, ?) " +
-				"ON CONFLICT DO UPDATE SET date = ?, information = ?, iscancelled = ?;";
+				"ON CONFLICT ON CONSTRAINT meetings_pkey DO UPDATE SET date = ?, information = ?, iscancelled = ?;";
 		PreparedStatement ps = conn.prepareStatement(query);
+		Timestamp timestamp = new Timestamp(meeting.getMeetingDate().getTime());
 
-		ps.setTimestamp(1, new Timestamp(meeting.getMeetingDate().getTime()));
-		ps.setString(2, meeting.getInformation());
-		ps.setBoolean(3, meeting.isCancelled());
-		ps.setLong(4, id);
-		ps.setInt(5, meeting.getNumber());
+		ps.setLong(1, id);
+		ps.setInt(2, meeting.getNumber());
+		ps.setString(3, meeting.getInformation());
+		ps.setTimestamp(4, timestamp);
+		ps.setString(5, meeting.getCreator().getSocialSecurityNumber());
+		ps.setBoolean(6, meeting.isCancelled());
+		ps.setTimestamp(7, timestamp);
+		ps.setString(8, meeting.getInformation());
+		ps.setBoolean(9, meeting.isCancelled());
 
 		return ps.executeUpdate() == 1;
 	}

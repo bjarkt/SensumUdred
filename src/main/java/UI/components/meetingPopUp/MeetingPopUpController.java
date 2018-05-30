@@ -1,5 +1,6 @@
 package UI.components.meetingPopUp;
 
+import ACQ.IEventListener;
 import ACQ.IUser;
 import UI.components.Component;
 import UI.components.data_prompt.DataPromptController;
@@ -9,12 +10,15 @@ import UI.components.dropdown_search.IDropdownSearch;
 import UI.components.dropdown_search.IDropdownSearchRequire;
 import UI.components.dropdown_search.NameCheckboxCell;
 import com.jfoenix.controls.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -22,9 +26,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class MeetingPopUpController extends Component implements IMeetingPopUp {
+
+    private List<IEventListener<?>> onDoneSubscribers = new ArrayList<>();
 
     private IMeetingPopUpRequire required;
 
@@ -36,15 +46,29 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
     private JFXDialogLayout content;
 
+    private TextField information;
+
+    private TextField timeField;
+
     private Text subject;
 
     private Text message;
+
+    private JFXDatePicker datePicker;
+
+    private LocalDate localDate;
+
+    private String informationData;
+
+    private String time;
 
     private IDropdownSearch<IUser> dropdownSearch;
 
     private HBox attendees;
 
     private TextArea attendeesText;
+
+    int[] datetime;
 
     private ObservableSet<IUser> chosenAttendees = FXCollections.observableSet();
 
@@ -59,13 +83,14 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        content = new JFXDialogLayout();
-        JFXButton button = new JFXButton("Indkald til møde");
-        button.getStyleClass().add("dialog_button");
-        button.setOnAction(event -> close());
-        content.setActions(button);
-        content.setHeading(subject);
+        information = new TextField();
+        information.setPromptText("Mødebeskrivelse");
+        timeField = new TextField();
+        timeField.setPromptText("Tt:Mm");
 
+
+
+        content = new JFXDialogLayout();
 
         VBox innercontent = new VBox();
 
@@ -81,6 +106,18 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
 
         VBox textfieldsWrapper = new VBox();
 
+        JFXButton button = new JFXButton("Indkald til møde");
+        button.getStyleClass().add("dialog_button");
+        button.setOnAction(event -> {
+            localDate = datePicker.getValue();
+            this.informationData = information.getText();
+            this.time = timeField.getText();
+            onDoneSubscribers.forEach(listener -> listener.onAction(null));
+            close();
+        });
+        content.setActions(button);
+        content.setHeading(subject);
+
         dropdownSearch = new DropdownSearchController<>(new IDropdownSearchRequire<IUser>() {
             @Override
             public JFXListCell getCellFactory() {
@@ -88,24 +125,20 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
             }
         });
 
-        IDataPrompt dataPrompt = new DataPromptController();
-
         Label dropdownLabel = new Label("Tilføj deltagere: ");
 
-        textfieldsWrapper.getChildren().addAll(dataPrompt.getView(), dropdownLabel, dropdownSearch.getView());
-        dataPrompt.setPrompt(null);
-        dataPrompt.setButtonText(null);
-        dataPrompt.addTextFields("Klokkeslæt (Tt:Mm)", "Information om mødet");
+
+        textfieldsWrapper.getChildren().addAll(timeField, information, dropdownLabel, dropdownSearch.getView());
 
 
         innercontent.getChildren().addAll(datePickerWrapper, textfieldsWrapper);
-
 
         content.setBody(innercontent);
         dialog.setDialogContainer(content);
         dialog = new JFXDialog(container, content, JFXDialog.DialogTransition.CENTER);
         dialog.setOnDialogClosed(event -> {
             required.getParent().getChildren().remove(this.getView());
+
         });
 
         attendees = new HBox();
@@ -124,6 +157,11 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
             }
         });
 
+    }
+
+    @Override
+    public void onDone(IEventListener<?> listener) {
+        onDoneSubscribers.add(listener);
     }
 
     @Override
@@ -156,5 +194,28 @@ public class MeetingPopUpController extends Component implements IMeetingPopUp {
     @Override
     public IDropdownSearch<IUser> getDropdownSearch() {
         return dropdownSearch;
+    }
+
+
+    @Override
+    public Set<IUser> getChosenAttendees() {
+        return chosenAttendees;
+    }
+
+    @Override
+    public String getMeetingInformation() {
+        return informationData;
+    }
+
+    @Override
+    public int[] getMeetingDate() {
+        int[] yearMonthDayHourMin = new int[5];
+        yearMonthDayHourMin[0] = localDate.getYear();
+        yearMonthDayHourMin[1] = localDate.getMonthValue();
+        yearMonthDayHourMin[2] = localDate.getDayOfMonth();
+        String[] tokens = time.split(":");
+        yearMonthDayHourMin[3] = Integer.parseInt(tokens[0]);
+        yearMonthDayHourMin[4] = Integer.parseInt(tokens[1]);
+        return yearMonthDayHourMin;
     }
 }

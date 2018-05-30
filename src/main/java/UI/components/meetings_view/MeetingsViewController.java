@@ -54,7 +54,7 @@ public class MeetingsViewController extends Component implements IMeetingsView {
     }
 
     @Override
-    public void tickList(Set<IDialog> elucidations) {
+    public void tickList(Set<IMeeting> elucidations) {
         this.meetings.clear();
         this.meetings.addAll(meetings);
     }
@@ -80,7 +80,7 @@ public class MeetingsViewController extends Component implements IMeetingsView {
             super();
             vBox.getChildren().addAll(citizenName, createdDate);
             vBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.getChildren().addAll(vBox, spacer);
+            hBox.getChildren().addAll(vBox, spacer, lastEditedDate);
             citizenName.getStyleClass().add("eludicationsList_citizenName");
             createdDate.getStyleClass().add("eludicationsList_createdDate");
             lastEditedDate.getStyleClass().add("eludicationsList_lastEditedDate");
@@ -95,6 +95,8 @@ public class MeetingsViewController extends Component implements IMeetingsView {
             setGraphic(null);
             if(meeting != null && !empty){
                 citizenName.setText(meeting.getInformation());
+                createdDate.setText(meeting.getMeetingDate().toString());
+                lastEditedDate.setText("Med: " + meeting.getCreator().getName());
                 setGraphic(hBox);
             }
         }

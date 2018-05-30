@@ -61,6 +61,7 @@ import java.util.function.Supplier;
 public class UserFacade implements IUserInterface, Initializable {
 	private static IBusiness business;
 	private IProfile profile;
+	private IElucidation elucidation;
 
 	private BooleanProperty isLoggedIn;
 
@@ -69,6 +70,7 @@ public class UserFacade implements IUserInterface, Initializable {
 	private IDrawer drawer;
 	private IDrawer userDrawer;
 	private IHomeView homeView;
+	private IMeetingsView meetingsView;
 	private IElucidationView elucidationView;
 	private IPopup popUp;
 	private IVerticalMenu verticalMenu;
@@ -244,8 +246,9 @@ public class UserFacade implements IUserInterface, Initializable {
 	private void setupVerticalMenu(){
 		verticalMenu.onMyMeetingsClick(data -> {
 			if(isMobile) drawer.close();
-			IMeetingsView meetingsView = new MeetingsViewController();
+			meetingsView = new MeetingsViewController();
 			setCenter(meetingsView);
+			tickMyMeetings();
 		});
 
 		verticalMenu.onLogClick(data -> {
@@ -318,6 +321,7 @@ public class UserFacade implements IUserInterface, Initializable {
 						return data;
 					}
 				});
+				this.elucidation = data;
 				setCenter(elucidationView);
 				setupElucidationView(data);
 			}
@@ -478,16 +482,6 @@ public class UserFacade implements IUserInterface, Initializable {
 			task5.setOnSucceeded(data1 -> {});
 		});
 
-
-
-
-
-
-
-		elucidationView.onSendMessage(data -> {
-			sendPopup.show();
-		});
-
 		elucidationView.onLeaveElucidation(data -> {
 			setCenter(homeView);
 			tickMyElucidations();
@@ -538,10 +532,21 @@ public class UserFacade implements IUserInterface, Initializable {
 					return screen;
 				}
 			});
-			meetingPopUp.show("Indkald til møde", "Data her");
+			meetingPopUp.show("Indkald til møde", "");
 
-			meetingPopUp.getDropdownSearch().updateList(business.getDefaultService().getAllUsers(2));
+			meetingPopUp.getDropdownSearch().updateList(business.getDefaultService().getAllUsers(-1));
 
+			meetingPopUp.onDone(data1 -> {
+				IMeeting meeting = business.getElucidationService().getElucidation(elucidation.getId()).getDialog().createMeeting(profile.getUser());
+				meeting.setInformation(meetingPopUp.getMeetingInformation());
+				int[] yearMonthDayHourMin = meetingPopUp.getMeetingDate();
+				meeting.setMeetingDate(yearMonthDayHourMin[0], yearMonthDayHourMin[1], yearMonthDayHourMin[2], yearMonthDayHourMin[3], yearMonthDayHourMin[4]);
+				meetingPopUp.getChosenAttendees().forEach(iUser -> {
+					meeting.addParticipant(iUser);
+				});
+				meeting.addParticipant(profile.getUser());
+				business.getElucidationService().updateMeeting(elucidation.getId(), meeting);
+			});
 
 		});
 
@@ -601,6 +606,37 @@ public class UserFacade implements IUserInterface, Initializable {
 				setupAllElucidationsView();
 				homeView.tickList(data1);
 				homeView.enableList();
+			});
+		});
+	}
+
+	// Method to update all the user's elucidation.
+	private void tickMyMeetings(){
+		Set<IMeeting> meetingsToParse = new HashSet<>();
+
+		Task<Set<IElucidation>> loadElucidationsTask = new Task<>(new Supplier<Set<IElucidation>>() {
+			@Override
+			public Set<IElucidation> get() {
+				Platform.runLater(() -> {
+					meetingsView.disableList();
+					canvas.setCenter(new Label("Indlæser dine møder..."));
+				});
+				return business.getElucidationService().getOpenElucidationsFromSSN(profile.getUser().getSocialSecurityNumber());
+			}
+		});
+
+		loadElucidationsTask.setOnSucceeded(data1 -> {
+			for (IElucidation iElucidation : data1) {
+				System.out.println("Her her");
+				System.out.println(iElucidation.getDialog().getMeetings().size());
+				for (IMeeting meeting : iElucidation.getDialog().getMeetings()) {
+					meetingsToParse.add(meeting);
+				}
+			}
+			Platform.runLater(() -> {
+				setCenter(meetingsView);
+				meetingsView.tickList(meetingsToParse);
+				meetingsView.enableList();
 			});
 		});
 	}
