@@ -103,13 +103,37 @@ public class ThemeController extends Component implements IThemeUI {
     }
 
     @Override
-    public Integer getLevelOfFunction() {
-        return levelOfFunctionComboBox.getValue();
+    public int getLevelOfFunction() {
+        if (levelOfFunctionComboBox.getValue() != null) {
+            return levelOfFunctionComboBox.getValue();
+        } else {
+            return -1;
+        }
     }
 
     @Override
     public String getDocumentation() {
         return documentationTextArea.getText();
+    }
+
+    @Override
+    public void setTheme(ThemeEnum theme) {
+        this.themeComboBox.setValue(theme);
+    }
+
+    @Override
+    public void setSubtheme(String subtheme) {
+        subthemeField.setText(subtheme);
+    }
+
+    @Override
+    public void setLevelOfFunction(int levelOfFunction) {
+        levelOfFunctionComboBox.setValue(levelOfFunction);
+    }
+
+    @Override
+    public void setDocumentation(String documentation) {
+        documentationTextArea.setText(documentation);
     }
 
     /**
@@ -133,7 +157,7 @@ public class ThemeController extends Component implements IThemeUI {
             removeError(subthemeField, errorClass);
         }
 
-        if (getLevelOfFunction() == null) {
+        if (getLevelOfFunction() == -1) {
             addError(levelOfFunctionComboBox, errorClass);
             hasData = false;
         } else {

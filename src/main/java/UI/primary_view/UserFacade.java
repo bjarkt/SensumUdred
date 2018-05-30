@@ -38,6 +38,7 @@ import UI.components.user_menu.IUserMenu;
 import UI.components.user_menu.UserMenuController;
 import UI.components.vertical_menu.IVerticalMenu;
 import UI.components.vertical_menu.VerticalMenuController;
+import UI.task.CallbackWithData;
 import UI.task.Task;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXSpinner;
@@ -508,16 +509,16 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		});
 
-		elucidationView.onAddNewOffer(data -> {
-			System.out.println(data);
-		});
-
 		elucidationView.onCaseCitizenMunicipality(data -> {
 			business.getElucidationService().updateActingMunicipality(elucidation.getId(),data);
 		});
 
 		elucidationView.onCaseCitzenAgreement(data -> {
 			business.getElucidationService().updateCitizenConsent(elucidation.getId(), data);
+		});
+
+		elucidationView.onAddNewOffer(data -> {
+			System.out.println(data);
 		});
 
 		elucidationView.onDeleteOffers(data -> {
@@ -528,6 +529,113 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 		elucidationView.onLeaveElucidation(data -> {
 			System.out.println(data);
+		});
+
+		elucidationView.onAddNewTheme(newThemes -> {
+			Set<ITheme> goodThemes = new HashSet<>();
+			for (IThemeUI theme : newThemes) {
+				ITheme t = new ITheme() {
+					@Override
+					public ThemeEnum getTheme() {
+						return theme.getTheme();
+					}
+
+					@Override
+					public String getDocumentation() {
+						return theme.getDocumentation();
+					}
+
+					@Override
+					public String getSubtheme() {
+						return theme.getSubtheme();
+					}
+
+					@Override
+					public int getLevelOfFunction() {
+						return theme.getLevelOfFunction();
+					}
+
+					@Override
+					public void setLevelOfFunction(int levelOfFunction) throws IllegalArgumentException {
+						// not implemented
+					}
+
+					@Override
+					public int compareTo(ITheme theme) {
+						return Integer.compare(this.getTheme().ordinal(), theme.getTheme().ordinal());
+					}
+				};
+				goodThemes.add(t);
+			}
+			Task<Boolean> newThemeTask = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getElucidationService().updateThemes(elucidation.getId(), goodThemes);
+				}
+			});
+
+			newThemeTask.setOnSucceeded(new CallbackWithData<Boolean>() {
+				@Override
+				public void action(Boolean data) {
+
+				}
+			});
+
+		});
+
+		elucidationView.onDeleteTheme(deletedThemes -> {
+			Set<ITheme> themesToDelete = new HashSet<>();
+			for (IThemeUI theme : deletedThemes) {
+				if (theme.getTheme() != null) {
+					ITheme t = new ITheme() {
+						@Override
+						public ThemeEnum getTheme() {
+							return theme.getTheme();
+						}
+
+						@Override
+						public String getDocumentation() {
+							return theme.getDocumentation();
+						}
+
+						@Override
+						public String getSubtheme() {
+							return theme.getSubtheme();
+						}
+
+						@Override
+						public int getLevelOfFunction() {
+							return theme.getLevelOfFunction();
+						}
+
+						@Override
+						public void setLevelOfFunction(int levelOfFunction) throws IllegalArgumentException {
+							// not implemented
+						}
+
+						@Override
+						public int compareTo(ITheme theme) {
+							return Integer.compare(this.getTheme().ordinal(), theme.getTheme().ordinal());
+						}
+					};
+					themesToDelete.add(t);
+				}
+			}
+
+			Task<Boolean> deleteThemeTask = new Task<>(new Supplier<Boolean>() {
+				@Override
+				public Boolean get() {
+					return business.getElucidationService().updateThemes(elucidation.getId(), themesToDelete);
+				}
+			});
+
+			deleteThemeTask.setOnSucceeded(new CallbackWithData<Boolean>() {
+				@Override
+				public void action(Boolean data) {
+
+				}
+			});
+
 		});
 
 		elucidationView.onCreateMeeting(data -> {
@@ -554,21 +662,6 @@ public class UserFacade implements IUserInterface, Initializable {
 			});
 
 		});
-
-		elucidationView.onAddNewTheme(newThemes -> {
-			for (IThemeUI theme : newThemes) {
-				System.out.println(theme.getTheme().getName() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
-			}
-		});
-
-		elucidationView.onDeleteTheme(deletedThemes -> {
-			for (IThemeUI theme : deletedThemes) {
-				if (theme.getTheme() != null) {
-					System.out.println(theme.getTheme().getName() + ", " + theme.getSubtheme() + ", " + theme.getDocumentation() + ", " + theme.getLevelOfFunction());
-				}
-			}
-		});
-
 	}
 
 	/**

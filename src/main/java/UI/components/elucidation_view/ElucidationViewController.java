@@ -21,6 +21,7 @@ import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -376,7 +377,14 @@ public class ElucidationViewController extends Component implements IElucidation
         }
 
         for (IEventListener<Set<IThemeUI>> sub : deleteThemeSubscribers) {
-            sub.onAction(listOfChosenThemes);
+            Set<IThemeUI> allThemes = new HashSet<>();
+            for (Node node : caseThemeWrapper.getChildren()) {
+                if (node instanceof IThemeUI) {
+                    allThemes.add((IThemeUI) node);
+                }
+            }
+
+            sub.onAction(allThemes);
         }
 
         listOfChosenThemes.clear();
@@ -811,6 +819,24 @@ public class ElucidationViewController extends Component implements IElucidation
             municipalityContainer.setVisible(true);
             headerRight.getChildren().remove(stateButton); // Remove upgrade state button.
             listOfGrantings.addAll(((ICase)(required.getElucidation().getTask())).getGrantings()); // Load grantings
+
+            // load themes
+            for (ITheme theme : ((ICase)required.getElucidation().getTask()).getThemes()) {
+                IThemeUI themeUI = new ThemeController();
+                caseThemeWrapper.getChildren().add(themeUI.getView());
+                themeUI.setTheme(theme.getTheme());
+                themeUI.setSubtheme(theme.getSubtheme());
+                themeUI.setDocumentation(theme.getDocumentation());
+                themeUI.setLevelOfFunction(theme.getLevelOfFunction());
+
+                themeUI.onThemeSelected(data -> {
+                    if(data.isSelected()) listOfChosenThemes.add(data);
+                    else listOfChosenThemes.remove(data);
+                });
+
+                addedThemeUIs.add(themeUI);
+            }
+
         }
 
 
