@@ -46,7 +46,7 @@ public class HeaderController extends Component implements IHeader{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        messages.setVisible(false);
         disableHamburger();
 
     }
