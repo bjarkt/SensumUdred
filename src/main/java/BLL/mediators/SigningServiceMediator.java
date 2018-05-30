@@ -1,9 +1,6 @@
 package BLL.mediators;
 
-import ACQ.IAccount;
-import ACQ.IProfile;
-import ACQ.ISigningService;
-import ACQ.IUser;
+import ACQ.*;
 import BLL.getter.address_getter.IGetAddress;
 
 public class SigningServiceMediator implements ISigningService {
@@ -25,6 +22,7 @@ public class SigningServiceMediator implements ISigningService {
     /**
      * {@inheritDoc}
      */
+    @Loggable(action = LogAction.CALL, actionDescription = "Attempted login", level = LogLevel.INFO)
     @Override
     public IProfile signIn(String username, String password) {
         IProfile dataProfile = dataSigningService.signIn(username, password);

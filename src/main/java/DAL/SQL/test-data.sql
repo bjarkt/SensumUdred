@@ -1,8 +1,8 @@
 -- MUST FOR DATABASE JUNIT TESTING --
 
-INSERT INTO users VALUES ('00000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
+INSERT INTO users VALUES ('0000000000', 'Admin', 'Admin', '00000000', 'admin@admin.com');
 INSERT INTO haslogin VALUES ('0000000000', 10000);
-INSERT INTO accounts VALUES(10000, 'admin', '$2a$10$0zQ5VoTQFH7uIY0SV6y.aOCgBM63idUYoLuyDRPdqk03.VQPS1otW', 1000, false, false, 0, null);
+INSERT INTO accounts VALUES(10000, 'admin', '$2a$10$dZ9QurEpaAkdy.1.5GlYWORRYap5arVToKZ.tPYFo62o2YOwOqSaa', 1000, false, false, 0, null);
 
 INSERT INTO users VALUES ('99999999', 'tester', 'tester', '99999999', 'tester@tester.com');
 INSERT INTO haslogin VALUES ('99999999', 10001);
@@ -66,37 +66,45 @@ INSERT INTO accounts VALUES(10013, 'kimingeman', '$2a$10$IcK4B09228.mbfqJBwlUq.S
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (100000, '12345678', '2018-05-24 09:00:00', false);
 INSERT INTO inquiries(task_id, source, description) VALUES (100000, 'En mand ved navn Dennis fortalte om ham selv og at han mangler hjælp.', 'Dennis er en mand med mange mentale problemer. Personen tanker er i et andet univers, han lever i en verden med magi og drager.');
+INSERT INTO cases(task_id, inquries_source, inquries_description, guardianauthority, citizensconsent, actingmunicipality, specialcircumstances, totalleveloffunction)VALUES (100000, 'En mand ved navn Dennis fortalte om ham selv og at han mangler hjælp.', 'Dennis er en mand med mange mentale problemer. Personen tanker er i et andet univers, han lever i en verden med magi og drager.', '', TRUE, 'Odense', '', 'A');
 INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (100000, 100000, 'CASE');
 INSERT INTO worksin(elucidations_id, users_ssn) VALUES (100000, '1103971427');
-INSERT into casehasthemes(cases_id, theme, documentation) VALUES (100000, 'FYSISK_FUNKTIONS_NEDSAETTELSE', 'Dette er en dokumentation');
-INSERT INTO themes(cases_id, theme, subtheme, leveloffunction) VALUES (100000, 'FYSISK_FUNKTIONS_NEDSAETTELSE', 'Testsubtema', 4);
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (100000, '0000000000');
 
 INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (100000, 1, 'Meeting information', 'today', '90909090', false);
 INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (100000, 2, 'Meeting information', 'tomorrow', '80808080', false);
 
 INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 1, '60606060');
 INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 1, '90909090');
+INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 1, '0000000000');
 INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 2, '60606060');
 INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 2, '80808080');
+INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 2, '0000000000');;
 
  -- 2
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (200000, '55667788', '2018-05-24 09:00:00', false);
-INSERT INTO inquiries(source, description) VALUES ('source ...', 'description');
+INSERT INTO inquiries(task_id, source, description) VALUES (200000, 'source ...', 'description');
 INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (200000, 200000, 'INQUIRY');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (200000, '87654321');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (200000, '0000000000');
 
 -- 3
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (300000, '44332211', '2018-05-24 11:00:00', false);
-INSERT INTO inquiries(source, description) VALUES ('source ...', 'description');
+INSERT INTO inquiries(task_id, source, description) VALUES (300000, 'source ...', 'description');
 INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (300000, 300000, 'INQUIRY');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (300000, '88776655');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (300000, '0000000000');
 
 -- 4
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (400000, '12345678', '2018-05-24 12:00:00', false);
-INSERT INTO inquiries(source, description) VALUES ('source ...', 'description');
+INSERT INTO inquiries(task_id, source, description) VALUES (400000, 'source ...', 'description');
 INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (400000, 400000, 'INQUIRY');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (400000, '88776655');
-INSERT INTO worksin(elucidations_id, users_ssn) VALUES (400000, '87654321');
+INSERT INTO worksin(elucidations_id, users_ssn) VALUES (400000, '0000000000');
+
+-- logs
+INSERT INTO eventlogs(id, method_name, description, loglevel, logaction, datetime) VALUES
+  (DEFAULT, 'testMethod', 'Description of log', 2, 1, now());
+
+INSERT INTO logs(accounts_id, sessionid, changelogs_id, eventlogs_id) VALUES
+  (10000, -1, -1, 1);

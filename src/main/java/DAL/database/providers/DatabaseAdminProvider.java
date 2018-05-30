@@ -1,6 +1,9 @@
 package DAL.database.providers;
 
 import ACQ.IAdminService;
+import ACQ.LogAction;
+import ACQ.LogLevel;
+import ACQ.Loggable;
 import DAL.database.PostgreSqlDatabase;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -104,6 +107,7 @@ public class DatabaseAdminProvider extends PostgreSqlDatabase implements IAdminS
 	/**
 	 * {@inheritDoc}
 	 */
+	@Loggable(level = LogLevel.INFO, actionDescription = "Password changed", action = LogAction.CALL)
 	@Override
 	public boolean changePassword(String accountName, String newPassword) {
 		AtomicBoolean changed = new AtomicBoolean(false);
