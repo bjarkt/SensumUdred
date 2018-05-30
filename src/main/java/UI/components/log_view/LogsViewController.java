@@ -1,11 +1,9 @@
-package UI.components.meetings_view;
+package UI.components.log_view;
 
-import ACQ.IDialog;
-import ACQ.IElucidation;
-import ACQ.IEventListener;
-import ACQ.IMeeting;
+import ACQ.*;
 import UI.Secured;
 import UI.components.Component;
+import UI.components.log_view.ILogsView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
@@ -26,7 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class MeetingsViewController extends Component implements IMeetingsView {
+public class LogsViewController extends Component implements ILogsView {
 
     @FXML
     private AnchorPane container;
@@ -38,13 +36,13 @@ public class MeetingsViewController extends Component implements IMeetingsView {
     private VBox vbox;
 
     @FXML
-    private JFXListView<IMeeting> tasksList;
+    private JFXListView<IEventLog> tasksList;
 
-    public MeetingsViewController() {
-        super("meetings_view.fxml", "Mine møder");
+    public LogsViewController() {
+        super("logs_view.fxml", "Hændelseslog");
     }
 
-    ObservableList<IMeeting> meetings = FXCollections.observableArrayList();
+    ObservableList<IEventLog> meetings = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,7 +52,7 @@ public class MeetingsViewController extends Component implements IMeetingsView {
     }
 
     @Override
-    public void tickList(Set<IMeeting> meetings) {
+    public void tickList(Set<IEventLog> meetings) {
         this.meetings.clear();
         this.meetings.addAll(meetings);
     }
@@ -69,7 +67,7 @@ public class MeetingsViewController extends Component implements IMeetingsView {
         tasksList.setDisable(false);
     }
 
-    static class Cell extends JFXListCell<IMeeting>{
+    static class Cell extends JFXListCell<IEventLog>{
         HBox hBox = new HBox();
         VBox vBox = new VBox();
         Label citizenName = new Label("");
@@ -89,14 +87,14 @@ public class MeetingsViewController extends Component implements IMeetingsView {
             this.cellRippler.setRipplerFill(Color.rgb(42,112,226,0.7));
         }
 
-        public void updateItem(IMeeting meeting, boolean empty){
-            super.updateItem(meeting, empty);
+        public void updateItem(IEventLog log, boolean empty){
+            super.updateItem(log, empty);
             setText(null);
             setGraphic(null);
-            if(meeting != null && !empty){
-                citizenName.setText(meeting.getInformation());
-                createdDate.setText(meeting.getMeetingDate().toString());
-                lastEditedDate.setText("Med: " + meeting.getCreator().getName());
+            if(log != null && !empty){
+                citizenName.setText(log.getDescription());
+                createdDate.setText(log.getMethodName());
+                lastEditedDate.setText("Action: " + log.getLogAction() + ". Level: " + log.getLogLevel());
                 setGraphic(hBox);
             }
         }

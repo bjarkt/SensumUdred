@@ -21,6 +21,8 @@ import UI.components.header.HeaderController;
 import UI.components.header.IHeader;
 import UI.components.log_in_page.ILogInView;
 import UI.components.log_in_page.LogInViewController;
+import UI.components.log_view.ILogsView;
+import UI.components.log_view.LogsViewController;
 import UI.components.meetingPopUp.IMeetingPopUp;
 import UI.components.meetingPopUp.IMeetingPopUpRequire;
 import UI.components.meetingPopUp.MeetingPopUpController;
@@ -67,6 +69,7 @@ public class UserFacade implements IUserInterface, Initializable {
 
 	private IHeader headerController;
 	private ILogInView logInView;
+	private ILogsView logsView;
 	private IDrawer drawer;
 	private IDrawer userDrawer;
 	private IHomeView homeView;
@@ -253,8 +256,9 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		verticalMenu.onLogClick(data -> {
 			if(isMobile) drawer.close();
-			popUp.show("Ikke implementeret.", "Hændelseslog er ikke tilgængelig endnu.");
-			setCenter(null);
+			logsView = new LogsViewController();
+			setCenter(logsView);
+			tickMyLogs();
 		});
 
 		verticalMenu.onMyElucidationsClick(data -> {
@@ -611,7 +615,7 @@ public class UserFacade implements IUserInterface, Initializable {
 		});
 	}
 
-	// Method to update all the user's elucidation.
+	// Method to update all the user's meetings.
 	private void tickMyMeetings(){
 		Set<IMeeting> meetingsToParse = new HashSet<>();
 
@@ -628,8 +632,6 @@ public class UserFacade implements IUserInterface, Initializable {
 
 		loadElucidationsTask.setOnSucceeded(data1 -> {
 			for (IElucidation iElucidation : data1) {
-				System.out.println("Her her");
-				System.out.println(iElucidation.getDialog().getMeetings().size());
 				for (IMeeting meeting : iElucidation.getDialog().getMeetings()) {
 					meetingsToParse.add(meeting);
 				}
@@ -638,6 +640,28 @@ public class UserFacade implements IUserInterface, Initializable {
 				setCenter(meetingsView);
 				meetingsView.tickList(meetingsToParse);
 				meetingsView.enableList();
+			});
+		});
+	}
+
+	// Method to update logs.
+	private void tickMyLogs(){
+		Task<Set<IEventLog>> loadElucidationsTask = new Task<>(new Supplier<Set<IEventLog>>() {
+			@Override
+			public Set<IEventLog> get() {
+				Platform.runLater(() -> {
+					logsView.disableList();
+					canvas.setCenter(new Label("Indlæser hændelseslog..."));
+				});
+				return business.getLoggingService().getEventLogs();
+			}
+		});
+
+		loadElucidationsTask.setOnSucceeded(data1 -> {
+			Platform.runLater(() -> {
+				setCenter(logsView);
+				logsView.tickList(data1);
+				logsView.enableList();
 			});
 		});
 	}
