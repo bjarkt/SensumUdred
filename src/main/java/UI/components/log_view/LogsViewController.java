@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -87,7 +88,9 @@ public class LogsViewController extends Component implements ILogsView {
             if(log != null && !empty){
                 logDescription.setText(log.getDescription());
                 methodName.setText(log.getMethodName());
-                logActionAndLevel.setText("Action: " + log.getLogAction() + ". Level: " + log.getLogLevel());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+                String dateStr = dateFormat.format(log.getDateTime());
+                logActionAndLevel.setText("Action: " + log.getLogAction() + ". Level: " + log.getLogLevel() + System.lineSeparator() + "Dato: " + dateStr);
                 setGraphic(hBox);
             }
         }
