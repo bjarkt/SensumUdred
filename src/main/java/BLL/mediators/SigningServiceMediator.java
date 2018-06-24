@@ -25,20 +25,26 @@ public class SigningServiceMediator implements ISigningService {
     @Loggable(action = LogAction.CALL, actionDescription = "Attempted login", level = LogLevel.INFO)
     @Override
     public IProfile signIn(String username, String password) {
-        IProfile dataProfile = dataSigningService.signIn(username, password);
-        IUser realUser = MediatorHelper.convertDataUserToRealUser(dataProfile.getUser(), getAddress);
+	    IProfile dataProfile = dataSigningService.signIn(username, password);
+	    IProfile profile = null;
 
-        return new IProfile() {
-            @Override
-            public IUser getUser() {
-                return realUser;
-            }
+	    if(dataProfile != null) {
+		    IUser realUser = MediatorHelper.convertDataUserToRealUser(dataProfile.getUser(), getAddress);
 
-            @Override
-            public IAccount getAccount() {
-                return dataProfile.getAccount();
-            }
-        };
+		    profile = new IProfile() {
+			    @Override
+			    public IUser getUser() {
+				    return realUser;
+			    }
+
+			    @Override
+			    public IAccount getAccount() {
+				    return dataProfile.getAccount();
+			    }
+		    };
+	    }
+
+	    return profile;
     }
 
     /**
