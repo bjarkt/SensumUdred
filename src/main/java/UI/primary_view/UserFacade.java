@@ -174,6 +174,7 @@ public class UserFacade implements IUserInterface, Initializable {
 					@Override
 					public AnchorPane getParent() { return screen; }
 				});
+
 				//endregion
 
 				//region setup listeners

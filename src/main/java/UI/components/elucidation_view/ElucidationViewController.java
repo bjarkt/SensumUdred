@@ -131,8 +131,8 @@ public class ElucidationViewController extends Component implements IElucidation
 
     //region citizen_section
 
-    @Secured("getAdminService")
     @FXML
+    @Secured("getAdminService")
     private JFXButton editCaseCitizenInformation;
 
     @FXML
@@ -450,6 +450,7 @@ public class ElucidationViewController extends Component implements IElucidation
     @FXML
     private VBox elucidationView_horizontalLayout_left;
 
+    @Secured("getAdminService")
     @FXML
     private JFXButton editCaseDescriptionButton;
 
@@ -469,13 +470,17 @@ public class ElucidationViewController extends Component implements IElucidation
     private VBox elucidationView_verticalLayout;
 
     public ElucidationViewController(IElucidationViewRequire elucidationViewRequire) {
-        super("elucidation_view.fxml", "Elucidation_Name");
+        super("elucidation_view.fxml", "Udredning");
         setRequired(elucidationViewRequire);
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        editCaseCitizenInformation = editCaseCitizenInformation;
+        editCaseDescriptionButton = editCaseDescriptionButton;
+        closeToggleButton = closeToggleButton;
+        stateButton = stateButton;
+        meetingButton = meetingButton;
         // Makes view responsive
         elucidation_view_container.widthProperty().addListener((observable, oldValue, newValue) -> {
             if(isMobile && newValue.doubleValue() > 800){
