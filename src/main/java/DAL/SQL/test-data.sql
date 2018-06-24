@@ -71,16 +71,6 @@ INSERT INTO elucidationshastasks(elucidations_id, task_id, state) VALUES (100000
 INSERT INTO worksin(elucidations_id, users_ssn) VALUES (100000, '1103971427');
 INSERT INTO worksin(elucidations_id, users_ssn) VALUES (100000, '0000000000');
 
-INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (100000, 1, 'Meeting information', 'today', '90909090', false);
-INSERT INTO meetings(elucidation_id, number, information, date, creator, iscancelled) VALUES (100000, 2, 'Meeting information', 'tomorrow', '80808080', false);
-
-INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 1, '60606060');
-INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 1, '90909090');
-INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 1, '0000000000');
-INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 2, '60606060');
-INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 2, '80808080');
-INSERT INTO participates(cases_id, meetings_number, users_ssn) VALUES (100000, 2, '0000000000');;
-
  -- 2
 
 INSERT INTO elucidations(id, applies_ssn, creationdate, isclosed) VALUES (200000, '55667788', '2018-05-24 09:00:00', false);

@@ -73,6 +73,7 @@ class MediatorHelper {
 
         Elucidation elucidation = new Elucidation(dataElucidation.getId(), dataElucidation.getCitizen(),
                 creator, dialog, dataElucidation.getTask());
+        elucidation.setDateOfOpening(dataElucidation.getCreationDate());
 
         return elucidation;
     }

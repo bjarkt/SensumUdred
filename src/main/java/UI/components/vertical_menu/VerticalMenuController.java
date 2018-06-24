@@ -34,7 +34,7 @@ public class VerticalMenuController extends Component implements IVerticalMenu {
     @FXML
     private JFXButton myMeetings;
 
-    //@Secured("getUserManager")
+    @Secured("getAdminService")
     @FXML
     private JFXButton userManagementButton;
 

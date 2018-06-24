@@ -438,7 +438,7 @@ public class UserFacade implements IUserInterface, Initializable {
 			Task<Boolean> task = new Task<>(new Supplier<Boolean>() {
 				@Override
 				public Boolean get() {
-					return business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationTaskState.CASE);
+					return business.getElucidationService().updateTaskState(elucidation.getId(), ElucidationTaskState.CASE) && business.getElucidationService().updateInquiry(elucidation.getId(), (IInquiry)elucidation.getTask());
 				}
 			});
 			task.setOnSucceeded(data1 -> {
